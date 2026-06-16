@@ -45,7 +45,12 @@
           }
         },
         "buy_buttons": {
-          "type": "product_buy-buttons"
+          "type": "product_buy-buttons",
+          "settings": {
+            "enable_custom_color": true,
+            "custom_color": "#159a4b",
+            "custom_text_color": "#ffffff"
+          }
         },
         "payment_badges": {
           "type": "payment-badges"
