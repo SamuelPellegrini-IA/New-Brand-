@@ -41,7 +41,7 @@
         "personalization": {
           "type": "custom-liquid",
           "settings": {
-            "custom_liquid": "<div style=\"border:2px dashed #c9c9c9;border-radius:10px;padding:18px;text-align:center;color:#777;font-size:13px;margin:10px 0;\">Emplacement pour l'app de personnalisation photo — ajoutez ici le bloc de votre app (Teeinblue, Customily, Kickflip...) ou supprimez ce bloc.</div>"
+            "custom_liquid": "<div style=\"border:2px dashed #c9c9c9;border-radius:10px;padding:18px;text-align:center;color:#777;font-size:13px;margin:10px 0;\">Personnalisation Customily : dans l'editeur de theme, ajoutez ici le bloc d'app \"Customily Live Preview\" (icone Apps dans la liste des blocs), puis supprimez ce bloc placeholder.</div>"
           }
         },
         "buy_buttons": {
