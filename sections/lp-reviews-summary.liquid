@@ -84,6 +84,10 @@
   .lp-reviews-{{ uid }} .lp-rv-card-title { font-weight: 700; margin: .6rem 0 .4rem; font-size: 1.5rem; }
   .lp-reviews-{{ uid }} .lp-rv-card-text { font-size: 1.4rem; line-height: 1.55; }
   .lp-reviews-{{ uid }} .lp-rv-verified { display: inline-block; margin-top: 1rem; font-size: 1.1rem; color: #0a7d28; font-weight: 600; }
+  .lp-reviews-{{ uid }} .lp-rv-card-photos { display: flex; gap: .6rem; margin-top: 1.2rem; flex-wrap: wrap; }
+  .lp-reviews-{{ uid }} .lp-rv-card-photos a,
+  .lp-reviews-{{ uid }} .lp-rv-card-photos img { width: 84px; height: 84px; border-radius: 8px; }
+  .lp-reviews-{{ uid }} .lp-rv-card-photos img { object-fit: cover; border: 1px solid rgba(0,0,0,.08); display: block; }
   @media screen and (max-width: 749px) {
     .lp-reviews-{{ uid }} .lp-rv-summary { grid-template-columns: 1fr; gap: 2rem; text-align: center; }
     .lp-reviews-{{ uid }} .lp-rv-list { grid-template-columns: 1fr; }
@@ -147,6 +151,25 @@
             <div class="lp-stars" style="--p: {{ r_pct }}%; font-size: 1.5rem;" role="img" aria-label="{{ block.settings.rating }} / 5"></div>
             {%- if block.settings.title != blank -%}<div class="lp-rv-card-title">{{ block.settings.title }}</div>{%- endif -%}
             <div class="lp-rv-card-text">{{ block.settings.content }}</div>
+            {%- liquid
+              assign has_photos = false
+              if block.settings.review_photo != blank or block.settings.review_photo_2 != blank or block.settings.review_photo_3 != blank
+                assign has_photos = true
+              endif
+            -%}
+            {%- if has_photos -%}
+              <div class="lp-rv-card-photos">
+                {%- if block.settings.review_photo != blank -%}
+                  <a href="{{ block.settings.review_photo | image_url: width: 1200 }}" target="_blank" rel="noopener"><img src="{{ block.settings.review_photo | image_url: width: 200 }}" alt="{{ block.settings.author | escape }} - photo" width="84" height="84" loading="lazy"></a>
+                {%- endif -%}
+                {%- if block.settings.review_photo_2 != blank -%}
+                  <a href="{{ block.settings.review_photo_2 | image_url: width: 1200 }}" target="_blank" rel="noopener"><img src="{{ block.settings.review_photo_2 | image_url: width: 200 }}" alt="{{ block.settings.author | escape }} - photo" width="84" height="84" loading="lazy"></a>
+                {%- endif -%}
+                {%- if block.settings.review_photo_3 != blank -%}
+                  <a href="{{ block.settings.review_photo_3 | image_url: width: 1200 }}" target="_blank" rel="noopener"><img src="{{ block.settings.review_photo_3 | image_url: width: 200 }}" alt="{{ block.settings.author | escape }} - photo" width="84" height="84" loading="lazy"></a>
+                {%- endif -%}
+              </div>
+            {%- endif -%}
             {%- if block.settings.verified -%}<span class="lp-rv-verified">✓ {{ block.settings.verified_label }}</span>{%- endif -%}
           </div>
         {%- endfor -%}
@@ -203,7 +226,11 @@
         { "type": "text", "id": "title", "label": "Titre de l'avis", "default": "Great product" },
         { "type": "richtext", "id": "content", "label": "Texte de l'avis", "default": "<p>Exactly what I expected. Great quality and fast delivery. Highly recommend!</p>" },
         { "type": "text", "id": "date", "label": "Date" },
-        { "type": "image_picker", "id": "image", "label": "Photo de l'auteur (optionnel)" },
+        { "type": "image_picker", "id": "image", "label": "Photo de l'auteur (avatar, optionnel)" },
+        { "type": "header", "content": "Photos produit (avis client)" },
+        { "type": "image_picker", "id": "review_photo", "label": "Photo produit 1" },
+        { "type": "image_picker", "id": "review_photo_2", "label": "Photo produit 2" },
+        { "type": "image_picker", "id": "review_photo_3", "label": "Photo produit 3" },
         { "type": "checkbox", "id": "verified", "label": "Acheteur vérifié", "default": true },
         { "type": "text", "id": "verified_label", "label": "Label vérifié", "default": "Verified buyer" }
       ]
