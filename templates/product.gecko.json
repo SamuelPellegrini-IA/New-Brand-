@@ -1,0 +1,183 @@
+{
+  "sections": {
+    "main": {
+      "type": "main-product",
+      "blocks": {
+        "rating": {
+          "type": "rating-stars",
+          "settings": {
+            "rating": 4.8,
+            "label": "<strong>4.8/5 Based on 40 Reviews</strong>",
+            "star_color": "#ffce31",
+            "size": 14,
+            "alignment": "flex-start"
+          }
+        },
+        "title": {
+          "type": "product_title"
+        },
+        "subtitle": {
+          "type": "text",
+          "settings": {
+            "text": "<p>Personalize it with your own photo — a unique, made-to-order gift they will treasure.</p>",
+            "alignment": "left"
+          }
+        },
+        "price": {
+          "type": "product_price"
+        },
+        "variant_picker": {
+          "type": "product_product-variant-picker-block",
+          "settings": {
+            "picker_types": "dropdown, dropdown, dropdown"
+          }
+        },
+        "sizing_chart": {
+          "type": "product_sizing-chart"
+        },
+        "quantity": {
+          "type": "product_quantity-selector"
+        },
+        "personalization": {
+          "type": "custom-liquid",
+          "settings": {
+            "custom_liquid": "<div style=\"border:2px dashed #c9c9c9;border-radius:10px;padding:18px;text-align:center;color:#777;font-size:13px;margin:10px 0;\">Emplacement pour l'app de personnalisation photo — ajoutez ici le bloc de votre app (Teeinblue, Customily, Kickflip...) ou supprimez ce bloc.</div>"
+          }
+        },
+        "buy_buttons": {
+          "type": "product_buy-buttons"
+        },
+        "payment_badges": {
+          "type": "payment-badges"
+        },
+        "shipping_checkpoints": {
+          "type": "product_shipping-checkpoints"
+        },
+        "estimated_shipping": {
+          "type": "product_estimated-shipping"
+        },
+        "description": {
+          "type": "product_description"
+        },
+        "row_details": {
+          "type": "collapsible-row",
+          "settings": {
+            "heading": "Item details",
+            "content": "<p>Add your product details here: materials, fit, dimensions, care instructions, what is included, etc.</p>"
+          }
+        },
+        "row_shipping": {
+          "type": "collapsible-row",
+          "settings": {
+            "heading": "Shipping Info",
+            "content": "<p>Processing time: 3-5 business days. Shipping time: 10-15 business days. International orders may take a few days longer.</p>"
+          }
+        },
+        "row_guarantee": {
+          "type": "collapsible-row",
+          "settings": {
+            "heading": "Satisfaction Guarantee",
+            "content": "<p>Full refund or replacement within 30 days for any faulty, defective or damaged item. Full refund if the item is not as described.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "rating",
+        "title",
+        "subtitle",
+        "price",
+        "variant_picker",
+        "sizing_chart",
+        "quantity",
+        "personalization",
+        "buy_buttons",
+        "payment_badges",
+        "shipping_checkpoints",
+        "estimated_shipping",
+        "description",
+        "row_details",
+        "row_shipping",
+        "row_guarantee"
+      ],
+      "settings": {}
+    },
+    "reviews": {
+      "type": "lp-reviews-summary",
+      "blocks": {
+        "r1": {
+          "type": "review",
+          "settings": {
+            "author": "David E.",
+            "rating": 5,
+            "title": "Shocking quality",
+            "content": "<p>It is rare to find a company that delivers exactly what you ordered. It arrived in a timely manner and was exactly as pictured.</p>",
+            "verified": true,
+            "verified_label": "Verified buyer"
+          }
+        },
+        "r2": {
+          "type": "review",
+          "settings": {
+            "author": "Liz C.",
+            "rating": 5,
+            "title": "Amazing",
+            "content": "<p>This exceeded all my expectations! Good quality, fits well and the print is better than I expected.</p>",
+            "verified": true,
+            "verified_label": "Verified buyer"
+          }
+        },
+        "r3": {
+          "type": "review",
+          "settings": {
+            "author": "V. Arnold",
+            "rating": 4,
+            "title": "Love it",
+            "content": "<p>Wonderful. My only suggestion is to order your normal size. Beautiful work.</p>",
+            "verified": true,
+            "verified_label": "Verified buyer"
+          }
+        }
+      },
+      "block_order": ["r1", "r2", "r3"],
+      "settings": {
+        "heading": "Customer Reviews",
+        "average_rating": "4.8",
+        "total_label": "Based on 40 reviews",
+        "pct_5": 88,
+        "pct_4": 8,
+        "pct_3": 5,
+        "pct_2": 0,
+        "pct_1": 0,
+        "columns": 1,
+        "show_write_button": true,
+        "write_button_label": "Write a review"
+      }
+    },
+    "hot_deals": {
+      "type": "image-with-text",
+      "blocks": {
+        "h1": {
+          "type": "heading",
+          "settings": {
+            "title": "Hot Deals"
+          }
+        },
+        "t1": {
+          "type": "text",
+          "settings": {
+            "text": "<p>Highlight a bundle, an upsell or a seasonal promotion here. Pair it with an image to draw attention.</p>"
+          }
+        }
+      },
+      "block_order": ["h1", "t1"],
+      "settings": {}
+    },
+    "related": {
+      "type": "related-products",
+      "settings": {
+        "title": "You may also like"
+      }
+    }
+  },
+  "order": ["main", "reviews", "hot_deals", "related"]
+}
