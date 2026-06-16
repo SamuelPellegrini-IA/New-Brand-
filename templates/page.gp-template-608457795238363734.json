@@ -1,0 +1,72 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "gp_section_608457904340599556": {
+      "settings": {
+        "checksum": "399cef4b7e41f5827b37a06a651b3dfdff5e4a3282022e3d2513c098d0010dfe_1_1_1_0__1",
+        "gg9a3XS4IBM_text": "<p><strong>MEDICAL &amp; HEALTH DISCLAIMER:</strong> The information and other content provided on this page, or in any linked materials, are not intended and should not be construed as medical advice, nor is the information a substitute for professional medical expertise or treatment.</p><p>If you or any other person has a medical concern, you should consult with your health care provider or seek other professional medical treatment. Never disregard professional medical advice or delay in seeking it because of something you have read on this page or in any linked materials. If you think you may have a medical emergency, call your doctor or emergency services immediately.</p><p>© 2026 Liftora™ — All Rights Reserved. <a href=\"#\">Privacy Policy</a> · <a href=\"#\">Terms of Service</a></p>"
+      },
+      "type": "gp-section-608457904340599556"
+    },
+    "gp_section_608457904357376922": {
+      "settings": {
+        "checksum": "04008332210fe002ed0dd969406f57d64086336c618a182143daa50c3dbe5807_1_1_1_0__1",
+        "gg4dzzp3uUh_text": "<p><strong>Trending in the US</strong></p>",
+        "ggRIzpb9iwx_text": "<p><span style=\"color:#FFFFFF;font-size:20px;\"><strong>Advertorial</strong></span></p>",
+        "section_preload": "true"
+      },
+      "type": "gp-section-608457904357376922"
+    },
+    "gp_section_608457904692920918": {
+      "settings": {
+        "checksum": "d15ad0497dae43b3e556432db9b718ea9ad7ad4325d87e1183e84f7480e02495_1_1_1_0__1",
+        "gg5fbLwW7ej_alt": "Alt Image",
+        "gg5fbLwW7ej_srcSet_desktop_src": "https://cdn.shopify.com/s/files/1/0703/7363/8402/files/hf_20260227_143258_dae7554a-35ba-46a9-ac15-a0f9984662dd.png",
+        "gg5fbLwW7ej_title": "Image Title",
+        "gg6Fop5B0n1_alt": "Alt Image",
+        "gg6Fop5B0n1_srcSet_desktop_src": "https://cdn.shopify.com/s/files/1/0703/7363/8402/files/hf_20260226_133723_e68f42bd-bc2c-4000-9987-c92c61f039f8_1.webp",
+        "gg6Fop5B0n1_title": "Image Title",
+        "gg9z9y6TaRH_text": "How To Use Liftora — 3 Steps",
+        "ggACG7V0fCL_text": "\"You Look Tired\" Even When You're Not",
+        "ggUDrVKoiXn_text": "<p>✔️ 90-Day Money-Back Guarantee</p>",
+        "ggXoPP_g0EQ_text": "<p>Published on <span style=\"color:#242424;\">February 2, 2026</span></p>",
+        "ggdLS7cSbMJ_label": "CHECK AVAILABILITY",
+        "gghTz9IBdsR_text": "<p><strong>Step 2: Apply the patch</strong></p><p>Peel the patch and press firmly under your eye for 30 seconds. The micro-needles activate on contact with skin, you will feel nothing.</p><p>&nbsp;</p>",
+        "ggirvo-UG-J_alt": "Alt Image",
+        "ggirvo-UG-J_srcSet_desktop_src": "https://cdn.shopify.com/s/files/1/0703/7363/8402/files/hf_20260227_143413_011820a3-6e01-4a55-90ed-80d09584a5b7.png",
+        "ggirvo-UG-J_title": "Image Title",
+        "ggkBfzZy8HA_text": "<p>Written by <span style=\"color:#242424;\">Dr.Marcus</span>&nbsp;</p>",
+        "ggmXei7xSp3_text": "<p><strong>Step 3: Leave overnight</strong></p><p>Wear for a minimum of 2 hours or sleep with it on. The micro-needles dissolve completely. Remove in the morning and discard.</p><p>&nbsp;</p>",
+        "ggqU0Femfwo_text": "<p><strong>Step 1: Cleanse</strong>&nbsp;</p><p>Gently clean the under-eye area with a mild cleanser or micellar water. Pat dry completely before applying.</p><p>&nbsp;</p>",
+        "ggsRb6lM8z1_alt": "Alt Image",
+        "ggsRb6lM8z1_srcSet_desktop_src": "https://cdn.shopify.com/s/files/1/0703/7363/8402/files/hf_20260227_143118_e4119a95-2411-4331-8268-065e516320a6.png",
+        "ggsRb6lM8z1_title": "Image Title",
+        "ggz2Tv0PRRy_alt": "Alt Image",
+        "ggz2Tv0PRRy_srcSet_desktop_src": "https://cdn.shopify.com/s/files/1/0703/7363/8402/files/hf_20260227_143243_40dea10e-d4fd-4385-8c98-79adb6bc89f6.png",
+        "ggz2Tv0PRRy_title": "Image Title"
+      },
+      "type": "gp-section-608457904692920918"
+    },
+    "gp_section_608617478414664452": {
+      "settings": {
+        "checksum": "3a65e0d6a8b48117528b31a3714d657e2d77499fdbb2282b2cf51ecdcc522102_1_1_1_0__1"
+      },
+      "type": "gp-section-608617478414664452"
+    }
+  },
+  "order": [
+    "gp_section_608457904357376922",
+    "gp_section_608617478414664452",
+    "gp_section_608457904692920918",
+    "gp_section_608457904340599556"
+  ],
+  "layout": "theme.gempages.blank"
+}
