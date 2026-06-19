@@ -7,7 +7,6 @@
 .article {
   display: flex;
   align-items: center;
-  min-width: 0;
 }
 
 .article.grid__item {
@@ -29,7 +28,7 @@
 
 .article-card__title a:after {
   bottom: 0;
-  content: "";
+  content: '';
   height: 100%;
   left: 0;
   position: absolute;

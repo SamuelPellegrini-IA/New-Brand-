@@ -1,5 +1,8 @@
 {{ 'collage.css' | asset_url | stylesheet_tag }}
+{{ 'component-card.css' | asset_url | stylesheet_tag }}
+{{ 'component-price.css' | asset_url | stylesheet_tag }}
 {{ 'component-modal-video.css' | asset_url | stylesheet_tag }}
+{{ 'component-deferred-media.css' | asset_url | stylesheet_tag }}
 
 {%- style -%}
   .section-{{ section.id }}-padding {
@@ -13,50 +16,30 @@
       padding-bottom: {{ section.settings.padding_bottom }}px;
     }
   }
-
-  .color-scheme-{{ section.id }}.color-custom {
-    --color-background: {{ section.settings.custom_colors_background.red }}, {{ section.settings.custom_colors_background.green }}, {{ section.settings.custom_colors_background.blue }};
-    --gradient-background: {% if section.settings.custom_gradient_background != blank %}{{ section.settings.custom_gradient_background }}{% else %}{{ section.settings.custom_colors_background }}{% endif %};
-    {% if section.settings.custom_image_background != blank %}
-      {% # theme-check-disable %}
-      --gradient-background: url('{{ section.settings.custom_image_background | img_url: 'master' }}') center center / cover no-repeat;
-      {% # theme-check-enable %}
-    {% endif %}
-    --color-foreground: {{ section.settings.custom_colors_text.red }}, {{ section.settings.custom_colors_text.green }}, {{ section.settings.custom_colors_text.blue }};
-  }
-  {% if section.settings.custom_mobile_image_background != blank %}
-    @media screen and (max-width: 740px) {
-      .color-scheme-{{ section.id }}.color-custom {
-        {% # theme-check-disable %}
-        --gradient-background: url('{{ section.settings.custom_mobile_image_background | img_url: 'master' }}') center center / cover no-repeat;
-        {% # theme-check-enable %}
-      }
-    }
-  {% endif %}
-  {% if section.settings.pattern_bg != 'none' %}
-    {% render 'pattern-background' %}
-  {% endif %}
 {%- endstyle -%}
 
-<div class="color-scheme-{{ section.id }} color-{{ section.settings.color_scheme }} gradient isolate content-for-grouping animate-section animate--hidden {{ section.settings.visibility }}">
-  {% if section.settings.display_id %}
-    <copy-button class="section-id-btn button" data-content="#shopify-section-{{ section.id }}" data-success="false">
-      <span class="copy-text">Click to copy section ID</span>
-      <span class="copy-success">ID copied successfully!</span>
-    </copy-button>
-  {% endif %}
-  <div class="page-width{% if section.settings.title == blank %} no-heading{% endif %} section-{{ section.id }}-padding">
-    {% render 'section-title', className: 'collage-wrapper-title', animate: true %}
+<div class="color-{{ section.settings.color_scheme }} gradient isolate">
+  <div class="page-width section-{{ section.id }}-padding">
+    {%- if section.settings.heading != blank -%}
+      <h2 class="collage-wrapper-title inline-richtext {{ section.settings.heading_size }}{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}">
+        {{ section.settings.heading }}
+      </h2>
+    {%- endif -%}
     <div class="collage{% if section.settings.mobile_layout == 'collage' %} collage--mobile{% endif %}">
+      {% assign skip_card_product_styles = false %}
       {%- for block in section.blocks -%}
         <div
-          class="collage__item collage__item--{{ block.type }} collage__item--{{ section.settings.desktop_layout }} animate-item animate-item--child"
-          style="--index:{{ forloop.index }};"
+          class="collage__item collage__item--{{ block.type }} collage__item--{{ section.settings.desktop_layout }}{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}"
           {{ block.shopify_attributes }}
+          {% if settings.animations_reveal_on_scroll %}
+            data-cascade
+            style="--animation-order: {{ forloop.index }};"
+          {% endif %}
         >
+          {%- assign placeholder_image_index = forloop.index0 | modulo: 4 | plus: 1 -%}
           {%- case block.type -%}
             {%- when 'image' -%}
-              <div class="collage-card {% if section.settings.card_styles == 'none' %}global-media-settings{% else %}card-wrapper {{ section.settings.card_styles }} color-{{ settings.card_color_scheme }}{% endif %}">
+              <div class="collage-card {% if section.settings.card_styles == 'none' %}global-media-settings{% else %}card-wrapper {{ section.settings.card_styles }} color-{{ settings.card_color_scheme }} gradient{% endif %}">
                 <div
                   class="media media--transparent ratio"
                   {% if block.settings.image != blank %}
@@ -66,71 +49,72 @@
                   {% endif %}
                 >
                   {%- if block.settings.image != blank -%}
-                    {%- capture sizes -%}(min-width: {{ settings.page_width }}px) {% if section.blocks.size == 1 %}calc({{ settings.page_width }}px - 100px){% else %}{{ settings.page_width | minus: 100 | times: 0.67 | round }}px{% endif %}, (min-width: 750px){% if section.blocks.size == 1 %} calc(100vw - 100px){% else %} 500px{% endif %}, calc(100vw - 30px){%- endcapture -%}
-                    {{
-                      block.settings.image
-                      | image_url: width: 3000
-                      | image_tag: loading: 'lazy', sizes: sizes, widths: '550, 720, 990, 1100, 1500, 2200, 3000'
-                    }}
+                    {%- liquid
+                      if section.settings.desktop_layout == 'left'
+                        assign large_block = forloop.first
+                      else
+                        assign large_block = forloop.last
+                      endif
+
+                      assign grid_space_desktop = settings.spacing_grid_horizontal | divided_by: 2 | append: 'px'
+                      assign grid_space_mobile = settings.spacing_grid_horizontal | divided_by: 4 | append: 'px'
+                    -%}
+                    {%- if large_block -%}
+                      {%- capture sizes -%}
+                        {% if section.blocks.size == 1 -%}(min-width: {{ settings.page_width }}px) calc({{ settings.page_width }}px - 100px){% else %}(min-width: {{ settings.page_width }}px) calc(({{ settings.page_width }}px - 100px) * 2 / 3 - {{ grid_space_desktop }}){% endif %},
+                        {% if section.blocks.size == 1 -%}(min-width: 750px) calc(100vw - 100px){% else %}(min-width: 750px) calc((100vw - 100px) * 2 / 3 - {{ grid_space_desktop }}){% endif %},
+                        {% if section.blocks.size == 2 and section.settings.mobile_layout == 'collage' -%}calc((100vw - 30px) / 2){% else %}calc(100vw - 30px){% endif %}
+                        {%- endcapture -%}
+                      {{
+                        block.settings.image
+                        | image_url: width: 3200
+                        | image_tag:
+                          sizes: sizes,
+                          widths: '50, 75, 100, 150, 200, 300, 400, 500, 750, 1000, 1250, 1500, 1750, 2000, 2250, 2500, 2750, 3000, 3200'
+                      }}
+                    {%- else -%}
+                      {%- capture sizes -%}
+                           (min-width: {{ settings.page_width }}px) calc(({{ settings.page_width }}px - 100px) * 1 / 3 - {{ grid_space_desktop }}),
+                           (min-width: 750px) calc((100vw - 100px) * 1 / 3 - {{ grid_space_desktop }}),
+                           {% if section.settings.mobile_layout == 'collage' %}calc((100vw - 30px) / 2 - {{ grid_space_mobile }}){% else %}calc(100vw - 30px){% endif %}
+                        {%- endcapture -%}
+                      {{
+                        block.settings.image
+                        | image_url: width: 3200
+                        | image_tag:
+                          sizes: sizes,
+                          widths: '50, 75, 100, 150, 200, 300, 400, 500, 750, 1000, 1250, 1500, 1750, 2000, 2250, 2500, 2750, 3000, 3200'
+                      }}
+                    {%- endif -%}
                   {%- else -%}
-                    {{ 'image' | placeholder_svg_tag: 'placeholder-svg placeholder' }}
+                    {{ 'detailed-apparel-1' | placeholder_svg_tag: 'placeholder-svg' }}
                   {%- endif -%}
                 </div>
               </div>
             {%- when 'product' -%}
+              {%- assign placeholder_image = 'product-apparel-' | append: placeholder_image_index -%}
               {% render 'card-product',
                 card_product: block.settings.product,
                 media_aspect_ratio: 'adapt',
                 show_secondary_image: block.settings.second_image,
-                extend_height: true
+                extend_height: true,
+                placeholder_image: placeholder_image,
+                skip_styles: skip_card_product_styles
               %}
+              {% assign skip_card_product_styles = true %}
             {%- when 'collection' -%}
+              {%- assign placeholder_image = 'collection-apparel-' | append: placeholder_image_index -%}
               {% render 'card-collection',
                 card_collection: block.settings.collection,
                 media_aspect_ratio: 'adapt',
                 columns: 2,
                 extend_height: true,
-                wrapper_class: section.settings.card_styles
+                wrapper_class: section.settings.card_styles,
+                placeholder_image: placeholder_image
               %}
             {%- when 'video' -%}
-              <div class="collage-card {% if section.settings.card_styles == 'none' %}global-media-settings{% else %}{{ section.settings.card_styles }} color-{{ settings.card_color_scheme }}{% endif %}">
-                <noscript>
-                  <a
-                    href="{{ block.settings.video_url }}"
-                    class="collage-card__link"
-                  >
-                    <div
-                      class="media media--transparent ratio"
-                      {% if block.settings.cover_image != blank %}
-                        style="--ratio-percent: {{ 1 | divided_by: block.settings.cover_image.aspect_ratio | times: 100 }}%"
-                      {% else %}
-                        style="--ratio-percent: 100%"
-                      {% endif %}
-                    >
-                      {%- if block.settings.cover_image != blank -%}
-                        {%- capture sizes -%}
-                          (min-width: {{ settings.page_width }}px)
-                          {% if section.blocks.size == 1 -%}
-                            calc({{ settings.page_width }}px - 100px)
-                          {%- else -%}
-                            {{- settings.page_width | minus: 100 | times: 0.67 | round }}px
-                          {%- endif -%}
-                          , (min-width: 750px)
-                          {%- if section.blocks.size == 1 %} calc(100vw - 100px){% else %} 500px{% endif -%}
-                          , calc(100vw - 30px)
-                        {%- endcapture -%}
-                        {{
-                          block.settings.cover_image
-                          | image_url: width: 3000
-                          | image_tag: loading: 'lazy', sizes: sizes, widths: '550, 720, 990, 1100, 1500, 2200, 3000'
-                        }}
-                      {%- else -%}
-                        {{ 'collection-2' | placeholder_svg_tag: 'placeholder-svg placeholder' }}
-                      {%- endif -%}
-                    </div>
-                  </a>
-                </noscript>
-                <modal-opener class="no-js-hidden" data-modal="#PopupModal-{{ block.id }}">
+              <div class="collage-card {% if section.settings.card_styles == 'none' %}global-media-settings{% else %}{{ section.settings.card_styles }} color-{{ settings.card_color_scheme }} gradient{% endif %}">
+                <modal-opener data-modal="#PopupModal-{{ block.id }}">
                   <div class="deferred-media">
                     <button
                       class="deferred-media__poster full-unstyled-link"
@@ -148,7 +132,9 @@
                         {% endif %}
                       >
                         <span class="deferred-media__poster-button motion-reduce">
-                          {%- render 'icon-play' -%}
+                          <span class="svg-wrapper">
+                            {{- 'icon-play.svg' | inline_asset_content -}}
+                          </span>
                         </span>
 
                         {%- if block.settings.cover_image != blank -%}
@@ -166,16 +152,19 @@
                           {{
                             block.settings.cover_image
                             | image_url: width: 3000
-                            | image_tag: loading: 'lazy', sizes: sizes, widths: '550, 720, 990, 1100, 1500, 2200, 3000'
+                            | image_tag: sizes: sizes, widths: '550, 720, 990, 1100, 1500, 2200, 3000'
                           }}
                         {%- else -%}
-                          {{ 'collection-2' | placeholder_svg_tag: 'placeholder-svg placeholder' }}
+                          {{ 'hero-apparel-3' | placeholder_svg_tag: 'placeholder-svg placeholder' }}
                         {%- endif -%}
                       </div>
                     </button>
                   </div>
                 </modal-opener>
-                <modal-dialog id="PopupModal-{{ block.id }}" class="modal-video media-modal color-background-1">
+                <modal-dialog
+                  id="PopupModal-{{ block.id }}"
+                  class="modal-video media-modal color-{{ settings.color_schemes | first }}"
+                >
                   <div
                     class="modal-video__content"
                     role="dialog"
@@ -189,7 +178,9 @@
                       class="modal-video__toggle"
                       aria-label="{{ 'accessibility.close' | t }}"
                     >
-                      {% render 'icon-close' %}
+                      <span class="svg-wrapper">
+                        {{- 'icon-close.svg' | inline_asset_content -}}
+                      </span>
                     </button>
                     <div class="modal-video__content-info">
                       <deferred-media class="modal-video__video template-popup">
@@ -234,487 +225,43 @@
   },
   "settings": [
     {
-      "type": "checkbox",
-      "id": "display_id",
-      "label": "Display section ID",
-      "info": "ID is used in the Sections group section to merge 2 sections. ID can also be put inside any button link and the button will scroll to this section.",
-      "default": false
-    },
-    {
-      "type": "select",
-      "id": "visibility",
-      "options": [
-        {
-          "value": "desktop-hidden",
-          "label": "Mobile only"
-        },
-        {
-          "value": "mobile-hidden",
-          "label": "Desktop only"
-        },
-        {
-          "value": "always-display",
-          "label": "All devices"
-        }
-      ],
-      "label": "Display on",
-      "default": "always-display"
-    },
-    {
       "type": "inline_richtext",
-      "id": "title",
-      "default": "Multimedia collage",
-      "label": "Heading"
-    },
-    {
-      "type": "select",
-      "id": "title_highlight_1",
-      "label": "Heading words highlight 1",
-      "info": "Put words in BOLD to highlight them with this style.",
-      "options": [
-        {
-          "value": "solid-color",
-          "label": "Color"
-        },
-        {
-          "value": "gradient-color",
-          "label": "Gradient"
-        },
-        {
-          "value": "bg-color",
-          "label": "Background"
-        },
-        {
-          "value": "underline-solid",
-          "label": "Underline"
-        },
-        {
-          "value": "underline-gradient",
-          "label": "Gradient underline"
-        },
-        {
-          "value": "line-1",
-          "label": "Line 1"
-        },
-        {
-          "value": "line-2",
-          "label": "Line 2"
-        },
-        {
-          "value": "line-3",
-          "label": "Line 3"
-        }
-      ],
-      "default": "solid-color"
-    },
-    {
-      "type": "color_background",
-      "id": "title_highlight_1_gradient",
-      "label": "Text gradient",
-      "default": "linear-gradient(57deg, rgba(249, 119, 255, 1) 8%, rgba(54, 212, 255, 1) 47%, rgba(43, 252, 135, 1) 83%)",
-      "visible_if": "{{ section.settings.title_highlight_1 == 'gradient-color' }}"
-    },
-    {
-      "type": "color",
-      "id": "title_highlight_1_bg-color",
-      "label": "Text background color",
-      "default": "#F9EFFF",
-      "visible_if": "{{ section.settings.title_highlight_1 == 'bg-color' }}"
-    },
-    {
-      "type": "color",
-      "id": "title_highlight_1_color",
-      "label": "Text color",
-      "default": "#6D388B",
-      "visible_if": "{{ section.settings.title_highlight_1 == 'solid-color' or section.settings.title_highlight_1 == 'bg-color' }}"
-    },
-    {
-      "type": "range",
-      "id": "highlighted-1_border_radius",
-      "label": "Corner radius",
-      "min": 0,
-      "max": 40,
-      "step": 2,
-      "unit": "px",
-      "default": 8,
-      "visible_if": "{{ section.settings.title_highlight_1 == 'bg-color' }}"
-    },
-    {
-      "type": "range",
-      "id": "highlighted-1_border_width",
-      "min": 0,
-      "max": 6,
-      "step": 1,
-      "unit": "px",
-      "label": "Border thickness",
-      "default": 0,
-      "visible_if": "{{ section.settings.title_highlight_1 == 'bg-color' }}"
-    },
-    {
-      "type": "select",
-      "id": "highlighted-1_border",
-      "label": "Border style",
-      "options": [
-        {
-          "value": "solid",
-          "label": "Solid"
-        },
-        {
-          "value": "dashed",
-          "label": "Dashed"
-        }
-      ],
-      "default": "solid",
-      "visible_if": "{{ section.settings.highlighted-1_border_width > 0 and section.settings.title_highlight_1 == 'bg-color' }}"
-    },
-    {
-      "type": "color",
-      "id": "highlighted-1_border_color",
-      "label": "Border color",
-      "default": "#6D388B",
-      "visible_if": "{{ section.settings.highlighted-1_border_width > 0 and section.settings.title_highlight_1 == 'bg-color' }}"
-    },
-    {
-      "type": "range",
-      "id": "highlighted-1_padding-block",
-      "label": "Vertical padding",
-      "min": 0,
-      "max": 1,
-      "step": 0.1,
-      "default": 0.3,
-      "unit": "%",
-      "info": "Relative to font size",
-      "visible_if": "{{ section.settings.title_highlight_1 == 'bg-color' }}"
-    },
-    {
-      "type": "range",
-      "id": "highlighted-1_padding-inline",
-      "label": "Horizontal padding",
-      "min": 0,
-      "max": 1,
-      "step": 0.1,
-      "unit": "%",
-      "default": 0.3,
-      "info": "Relative to font size",
-      "visible_if": "{{ section.settings.title_highlight_1 == 'bg-color' }}"
-    },
-    {
-      "type": "range",
-      "id": "title_highlight_1_underline-thickness",
-      "label": "Underline thickness",
-      "min": 0,
-      "max": 6,
-      "step": 1,
-      "unit": "px",
-      "default": 2,
-      "visible_if": "{{ section.settings.title_highlight_1 == 'underline-solid' or section.settings.title_highlight_1 == 'underline-gradient' }}"
-    },
-    {
-      "type": "color",
-      "id": "title_highlight_1_underline-color",
-      "label": "Underline color",
-      "default": "#6D388B",
-      "visible_if": "{{ section.settings.title_highlight_1 == 'underline-solid' }}"
-    },
-    {
-      "type": "color_background",
-      "id": "title_highlight_1_underline-color--gradient",
-      "label": "Underline gradient color",
-      "default": "linear-gradient(57deg, rgba(249, 119, 255, 1) 8%, rgba(54, 212, 255, 1) 47%, rgba(43, 252, 135, 1) 83%)",
-      "visible_if": "{{ section.settings.title_highlight_1 == 'underline-gradient' }}"
-    },
-    {
-      "type": "range",
-      "id": "title_highlight_1_underline-color-position",
-      "min": 0,
-      "max": 100,
-      "step": 5,
-      "label": "Vertical position",
-      "unit": "%",
-      "default": 25,
-      "visible_if": "{{ section.settings.title_highlight_1 == 'underline-solid' or section.settings.title_highlight_1 == 'underline-gradient' }}"
-    },
-    {
-      "type": "color",
-      "id": "title_highlight_1_handwritten-color",
-      "label": "Stroke color",
-      "default": "#6D388B",
-      "visible_if": "{{ section.settings.title_highlight_1 == 'line-1' or section.settings.title_highlight_1 == 'line-2' or section.settings.title_highlight_1 == 'line-3' }}"
-    },
-    {
-      "type": "range",
-      "id": "title_highlight_1_handwritten-stroke-width",
-      "min": 1,
-      "max": 10,
-      "step": 1,
-      "label": "Stroke thickness",
-      "unit": "px",
-      "default": 3,
-      "visible_if": "{{ section.settings.title_highlight_1 == 'line-1' or section.settings.title_highlight_1 == 'line-2' or section.settings.title_highlight_1 == 'line-3' }}"
-    },
-    {
-      "type": "range",
-      "id": "title_highlight_1_handwritten-position",
-      "min": 0,
-      "max": 100,
-      "step": 5,
-      "label": "Vertical position",
-      "unit": "%",
-      "default": 60,
-      "visible_if": "{{ section.settings.title_highlight_1 == 'line-1' or section.settings.title_highlight_1 == 'line-2' or section.settings.title_highlight_1 == 'line-3' }}"
-    },
-    {
-      "type": "select",
-      "id": "title_highlight_2",
-      "label": "Heading words highlight 2",
-      "info": "Put words in ITALIC to highlight them with this style (keep it 'None' if you want to use default italic style).",
-      "options": [
-        {
-          "value": "none",
-          "label": "None"
-        },
-        {
-          "value": "solid-color",
-          "label": "Color"
-        },
-        {
-          "value": "gradient-color",
-          "label": "Gradient"
-        },
-        {
-          "value": "bg-color",
-          "label": "Background"
-        },
-        {
-          "value": "underline-solid",
-          "label": "Underline"
-        },
-        {
-          "value": "underline-gradient",
-          "label": "Gradient underline"
-        },
-        {
-          "value": "line-1",
-          "label": "Line 1"
-        },
-        {
-          "value": "line-2",
-          "label": "Line 2"
-        },
-        {
-          "value": "line-3",
-          "label": "Line 3"
-        }
-      ],
-      "default": "none"
-    },
-    {
-      "type": "color_background",
-      "id": "title_highlight_2_gradient",
-      "label": "Text gradient",
-      "default": "linear-gradient(57deg, rgba(249, 119, 255, 1) 8%, rgba(54, 212, 255, 1) 47%, rgba(43, 252, 135, 1) 83%)",
-      "visible_if": "{{ section.settings.title_highlight_2 == 'gradient-color' }}"
-    },
-    {
-      "type": "color",
-      "id": "title_highlight_2_bg-color",
-      "label": "Text background color",
-      "default": "#F9EFFF",
-      "visible_if": "{{ section.settings.title_highlight_2 == 'bg-color' }}"
-    },
-    {
-      "type": "color",
-      "id": "title_highlight_2_color",
-      "label": "Text color",
-      "default": "#6D388B",
-      "visible_if": "{{ section.settings.title_highlight_2 == 'solid-color' or section.settings.title_highlight_2 == 'bg-color' }}"
-    },
-    {
-      "type": "range",
-      "id": "highlighted-2_border_radius",
-      "label": "Corner radius",
-      "min": 0,
-      "max": 40,
-      "step": 2,
-      "unit": "px",
-      "default": 8,
-      "visible_if": "{{ section.settings.title_highlight_2 == 'bg-color' }}"
-    },
-    {
-      "type": "range",
-      "id": "highlighted-2_border_width",
-      "min": 0,
-      "max": 6,
-      "step": 1,
-      "unit": "px",
-      "label": "Border thickness",
-      "default": 0,
-      "visible_if": "{{  section.settings.title_highlight_2 == 'bg-color' }}"
-    },
-    {
-      "type": "select",
-      "id": "highlighted-2_border",
-      "label": "Border style",
-      "options": [
-        {
-          "value": "solid",
-          "label": "Solid"
-        },
-        {
-          "value": "dashed",
-          "label": "Dashed"
-        }
-      ],
-      "default": "solid",
-      "visible_if": "{{ section.settings.highlighted-2_border_width > 0 and section.settings.title_highlight_2 == 'bg-color' }}"
-    },
-    {
-      "type": "color",
-      "id": "highlighted-2_border_color",
-      "label": "Border color",
-      "default": "#6D388B",
-      "visible_if": "{{ section.settings.highlighted-2_border_width > 0 and section.settings.title_highlight_2 == 'bg-color' }}"
-    },
-    {
-      "type": "range",
-      "id": "highlighted-2_padding-block",
-      "label": "Vertical padding",
-      "min": 0,
-      "max": 1,
-      "step": 0.1,
-      "default": 0.3,
-      "unit": "%",
-      "info": "Relative to font size",
-      "visible_if": "{{ section.settings.title_highlight_2 == 'bg-color' }}"
-    },
-    {
-      "type": "range",
-      "id": "highlighted-2_padding-inline",
-      "label": "Horizontal padding",
-      "min": 0,
-      "max": 1,
-      "step": 0.1,
-      "unit": "%",
-      "default": 0.3,
-      "info": "Relative to font size",
-      "visible_if": "{{ section.settings.title_highlight_2 == 'bg-color' }}"
-    },
-    {
-      "type": "range",
-      "id": "title_highlight_2_underline-thickness",
-      "label": "Underline thickness",
-      "min": 0,
-      "max": 6,
-      "step": 1,
-      "unit": "px",
-      "default": 2,
-      "visible_if": "{{ section.settings.title_highlight_2 == 'underline-solid' or section.settings.title_highlight_2 == 'underline-gradient' }}"
-    },
-    {
-      "type": "color",
-      "id": "title_highlight_2_underline-color",
-      "label": "Underline color",
-      "default": "#6D388B",
-      "visible_if": "{{ section.settings.title_highlight_2 == 'underline-solid' }}"
-    },
-    {
-      "type": "color_background",
-      "id": "title_highlight_2_underline-color--gradient",
-      "label": "Underline gradient color",
-      "default": "linear-gradient(57deg, rgba(249, 119, 255, 1) 8%, rgba(54, 212, 255, 1) 47%, rgba(43, 252, 135, 1) 83%)",
-      "visible_if": "{{ section.settings.title_highlight_2 == 'underline-gradient' }}"
-    },
-    {
-      "type": "range",
-      "id": "title_highlight_2_underline-color-position",
-      "min": 0,
-      "max": 100,
-      "step": 5,
-      "label": "Vertical position",
-      "unit": "%",
-      "default": 25,
-      "visible_if": "{{ section.settings.title_highlight_2 == 'underline-solid' or section.settings.title_highlight_2 == 'underline-gradient' }}"
-    },
-    {
-      "type": "color",
-      "id": "title_highlight_2_handwritten-color",
-      "label": "Stroke color",
-      "default": "#6D388B",
-      "visible_if": "{{ section.settings.title_highlight_2 == 'line-1' or section.settings.title_highlight_2 == 'line-2' or section.settings.title_highlight_2 == 'line-3' }}"
-    },
-    {
-      "type": "range",
-      "id": "title_highlight_2_handwritten-stroke-width",
-      "min": 1,
-      "max": 10,
-      "step": 1,
-      "label": "Stroke thickness",
-      "unit": "px",
-      "default": 3,
-      "visible_if": "{{ section.settings.title_highlight_2 == 'line-1' or section.settings.title_highlight_2 == 'line-2' or section.settings.title_highlight_2 == 'line-3' }}"
-    },
-    {
-      "type": "range",
-      "id": "title_highlight_2_handwritten-position",
-      "min": 0,
-      "max": 100,
-      "step": 5,
-      "label": "Vertical position",
-      "unit": "%",
-      "default": 60,
-      "visible_if": "{{ section.settings.title_highlight_2 == 'line-1' or section.settings.title_highlight_2 == 'line-2' or section.settings.title_highlight_2 == 'line-3' }}"
+      "id": "heading",
+      "default": "t:sections.collage.settings.heading.default",
+      "label": "t:sections.collage.settings.heading.label"
     },
     {
       "type": "select",
       "id": "heading_size",
       "options": [
         {
-          "value": "h3",
-          "label": "Extra small"
-        },
-        {
           "value": "h2",
-          "label": "Small"
+          "label": "t:sections.all.heading_size.options__1.label"
         },
         {
           "value": "h1",
-          "label": "Medium"
+          "label": "t:sections.all.heading_size.options__2.label"
         },
         {
           "value": "h0",
-          "label": "Large"
+          "label": "t:sections.all.heading_size.options__3.label"
         },
         {
-          "value": "custom",
-          "label": "Custom"
+          "value": "hxl",
+          "label": "t:sections.all.heading_size.options__4.label"
+        },
+        {
+          "value": "hxxl",
+          "label": "t:sections.all.heading_size.options__5.label"
         }
       ],
       "default": "h1",
-      "label": "Heading size"
+      "label": "t:sections.all.heading_size.label"
     },
     {
-      "type": "range",
-      "id": "custom_desktop_size",
-      "min": 24,
-      "max": 60,
-      "step": 3,
-      "unit": "px",
-      "default": 39,
-      "label": "Custom desktop size",
-      "visible_if": "{{ section.settings.heading_size == 'custom' }}"
-    },
-    {
-      "type": "range",
-      "id": "custom_mobile_size",
-      "min": 20,
-      "max": 50,
-      "step": 2,
-      "unit": "px",
-      "default": 28,
-      "label": "Custom mobile size",
-      "visible_if": "{{ section.settings.heading_size == 'custom' }}"
-    },
-
+      "type": "header",
+      "content": "t:sections.collage.settings.header_layout.content"
+    },       
     {
       "type": "select",
       "id": "desktop_layout",
@@ -765,215 +312,12 @@
       "label": "t:sections.collage.settings.card_styles.label"
     },
     {
-      "type": "select",
+      "type": "color_scheme",
       "id": "color_scheme",
-      "options": [
-        {
-          "value": "accent-1",
-          "label": "Accent 1"
-        },
-        {
-          "value": "accent-2",
-          "label": "Accent 2"
-        },
-        {
-          "value": "background-1",
-          "label": "Background 1"
-        },
-        {
-          "value": "background-2",
-          "label": "Background 2"
-        },
-        {
-          "value": "inverse",
-          "label": "Inverse"
-        },
-        {
-          "value": "custom",
-          "label": "Custom"
-        }
-      ],
-      "default": "background-1",
-      "label": "Color scheme"
+      "label": "t:sections.all.colors.label",
+      "info": "t:sections.all.colors.has_cards_info",
+      "default": "scheme-1"
     },
-    {
-      "type": "color",
-      "id": "custom_colors_background",
-      "default": "#FFFFFF",
-      "label": "Custom background color",
-      "visible_if": "{{ section.settings.color_scheme == 'custom' }}"
-    },
-    {
-      "type": "color_background",
-      "id": "custom_gradient_background",
-      "label": "Custom gradient background",
-      "info": "If added, replaces Background color when applicable.",
-      "visible_if": "{{ section.settings.color_scheme == 'custom' }}"
-    },
-    {
-      "type": "image_picker",
-      "id": "custom_image_background",
-      "label": "Custom image background",
-      "visible_if": "{{ section.settings.color_scheme == 'custom' }}"
-    },
-    {
-      "type": "image_picker",
-      "id": "custom_mobile_image_background",
-      "label": "Custom mobile image background",
-      "info": "If empty, the Custom image background will also be applied to mobile devices",
-      "visible_if": "{{ section.settings.color_scheme == 'custom' and section.settings.custom_image_background != blank }}"
-    },
-    {
-      "type": "color",
-      "id": "custom_colors_text",
-      "default": "#2E2A39",
-      "label": "Custom text color",
-      "visible_if": "{{ section.settings.color_scheme == 'custom' }}"
-    },
-    {
-      "type": "select",
-      "id": "pattern_bg",
-      "label": "Background pattern",
-      "default": "none",
-      "options": [
-        {
-          "value": "none",
-          "label": "None"
-        },
-        {
-          "value": "dotted",
-          "label": "Dots"
-        },
-        {
-          "value": "grid",
-          "label": "Grid"
-        },
-        {
-          "value": "curved-grid",
-          "label": "Curved grid"
-        },
-        {
-          "value": "diagonal-stripes",
-          "label": "Stripes"
-        },
-        {
-          "value": "zigzag",
-          "label": "ZigZag"
-        },
-        {
-          "value": "arrow-pattern",
-          "label": "3D Boxes"
-        },
-        {
-          "value": "radial-rings",
-          "label": "Rings"
-        },
-        {
-          "value": "diamond-grid-1",
-          "label": "Diamond grid 1"
-        },
-        {
-          "value": "diamond-grid-2",
-          "label": "Diamond grid 2"
-        },
-        {
-          "value": "quatrefoils",
-          "label": "Quatrefoils"
-        },
-        {
-          "value": "ovals",
-          "label": "Ovals"
-        },
-        {
-          "value": "hexagons",
-          "label": "Hexagons"
-        },
-        {
-          "value": "curvy",
-          "label": "Curvy"
-        }
-      ]
-    },
-    {
-      "type": "color",
-      "id": "pattern_color",
-      "label": "Pattern color",
-      "default": "#6D388B",
-      "visible_if": "{{ section.settings.pattern_bg != 'none' }}"
-    },
-    {
-      "type": "range",
-      "id": "pattern_size",
-      "min": 4,
-      "max": 80,
-      "step": 2,
-      "unit": "px",
-      "label": "Pattern size / spacing",
-      "default": 20,
-      "visible_if": "{{ section.settings.pattern_bg != 'none' }}"
-    },
-    {
-      "type": "range",
-      "id": "pattern_thickness",
-      "min": 1,
-      "max": 10,
-      "step": 1,
-      "unit": "px",
-      "label": "Line / dot thickness",
-      "default": 2,
-      "visible_if": "{{ section.settings.pattern_bg == 'dotted' or section.settings.pattern_bg == 'grid' or section.settings.pattern_bg == 'diagonal-stripes' or section.settings.pattern_bg == 'radial-rings' }}"
-    },
-    {
-      "type": "range",
-      "id": "pattern_angle",
-      "min": 0,
-      "max": 180,
-      "step": 15,
-      "unit": "deg",
-      "label": "Stripe angle",
-      "default": 45,
-      "visible_if": "{{ section.settings.pattern_bg == 'diagonal-stripes' }}"
-    },
-    {
-      "type": "select",
-      "id": "pattern_opacity_mode",
-      "label": "Opacity type",
-      "default": "low",
-      "options": [
-        {
-          "value": "low",
-          "label": "Low"
-        },
-        {
-          "value": "normal",
-          "label": "Normal"
-        }
-      ],
-      "visible_if": "{{ section.settings.pattern_bg != 'none' }}"
-    },
-    {
-      "type": "range",
-      "id": "pattern_opacity_low",
-      "min": 1,
-      "max": 20,
-      "step": 1,
-      "unit": "%",
-      "label": "Opacity",
-      "default": 7,
-      "visible_if": "{{ section.settings.pattern_bg != 'none' and section.settings.pattern_opacity_mode == 'low' }}"
-    },
-    {
-      "type": "range",
-      "id": "pattern_opacity_normal",
-      "min": 20,
-      "max": 100,
-      "step": 5,
-      "unit": "%",
-      "label": "Opacity",
-      "default": 80,
-      "visible_if": "{{ section.settings.pattern_bg != 'none' and section.settings.pattern_opacity_mode == 'normal' }}"
-    },
-
     {
       "type": "header",
       "content": "t:sections.all.padding.section_padding_heading"
@@ -1060,7 +404,7 @@
         {
           "type": "text",
           "id": "description",
-          "default": "Describe the video",
+          "default": "t:sections.collage.blocks.video.settings.description.default",
           "label": "t:sections.collage.blocks.video.settings.description.label",
           "info": "t:sections.collage.blocks.video.settings.description.info"
         }

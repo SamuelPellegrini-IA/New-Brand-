@@ -1,3 +1,8 @@
+{{ 'section-image-banner.css' | asset_url | stylesheet_tag }}
+{{ 'component-newsletter.css' | asset_url | stylesheet_tag }}
+{{ 'newsletter-section.css' | asset_url | stylesheet_tag }}
+{{ 'section-email-signup-banner.css' | asset_url | stylesheet_tag }}
+
 {%- style -%}
   #Banner-{{ section.id }}::after {
     opacity: {{ section.settings.image_overlay_opacity | divided_by: 100.0 }};
@@ -23,14 +28,8 @@
 
 <div
   id="Banner-{{ section.id }}"
-  class="email-signup-banner animate-section animate--hidden banner banner--content-align-{{ section.settings.desktop_content_alignment }} banner--content-align-mobile-{{ section.settings.mobile_content_alignment }} banner--{{ section.settings.image_height }}{% if section.settings.image_height == 'adapt-image' and section.settings.image != blank %} banner--adapt{% endif %}{% if section.settings.show_text_below %} banner--mobile-bottom{%- endif -%}{% if section.settings.show_text_box == false %} banner--desktop-transparent{% endif %} content-for-grouping {{ section.settings.visibility }}"
+  class="email-signup-banner banner banner--content-align-{{ section.settings.desktop_content_alignment }} banner--content-align-mobile-{{ section.settings.mobile_content_alignment }} banner--{{ section.settings.image_height }}{% if section.settings.image_height == 'adapt-image' and section.settings.image != blank %} banner--adapt{% endif %}{% if section.settings.show_text_below %} banner--mobile-bottom{%- endif -%}{% if section.settings.show_text_box == false %} banner--desktop-transparent{% endif %}"
 >
-  {% if section.settings.display_id %}
-    <copy-button class='section-id-btn button' data-content="#shopify-section-{{ section.id }}" data-success="false">
-      <span class="copy-text">Click to copy section ID</span>
-      <span class="copy-success">ID copied successfully!</span>
-    </copy-button>
-  {% endif %}
   {%- if section.settings.show_background_image -%}
     <div class="banner__media{% if section.settings.image != blank %} media{% endif %}">
       {%- if section.settings.image != blank -%}
@@ -54,8 +53,8 @@
           height="{{ section.settings.image.width | divided_by: section.settings.image.aspect_ratio }}"
         >
       {%- else -%}
-        {%- render 'email-signup-banner-background' -%}
-        {%- render 'email-signup-banner-background-mobile' -%}
+        {{- 'email-signup-banner-background.svg' | inline_asset_content -}}
+        {{- 'email-signup-banner-background-mobile.svg' | inline_asset_content -}}
       {%- endif -%}
     </div>
   {%- endif -%}
@@ -64,15 +63,15 @@
       {%- for block in section.blocks -%}
         {%- case block.type -%}
           {%- when 'heading' -%}
-            <h2 class="email-signup-banner__heading animate-item animate-item--child {{ block.settings.heading_size }}" {{ block.shopify_attributes }} style="--index:{{ forloop.index }};">
-              {{ block.settings.heading }}
+            <h2 class="email-signup-banner__heading {{ block.settings.heading_size }}" {{ block.shopify_attributes }}>
+              {{ block.settings.heading | escape }}
             </h2>
           {%- when 'paragraph' -%}
-            <div class="newsletter__subheading rte animate-item animate-item--child {{ block.settings.text_style }}" {{ block.shopify_attributes }}style="--index:{{ forloop.index }};">
+            <div class="newsletter__subheading rte {{ block.settings.text_style }}" {{ block.shopify_attributes }}>
               {{ block.settings.text }}
             </div>
           {%- when 'email_form' -%}
-            <div class='animate-item animate-item--child' {{ block.shopify_attributes }} style="--index:{{ forloop.index }};">
+            <div {{ block.shopify_attributes }}>
               {% form 'customer', class: 'newsletter-form' %}
                 <input type="hidden" name="contact[tags]" value="newsletter">
                 <div class="newsletter-form__field-wrapper">
@@ -107,12 +106,16 @@
                       id="Subscribe"
                       aria-label="{{ 'newsletter.button_label' | t }}"
                     >
-                      {% render 'icon-arrow' %}
+                      <span class="svg-wrapper">
+                        {{- 'icon-arrow.svg' | inline_asset_content -}}
+                      </span>
                     </button>
                   </div>
                   {%- if form.errors -%}
                     <small class="newsletter-form__message form__message" id="Newsletter-error--{{ section.id }}">
-                      {%- render 'icon-error' -%}
+                      <span class="svg-wrapper">
+                        {{- 'icon-error.svg' | inline_asset_content -}}
+                      </span>
                       {{- form.errors.translated_fields.email | capitalize }}
                       {{ form.errors.messages.email -}}
                     </small>
@@ -125,7 +128,9 @@
                     tabindex="-1"
                     autofocus
                   >
-                    {% render 'icon-success' -%}
+                    <span class="svg-wrapper">
+                      {{- 'icon-success.svg' | inline_asset_content -}}
+                    </span>
                     {{- 'newsletter.success' | t }}
                   </h3>
                 {%- endif -%}
@@ -142,42 +147,20 @@
   "name": "t:sections.email-signup-banner.name",
   "tag": "section",
   "class": "section",
+  "enabled_on": {
+    "templates": ["password"]
+  },
   "settings": [
-    {
-      "type": "checkbox",
-      "id": "display_id",
-      "label": "Display section ID",
-      "info": "ID is used in the Sections group section to merge 2 sections. ID can also be put inside any button link and the button will scroll to this section.",
-      "default": false
-    },
-    {
-      "type": "select",
-      "id": "visibility",
-      "options": [
-        {
-          "value": "desktop-hidden",
-          "label": "Mobile only"
-        },
-        {
-          "value": "mobile-hidden",
-          "label": "Desktop only"
-        },
-        {
-          "value": "always-display",
-          "label": "All devices"
-        }
-      ],
-      "label": "Display on",
-      "default": "always-display"
-    },
-    {
-      "type": "header",
-      "content": "General"
-    },
     {
       "type": "paragraph",
       "content": "t:sections.email-signup-banner.settings.paragraph.content"
     },
+    {
+      "type": "checkbox",
+      "id": "show_background_image",
+      "label": "t:sections.email-signup-banner.settings.show_background_image.label",
+      "default": true
+    },    
     {
       "type": "image_picker",
       "id": "image",
@@ -192,12 +175,6 @@
       "unit": "%",
       "label": "t:sections.email-signup-banner.settings.image_overlay_opacity.label",
       "default": 0
-    },
-    {
-      "type": "checkbox",
-      "id": "show_background_image",
-      "label": "t:sections.email-signup-banner.settings.show_background_image.label",
-      "default": true
     },
     {
       "type": "select",
@@ -221,9 +198,12 @@
         }
       ],
       "default": "medium",
-      "label": "t:sections.email-signup-banner.settings.image_height.label",
-      "info": "t:sections.email-signup-banner.settings.image_height.info"
+      "label": "t:sections.email-signup-banner.settings.image_height.label"
     },
+    {
+      "type": "header",
+      "content": "t:sections.email-signup-banner.settings.content_header.content"
+    },    
     {
       "type": "select",
       "id": "desktop_content_position",
@@ -269,12 +249,6 @@
       "label": "t:sections.email-signup-banner.settings.desktop_content_position.label"
     },
     {
-      "type": "checkbox",
-      "id": "show_text_box",
-      "default": true,
-      "label": "t:sections.email-signup-banner.settings.show_text_box.label"
-    },
-    {
       "type": "select",
       "id": "desktop_content_alignment",
       "options": [
@@ -293,35 +267,19 @@
       ],
       "default": "center",
       "label": "t:sections.email-signup-banner.settings.desktop_content_alignment.label"
+    },    
+    {
+      "type": "checkbox",
+      "id": "show_text_box",
+      "default": true,
+      "label": "t:sections.email-signup-banner.settings.show_text_box.label"
     },
     {
-      "type": "select",
+      "type": "color_scheme",
       "id": "color_scheme",
-      "options": [
-        {
-          "value": "accent-1",
-          "label": "t:sections.all.colors.accent_1.label"
-        },
-        {
-          "value": "accent-2",
-          "label": "t:sections.all.colors.accent_2.label"
-        },
-        {
-          "value": "background-1",
-          "label": "t:sections.all.colors.background_1.label"
-        },
-        {
-          "value": "background-2",
-          "label": "t:sections.all.colors.background_2.label"
-        },
-        {
-          "value": "inverse",
-          "label": "t:sections.all.colors.inverse.label"
-        }
-      ],
-      "default": "background-1",
       "label": "t:sections.all.colors.label",
-      "info": "t:sections.email-signup-banner.settings.color_scheme.info"
+      "info": "t:sections.email-signup-banner.settings.color_scheme.info",
+      "default": "scheme-1"
     },
     {
       "type": "header",
@@ -363,7 +321,7 @@
         {
           "type": "text",
           "id": "heading",
-          "default": "Opening soon",
+          "default": "t:sections.email-signup-banner.blocks.heading.settings.heading.default",
           "label": "t:sections.email-signup-banner.blocks.heading.settings.heading.label"
         },
         {
@@ -381,6 +339,14 @@
             {
               "value": "h0",
               "label": "t:sections.all.heading_size.options__3.label"
+            },
+            {
+              "value": "hxl",
+              "label": "t:sections.all.heading_size.options__4.label"
+            },
+            {
+              "value": "hxxl",
+              "label": "t:sections.all.heading_size.options__5.label"
             }
           ],
           "default": "h1",
@@ -396,7 +362,7 @@
         {
           "type": "richtext",
           "id": "text",
-          "default": "<p>Be the first to know when we launch.</p>",
+          "default": "t:sections.email-signup-banner.blocks.paragraph.settings.paragraph.default",
           "label": "t:sections.email-signup-banner.blocks.paragraph.settings.paragraph.label"
         },
         {
@@ -438,7 +404,6 @@
         }
       ]
     }
-  ],
-  "templates": ["password"]
+  ]
 }
 {% endschema %}
