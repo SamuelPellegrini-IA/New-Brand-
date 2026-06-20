@@ -1,0 +1,38 @@
+{{ 'section-lp-hawaiian.css' | asset_url | stylesheet_tag }}
+
+<section class="lp-hawaiian lp-hawaiian-trust">
+  <div class="lp-hawaiian__wrap">
+    <ul class="lp-hawaiian-trust__list">
+      {%- for block in section.blocks -%}
+        <li {{ block.shopify_attributes }}>✓ {{ block.settings.text | escape }}</li>
+      {%- endfor -%}
+    </ul>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "LP Hawaiian — Bandeau confiance",
+  "tag": "section",
+  "class": "section",
+  "blocks": [
+    {
+      "type": "item",
+      "name": "Élément",
+      "settings": [
+        { "type": "text", "id": "text", "label": "Texte", "default": "Paiement sécurisé" }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "LP Hawaiian — Bandeau confiance",
+      "blocks": [
+        { "type": "item", "settings": { "text": "Paiement 100 % sécurisé" } },
+        { "type": "item", "settings": { "text": "Expédition sous 3–5 jours ouvrés" } },
+        { "type": "item", "settings": { "text": "Support client réactif" } }
+      ]
+    }
+  ]
+}
+{% endschema %}

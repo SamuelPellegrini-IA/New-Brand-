@@ -1,75 +1,217 @@
 {
   "sections": {
-    "image_banner": {
-      "type": "image-banner",
+    "hero": {
+      "type": "lp-hawaiian-hero",
       "blocks": {
-        "heading": {
-          "type": "heading",
+        "badge_1": { "type": "badge", "settings": { "text": "Impression HD premium" } },
+        "badge_2": { "type": "badge", "settings": { "text": "Livraison internationale" } },
+        "badge_3": { "type": "badge", "settings": { "text": "Satisfait ou remboursé 30 jours" } }
+      },
+      "block_order": ["badge_1", "badge_2", "badge_3"],
+      "settings": {
+        "eyebrow": "Personnalisation photo",
+        "heading": "Votre chemise hawaïenne unique, avec votre chat",
+        "subheading": "Téléversez votre photo et créez une chemise tropicale personnalisée — le cadeau parfait qui surprendra à coup sûr.",
+        "button_label": "Personnaliser ma chemise",
+        "button_link": "shopify://products/custom-photo-tropical-cat-hawaiian-shirt"
+      }
+    },
+    "trust": {
+      "type": "lp-hawaiian-trust-bar",
+      "blocks": {
+        "t1": { "type": "item", "settings": { "text": "Paiement 100 % sécurisé" } },
+        "t2": { "type": "item", "settings": { "text": "Expédition sous 3–5 jours ouvrés" } },
+        "t3": { "type": "item", "settings": { "text": "Support client réactif" } }
+      },
+      "block_order": ["t1", "t2", "t3"],
+      "settings": {}
+    },
+    "benefits": {
+      "type": "lp-hawaiian-benefits",
+      "blocks": {
+        "b1": {
+          "type": "benefit",
           "settings": {
-            "heading": "Browse our latest products",
-            "heading_size": "h0"
+            "icon": "📸",
+            "title": "Votre photo, votre style",
+            "text": "Téléversez 1 à 5 photos et personnalisez feuilles, fleurs et couleurs."
           }
         },
-        "button": {
-          "type": "buttons",
+        "b2": {
+          "type": "benefit",
           "settings": {
-            "button_label_1": "Shop all",
-            "button_link_1": "shopify://collections/all",
-            "button_style_secondary_1": true,
-            "button_label_2": "",
-            "button_link_2": "",
-            "button_style_secondary_2": false
+            "icon": "👕",
+            "title": "Confort toute la journée",
+            "text": "Tissu léger et respirant, parfait pour l'été et les vacances tropicales."
+          }
+        },
+        "b3": {
+          "type": "benefit",
+          "settings": {
+            "icon": "🎁",
+            "title": "Le cadeau idéal",
+            "text": "Surprenez vos proches avec un présent unique qu'ils n'oublieront jamais."
           }
         }
       },
-      "block_order": [
-        "heading",
-        "button"
-      ],
+      "block_order": ["b1", "b2", "b3"],
       "settings": {
-        "image_overlay_opacity": 40,
-        "image_height": "large",
-        "desktop_content_position": "bottom-center",
-        "show_text_box": false,
-        "image_behavior": "none",
-        "desktop_content_alignment": "center",
-        "color_scheme": "scheme-3",
-        "mobile_content_alignment": "center",
-        "stack_images_on_mobile": false,
-        "show_text_below": false
+        "heading": "Pourquoi nos clients adorent cette chemise",
+        "subheading": "Qualité premium, personnalisation facile et un style tropical inoubliable."
       }
     },
-    "featured_collection": {
-      "type": "featured-collection",
+    "steps": {
+      "type": "lp-hawaiian-steps",
+      "blocks": {
+        "s1": {
+          "type": "step",
+          "settings": {
+            "title": "Personnalisez en ligne",
+            "text": "Choisissez taille, couleurs des feuilles et fleurs, et le nombre de photos (1 à 5)."
+          }
+        },
+        "s2": {
+          "type": "step",
+          "settings": {
+            "title": "Téléversez votre photo",
+            "text": "Ajoutez la photo de votre chat et prévisualisez le résultat en direct."
+          }
+        },
+        "s3": {
+          "type": "step",
+          "settings": {
+            "title": "Recevez votre chemise",
+            "text": "Nous imprimons et expédions votre création unique sous 3 à 5 jours ouvrés."
+          }
+        }
+      },
+      "block_order": ["s1", "s2", "s3"],
       "settings": {
-        "title": "Featured products",
-        "heading_size": "h2",
-        "description": "",
-        "show_description": false,
-        "description_style": "body",
-        "collection": "all",
-        "products_to_show": 8,
-        "columns_desktop": 4,
+        "heading": "Comment ça marche ?",
+        "subheading": "3 étapes simples pour créer votre chemise hawaïenne personnalisée.",
+        "button_label": "Commencer ma personnalisation",
+        "button_link": "shopify://products/custom-photo-tropical-cat-hawaiian-shirt"
+      }
+    },
+    "reviews": {
+      "type": "lp-reviews-summary",
+      "blocks": {
+        "r1": {
+          "type": "review",
+          "settings": {
+            "author": "David E.",
+            "rating": 5,
+            "title": "Qualité bluffante",
+            "content": "<p>Rare de trouver une entreprise qui livre exactement ce qu'on a commandé. Arrivé rapidement, conforme aux photos.</p>",
+            "verified": true,
+            "verified_label": "Acheteur vérifié"
+          }
+        },
+        "r2": {
+          "type": "review",
+          "settings": {
+            "author": "Liz C.",
+            "rating": 5,
+            "title": "Incroyable",
+            "content": "<p>Au-delà de mes attentes ! Bonne qualité, bonne coupe et l'impression est encore plus belle que prévu.</p>",
+            "verified": true,
+            "verified_label": "Acheteur vérifié"
+          }
+        },
+        "r3": {
+          "type": "review",
+          "settings": {
+            "author": "V. Arnold",
+            "rating": 4,
+            "title": "J'adore",
+            "content": "<p>Magnifique. Mon seul conseil : commandez votre taille habituelle. Beau travail.</p>",
+            "verified": true,
+            "verified_label": "Acheteur vérifié"
+          }
+        }
+      },
+      "block_order": ["r1", "r2", "r3"],
+      "settings": {
+        "heading": "Avis clients",
+        "average_rating": "4.8",
+        "total_label": "Basé sur 40 avis",
+        "star_color": "#ffce31",
+        "bar_color": "#218f78",
+        "track_color": "#ececec",
+        "pct_5": 88,
+        "pct_4": 8,
+        "pct_3": 5,
+        "pct_2": 0,
+        "pct_1": 0,
+        "columns": 1,
+        "show_write_button": false,
+        "background": "#ffffff",
+        "text_color": "#121212",
+        "padding_top": 48,
+        "padding_bottom": 48
+      }
+    },
+    "faq": {
+      "type": "collapsible-content",
+      "blocks": {
+        "q1": {
+          "type": "collapsible_row",
+          "settings": {
+            "heading": "Combien de temps prend la livraison ?",
+            "row_content": "<p>Comptez 3 à 5 jours ouvrés de production, puis 10 à 15 jours pour la livraison internationale.</p>",
+            "page": ""
+          }
+        },
+        "q2": {
+          "type": "collapsible_row",
+          "settings": {
+            "heading": "Quelle photo dois-je utiliser ?",
+            "row_content": "<p>Utilisez une photo nette, bien éclairée, avec le visage de votre animal bien visible. Formats JPG ou PNG acceptés.</p>",
+            "page": ""
+          }
+        },
+        "q3": {
+          "type": "collapsible_row",
+          "settings": {
+            "heading": "Puis-je personnaliser les couleurs ?",
+            "row_content": "<p>Oui ! Choisissez les couleurs des feuilles, des fleurs et le nombre de photos (1 à 5) directement sur la page produit.</p>",
+            "page": ""
+          }
+        },
+        "q4": {
+          "type": "collapsible_row",
+          "settings": {
+            "heading": "Quelle est votre politique de retour ?",
+            "row_content": "<p>Remboursement ou remplacement sous 30 jours pour tout article défectueux ou endommagé. Les produits personnalisés ne sont pas retournables sauf en cas de défaut.</p>",
+            "page": ""
+          }
+        }
+      },
+      "block_order": ["q1", "q2", "q3", "q4"],
+      "settings": {
+        "caption": "",
+        "heading": "Questions fréquentes",
+        "heading_size": "h1",
+        "heading_alignment": "center",
+        "layout": "none",
         "color_scheme": "scheme-1",
-        "full_width": false,
-        "show_view_all": true,
-        "view_all_style": "solid",
-        "enable_desktop_slider": false,
-        "swipe_on_mobile": false,
+        "container_color_scheme": "scheme-2",
+        "open_first_collapsible_row": false,
         "image_ratio": "adapt",
-        "image_shape": "default",
-        "show_secondary_image": true,
-        "show_vendor": false,
-        "show_rating": false,
-        "quick_add": "none",
-        "columns_mobile": "2",
-        "padding_top": 44,
+        "desktop_layout": "image_second",
+        "padding_top": 36,
         "padding_bottom": 36
+      }
+    },
+    "cta": {
+      "type": "lp-hawaiian-cta",
+      "settings": {
+        "heading": "Prêt à créer la vôtre ?",
+        "subheading": "Rejoignez des milliers de clients satisfaits. Personnalisez votre chemise hawaïenne dès maintenant.",
+        "button_label": "Personnaliser ma chemise →",
+        "button_link": "shopify://products/custom-photo-tropical-cat-hawaiian-shirt"
       }
     }
   },
-  "order": [
-    "image_banner",
-    "featured_collection"
-  ]
+  "order": ["hero", "trust", "benefits", "steps", "reviews", "faq", "cta"]
 }

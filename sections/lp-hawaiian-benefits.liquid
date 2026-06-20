@@ -1,0 +1,62 @@
+{{ 'section-lp-hawaiian.css' | asset_url | stylesheet_tag }}
+
+<section class="lp-hawaiian lp-hawaiian-benefits">
+  <div class="lp-hawaiian__wrap">
+    <div class="lp-hawaiian-benefits__head">
+      {%- if section.settings.heading != blank -%}
+        <h2 class="lp-hawaiian__title">{{ section.settings.heading | escape }}</h2>
+      {%- endif -%}
+      {%- if section.settings.subheading != blank -%}
+        <p class="lp-hawaiian__subtitle" style="margin-left:auto;margin-right:auto;text-align:center;">{{ section.settings.subheading | escape }}</p>
+      {%- endif -%}
+    </div>
+    <div class="lp-hawaiian-benefits__grid">
+      {%- for block in section.blocks -%}
+        <div class="lp-hawaiian-benefits__card" {{ block.shopify_attributes }}>
+          {%- if block.settings.icon != blank -%}
+            <div class="lp-hawaiian-benefits__icon">{{ block.settings.icon | escape }}</div>
+          {%- endif -%}
+          {%- if block.settings.title != blank -%}
+            <h3>{{ block.settings.title | escape }}</h3>
+          {%- endif -%}
+          {%- if block.settings.text != blank -%}
+            <p>{{ block.settings.text | escape }}</p>
+          {%- endif -%}
+        </div>
+      {%- endfor -%}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "LP Hawaiian — Avantages",
+  "tag": "section",
+  "class": "section",
+  "settings": [
+    { "type": "text", "id": "heading", "label": "Titre", "default": "Pourquoi nos clients adorent cette chemise" },
+    { "type": "textarea", "id": "subheading", "label": "Sous-titre", "default": "Qualité premium, personnalisation facile et un style tropical inoubliable." }
+  ],
+  "blocks": [
+    {
+      "type": "benefit",
+      "name": "Avantage",
+      "settings": [
+        { "type": "text", "id": "icon", "label": "Emoji / icône", "default": "🌺" },
+        { "type": "text", "id": "title", "label": "Titre", "default": "Impression haute qualité" },
+        { "type": "textarea", "id": "text", "label": "Description", "default": "Couleurs vives et détails nets qui résistent aux lavages." }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "LP Hawaiian — Avantages",
+      "blocks": [
+        { "type": "benefit", "settings": { "icon": "📸", "title": "Votre photo, votre style", "text": "Téléversez 1 à 5 photos et personnalisez feuilles, fleurs et couleurs." } },
+        { "type": "benefit", "settings": { "icon": "👕", "title": "Confort toute la journée", "text": "Tissu léger et respirant, parfait pour l'été et les vacances tropicales." } },
+        { "type": "benefit", "settings": { "icon": "🎁", "title": "Le cadeau idéal", "text": "Surprenez vos proches avec un présent unique qu'ils n'oublieront jamais." } }
+      ]
+    }
+  ]
+}
+{% endschema %}

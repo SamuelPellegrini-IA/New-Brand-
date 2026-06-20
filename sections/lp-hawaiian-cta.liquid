@@ -1,0 +1,30 @@
+{{ 'section-lp-hawaiian.css' | asset_url | stylesheet_tag }}
+
+<section class="lp-hawaiian lp-hawaiian-cta">
+  <div class="lp-hawaiian__wrap">
+    {%- if section.settings.heading != blank -%}
+      <h2 class="lp-hawaiian__title">{{ section.settings.heading | escape }}</h2>
+    {%- endif -%}
+    {%- if section.settings.subheading != blank -%}
+      <p class="lp-hawaiian__subtitle">{{ section.settings.subheading | escape }}</p>
+    {%- endif -%}
+    {%- if section.settings.button_label != blank -%}
+      <a href="{{ section.settings.button_link }}" class="lp-hawaiian__btn">{{ section.settings.button_label | escape }}</a>
+    {%- endif -%}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "LP Hawaiian — CTA final",
+  "tag": "section",
+  "class": "section",
+  "settings": [
+    { "type": "text", "id": "heading", "label": "Titre", "default": "Prêt à créer la vôtre ?" },
+    { "type": "textarea", "id": "subheading", "label": "Sous-titre", "default": "Rejoignez des milliers de clients satisfaits. Personnalisez votre chemise hawaïenne dès maintenant." },
+    { "type": "text", "id": "button_label", "label": "Bouton", "default": "Personnaliser ma chemise →" },
+    { "type": "url", "id": "button_link", "label": "Lien du bouton" }
+  ],
+  "presets": [{ "name": "LP Hawaiian — CTA final" }]
+}
+{% endschema %}

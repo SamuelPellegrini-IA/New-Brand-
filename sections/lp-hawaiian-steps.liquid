@@ -1,0 +1,65 @@
+{{ 'section-lp-hawaiian.css' | asset_url | stylesheet_tag }}
+
+<section class="lp-hawaiian lp-hawaiian-steps">
+  <div class="lp-hawaiian__wrap">
+    <div class="lp-hawaiian-steps__head">
+      {%- if section.settings.heading != blank -%}
+        <h2 class="lp-hawaiian__title">{{ section.settings.heading | escape }}</h2>
+      {%- endif -%}
+      {%- if section.settings.subheading != blank -%}
+        <p class="lp-hawaiian__subtitle" style="margin-left:auto;margin-right:auto;text-align:center;">{{ section.settings.subheading | escape }}</p>
+      {%- endif -%}
+    </div>
+    <div class="lp-hawaiian-steps__grid">
+      {%- for block in section.blocks -%}
+        <div class="lp-hawaiian-steps__item" {{ block.shopify_attributes }}>
+          {%- if block.settings.title != blank -%}
+            <h3>{{ block.settings.title | escape }}</h3>
+          {%- endif -%}
+          {%- if block.settings.text != blank -%}
+            <p>{{ block.settings.text | escape }}</p>
+          {%- endif -%}
+        </div>
+      {%- endfor -%}
+    </div>
+    {%- if section.settings.button_label != blank -%}
+      <div style="text-align:center;margin-top:3rem;">
+        <a href="{{ section.settings.button_link }}" class="lp-hawaiian__btn">{{ section.settings.button_label | escape }}</a>
+      </div>
+    {%- endif -%}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "LP Hawaiian — Étapes",
+  "tag": "section",
+  "class": "section",
+  "settings": [
+    { "type": "text", "id": "heading", "label": "Titre", "default": "Comment ça marche ?" },
+    { "type": "textarea", "id": "subheading", "label": "Sous-titre", "default": "3 étapes simples pour créer votre chemise hawaïenne personnalisée." },
+    { "type": "text", "id": "button_label", "label": "Bouton", "default": "Commencer ma personnalisation" },
+    { "type": "url", "id": "button_link", "label": "Lien du bouton" }
+  ],
+  "blocks": [
+    {
+      "type": "step",
+      "name": "Étape",
+      "settings": [
+        { "type": "text", "id": "title", "label": "Titre", "default": "Choisissez vos options" },
+        { "type": "textarea", "id": "text", "label": "Description", "default": "Sélectionnez la taille, le nombre de photos et les couleurs tropicales." }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "LP Hawaiian — Étapes",
+      "blocks": [
+        { "type": "step", "settings": { "title": "Personnalisez en ligne", "text": "Choisissez taille, couleurs des feuilles et fleurs, et le nombre de photos (1 à 5)." } },
+        { "type": "step", "settings": { "title": "Téléversez votre photo", "text": "Ajoutez la photo de votre chat (ou autre) et prévisualisez le résultat en direct." } },
+        { "type": "step", "settings": { "title": "Recevez votre chemise", "text": "Nous imprimons et expédions votre création unique sous 3 à 5 jours ouvrés." } }
+      ]
+    }
+  ]
+}
+{% endschema %}
