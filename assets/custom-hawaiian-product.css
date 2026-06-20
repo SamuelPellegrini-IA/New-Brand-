@@ -1,0 +1,571 @@
+/* Scoped to .custom-hawaiian-product-page only — custom Hawaiian shirt product template */
+
+.custom-hawaiian-product-page {
+  --hawaiian-green: #35c092;
+  --hawaiian-green-dark: #218f78;
+  --hawaiian-border: #e5e5e5;
+  --hawaiian-card-radius: 12px;
+  --hawaiian-swatch-size: 62px;
+  --hawaiian-number-swatch-size: 78px;
+}
+
+/* ── Desktop grid layout ── */
+@media screen and (min-width: 750px) {
+  .custom-hawaiian-product-page .product.product--hawaiian-layout {
+    display: grid;
+    grid-template-columns: 52% 48%;
+    gap: 28px;
+    align-items: start;
+    max-width: 1280px;
+    margin: 0 auto;
+  }
+
+  .custom-hawaiian-product-page .product.product--hawaiian-layout .product__media-wrapper,
+  .custom-hawaiian-product-page .product.product--hawaiian-layout .product__info-wrapper {
+    max-width: none;
+    width: 100%;
+    padding: 0;
+  }
+
+  .custom-hawaiian-product-page .product__media-wrapper {
+    position: sticky;
+    top: 20px;
+    z-index: 2;
+  }
+
+  .custom-hawaiian-product-page .product__info-container.product__column-sticky {
+    position: static;
+    top: auto;
+  }
+}
+
+/* ── Media gallery: vertical thumbnails left, main image right ── */
+@media screen and (min-width: 750px) {
+  .custom-hawaiian-product-page media-gallery {
+    display: flex;
+    flex-direction: row-reverse;
+    align-items: flex-start;
+    gap: 12px;
+  }
+
+  .custom-hawaiian-product-page media-gallery > slider-component:first-of-type {
+    flex: 1;
+    min-width: 0;
+  }
+
+  .custom-hawaiian-product-page media-gallery .thumbnail-slider {
+    flex: 0 0 64px;
+    width: 64px;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .custom-hawaiian-product-page media-gallery .thumbnail-slider .slider-button {
+    display: none;
+  }
+
+  .custom-hawaiian-product-page media-gallery .thumbnail-list,
+  .custom-hawaiian-product-page media-gallery .thumbnail-list.slider--tablet-up {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    gap: 10px;
+    padding: 0;
+    grid-template-columns: none;
+  }
+
+  .custom-hawaiian-product-page media-gallery .thumbnail-list__item.slider__slide {
+    width: 64px;
+    flex: 0 0 auto;
+  }
+
+  .custom-hawaiian-product-page .thumbnail-list__item::before {
+    padding-bottom: 100%;
+  }
+
+  .custom-hawaiian-product-page .thumbnail {
+    border-radius: 10px;
+    border: 1px solid #dddddd;
+    overflow: hidden;
+  }
+
+  .custom-hawaiian-product-page .thumbnail[aria-current] {
+    box-shadow: none;
+    border: 2px solid var(--hawaiian-green);
+  }
+
+  .custom-hawaiian-product-page .product__media-list .product__media-item {
+    width: 100%;
+  }
+
+  .custom-hawaiian-product-page .product-media-container,
+  .custom-hawaiian-product-page .product__media img,
+  .custom-hawaiian-product-page .deferred-media {
+    border-radius: var(--hawaiian-card-radius);
+    overflow: hidden;
+  }
+
+  .custom-hawaiian-product-page .global-media-settings {
+    border-radius: var(--hawaiian-card-radius);
+  }
+}
+
+/* Customily live preview in media column */
+.custom-hawaiian-product-page .hawaiian-live-preview-host {
+  width: 100%;
+}
+
+.custom-hawaiian-product-page .hawaiian-live-preview-host .canvas-wrapper,
+.custom-hawaiian-product-page .hawaiian-live-preview-host .sl-canvas-container,
+.custom-hawaiian-product-page .hawaiian-live-preview-host .cl-preview-wrapper,
+.custom-hawaiian-product-page .hawaiian-live-preview-host #customily-preview,
+.custom-hawaiian-product-page .hawaiian-live-preview-host .customily-preview {
+  width: 100% !important;
+  max-width: 100%;
+  border-radius: var(--hawaiian-card-radius);
+  overflow: hidden;
+}
+
+.custom-hawaiian-product-page .hawaiian-live-preview-host canvas,
+.custom-hawaiian-product-page .hawaiian-live-preview-host img {
+  border-radius: var(--hawaiian-card-radius);
+}
+
+/* Hide default gallery when Customily preview is active */
+.custom-hawaiian-product-page .product__media-wrapper.hawaiian-preview-active:has(.hawaiian-live-preview-host:not(:empty)) media-gallery {
+  display: none;
+}
+
+/* ── Product info header ── */
+.custom-hawaiian-product-page .product__title h1 {
+  font-size: clamp(1.5rem, 2.5vw, 1.85rem);
+  font-weight: 700;
+  color: #222;
+  margin-bottom: 0.35rem;
+  line-height: 1.25;
+}
+
+.custom-hawaiian-product-page .product__title a {
+  display: none;
+}
+
+.custom-hawaiian-product-page .price--large .price-item {
+  font-size: 1.35rem;
+  font-weight: 700;
+  color: #222;
+}
+
+/* ── Customily options card ── */
+.custom-hawaiian-product-page .hawaiian-options-card {
+  background: #ffffff;
+  border: 1px solid var(--hawaiian-border);
+  border-radius: var(--hawaiian-card-radius);
+  padding: 18px 20px;
+  margin: 16px 0 20px;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.04);
+}
+
+.custom-hawaiian-product-page #customily-options,
+.custom-hawaiian-product-page #cl_optionsapp {
+  background: transparent !important;
+  border: none !important;
+  padding: 0 !important;
+  margin: 0 !important;
+}
+
+.custom-hawaiian-product-page #customily-options:empty {
+  display: none;
+}
+
+/* Customily v3 CSS variables */
+.custom-hawaiian-product-page #customily-options {
+  --sl-swatch-width: var(--hawaiian-swatch-size);
+  --sl-swatch-height: var(--hawaiian-swatch-size);
+  --sl-swatch-br: 10px;
+  --sl-swatch-border: #dddddd;
+  --sl-swatch-border-active: var(--hawaiian-green);
+  --sl-button-color: var(--hawaiian-green-dark);
+  --sl-button-color-hover: #1a7a66;
+  --sl-button-br: 24px;
+}
+
+/* Option groups spacing */
+.custom-hawaiian-product-page #customily-options .sl-option-set,
+.custom-hawaiian-product-page #customily-options .customily_option,
+.custom-hawaiian-product-page #cl_optionsapp .customily_option {
+  margin-bottom: 24px;
+}
+
+.custom-hawaiian-product-page #customily-options .sl-option-set:last-child,
+.custom-hawaiian-product-page #customily-options .customily_option:last-child,
+.custom-hawaiian-product-page #cl_optionsapp .customily_option:last-child {
+  margin-bottom: 0;
+}
+
+/* Option labels */
+.custom-hawaiian-product-page #customily-options .sl-option-set-item_label,
+.custom-hawaiian-product-page #cl_optionsapp .customily_option label .option_name,
+.custom-hawaiian-product-page #cl_optionsapp .customily_option label .option_name span,
+.custom-hawaiian-product-page .option_title {
+  font-size: 16px !important;
+  font-weight: 700 !important;
+  color: #333333 !important;
+  margin-bottom: 10px !important;
+  display: block;
+}
+
+.custom-hawaiian-product-page .customily-required-label,
+.custom-hawaiian-product-page #customily-options .customily-required-label {
+  color: #e02020;
+}
+
+/* Swatches — Customily v3 */
+.custom-hawaiian-product-page #customily-options .sl-swatches .sl-swatch-item label {
+  background: #fff;
+  border: 1px solid #dddddd !important;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+  padding: 4px;
+  cursor: pointer;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.custom-hawaiian-product-page #customily-options .sl-swatches .sl-swatch-item label img {
+  object-fit: contain;
+  width: 100%;
+  height: 100%;
+}
+
+.custom-hawaiian-product-page #customily-options .sl-swatches .sl-swatch-item input:checked ~ label {
+  border: 3px solid var(--hawaiian-green) !important;
+}
+
+.custom-hawaiian-product-page #customily-options .sl-swatches .sl-swatch-item label .sl-icon {
+  display: none;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--hawaiian-green) !important;
+  border-bottom-right-radius: 8px;
+  width: 18px;
+  height: 18px;
+  bottom: 2px;
+  right: 2px;
+}
+
+.custom-hawaiian-product-page #customily-options .sl-swatches .sl-swatch-item input:checked ~ label .sl-icon {
+  display: flex;
+}
+
+.custom-hawaiian-product-page #customily-options .sl-swatches .sl-swatch-item label .sl-icon svg {
+  width: 10px;
+  height: 10px;
+  fill: #fff;
+  stroke: #fff;
+}
+
+/* Swatches — Customily legacy */
+.custom-hawaiian-product-page #cl_optionsapp .swatch-container label,
+.custom-hawaiian-product-page #cl_optionsapp .cl-color-picker label {
+  width: var(--hawaiian-swatch-size) !important;
+  height: var(--hawaiian-swatch-size) !important;
+  background: #fff !important;
+  border: 1px solid #dddddd !important;
+  border-radius: 10px !important;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+  padding: 4px !important;
+  cursor: pointer;
+  position: relative;
+  transition: border-color 0.2s ease;
+}
+
+.custom-hawaiian-product-page #cl_optionsapp .swatch-container label img,
+.custom-hawaiian-product-page #cl_optionsapp .cl-color-picker label img {
+  object-fit: contain;
+  width: 100%;
+  height: 100%;
+}
+
+.custom-hawaiian-product-page #cl_optionsapp .swatch-container input:checked ~ label,
+.custom-hawaiian-product-page #cl_optionsapp .cl-color-picker input:checked ~ label {
+  border: 3px solid var(--hawaiian-green) !important;
+}
+
+.custom-hawaiian-product-page #cl_optionsapp .swatch-container input:checked ~ label::before,
+.custom-hawaiian-product-page #cl_optionsapp .cl-color-picker input:checked ~ label::before {
+  content: '';
+  position: absolute;
+  right: 2px;
+  bottom: 2px;
+  width: 16px;
+  height: 16px;
+  background-color: var(--hawaiian-green);
+  border-bottom-right-radius: 8px;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 12' fill='none'%3E%3Cpath d='M2 6l3 3 5-5' stroke='%23fff' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 10px;
+  z-index: 2;
+}
+
+/* Number of Photos swatches */
+.custom-hawaiian-product-page .hawaiian-number-photos .sl-swatches .sl-swatch-item label,
+.custom-hawaiian-product-page .hawaiian-number-photos .swatch-container label {
+  width: var(--hawaiian-number-swatch-size) !important;
+  height: var(--hawaiian-number-swatch-size) !important;
+  display: flex !important;
+  align-items: center;
+  justify-content: center;
+  font-size: 46px;
+  font-weight: 800;
+  color: #333;
+  line-height: 1;
+}
+
+.custom-hawaiian-product-page .hawaiian-number-photos .sl-swatches .sl-swatch-item label img {
+  display: none;
+}
+
+/* Upload buttons */
+.custom-hawaiian-product-page #customily-options .sl-image-placeholder > label,
+.custom-hawaiian-product-page #customily-options .customily-file-input label,
+.custom-hawaiian-product-page .customily-download-button,
+.custom-hawaiian-product-page #cl_optionsapp .customily-upload-button {
+  background: var(--hawaiian-green-dark) !important;
+  color: #fff !important;
+  border: none !important;
+  border-radius: 24px !important;
+  padding: 14px 24px !important;
+  font-weight: 700 !important;
+  font-size: 15px !important;
+  box-shadow: 0 2px 8px rgba(33, 143, 120, 0.25);
+  cursor: pointer;
+  transition: background 0.2s ease, box-shadow 0.2s ease;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 48px;
+}
+
+.custom-hawaiian-product-page #customily-options .sl-image-placeholder > label:hover,
+.custom-hawaiian-product-page .customily-download-button:hover {
+  background: #1a7a66 !important;
+}
+
+.custom-hawaiian-product-page #customily-options .sl-image-placeholder > label > span {
+  color: #fff !important;
+}
+
+/* ── Gift box add-on ── */
+.custom-hawaiian-product-page .hawaiian-gift-box {
+  background: #ffffff;
+  border: 1px solid #dddddd;
+  border-radius: 10px;
+  padding: 14px;
+  margin-bottom: 20px;
+}
+
+.custom-hawaiian-product-page .hawaiian-gift-box__inner {
+  display: flex;
+  gap: 14px;
+  align-items: flex-start;
+}
+
+.custom-hawaiian-product-page .hawaiian-gift-box__image {
+  flex: 0 0 80px;
+  width: 80px;
+  height: 80px;
+  border-radius: 8px;
+  object-fit: cover;
+  background: #f5f5f5;
+  border: 1px solid #eee;
+}
+
+.custom-hawaiian-product-page .hawaiian-gift-box__image-placeholder {
+  flex: 0 0 80px;
+  width: 80px;
+  height: 80px;
+  border-radius: 8px;
+  background: #f0f0f0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 28px;
+}
+
+.custom-hawaiian-product-page .hawaiian-gift-box__title {
+  font-size: 15px;
+  font-weight: 700;
+  color: #333;
+  margin: 0 0 4px;
+}
+
+.custom-hawaiian-product-page .hawaiian-gift-box__price {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--hawaiian-green-dark);
+  margin: 0 0 4px;
+}
+
+.custom-hawaiian-product-page .hawaiian-gift-box__price s {
+  color: #999;
+  font-weight: 400;
+  margin-left: 4px;
+}
+
+.custom-hawaiian-product-page .hawaiian-gift-box__name {
+  font-size: 13px;
+  color: #666;
+  margin: 0 0 8px;
+}
+
+.custom-hawaiian-product-page .hawaiian-gift-box__actions {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.custom-hawaiian-product-page .hawaiian-gift-box__checkbox {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+  font-weight: 600;
+  color: #333;
+  cursor: pointer;
+}
+
+.custom-hawaiian-product-page .hawaiian-gift-box__checkbox input[type='checkbox'] {
+  width: 18px;
+  height: 18px;
+  accent-color: var(--hawaiian-green);
+  cursor: pointer;
+}
+
+.custom-hawaiian-product-page .hawaiian-gift-box__details-link {
+  font-size: 13px;
+  color: var(--hawaiian-green-dark);
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.custom-hawaiian-product-page .hawaiian-gift-box__details-link:hover {
+  text-decoration: underline;
+}
+
+/* ── Quantity selector ── */
+.custom-hawaiian-product-page .product-form__quantity {
+  margin-bottom: 16px;
+}
+
+.custom-hawaiian-product-page .product-form__quantity .quantity__label {
+  display: none;
+}
+
+.custom-hawaiian-product-page quantity-input.quantity {
+  display: inline-flex;
+  align-items: center;
+  border: 1px solid #dddddd;
+  border-radius: 999px;
+  overflow: hidden;
+  background: #fff;
+  min-width: 120px;
+}
+
+.custom-hawaiian-product-page .quantity__button {
+  width: 36px;
+  height: 36px;
+  flex-shrink: 0;
+  background: transparent;
+  border: none;
+}
+
+.custom-hawaiian-product-page .quantity__input {
+  width: 40px;
+  text-align: center;
+  border: none;
+  font-weight: 700;
+  font-size: 15px;
+  padding: 0;
+  background: transparent;
+}
+
+/* ── Add to cart ── */
+.custom-hawaiian-product-page .product-form__submit.button {
+  width: 100%;
+  border-radius: 10px;
+  padding: 16px 24px;
+  font-size: 17px;
+  font-weight: 700;
+  text-transform: none;
+  letter-spacing: 0;
+  min-height: 54px;
+  background: var(--hawaiian-green-dark);
+  color: #fff;
+  border: none;
+  box-shadow: 0 4px 12px rgba(33, 143, 120, 0.3);
+  transition: background 0.2s ease, transform 0.15s ease;
+}
+
+.custom-hawaiian-product-page .product-form__submit.button:hover {
+  background: #1a7a66;
+}
+
+.custom-hawaiian-product-page .product-form__buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.custom-hawaiian-product-page .shopify-payment-button {
+  margin-top: 8px;
+}
+
+/* Hide duplicate preview blocks in info column after JS move */
+.custom-hawaiian-product-page .hawaiian-preview-moved {
+  display: none !important;
+}
+
+/* ── Mobile ── */
+@media screen and (max-width: 749px) {
+  .custom-hawaiian-product-page .product__media-wrapper {
+    position: static;
+  }
+
+  .custom-hawaiian-product-page media-gallery {
+    display: block;
+  }
+
+  .custom-hawaiian-product-page .hawaiian-options-card {
+    padding: 16px;
+    margin: 12px 0 16px;
+  }
+
+  .custom-hawaiian-product-page #customily-options {
+    --sl-swatch-width: 56px;
+    --sl-swatch-height: 56px;
+  }
+
+  .custom-hawaiian-product-page {
+    --hawaiian-swatch-size: 56px;
+    --hawaiian-number-swatch-size: 68px;
+  }
+
+  .custom-hawaiian-product-page .hawaiian-number-photos .sl-swatches .sl-swatch-item label,
+  .custom-hawaiian-product-page .hawaiian-number-photos .swatch-container label {
+    font-size: 36px;
+  }
+
+  .custom-hawaiian-product-page #customily-options .sl-swatches,
+  .custom-hawaiian-product-page #cl_optionsapp .swatch-container {
+    gap: 8px;
+  }
+
+  .custom-hawaiian-product-page .product__info-wrapper {
+    overflow-x: hidden;
+  }
+
+  .custom-hawaiian-product-page .hawaiian-gift-box__inner {
+    flex-wrap: wrap;
+  }
+}

@@ -16,6 +16,17 @@
   {{ 'component-rating.css' | asset_url | stylesheet_tag }}
   {{ 'component-deferred-media.css' | asset_url | stylesheet_tag }}
 
+  {%- liquid
+    assign hawaiian_layout = false
+    if section.settings.layout_style == 'hawaiian_shirt'
+      assign hawaiian_layout = true
+    endif
+  -%}
+  {%- if hawaiian_layout -%}
+    {{ 'custom-hawaiian-product.css' | asset_url | stylesheet_tag }}
+    <script src="{{ 'custom-hawaiian-product.js' | asset_url }}" defer="defer"></script>
+  {%- endif -%}
+
   {% unless product.has_only_default_variant %}
     {{ 'component-product-variant-picker.css' | asset_url | stylesheet_tag }}
     {{ 'component-swatch-input.css' | asset_url | stylesheet_tag }}
@@ -74,15 +85,18 @@
 
   {% assign variant_images = product.images | where: 'attached_to_variant?', true | map: 'src' %}
   <product-component view-event-payload="{{ product | standard_event_data: 'view', context: 'page' | escape }}">
-    <div class="page-width">
-      <div class="product product--{{ section.settings.media_size }} product--{{ section.settings.media_position }} product--{{ section.settings.gallery_layout }} product--mobile-{{ section.settings.mobile_thumbnails }} grid grid--1-col {% if product.media.size > 0 %}grid--2-col-tablet{% else %}product--no-media{% endif %}">
-        <div class="grid__item product__media-wrapper">
+    <div class="page-width{% if hawaiian_layout %} custom-hawaiian-product-page{% endif %}">
+      <div class="product product--{{ section.settings.media_size }} product--{{ section.settings.media_position }} product--{{ section.settings.gallery_layout }} product--mobile-{{ section.settings.mobile_thumbnails }}{% if hawaiian_layout %} product--hawaiian-layout{% endif %} grid grid--1-col {% if product.media.size > 0 %}grid--2-col-tablet{% else %}product--no-media{% endif %}">
+        <div class="grid__item product__media-wrapper{% if hawaiian_layout %} product__media-wrapper--hawaiian{% endif %}">
+          {%- if hawaiian_layout -%}
+            <div class="hawaiian-live-preview-host" aria-label="Product live preview"></div>
+          {%- endif -%}
           {% render 'product-media-gallery', variant_images: variant_images %}
         </div>
         <div class="product__info-wrapper grid__item{% if settings.page_width > 1400 and section.settings.media_size == "small" %} product__info-wrapper--extra-padding{% endif %}{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}">
           <section
             id="ProductInfo-{{ section.id }}"
-            class="product__info-container{% if section.settings.enable_sticky_info %} product__column-sticky{% endif %}"
+            class="product__info-container{% if section.settings.enable_sticky_info and hawaiian_layout == false %} product__column-sticky{% endif %}"
           >
             {%- assign product_form_id = 'product-form-' | append: section.id -%}
 
@@ -210,6 +224,11 @@
                   </p>
                 {%- when 'custom_liquid' -%}
                   {{ block.settings.custom_liquid }}
+                {%- when 'hawaiian_gift_box' -%}
+                  {%- render 'hawaiian-gift-box-addon',
+                    block: block,
+                    product_form_id: product_form_id
+                  -%}
                 {%- when 'collapsible_tab' -%}
                   <div class="product__accordion accordion quick-add-hidden" {{ block.shopify_attributes }}>
                     <details id="Details-{{ block.id }}-{{ section.id }}">
@@ -970,6 +989,65 @@
           "id": "custom_liquid",
           "label": "t:sections.custom-liquid.settings.custom_liquid.label",
           "info": "t:sections.custom-liquid.settings.custom_liquid.info"
+        }
+      ]
+    },
+    {
+      "type": "hawaiian_gift_box",
+      "name": "Hawaiian gift box add-on",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Card title",
+          "default": "Gift Box For Hawaii Shirt"
+        },
+        {
+          "type": "text",
+          "id": "sale_price",
+          "label": "Sale price text",
+          "default": "Only $6.99"
+        },
+        {
+          "type": "text",
+          "id": "compare_price",
+          "label": "Compare at price text",
+          "default": "$12.99"
+        },
+        {
+          "type": "text",
+          "id": "product_name",
+          "label": "Product name",
+          "default": "Box For Hawaii Shirt"
+        },
+        {
+          "type": "text",
+          "id": "checkbox_label",
+          "label": "Checkbox label",
+          "default": "Choose to buy"
+        },
+        {
+          "type": "text",
+          "id": "details_link_text",
+          "label": "Details link text",
+          "default": "View details >"
+        },
+        {
+          "type": "url",
+          "id": "details_url",
+          "label": "Details link URL"
+        },
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Gift box image"
+        },
+        {
+          "type": "text",
+          "id": "gift_box_variant_id",
+          "label": "Gift box variant ID",
+          "info": "TODO: Set the Shopify variant ID for the gift box product once it exists."
         }
       ]
     },
@@ -2147,6 +2225,23 @@
     }
   ],
   "settings": [
+    {
+      "type": "select",
+      "id": "layout_style",
+      "label": "Layout style",
+      "info": "Use \"Hawaiian shirt (Customily)\" only on the dedicated custom Hawaiian shirt product template.",
+      "options": [
+        {
+          "value": "standard",
+          "label": "Standard"
+        },
+        {
+          "value": "hawaiian_shirt",
+          "label": "Hawaiian shirt (Customily)"
+        }
+      ],
+      "default": "standard"
+    },
     {
       "type": "checkbox",
       "id": "enable_sticky_info",
