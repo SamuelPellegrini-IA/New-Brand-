@@ -1,23 +1,31 @@
 {{ 'section-lp-hawaiian.css' | asset_url | stylesheet_tag }}
 
-<section class="lp-hawaiian lp-hawaiian-hero section-{{ section.id }}-padding">
+<section class="lp-hawaiian lp-hawaiian-hero">
   <div class="lp-hawaiian__wrap">
     <div class="lp-hawaiian-hero__grid">
       <div class="lp-hawaiian-hero__content">
+        {%- if section.settings.show_rating -%}
+          <div class="lp-hawaiian__rating">
+            <span class="lp-hawaiian__stars" aria-hidden="true">★★★★★</span>
+            <span>{{ section.settings.rating_text | escape }}</span>
+          </div>
+        {%- endif -%}
         {%- if section.settings.eyebrow != blank -%}
           <span class="lp-hawaiian__eyebrow">{{ section.settings.eyebrow | escape }}</span>
         {%- endif -%}
         {%- if section.settings.heading != blank -%}
-          <h1 class="lp-hawaiian__title">{{ section.settings.heading | escape }}</h1>
+          <h1 class="lp-hawaiian__title">{{ section.settings.heading }}</h1>
         {%- endif -%}
         {%- if section.settings.subheading != blank -%}
           <p class="lp-hawaiian__subtitle">{{ section.settings.subheading | escape }}</p>
         {%- endif -%}
-        {%- if section.settings.button_label != blank -%}
-          <a href="{{ section.settings.button_link }}" class="lp-hawaiian__btn">
-            {{ section.settings.button_label | escape }}
-          </a>
-        {%- endif -%}
+        <div class="lp-hawaiian-hero__actions">
+          {%- if section.settings.button_label != blank -%}
+            <a href="{{ section.settings.button_link }}" class="lp-hawaiian__btn">
+              {{ section.settings.button_label | escape }}
+            </a>
+          {%- endif -%}
+        </div>
         {%- if section.blocks.size > 0 -%}
           <div class="lp-hawaiian-hero__badges">
             {%- for block in section.blocks -%}
@@ -49,31 +57,24 @@
   "tag": "section",
   "class": "section",
   "settings": [
-    { "type": "text", "id": "eyebrow", "label": "Surtitre", "default": "Personnalisation photo" },
-    { "type": "text", "id": "heading", "label": "Titre", "default": "Votre chemise hawaïenne unique, avec votre chat" },
-    { "type": "textarea", "id": "subheading", "label": "Sous-titre", "default": "Téléversez votre photo et créez une chemise tropicale personnalisée — le cadeau parfait qui surprendra à coup sûr." },
-    { "type": "text", "id": "button_label", "label": "Bouton", "default": "Personnaliser ma chemise" },
+    { "type": "checkbox", "id": "show_rating", "label": "Afficher la note", "default": true },
+    { "type": "text", "id": "rating_text", "label": "Texte de la note", "default": "4,8/5 — plus de 40 avis clients" },
+    { "type": "text", "id": "eyebrow", "label": "Surtitre", "default": "Chemise hawaïenne personnalisée" },
+    { "type": "html", "id": "heading", "label": "Titre", "default": "Transformez la photo de votre chat en <em>chemise tropicale unique</em>" },
+    { "type": "textarea", "id": "subheading", "label": "Sous-titre", "default": "Téléversez 1 à 5 photos, choisissez vos couleurs de feuilles et de fleurs, et recevez une chemise hawaïenne made-to-order — le cadeau parfait pour les amoureux des chats." },
+    { "type": "text", "id": "button_label", "label": "Bouton", "default": "Créer ma chemise maintenant" },
     { "type": "url", "id": "button_link", "label": "Lien du bouton" },
-    { "type": "image_picker", "id": "image", "label": "Image hero" }
+    { "type": "image_picker", "id": "image", "label": "Image hero (chemise personnalisée)" }
   ],
   "blocks": [
     {
       "type": "badge",
       "name": "Badge confiance",
       "settings": [
-        { "type": "text", "id": "text", "label": "Texte", "default": "Livraison suivie" }
+        { "type": "text", "id": "text", "label": "Texte", "default": "Impression HD premium" }
       ]
     }
   ],
-  "presets": [
-    {
-      "name": "LP Hawaiian — Hero",
-      "blocks": [
-        { "type": "badge", "settings": { "text": "Impression HD premium" } },
-        { "type": "badge", "settings": { "text": "Livraison internationale" } },
-        { "type": "badge", "settings": { "text": "Satisfait ou remboursé 30 jours" } }
-      ]
-    }
-  ]
+  "presets": [{ "name": "LP Hawaiian — Hero" }]
 }
 {% endschema %}

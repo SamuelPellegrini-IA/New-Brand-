@@ -1,0 +1,64 @@
+{{ 'section-lp-hawaiian.css' | asset_url | stylesheet_tag }}
+
+<section class="lp-hawaiian lp-hawaiian-customize">
+  <div class="lp-hawaiian__wrap">
+    <div class="lp-hawaiian-customize__head">
+      {%- if section.settings.label != blank -%}
+        <p class="lp-hawaiian__section-label">{{ section.settings.label | escape }}</p>
+      {%- endif -%}
+      {%- if section.settings.heading != blank -%}
+        <h2 class="lp-hawaiian__title">{{ section.settings.heading | escape }}</h2>
+      {%- endif -%}
+      {%- if section.settings.subheading != blank -%}
+        <p class="lp-hawaiian__subtitle" style="margin:0 auto;text-align:center;">{{ section.settings.subheading | escape }}</p>
+      {%- endif -%}
+    </div>
+    <div class="lp-hawaiian-customize__grid">
+      {%- for block in section.blocks -%}
+        <div class="lp-hawaiian-customize__card" {{ block.shopify_attributes }}>
+          {%- if block.settings.icon != blank -%}
+            <div class="lp-hawaiian-customize__card-icon">{{ block.settings.icon | escape }}</div>
+          {%- endif -%}
+          {%- if block.settings.title != blank -%}
+            <h3>{{ block.settings.title | escape }}</h3>
+          {%- endif -%}
+          {%- if block.settings.text != blank -%}
+            <p>{{ block.settings.text | escape }}</p>
+          {%- endif -%}
+        </div>
+      {%- endfor -%}
+    </div>
+    {%- if section.settings.button_label != blank -%}
+      <div style="text-align:center;margin-top:3.5rem;">
+        <a href="{{ section.settings.button_link }}" class="lp-hawaiian__btn">{{ section.settings.button_label | escape }}</a>
+      </div>
+    {%- endif -%}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "LP Hawaiian — Personnalisation",
+  "tag": "section",
+  "class": "section",
+  "settings": [
+    { "type": "text", "id": "label", "label": "Label", "default": "100 % personnalisable" },
+    { "type": "text", "id": "heading", "label": "Titre", "default": "Créez votre design en quelques clics" },
+    { "type": "textarea", "id": "subheading", "label": "Sous-titre", "default": "Notre outil de personnalisation en ligne vous permet de voir le résultat en direct avant de commander." },
+    { "type": "text", "id": "button_label", "label": "Bouton", "default": "Lancer la personnalisation" },
+    { "type": "url", "id": "button_link", "label": "Lien du bouton" }
+  ],
+  "blocks": [
+    {
+      "type": "option",
+      "name": "Option",
+      "settings": [
+        { "type": "text", "id": "icon", "label": "Emoji", "default": "📸" },
+        { "type": "text", "id": "title", "label": "Titre", "default": "Vos photos" },
+        { "type": "textarea", "id": "text", "label": "Description", "default": "Ajoutez de 1 à 5 photos de votre chat ou animal préféré." }
+      ]
+    }
+  ],
+  "presets": [{ "name": "LP Hawaiian — Personnalisation" }]
+}
+{% endschema %}

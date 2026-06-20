@@ -1,0 +1,36 @@
+{{ 'section-lp-hawaiian.css' | asset_url | stylesheet_tag }}
+
+<section class="lp-hawaiian lp-hawaiian-gift">
+  <div class="lp-hawaiian__wrap">
+    <div class="lp-hawaiian-gift__inner">
+      <div class="lp-hawaiian-gift__icon">{{ section.settings.icon | escape }}</div>
+      <div>
+        {%- if section.settings.heading != blank -%}
+          <h2>{{ section.settings.heading | escape }}</h2>
+        {%- endif -%}
+        {%- if section.settings.text != blank -%}
+          <p>{{ section.settings.text | escape }}</p>
+        {%- endif -%}
+        {%- if section.settings.button_label != blank -%}
+          <a href="{{ section.settings.button_link }}" class="lp-hawaiian__btn">{{ section.settings.button_label | escape }}</a>
+        {%- endif -%}
+      </div>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "LP Hawaiian — Cadeau",
+  "tag": "section",
+  "class": "section",
+  "settings": [
+    { "type": "text", "id": "icon", "label": "Emoji", "default": "🎁" },
+    { "type": "text", "id": "heading", "label": "Titre", "default": "Le cadeau parfait pour un amateur de chats" },
+    { "type": "textarea", "id": "text", "label": "Texte", "default": "Anniversaire, fête des pères, Noël ou juste pour faire plaisir — une chemise hawaïenne avec la photo de son chat, c'est le cadeau dont tout le monde se souvient. Option coffret cadeau disponible sur la page produit." },
+    { "type": "text", "id": "button_label", "label": "Bouton", "default": "Offrir une chemise personnalisée" },
+    { "type": "url", "id": "button_link", "label": "Lien du bouton" }
+  ],
+  "presets": [{ "name": "LP Hawaiian — Cadeau" }]
+}
+{% endschema %}
