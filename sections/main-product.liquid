@@ -1130,16 +1130,67 @@
       "limit": 1,
       "settings": [
         {
-          "type": "text",
-          "id": "arrival_text",
-          "label": "Texte arrivée estimée",
-          "default": "Arrives Jul 04 - 07 if you order today. Hooray!"
+          "type": "header",
+          "content": "Calcul automatique des dates"
+        },
+        {
+          "type": "checkbox",
+          "id": "use_auto_dates",
+          "label": "Calculer les dates automatiquement",
+          "default": true,
+          "info": "Les dates se mettent à jour chaque jour selon les délais ci-dessous."
+        },
+        {
+          "type": "range",
+          "id": "processing_days_min",
+          "min": 0,
+          "max": 10,
+          "step": 1,
+          "label": "Production min. (jours ouvrés)",
+          "default": 2
+        },
+        {
+          "type": "range",
+          "id": "processing_days_max",
+          "min": 0,
+          "max": 14,
+          "step": 1,
+          "label": "Production max. (jours ouvrés)",
+          "default": 3
+        },
+        {
+          "type": "range",
+          "id": "shipping_days_min",
+          "min": 1,
+          "max": 30,
+          "step": 1,
+          "label": "Livraison min. (jours)",
+          "default": 12
+        },
+        {
+          "type": "range",
+          "id": "shipping_days_max",
+          "min": 1,
+          "max": 45,
+          "step": 1,
+          "label": "Livraison max. (jours)",
+          "default": 15
         },
         {
           "type": "text",
-          "id": "step1_date",
-          "label": "Étape 1 — date",
-          "default": "Jun 22"
+          "id": "arrival_message_before",
+          "label": "Texte avant les dates",
+          "default": "Arrives"
+        },
+        {
+          "type": "text",
+          "id": "arrival_message_after",
+          "label": "Texte après les dates",
+          "default": "if you order today. Hooray!"
+        },
+        {
+          "type": "header",
+          "content": "Libellés de la timeline"
         },
         {
           "type": "text",
@@ -1149,21 +1200,9 @@
         },
         {
           "type": "text",
-          "id": "step2_date",
-          "label": "Étape 2 — date",
-          "default": "Jun 24 - 25"
-        },
-        {
-          "type": "text",
           "id": "step2_label",
           "label": "Étape 2 — label",
           "default": "Order ships"
-        },
-        {
-          "type": "text",
-          "id": "step3_date",
-          "label": "Étape 3 — date",
-          "default": "Jul 04 - 07"
         },
         {
           "type": "text",
@@ -1176,6 +1215,34 @@
           "id": "disclaimer",
           "label": "Note bas de page",
           "default": "* The ETA is applied for US orders only. All products are made to order."
+        },
+        {
+          "type": "header",
+          "content": "Dates manuelles (si calcul auto désactivé)"
+        },
+        {
+          "type": "text",
+          "id": "arrival_text",
+          "label": "Texte arrivée complet (HTML autorisé pour gras)",
+          "default": "Arrives <strong>Jul 04 - 07</strong> if you order today. Hooray!"
+        },
+        {
+          "type": "text",
+          "id": "step1_date",
+          "label": "Étape 1 — date",
+          "default": "Jun 22"
+        },
+        {
+          "type": "text",
+          "id": "step2_date",
+          "label": "Étape 2 — date",
+          "default": "Jun 24 - 25"
+        },
+        {
+          "type": "text",
+          "id": "step3_date",
+          "label": "Étape 3 — date",
+          "default": "Jul 04 - 07"
         }
       ]
     },

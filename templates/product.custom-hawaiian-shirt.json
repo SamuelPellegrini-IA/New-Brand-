@@ -54,12 +54,15 @@
         "shipping_timeline": {
           "type": "hawaiian_shipping_timeline",
           "settings": {
-            "arrival_text": "Arrives Jul 04 - 07 if you order today. Hooray!",
-            "step1_date": "Jun 22",
+            "use_auto_dates": true,
+            "processing_days_min": 2,
+            "processing_days_max": 3,
+            "shipping_days_min": 12,
+            "shipping_days_max": 15,
+            "arrival_message_before": "Arrives",
+            "arrival_message_after": "if you order today. Hooray!",
             "step1_label": "Order placed",
-            "step2_date": "Jun 24 - 25",
             "step2_label": "Order ships",
-            "step3_date": "Jul 04 - 07",
             "step3_label": "Estimated arrival",
             "disclaimer": "* The ETA is applied for US orders only. All products are made to order."
           }

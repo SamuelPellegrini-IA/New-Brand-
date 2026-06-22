@@ -1,26 +1,104 @@
+{%- liquid
+  assign day_sec = 86400
+  assign now_ts = 'now' | date: '%s' | plus: 0
+
+  if block.settings.use_auto_dates
+    assign proc_min = block.settings.processing_days_min
+    assign proc_max = block.settings.processing_days_max
+    assign ship_min = block.settings.shipping_days_min
+    assign ship_max = block.settings.shipping_days_max
+
+    assign proc_min_sec = proc_min | times: day_sec
+    assign proc_max_sec = proc_max | times: day_sec
+    assign ship_min_sec = ship_min | times: day_sec
+    assign ship_max_sec = ship_max | times: day_sec
+
+    assign step1_date = now_ts | date: '%b %d'
+
+    assign step2_min_ts = now_ts | plus: proc_min_sec
+    assign step2_max_ts = now_ts | plus: proc_max_sec
+
+    assign arrival_min_ts = now_ts | plus: proc_min_sec | plus: ship_min_sec
+    assign arrival_max_ts = now_ts | plus: proc_max_sec | plus: ship_max_sec
+
+    assign step2_min_month = step2_min_ts | date: '%m'
+    assign step2_max_month = step2_max_ts | date: '%m'
+    assign step2_min_formatted = step2_min_ts | date: '%b %d'
+    if step2_min_month == step2_max_month
+      assign step2_max_day = step2_max_ts | date: '%d'
+      assign step2_date = step2_min_formatted | append: ' - ' | append: step2_max_day
+    else
+      assign step2_max_formatted = step2_max_ts | date: '%b %d'
+      assign step2_date = step2_min_formatted | append: ' - ' | append: step2_max_formatted
+    endif
+
+    assign arrival_min_month = arrival_min_ts | date: '%m'
+    assign arrival_max_month = arrival_max_ts | date: '%m'
+    assign arrival_min_formatted = arrival_min_ts | date: '%b %d'
+    if arrival_min_month == arrival_max_month
+      assign arrival_max_day = arrival_max_ts | date: '%d'
+      assign step3_date = arrival_min_formatted | append: ' - ' | append: arrival_max_day
+    else
+      assign arrival_max_formatted = arrival_max_ts | date: '%b %d'
+      assign step3_date = arrival_min_formatted | append: ' - ' | append: arrival_max_formatted
+    endif
+    assign arrival_range = step3_date
+
+    assign arrival_before = block.settings.arrival_message_before | default: 'Arrives'
+    assign arrival_after = block.settings.arrival_message_after | default: 'if you order today. Hooray!'
+    assign arrival_html = arrival_before | append: ' <strong>' | append: arrival_range | append: '</strong> ' | append: arrival_after
+  else
+    assign step1_date = block.settings.step1_date
+    assign step2_date = block.settings.step2_date
+    assign step3_date = block.settings.step3_date
+    assign arrival_html = block.settings.arrival_text
+  endif
+
+  assign step1_label = block.settings.step1_label | default: 'Order placed'
+  assign step2_label = block.settings.step2_label | default: 'Order ships'
+  assign step3_label = block.settings.step3_label | default: 'Estimated arrival'
+-%}
+
 <div class="gecko-shipping-timeline" {{ block.shopify_attributes }}>
-  {%- if block.settings.arrival_text != blank -%}
+  {%- if arrival_html != blank -%}
     <p class="gecko-shipping-timeline__headline">
-      <span class="gecko-shipping-timeline__truck" aria-hidden="true">🚚</span>
-      {{ block.settings.arrival_text | escape }}
+      <span class="gecko-shipping-timeline__truck" aria-hidden="true">
+        <svg xmlns="http://www.w3.org/2000/svg" width="22" height="16" viewBox="0 0 22 16" fill="none">
+          <path d="M0 1.5A1.5 1.5 0 0 1 1.5 0h11A1.5 1.5 0 0 1 14 1.5V2h3.2a1.5 1.5 0 0 1 1.2.6l2.3 3.1A1.5 1.5 0 0 1 21 6.7V12a1.5 1.5 0 0 1-1.5 1.5H19a2.5 2.5 0 1 1-5 0H8a2.5 2.5 0 1 1-5 0H1.5A1.5 1.5 0 0 1 0 12V1.5Zm14 2.5v5h4.3l-1.8-2.4H14V4ZM3 12a1 1 0 1 0 0 2 1 1 0 0 0 0-2Zm11 0a1 1 0 1 0 0 2 1 1 0 0 0 0-2Z" fill="currentColor"/>
+        </svg>
+      </span>
+      <span>{{ arrival_html }}</span>
     </p>
   {%- endif -%}
 
   <div class="gecko-shipping-timeline__track">
     <div class="gecko-shipping-timeline__step">
-      <span class="gecko-shipping-timeline__icon" aria-hidden="true">👆</span>
-      <strong>{{ block.settings.step1_date | escape }}</strong>
-      <span>{{ block.settings.step1_label | escape }}</span>
+      <span class="gecko-shipping-timeline__icon-wrap" aria-hidden="true">
+        <svg class="gecko-shipping-timeline__icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none">
+          <path d="M8 4.5V11l-2.2 2.2a1.2 1.2 0 0 0 0 1.7l.4.4a1.2 1.2 0 0 0 1.7 0L12 12.5V6.5l3.5-1.2 1.8 5.4 2.4-.8a1 1 0 0 1 1.2.7l.6 2.2a1 1 0 0 1-.7 1.2l-7.2 2.4a2 2 0 0 1-1.3 0L8 15.2" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </span>
+      <strong>{{ step1_date | escape }}</strong>
+      <span>{{ step1_label | escape }}</span>
     </div>
-    <div class="gecko-shipping-timeline__step gecko-shipping-timeline__step--active">
-      <span class="gecko-shipping-timeline__icon" aria-hidden="true">🚚</span>
-      <strong>{{ block.settings.step2_date | escape }}</strong>
-      <span>{{ block.settings.step2_label | escape }}</span>
+    <div class="gecko-shipping-timeline__step">
+      <span class="gecko-shipping-timeline__icon-wrap" aria-hidden="true">
+        <svg class="gecko-shipping-timeline__icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none">
+          <path d="M2 7h13v8H4.5L2 17V7Zm13 0 3 2.5V15h-3V7ZM6.5 17a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3Zm9 0a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3Z" fill="currentColor"/>
+        </svg>
+      </span>
+      <strong>{{ step2_date | escape }}</strong>
+      <span>{{ step2_label | escape }}</span>
     </div>
-    <div class="gecko-shipping-timeline__step gecko-shipping-timeline__step--active">
-      <span class="gecko-shipping-timeline__icon" aria-hidden="true">🎁</span>
-      <strong>{{ block.settings.step3_date | escape }}</strong>
-      <span>{{ block.settings.step3_label | escape }}</span>
+    <div class="gecko-shipping-timeline__step">
+      <span class="gecko-shipping-timeline__icon-wrap" aria-hidden="true">
+        <svg class="gecko-shipping-timeline__icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none">
+          <path d="M4 9h16v10H4V9Zm2-4h12v4H6V5Zm4 7v5M12 12v5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
+          <path d="M4 9 12 5l8 4" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/>
+        </svg>
+      </span>
+      <strong>{{ step3_date | escape }}</strong>
+      <span>{{ step3_label | escape }}</span>
     </div>
   </div>
 
