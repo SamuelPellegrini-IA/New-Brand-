@@ -591,6 +591,9 @@
   width: 100%;
   text-align: center;
   margin-top: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .custom-hawaiian-product-page .product-form {
@@ -791,8 +794,14 @@
 
 /* ── Payment trust ── */
 .custom-hawaiian-product-page .gecko-payment-trust {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
   text-align: center;
-  margin: 6px 0 0;
+  width: 100%;
+  max-width: 100%;
+  margin: 6px auto 0;
   padding: 0;
   border-top: none;
 }
@@ -826,13 +835,17 @@
 }
 
 .custom-hawaiian-product-page .gecko-payment-trust__icons {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
   margin: 0 auto;
   max-width: 100%;
 }
 
 .custom-hawaiian-product-page .gecko-payment-trust__icons-img {
-  max-width: 420px;
-  width: 100%;
+  max-width: min(420px, 100%);
+  width: auto;
   height: auto;
   margin: 0 auto;
   display: block;

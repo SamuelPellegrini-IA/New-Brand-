@@ -78,80 +78,6 @@
             "step3_label": "Estimated arrival",
             "disclaimer": "* The ETA is applied for US orders only. All products are made to order."
           }
-        },
-        "tab_details": {
-          "type": "collapsible_tab",
-          "settings": {
-            "heading": "Item details",
-            "icon": "none",
-            "content": "<p>Capture your furry friend's unique personality in a vibrant, custom photo tropical style <strong>cat Hawaii Shirt</strong>! Perfect for the cat lover in your life, it also makes a memorable summer or beach trip gift!</p><p><strong>Preview:</strong><br>- Choose an option and upload your photo.<br>- Click <strong>Preview Your Personalization</strong> to see the preview.<br>- Double-check your options before purchasing.</p><p><strong>Product Details:</strong></p><ul><li>Fabric: 100% polyester</li><li>Regular fit</li><li>Short sleeve, lapel collar, button closure</li><li>Fabric weight: 120g/m²</li><li>Care: machine wash cold, do not bleach, tumble dry low</li><li>Made on demand — no minimum order quantity</li></ul><p><strong>Processing Time:</strong> 3–5 business days<br><strong>Shipping Time:</strong> 10–15 business days</p>"
-          }
-        },
-        "tab_shipping": {
-          "type": "collapsible_tab",
-          "settings": {
-            "heading": "Shipping Info",
-            "icon": "none",
-            "content": "<ul><li>The above time frame is only applied for orders to the US with standard shipping methods.</li><li>International orders: It may take 2–5 days longer due to the customs clearance process.</li><li><strong>Orders can be cancelled or modified only within 2 hours after being placed.</strong></li><li>All products are made to order.</li></ul>"
-          }
-        },
-        "tab_guarantee": {
-          "type": "collapsible_tab",
-          "settings": {
-            "heading": "Satisfaction Guarantee",
-            "icon": "none",
-            "content": "<ul><li>Full-refund or replace a new item (no extra fee within 30 days since your purchase) for faulty, defective or damaged products.</li><li>Full-refund if the item is not as described.</li><li>We have 24/7/365 ticket and email support.</li></ul>"
-          }
-        },
-        "tab_deals": {
-          "type": "collapsible_tab",
-          "settings": {
-            "heading": "Hot Deals",
-            "icon": "none",
-            "content": "<p>Get ready for a shopping experience like no other! Explore our latest collection tailored for dog and cat lovers, camping enthusiasts, and families alike.</p><p><strong>Enjoy an exclusive 10% discount using code HOT10, combinable with other codes.</strong></p><p>🐶 <strong>For Dog &amp; Cat Lovers:</strong> Discover premium pet essentials and treats.</p><p>⛺ <strong>For Campers:</strong> Gear up with top-notch outdoor must-haves.</p><p>👨‍👩‍👧‍👦 <strong>For Families:</strong> Create lasting memories with unique keepsakes.</p>"
-          }
-        },
-        "r1": {
-          "type": "gecko_review",
-          "settings": {
-            "author": "Genevieve Dew",
-            "date": "06/18/2026",
-            "rating": 5,
-            "title": "The shirt is of good quality",
-            "content": "<p>The shirt I ordered for my hubby came out almost perfect. The color etc. the picture brought tears to his eyes.</p>",
-            "verified": true,
-            "verified_label": "Verified",
-            "thumbs_up": 8,
-            "thumbs_down": 0
-          }
-        },
-        "r2": {
-          "type": "gecko_review",
-          "settings": {
-            "author": "Customer Lucy",
-            "date": "06/15/2026",
-            "rating": 5,
-            "title": "50th Birthday Celebration Shirt",
-            "content": "<p>This shirt was a hit for my Fiancé! It was epic. Thank you!</p>",
-            "verified": true,
-            "verified_label": "Verified",
-            "thumbs_up": 12,
-            "thumbs_down": 0
-          }
-        },
-        "r3": {
-          "type": "gecko_review",
-          "settings": {
-            "author": "Kathleen",
-            "date": "06/10/2026",
-            "rating": 5,
-            "title": "Mens Hawaiian shirt",
-            "content": "<p>The shirt is nice quality and our 2 dogs photos are clear. I highly recommend.</p>",
-            "verified": true,
-            "verified_label": "Verified",
-            "thumbs_up": 5,
-            "thumbs_down": 0
-          }
         }
       },
       "block_order": [
@@ -163,14 +89,11 @@
         "quantity_selector",
         "buy_buttons",
         "payment_trust",
-        "shipping_timeline",
-        "r1",
-        "r2",
-        "r3"
+        "shipping_timeline"
       ],
       "settings": {
         "layout_style": "hawaiian_shirt",
-        "gecko_show_reviews": true,
+        "gecko_show_reviews": false,
         "gecko_reviews_heading": "Customer Reviews",
         "gecko_avg_rating": "4.89",
         "gecko_reviews_total": "Based on 5066 reviews",
@@ -204,7 +127,78 @@
         "padding_top": 24,
         "padding_bottom": 24
       }
+    },
+    "reviews": {
+      "type": "product-reviews-gecko",
+      "blocks": {
+        "r1": {
+          "type": "review",
+          "settings": {
+            "author": "Genevieve Dew",
+            "date": "06/18/2026",
+            "rating": 5,
+            "title": "The shirt is of good quality",
+            "content": "<p>The shirt I ordered for my hubby came out almost perfect. The color etc. the picture brought tears to his eyes.</p>",
+            "verified": true,
+            "verified_label": "Verified",
+            "thumbs_up": 8,
+            "thumbs_down": 0
+          }
+        },
+        "r2": {
+          "type": "review",
+          "settings": {
+            "author": "Customer Lucy",
+            "date": "06/15/2026",
+            "rating": 5,
+            "title": "50th Birthday Celebration Shirt",
+            "content": "<p>This shirt was a hit for my Fiancé! It was epic. Thank you!</p>",
+            "verified": true,
+            "verified_label": "Verified",
+            "thumbs_up": 12,
+            "thumbs_down": 0
+          }
+        },
+        "r3": {
+          "type": "review",
+          "settings": {
+            "author": "Kathleen",
+            "date": "06/10/2026",
+            "rating": 5,
+            "title": "Mens Hawaiian shirt",
+            "content": "<p>The shirt is nice quality and our 2 dogs photos are clear. I highly recommend.</p>",
+            "verified": true,
+            "verified_label": "Verified",
+            "thumbs_up": 5,
+            "thumbs_down": 0
+          }
+        }
+      },
+      "block_order": ["r1", "r2", "r3"],
+      "settings": {
+        "heading": "Customer Reviews",
+        "average_rating": "4.89",
+        "total_label": "Based on 5066 reviews",
+        "pct_5": 91,
+        "count_5": "4619",
+        "pct_4": 7,
+        "count_4": "357",
+        "pct_3": 2,
+        "count_3": "83",
+        "pct_2": 0,
+        "count_2": "4",
+        "pct_1": 0,
+        "count_1": "3",
+        "show_write_button": true,
+        "write_button_label": "Write a review",
+        "filter_label": "Pictures First",
+        "show_pagination": true,
+        "pagination_pages": 3,
+        "reviews_per_page": 3,
+        "padding_top": 40,
+        "padding_bottom": 48
+      }
     }
   },
-  "order": ["main"]
+  "order": ["main", "reviews"]
 }

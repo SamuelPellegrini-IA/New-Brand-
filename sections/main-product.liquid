@@ -257,6 +257,8 @@
                   -%}
                 {%- when 'hawaiian_product_rating' -%}
                   {%- render 'hawaiian-product-rating', block: block -%}
+                {%- when 'gecko_review' -%}
+                  {%- comment -%} Avis rendus dans la section « Avis clients Gecko » {%- endcomment -%}
                 {%- when 'hawaiian_preview_button' -%}
                   {%- comment -%} Bouton preview désactivé — Customily gère l'aperçu {%- endcomment -%}
                 {%- when 'hawaiian_payment_trust' -%}
@@ -817,8 +819,6 @@
     </div>
   </product-component>
 
-  {%- if hawaiian_layout -%}
-    {%- render 'gecko-reviews-panel', section: section -%}
   {%- endif -%}
 </product-info>
 
