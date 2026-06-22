@@ -2,7 +2,53 @@
   assign day_sec = 86400
   assign now_ts = 'now' | date: '%s' | plus: 0
 
-  if block.settings.use_auto_dates
+  if use_defaults
+    assign proc_min = 3
+    assign proc_max = 5
+    assign ship_min = 10
+    assign ship_max = 15
+    assign arrival_before = 'Arrives'
+    assign arrival_after = 'if you order today. Hooray!'
+    assign step1_label = 'Order placed'
+    assign step2_label = 'Order ships'
+    assign step3_label = 'Estimated arrival'
+    assign disclaimer_text = '* The ETA is applied for US orders only. All products are made to order.'
+
+    assign proc_min_sec = proc_min | times: day_sec
+    assign proc_max_sec = proc_max | times: day_sec
+    assign ship_min_sec = ship_min | times: day_sec
+    assign ship_max_sec = ship_max | times: day_sec
+
+    assign step1_date = now_ts | date: '%b %d'
+    assign step2_min_ts = now_ts | plus: proc_min_sec
+    assign step2_max_ts = now_ts | plus: proc_max_sec
+    assign arrival_min_ts = now_ts | plus: proc_min_sec | plus: ship_min_sec
+    assign arrival_max_ts = now_ts | plus: proc_max_sec | plus: ship_max_sec
+
+    assign step2_min_month = step2_min_ts | date: '%m'
+    assign step2_max_month = step2_max_ts | date: '%m'
+    assign step2_min_formatted = step2_min_ts | date: '%b %d'
+    if step2_min_month == step2_max_month
+      assign step2_max_day = step2_max_ts | date: '%d'
+      assign step2_date = step2_min_formatted | append: ' - ' | append: step2_max_day
+    else
+      assign step2_max_formatted = step2_max_ts | date: '%b %d'
+      assign step2_date = step2_min_formatted | append: ' - ' | append: step2_max_formatted
+    endif
+
+    assign arrival_min_month = arrival_min_ts | date: '%m'
+    assign arrival_max_month = arrival_max_ts | date: '%m'
+    assign arrival_min_formatted = arrival_min_ts | date: '%b %d'
+    if arrival_min_month == arrival_max_month
+      assign arrival_max_day = arrival_max_ts | date: '%d'
+      assign step3_date = arrival_min_formatted | append: ' - ' | append: arrival_max_day
+    else
+      assign arrival_max_formatted = arrival_max_ts | date: '%b %d'
+      assign step3_date = arrival_min_formatted | append: ' - ' | append: arrival_max_formatted
+    endif
+    assign arrival_range = step3_date
+    assign arrival_html = arrival_before | append: ' <strong>' | append: arrival_range | append: '</strong> ' | append: arrival_after
+  elsif block.settings.use_auto_dates
     assign proc_min = block.settings.processing_days_min
     assign proc_max = block.settings.processing_days_max
     assign ship_min = block.settings.shipping_days_min
@@ -54,12 +100,17 @@
     assign arrival_html = block.settings.arrival_text
   endif
 
-  assign step1_label = block.settings.step1_label | default: 'Order placed'
-  assign step2_label = block.settings.step2_label | default: 'Order ships'
-  assign step3_label = block.settings.step3_label | default: 'Estimated arrival'
+  unless use_defaults
+    if block != blank
+      assign step1_label = block.settings.step1_label | default: 'Order placed'
+      assign step2_label = block.settings.step2_label | default: 'Order ships'
+      assign step3_label = block.settings.step3_label | default: 'Estimated arrival'
+      assign disclaimer_text = block.settings.disclaimer
+    endif
+  endunless
 -%}
 
-<div class="gecko-shipping-timeline" {{ block.shopify_attributes }}>
+<div class="gecko-shipping-timeline"{% if block != blank %} {{ block.shopify_attributes }}{% endif %}>
   {%- if arrival_html != blank -%}
     <p class="gecko-shipping-timeline__headline">
       <span class="gecko-shipping-timeline__truck" aria-hidden="true">
@@ -102,7 +153,7 @@
     </div>
   </div>
 
-  {%- if block.settings.disclaimer != blank -%}
-    <p class="gecko-shipping-timeline__disclaimer">{{ block.settings.disclaimer | escape }}</p>
+  {%- if disclaimer_text != blank -%}
+    <p class="gecko-shipping-timeline__disclaimer">{{ disclaimer_text | escape }}</p>
   {%- endif -%}
 </div>

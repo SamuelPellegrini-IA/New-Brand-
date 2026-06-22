@@ -21,6 +21,14 @@
     if section.settings.layout_style == 'hawaiian_shirt'
       assign hawaiian_layout = true
     endif
+    unless hawaiian_layout
+      for layout_block in section.blocks
+        if layout_block.type == 'buy_buttons' and layout_block.settings.gecko_button_style
+          assign hawaiian_layout = true
+          break
+        endif
+      endfor
+    endunless
   -%}
   {%- if hawaiian_layout -%}
     {{ 'custom-hawaiian-product.css' | asset_url | stylesheet_tag }}
@@ -234,9 +242,13 @@
                 {%- when 'hawaiian_preview_button' -%}
                   {%- render 'hawaiian-preview-button', block: block -%}
                 {%- when 'hawaiian_payment_trust' -%}
-                  {%- render 'hawaiian-payment-trust', block: block -%}
+                  {%- unless hawaiian_layout -%}
+                    {%- render 'hawaiian-payment-trust', block: block -%}
+                  {%- endunless -%}
                 {%- when 'hawaiian_shipping_timeline' -%}
-                  {%- render 'hawaiian-shipping-timeline', block: block -%}
+                  {%- unless hawaiian_layout -%}
+                    {%- render 'hawaiian-shipping-timeline', block: block -%}
+                  {%- endunless -%}
                 {%- when 'collapsible_tab' -%}
                   <div class="product__accordion accordion quick-add-hidden" {{ block.shopify_attributes }}>
                     <details id="Details-{{ block.id }}-{{ section.id }}">
@@ -524,6 +536,8 @@
                     product: product,
                     product_form_id: product_form_id,
                     section_id: section.id,
+                    section: section,
+                    hawaiian_layout: hawaiian_layout,
                     show_pickup_availability: true
                   -%}
                 {%- when 'rating' -%}

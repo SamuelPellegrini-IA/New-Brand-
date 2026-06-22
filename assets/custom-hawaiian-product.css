@@ -619,6 +619,10 @@
   transform: none;
 }
 
+.custom-hawaiian-product-page .gecko-post-atc {
+  width: 100%;
+}
+
 .custom-hawaiian-product-page .product-form__buttons {
   display: flex;
   flex-direction: column;

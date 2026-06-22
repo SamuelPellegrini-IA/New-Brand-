@@ -1,0 +1,55 @@
+{%- liquid
+  assign payment_block = blank
+  assign shipping_block = blank
+
+  for post_block in section.blocks
+    if post_block.type == 'hawaiian_payment_trust'
+      assign payment_block = post_block
+    endif
+    if post_block.type == 'hawaiian_shipping_timeline'
+      assign shipping_block = post_block
+    endif
+  endfor
+-%}
+
+<div class="gecko-post-atc">
+  {%- if payment_block != blank -%}
+    {%- render 'hawaiian-payment-trust', block: payment_block -%}
+  {%- else -%}
+    <div class="gecko-payment-trust">
+      <p class="gecko-payment-trust__checkout">
+        <span class="gecko-payment-trust__shield gecko-payment-trust__shield--blue" aria-hidden="true">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
+            <path d="M8 1 2 3.5v4.2c0 3.1 2.5 5.5 6 6.8 3.5-1.3 6-3.7 6-6.8V3.5L8 1Z" fill="#1a8fd1"/>
+            <path d="m6.2 8.1 1.3 1.3 2.8-2.8" stroke="#fff" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </span>
+        Guaranteed safe &amp; secure checkout via:
+      </p>
+      <div class="gecko-payment-trust__icons">
+        <img
+          src="https://cdn.shopify.com/s/files/1/0703/7363/8402/files/gempages_491320059759690869-06c6bd7f-3ea0-465e-acbb-729b767ad902_2.webp?v=1782123204"
+          alt="Payment methods"
+          class="gecko-payment-trust__icons-img"
+          loading="lazy"
+          width="900"
+        >
+      </div>
+      <p class="gecko-payment-trust__secure">
+        <span class="gecko-payment-trust__shield gecko-payment-trust__shield--green" aria-hidden="true">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
+            <path d="M8 1 2 3.5v4.2c0 3.1 2.5 5.5 6 6.8 3.5-1.3 6-3.7 6-6.8V3.5L8 1Z" fill="#218f78"/>
+            <path d="m6.2 8.1 1.3 1.3 2.8-2.8" stroke="#fff" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </span>
+        Secure transaction
+      </p>
+    </div>
+  {%- endif -%}
+
+  {%- if shipping_block != blank -%}
+    {%- render 'hawaiian-shipping-timeline', block: shipping_block -%}
+  {%- else -%}
+    {%- render 'hawaiian-shipping-timeline', block: blank, use_defaults: true -%}
+  {%- endif -%}
+</div>

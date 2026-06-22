@@ -6,6 +6,8 @@
   - product_form_id: {String} product form id.
   - section_id: {String} id of section to which this snippet belongs.
   - show_pickup_availability: {Boolean} for the pickup availability. If true the pickup availability is rendered, false - not rendered (optional).
+  - section: {Object} parent section (optional, for Gecko post-ATC blocks).
+  - hawaiian_layout: {Boolean} Gecko Hawaiian layout flag (optional).
 
   Usage:
   {% render 'buy-buttons', block: block, product: product, product_form_id: product_form_id, section_id: section.id, show_pickup_availability: true %}
@@ -103,6 +105,10 @@
         </div>
       {%- endform -%}
     </product-form>
+
+    {%- if block.settings.gecko_button_style and section != blank -%}
+      {%- render 'hawaiian-post-atc', section: section -%}
+    {%- endif -%}
   {%- else -%}
     <div class="product-form">
       <div class="product-form__buttons form">
@@ -118,7 +124,7 @@
     </div>
   {%- endif -%}
 
-  {%- if show_pickup_availability -%}
+  {%- if show_pickup_availability and block.settings.gecko_button_style != true -%}
     {{ 'component-pickup-availability.css' | asset_url | stylesheet_tag }}
 
     {%- assign pick_up_availabilities = product.selected_or_first_available_variant.store_availabilities
