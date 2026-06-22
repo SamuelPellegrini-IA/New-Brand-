@@ -18,10 +18,11 @@
 
   {%- liquid
     assign hawaiian_layout = false
-    if section.settings.layout_style == 'hawaiian_shirt'
+    if template.suffix == 'new-lp-gecko' or template.suffix == 'gecko-hawaiian' or template.suffix == 'custom-hawaiian-shirt'
       assign hawaiian_layout = true
-    endif
-    unless hawaiian_layout
+    elsif section.settings.layout_style == 'hawaiian_shirt'
+      assign hawaiian_layout = true
+    else
       for layout_block in section.blocks
         if layout_block.type == 'buy_buttons' and layout_block.settings.gecko_button_style
           assign hawaiian_layout = true
@@ -32,7 +33,7 @@
           break
         endif
       endfor
-    endunless
+    endif
   -%}
   {%- if hawaiian_layout -%}
     {{ 'custom-hawaiian-product.css' | asset_url | stylesheet_tag }}
@@ -548,6 +549,9 @@
                     hawaiian_layout: hawaiian_layout,
                     show_pickup_availability: true
                   -%}
+                  {%- if hawaiian_layout -%}
+                    {%- render 'hawaiian-post-atc', section: section -%}
+                  {%- endif -%}
                 {%- when 'rating' -%}
                   {%- if product.metafields.reviews.rating.value != blank -%}
                     <div class="rating-wrapper">
