@@ -106,6 +106,35 @@
     });
   }
 
+  function initPreviewButton(root) {
+    root.querySelectorAll('[data-gecko-preview-trigger]').forEach(function (btn) {
+      if (btn.dataset.bound === 'true') return;
+      btn.dataset.bound = 'true';
+      btn.addEventListener('click', function () {
+        var selectors = [
+          '.customily-preview-button',
+          '.gecko-preview-btn',
+          '[data-customily-preview]',
+          '#customily-options .sl-preview-btn',
+          'button[class*="preview"]'
+        ];
+        var clicked = false;
+        selectors.forEach(function (sel) {
+          if (clicked) return;
+          var target = document.querySelector(sel);
+          if (target && !root.contains(target)) {
+            target.click();
+            clicked = true;
+          }
+        });
+        if (!clicked) {
+          var inPage = root.querySelector('.customily-preview-button, [class*="preview"]');
+          if (inPage) inPage.click();
+        }
+      });
+    });
+  }
+
   function enhance(root) {
     if (!root) return;
 
@@ -119,6 +148,7 @@
     fixLabelGrammar(root);
     tagNumberOfPhotosOption(root);
     normalizeUploadButtonText(root);
+    initPreviewButton(root);
   }
 
   function init() {

@@ -3,38 +3,22 @@
     "main": {
       "type": "main-product",
       "blocks": {
-        "title": {
-          "type": "title",
-          "settings": {}
-        },
-        "subtitle": {
-          "type": "text",
-          "settings": {
-            "text": "Personalize it with your own photo — a unique, made-to-order gift they will treasure.",
-            "text_style": "body"
-          }
-        },
-        "price": {
-          "type": "price",
-          "settings": {}
-        },
+        "title": { "type": "title", "settings": {} },
+        "price": { "type": "price", "settings": {} },
         "variant_picker": {
           "type": "variant_picker",
-          "settings": {
-            "picker_type": "button",
-            "swatch_shape": "square"
-          }
+          "settings": { "picker_type": "button", "swatch_shape": "square" }
         },
         "customily_personalizer": {
           "type": "custom_liquid",
           "settings": {
-            "custom_liquid": "<!-- In the theme editor: remove this block and add the Customily app block(s) here (Product Personalizer / options). Keep Live Preview if it renders separately — the layout script moves preview to the left column automatically. -->"
+            "custom_liquid": "<!-- Remplacez par le bloc app Customily (options + aperçu live) -->"
           }
         },
         "gift_box": {
           "type": "hawaiian_gift_box",
           "settings": {
-            "title": "Gift Box For Hawaii Shirt",
+            "header_title": "Gift Box For Hawaii Shirt",
             "sale_price": "Only $6.99",
             "compare_price": "$12.99",
             "product_name": "Box For Hawaii Shirt",
@@ -44,32 +28,88 @@
             "gift_box_variant_id": ""
           }
         },
-        "quantity_selector": {
-          "type": "quantity_selector",
-          "settings": {}
+        "quantity_selector": { "type": "quantity_selector", "settings": {} },
+        "preview_button": {
+          "type": "hawaiian_preview_button",
+          "settings": { "button_label": "Preview Your Personalization" }
         },
         "buy_buttons": {
           "type": "buy_buttons",
           "settings": {
             "show_dynamic_checkout": false,
-            "show_gift_card_recipient": false
+            "show_gift_card_recipient": false,
+            "gecko_button_style": true,
+            "gecko_atc_label": "ADD TO CART"
           }
         },
-        "description": {
-          "type": "description",
-          "settings": {}
+        "payment_trust": {
+          "type": "hawaiian_payment_trust",
+          "settings": {
+            "checkout_text": "Guaranteed safe & secure checkout via:",
+            "secure_text": "Secure transaction"
+          }
+        },
+        "shipping_timeline": {
+          "type": "hawaiian_shipping_timeline",
+          "settings": {
+            "arrival_text": "Arrives Jul 04 - 07 if you order today. Hooray!",
+            "step1_date": "Jun 22",
+            "step1_label": "Order placed",
+            "step2_date": "Jun 24 - 25",
+            "step2_label": "Order ships",
+            "step3_date": "Jul 04 - 07",
+            "step3_label": "Estimated arrival",
+            "disclaimer": "* The ETA is applied for US orders only. All products are made to order."
+          }
+        },
+        "tab_details": {
+          "type": "collapsible_tab",
+          "settings": {
+            "heading": "Item details",
+            "icon": "none",
+            "content": "<p>Custom Photo Tropical Cat Hawaiian Shirt — premium all-over print, lightweight breathable fabric, unisex fit. Each shirt is made to order with your personalized photo and chosen tropical colors.</p>"
+          }
+        },
+        "tab_shipping": {
+          "type": "collapsible_tab",
+          "settings": {
+            "heading": "Shipping Info",
+            "icon": "none",
+            "content": "<p>Processing time: 3–5 business days. International shipping: 10–15 business days with tracking. All products are made to order.</p>"
+          }
+        },
+        "tab_guarantee": {
+          "type": "collapsible_tab",
+          "settings": {
+            "heading": "Satisfaction Guarantee",
+            "icon": "none",
+            "content": "<p>Full refund or replacement within 30 days for any faulty, defective or damaged item. Personalized items are non-returnable unless defective.</p>"
+          }
+        },
+        "tab_deals": {
+          "type": "collapsible_tab",
+          "settings": {
+            "heading": "Hot Deals",
+            "icon": "none",
+            "content": "<p>Bundle and save — add a gift box for only $6.99 (regularly $12.99). Perfect for birthdays and holidays!</p>"
+          }
         }
       },
       "block_order": [
         "title",
-        "subtitle",
         "price",
         "variant_picker",
         "customily_personalizer",
         "gift_box",
         "quantity_selector",
+        "preview_button",
         "buy_buttons",
-        "description"
+        "payment_trust",
+        "shipping_timeline",
+        "tab_details",
+        "tab_shipping",
+        "tab_guarantee",
+        "tab_deals"
       ],
       "settings": {
         "layout_style": "hawaiian_shirt",
@@ -85,27 +125,81 @@
         "hide_variants": true,
         "enable_video_looping": false,
         "padding_top": 24,
-        "padding_bottom": 36
+        "padding_bottom": 24
       }
     },
-    "related-products": {
-      "type": "related-products",
+    "reviews": {
+      "type": "product-reviews-gecko",
+      "blocks": {
+        "r1": {
+          "type": "review",
+          "settings": {
+            "author": "David E.",
+            "date": "06/08/2026",
+            "rating": 5,
+            "title": "The shirt is of good quality",
+            "content": "<p>It is rare to find a company that delivers exactly what you ordered. It arrived in a timely manner and was exactly as pictured.</p>",
+            "verified": true,
+            "verified_label": "Verified",
+            "thumbs_up": 3,
+            "thumbs_down": 0
+          }
+        },
+        "r2": {
+          "type": "review",
+          "settings": {
+            "author": "Liz C.",
+            "date": "06/05/2026",
+            "rating": 5,
+            "title": "Amazing gift!",
+            "content": "<p>This exceeded all my expectations! Good quality, fits well and the print is better than I expected. My husband loves his cat on the shirt!</p>",
+            "verified": true,
+            "verified_label": "Verified",
+            "thumbs_up": 5,
+            "thumbs_down": 0
+          }
+        },
+        "r3": {
+          "type": "review",
+          "settings": {
+            "author": "V. Arnold",
+            "date": "05/28/2026",
+            "rating": 4,
+            "title": "Love it",
+            "content": "<p>Wonderful. My only suggestion is to order your normal size. Beautiful work on the tropical print.</p>",
+            "verified": true,
+            "verified_label": "Verified",
+            "thumbs_up": 2,
+            "thumbs_down": 0
+          }
+        }
+      },
+      "block_order": ["r1", "r2", "r3"],
       "settings": {
-        "heading": "You may also like",
-        "heading_size": "h2",
-        "products_to_show": 4,
-        "columns_desktop": 4,
-        "columns_mobile": "2",
-        "color_scheme": "scheme-1",
-        "image_ratio": "square",
-        "image_shape": "default",
-        "show_secondary_image": true,
-        "show_vendor": false,
-        "show_rating": false,
-        "padding_top": 36,
-        "padding_bottom": 28
+        "heading": "At GeckoCustom We Fight Fake Reviews!",
+        "average_rating": "4.89",
+        "total_label": "Based on 5066 reviews",
+        "pct_5": 91,
+        "count_5": "4619",
+        "pct_4": 6,
+        "count_4": "300",
+        "pct_3": 2,
+        "count_3": "100",
+        "pct_2": 1,
+        "count_2": "30",
+        "pct_1": 0,
+        "count_1": "17",
+        "show_write_button": true,
+        "write_button_label": "Write a review",
+        "write_button_link": "",
+        "filter_label": "Pictures First",
+        "show_pagination": true,
+        "pagination_pages": 3,
+        "reviews_per_page": 3,
+        "padding_top": 48,
+        "padding_bottom": 48
       }
     }
   },
-  "order": ["main", "related-products"]
+  "order": ["main", "reviews"]
 }

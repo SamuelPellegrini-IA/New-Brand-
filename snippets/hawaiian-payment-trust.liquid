@@ -1,0 +1,29 @@
+<div class="gecko-payment-trust" {{ block.shopify_attributes }}>
+  {%- if block.settings.checkout_text != blank -%}
+    <p class="gecko-payment-trust__checkout">
+      <span class="gecko-payment-trust__shield gecko-payment-trust__shield--blue" aria-hidden="true">🛡</span>
+      {{ block.settings.checkout_text | escape }}
+    </p>
+  {%- endif -%}
+
+  <div class="gecko-payment-trust__icons">
+    {%- if block.settings.payment_icons_image != blank -%}
+      {{
+        block.settings.payment_icons_image
+        | image_url: width: 600
+        | image_tag: loading: 'lazy', alt: block.settings.payment_icons_alt, class: 'gecko-payment-trust__icons-img'
+      }}
+    {%- else -%}
+      <div class="gecko-payment-trust__icons-fallback" aria-hidden="true">
+        <span>PayPal</span><span>VISA</span><span>Apple Pay</span><span>Mastercard</span><span>Amex</span>
+      </div>
+    {%- endif -%}
+  </div>
+
+  {%- if block.settings.secure_text != blank -%}
+    <p class="gecko-payment-trust__secure">
+      <span class="gecko-payment-trust__shield gecko-payment-trust__shield--green" aria-hidden="true">🛡</span>
+      {{ block.settings.secure_text | escape }}
+    </p>
+  {%- endif -%}
+</div>

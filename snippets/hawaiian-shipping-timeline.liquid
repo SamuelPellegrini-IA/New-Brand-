@@ -1,0 +1,30 @@
+<div class="gecko-shipping-timeline" {{ block.shopify_attributes }}>
+  {%- if block.settings.arrival_text != blank -%}
+    <p class="gecko-shipping-timeline__headline">
+      <span class="gecko-shipping-timeline__truck" aria-hidden="true">🚚</span>
+      {{ block.settings.arrival_text | escape }}
+    </p>
+  {%- endif -%}
+
+  <div class="gecko-shipping-timeline__track">
+    <div class="gecko-shipping-timeline__step">
+      <span class="gecko-shipping-timeline__icon" aria-hidden="true">👆</span>
+      <strong>{{ block.settings.step1_date | escape }}</strong>
+      <span>{{ block.settings.step1_label | escape }}</span>
+    </div>
+    <div class="gecko-shipping-timeline__step gecko-shipping-timeline__step--active">
+      <span class="gecko-shipping-timeline__icon" aria-hidden="true">🚚</span>
+      <strong>{{ block.settings.step2_date | escape }}</strong>
+      <span>{{ block.settings.step2_label | escape }}</span>
+    </div>
+    <div class="gecko-shipping-timeline__step gecko-shipping-timeline__step--active">
+      <span class="gecko-shipping-timeline__icon" aria-hidden="true">🎁</span>
+      <strong>{{ block.settings.step3_date | escape }}</strong>
+      <span>{{ block.settings.step3_label | escape }}</span>
+    </div>
+  </div>
+
+  {%- if block.settings.disclaimer != blank -%}
+    <p class="gecko-shipping-timeline__disclaimer">{{ block.settings.disclaimer | escape }}</p>
+  {%- endif -%}
+</div>

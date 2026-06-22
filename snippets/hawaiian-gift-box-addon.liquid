@@ -1,57 +1,51 @@
 {% comment %}
-  Gift box add-on UI for the custom Hawaiian shirt product page.
-
-  TODO: Connect to the actual gift box product in Shopify:
-  1. Create or locate the "Box For Hawaii Shirt" product in Shopify admin.
-  2. Set `gift_box_variant_id` in the block settings to that variant ID.
-  3. Wire the checkbox change handler in custom-hawaiian-product.js to add/remove
-     the gift box line item via cart API or a hidden line item property on add-to-cart.
-  4. Replace the placeholder image with the gift box product image via block settings.
+  Gift box add-on — style Gecko.
+  TODO: Connect gift_box_variant_id when the gift box product exists in Shopify.
 {% endcomment %}
 
-<div class="hawaiian-gift-box" data-hawaiian-gift-box {{ block.shopify_attributes }}>
-  <div class="hawaiian-gift-box__inner">
-    {%- if block.settings.image != blank -%}
-      {{
-        block.settings.image
-        | image_url: width: 160
-        | image_tag: class: 'hawaiian-gift-box__image', loading: 'lazy', alt: block.settings.product_name
-      }}
-    {%- else -%}
-      <div class="hawaiian-gift-box__image-placeholder" aria-hidden="true">🎁</div>
-    {%- endif -%}
-
-    <div class="hawaiian-gift-box__content">
-      <h3 class="hawaiian-gift-box__title">{{ block.settings.title | escape }}</h3>
-      <p class="hawaiian-gift-box__price">
-        {{ block.settings.sale_price | escape }}
+<div class="gecko-gift-box" data-hawaiian-gift-box {{ block.shopify_attributes }}>
+  {%- if block.settings.header_title != blank -%}
+    <div class="gecko-gift-box__header">{{ block.settings.header_title | escape }}</div>
+  {%- endif -%}
+  <div class="gecko-gift-box__body">
+    <div class="gecko-gift-box__left">
+      {%- if block.settings.image != blank -%}
+        {{
+          block.settings.image
+          | image_url: width: 200
+          | image_tag: class: 'gecko-gift-box__image', loading: 'lazy', alt: block.settings.product_name
+        }}
+      {%- else -%}
+        <div class="gecko-gift-box__image gecko-gift-box__image--placeholder" aria-hidden="true">📦</div>
+      {%- endif -%}
+      {%- if block.settings.details_url != blank -%}
+        <a href="{{ block.settings.details_url }}" class="gecko-gift-box__details-link">{{ block.settings.details_link_text | escape }}</a>
+      {%- elsif block.settings.details_link_text != blank -%}
+        <span class="gecko-gift-box__details-link">{{ block.settings.details_link_text | escape }}</span>
+      {%- endif -%}
+    </div>
+    <div class="gecko-gift-box__right">
+      <p class="gecko-gift-box__price">
+        <span class="gecko-gift-box__price-sale">{{ block.settings.sale_price | escape }}</span>
         {%- if block.settings.compare_price != blank -%}
-          <s>{{ block.settings.compare_price | escape }}</s>
+          <span class="gecko-gift-box__price-compare">{{ block.settings.compare_price | escape }}</span>
         {%- endif -%}
       </p>
-      <p class="hawaiian-gift-box__name">{{ block.settings.product_name | escape }}</p>
-
-      <div class="hawaiian-gift-box__actions">
-        <label class="hawaiian-gift-box__checkbox">
-          <input
-            type="checkbox"
-            name="properties[Gift Box]"
-            value="{{ block.settings.product_name | escape }}"
-            data-gift-box-checkbox
-            data-gift-box-variant-id="{{ block.settings.gift_box_variant_id }}"
-            form="{{ product_form_id }}"
-          >
-          <span>{{ block.settings.checkbox_label | escape }}</span>
-        </label>
-
-        {%- if block.settings.details_url != blank -%}
-          <a href="{{ block.settings.details_url }}" class="hawaiian-gift-box__details-link">
-            {{ block.settings.details_link_text | escape }}
-          </a>
-        {%- else -%}
-          <span class="hawaiian-gift-box__details-link">View details &gt;</span>
-        {%- endif -%}
-      </div>
+      {%- if block.settings.product_name != blank -%}
+        <p class="gecko-gift-box__name">{{ block.settings.product_name | escape }}</p>
+      {%- endif -%}
+      <label class="gecko-gift-box__checkbox">
+        <input
+          type="checkbox"
+          name="properties[Gift Box]"
+          value="{{ block.settings.product_name | escape }}"
+          data-gift-box-checkbox
+          data-gift-box-variant-id="{{ block.settings.gift_box_variant_id }}"
+          form="{{ product_form_id }}"
+        >
+        <span class="gecko-gift-box__checkmark" aria-hidden="true"></span>
+        <span>{{ block.settings.checkbox_label | escape }}</span>
+      </label>
     </div>
   </div>
 </div>

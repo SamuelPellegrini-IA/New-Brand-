@@ -229,6 +229,12 @@
                     block: block,
                     product_form_id: product_form_id
                   -%}
+                {%- when 'hawaiian_preview_button' -%}
+                  {%- render 'hawaiian-preview-button', block: block -%}
+                {%- when 'hawaiian_payment_trust' -%}
+                  {%- render 'hawaiian-payment-trust', block: block -%}
+                {%- when 'hawaiian_shipping_timeline' -%}
+                  {%- render 'hawaiian-shipping-timeline', block: block -%}
                 {%- when 'collapsible_tab' -%}
                   <div class="product__accordion accordion quick-add-hidden" {{ block.shopify_attributes }}>
                     <details id="Details-{{ block.id }}-{{ section.id }}">
@@ -959,6 +965,18 @@
           "default": true,
           "label": "t:sections.main-product.blocks.buy_buttons.settings.show_gift_card_recipient.label",
           "info": "t:sections.main-product.blocks.buy_buttons.settings.show_gift_card_recipient.info"
+        },
+        {
+          "type": "checkbox",
+          "id": "gecko_button_style",
+          "label": "Style bouton Gecko (gradient orange)",
+          "default": false
+        },
+        {
+          "type": "text",
+          "id": "gecko_atc_label",
+          "label": "Texte bouton ATC personnalisé",
+          "default": "ADD TO CART"
         }
       ]
     },
@@ -999,8 +1017,14 @@
       "settings": [
         {
           "type": "text",
+          "id": "header_title",
+          "label": "Titre bandeau",
+          "default": "Gift Box For Hawaii Shirt"
+        },
+        {
+          "type": "text",
           "id": "title",
-          "label": "Card title",
+          "label": "Titre interne (legacy)",
           "default": "Gift Box For Hawaii Shirt"
         },
         {
@@ -1048,6 +1072,104 @@
           "id": "gift_box_variant_id",
           "label": "Gift box variant ID",
           "info": "TODO: Set the Shopify variant ID for the gift box product once it exists."
+        }
+      ]
+    },
+    {
+      "type": "hawaiian_preview_button",
+      "name": "Bouton aperçu personnalisation",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "text",
+          "id": "button_label",
+          "label": "Texte du bouton",
+          "default": "Preview Your Personalization"
+        }
+      ]
+    },
+    {
+      "type": "hawaiian_payment_trust",
+      "name": "Badges paiement & confiance",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "text",
+          "id": "checkout_text",
+          "label": "Texte checkout sécurisé",
+          "default": "Guaranteed safe & secure checkout via:"
+        },
+        {
+          "type": "image_picker",
+          "id": "payment_icons_image",
+          "label": "Image icônes paiement"
+        },
+        {
+          "type": "text",
+          "id": "payment_icons_alt",
+          "label": "Texte alternatif icônes",
+          "default": "Payment methods"
+        },
+        {
+          "type": "text",
+          "id": "secure_text",
+          "label": "Texte transaction sécurisée",
+          "default": "Secure transaction"
+        }
+      ]
+    },
+    {
+      "type": "hawaiian_shipping_timeline",
+      "name": "Timeline livraison",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "text",
+          "id": "arrival_text",
+          "label": "Texte arrivée estimée",
+          "default": "Arrives Jul 04 - 07 if you order today. Hooray!"
+        },
+        {
+          "type": "text",
+          "id": "step1_date",
+          "label": "Étape 1 — date",
+          "default": "Jun 22"
+        },
+        {
+          "type": "text",
+          "id": "step1_label",
+          "label": "Étape 1 — label",
+          "default": "Order placed"
+        },
+        {
+          "type": "text",
+          "id": "step2_date",
+          "label": "Étape 2 — date",
+          "default": "Jun 24 - 25"
+        },
+        {
+          "type": "text",
+          "id": "step2_label",
+          "label": "Étape 2 — label",
+          "default": "Order ships"
+        },
+        {
+          "type": "text",
+          "id": "step3_date",
+          "label": "Étape 3 — date",
+          "default": "Jul 04 - 07"
+        },
+        {
+          "type": "text",
+          "id": "step3_label",
+          "label": "Étape 3 — label",
+          "default": "Estimated arrival"
+        },
+        {
+          "type": "text",
+          "id": "disclaimer",
+          "label": "Note bas de page",
+          "default": "* The ETA is applied for US orders only. All products are made to order."
         }
       ]
     },
