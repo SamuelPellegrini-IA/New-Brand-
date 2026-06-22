@@ -1,0 +1,18 @@
+{%- liquid
+  assign rating_value = block.settings.rating_value | default: 4.9
+  assign rating_pct = rating_value | times: 20
+  assign reviews_link = block.settings.reviews_link
+  if reviews_link == blank
+    assign reviews_link = '#customer-reviews'
+  endif
+-%}
+
+<div class="gecko-product-rating" {{ block.shopify_attributes }}>
+  <a href="{{ reviews_link }}" class="gecko-product-rating__link">
+    <span class="gecko-product-rating__stars" style="--rating-pct: {{ rating_pct }}%;" aria-hidden="true"></span>
+    <span class="gecko-product-rating__count">
+      {{- block.settings.review_count | escape }}
+      {{ block.settings.review_label | default: 'reviews' | escape -}}
+    </span>
+  </a>
+</div>

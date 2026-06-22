@@ -44,4 +44,11 @@
       {{ block.settings.secure_text | escape }}
     </p>
   {%- endif -%}
+
+  {%- if block.settings.learn_more_text != blank -%}
+    <details class="gecko-payment-trust__learn-more">
+      <summary>{{ block.settings.learn_more_label | default: 'Learn more' | escape }}</summary>
+      <div class="gecko-payment-trust__learn-more-content rte">{{ block.settings.learn_more_text }}</div>
+    </details>
+  {%- endif -%}
 </div>

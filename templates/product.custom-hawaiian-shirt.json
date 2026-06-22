@@ -4,15 +4,20 @@
       "type": "main-product",
       "blocks": {
         "title": { "type": "title", "settings": {} },
-        "price": { "type": "price", "settings": {} },
-        "variant_picker": {
-          "type": "variant_picker",
-          "settings": { "picker_type": "button", "swatch_shape": "square" }
+        "product_rating": {
+          "type": "hawaiian_product_rating",
+          "settings": {
+            "rating_value": 4.9,
+            "review_count": "5066",
+            "review_label": "reviews",
+            "reviews_link": "#customer-reviews"
+          }
         },
+        "price": { "type": "price", "settings": {} },
         "customily_personalizer": {
           "type": "custom_liquid",
           "settings": {
-            "custom_liquid": "<!-- Remplacez par le bloc app Customily (options + aperçu live) -->"
+            "custom_liquid": "<!-- Ajoutez le bloc app Customily ici (éditeur de thème → Ajouter un bloc → Customily) -->"
           }
         },
         "gift_box": {
@@ -29,10 +34,6 @@
           }
         },
         "quantity_selector": { "type": "quantity_selector", "settings": {} },
-        "preview_button": {
-          "type": "hawaiian_preview_button",
-          "settings": { "button_label": "Preview Your Personalization" }
-        },
         "buy_buttons": {
           "type": "buy_buttons",
           "settings": {
@@ -48,16 +49,18 @@
             "checkout_text": "Guaranteed safe & secure checkout via:",
             "payment_icons_url": "https://cdn.shopify.com/s/files/1/0703/7363/8402/files/gempages_491320059759690869-06c6bd7f-3ea0-465e-acbb-729b767ad902_2.webp?v=1782123204",
             "payment_icons_alt": "Payment methods",
-            "secure_text": "Secure transaction"
+            "secure_text": "Secure transaction",
+            "learn_more_label": "Learn more",
+            "learn_more_text": "<p>If you choose a direct payment gateway to complete your purchase your credit card is encrypted through the Payment Card Industry Data Security Standard (PCI-DSS). Your purchase transaction data is stored only as long as is necessary to complete your purchase transaction.</p>"
           }
         },
         "shipping_timeline": {
           "type": "hawaiian_shipping_timeline",
           "settings": {
             "use_auto_dates": true,
-            "processing_days_min": 2,
-            "processing_days_max": 3,
-            "shipping_days_min": 12,
+            "processing_days_min": 3,
+            "processing_days_max": 5,
+            "shipping_days_min": 10,
             "shipping_days_max": 15,
             "arrival_message_before": "Arrives",
             "arrival_message_after": "if you order today. Hooray!",
@@ -72,7 +75,7 @@
           "settings": {
             "heading": "Item details",
             "icon": "none",
-            "content": "<p>Custom Photo Tropical Cat Hawaiian Shirt — premium all-over print, lightweight breathable fabric, unisex fit. Each shirt is made to order with your personalized photo and chosen tropical colors.</p>"
+            "content": "<p>Capture your furry friend's unique personality in a vibrant, custom photo tropical style <strong>cat Hawaii Shirt</strong>! Perfect for the cat lover in your life, it also makes a memorable summer or beach trip gift!</p><p><strong>Preview:</strong><br>- Choose an option and upload your photo.<br>- Click <strong>Preview Your Personalization</strong> to see the preview.<br>- Double-check your options before purchasing.</p><p><strong>Product Details:</strong></p><ul><li>Fabric: 100% polyester</li><li>Regular fit</li><li>Short sleeve, lapel collar, button closure</li><li>Fabric weight: 120g/m²</li><li>Care: machine wash cold, do not bleach, tumble dry low</li><li>Made on demand — no minimum order quantity</li></ul><p><strong>Processing Time:</strong> 3–5 business days<br><strong>Shipping Time:</strong> 10–15 business days</p>"
           }
         },
         "tab_shipping": {
@@ -80,7 +83,7 @@
           "settings": {
             "heading": "Shipping Info",
             "icon": "none",
-            "content": "<p>Processing time: 3–5 business days. International shipping: 10–15 business days with tracking. All products are made to order.</p>"
+            "content": "<ul><li>The above time frame is only applied for orders to the US with standard shipping methods.</li><li>International orders: It may take 2–5 days longer due to the customs clearance process.</li><li><strong>Orders can be cancelled or modified only within 2 hours after being placed.</strong></li><li>All products are made to order.</li></ul>"
           }
         },
         "tab_guarantee": {
@@ -88,7 +91,7 @@
           "settings": {
             "heading": "Satisfaction Guarantee",
             "icon": "none",
-            "content": "<p>Full refund or replacement within 30 days for any faulty, defective or damaged item. Personalized items are non-returnable unless defective.</p>"
+            "content": "<ul><li>Full-refund or replace a new item (no extra fee within 30 days since your purchase) for faulty, defective or damaged products.</li><li>Full-refund if the item is not as described.</li><li>We have 24/7/365 ticket and email support.</li></ul>"
           }
         },
         "tab_deals": {
@@ -96,25 +99,29 @@
           "settings": {
             "heading": "Hot Deals",
             "icon": "none",
-            "content": "<p>Bundle and save — add a gift box for only $6.99 (regularly $12.99). Perfect for birthdays and holidays!</p>"
+            "content": "<p>Get ready for a shopping experience like no other! Explore our latest collection tailored for dog and cat lovers, camping enthusiasts, and families alike.</p><p><strong>Enjoy an exclusive 10% discount using code HOT10, combinable with other codes.</strong></p><p>🐶 <strong>For Dog &amp; Cat Lovers:</strong> Discover premium pet essentials and treats.</p><p>⛺ <strong>For Campers:</strong> Gear up with top-notch outdoor must-haves.</p><p>👨‍👩‍👧‍👦 <strong>For Families:</strong> Create lasting memories with unique keepsakes.</p>"
           }
+        },
+        "preview_button": {
+          "type": "hawaiian_preview_button",
+          "settings": { "button_label": "Preview Your Personalization" }
         }
       },
       "block_order": [
         "title",
+        "product_rating",
         "price",
-        "variant_picker",
         "customily_personalizer",
         "gift_box",
         "quantity_selector",
-        "preview_button",
         "buy_buttons",
         "payment_trust",
         "shipping_timeline",
         "tab_details",
         "tab_shipping",
         "tab_guarantee",
-        "tab_deals"
+        "tab_deals",
+        "preview_button"
       ],
       "settings": {
         "layout_style": "hawaiian_shirt",
@@ -139,61 +146,61 @@
         "r1": {
           "type": "review",
           "settings": {
-            "author": "David E.",
-            "date": "06/08/2026",
+            "author": "Genevieve Dew",
+            "date": "06/18/2026",
             "rating": 5,
             "title": "The shirt is of good quality",
-            "content": "<p>It is rare to find a company that delivers exactly what you ordered. It arrived in a timely manner and was exactly as pictured.</p>",
+            "content": "<p>The shirt I ordered for my hubby came out almost perfect. The color etc. the picture brought tears to his eyes. After the emotions and he tried it on.. The first thing he said is the collar is a little funny. It's not laying properly.</p>",
             "verified": true,
             "verified_label": "Verified",
-            "thumbs_up": 3,
+            "thumbs_up": 8,
             "thumbs_down": 0
           }
         },
         "r2": {
           "type": "review",
           "settings": {
-            "author": "Liz C.",
-            "date": "06/05/2026",
+            "author": "Customer Lucy",
+            "date": "06/15/2026",
             "rating": 5,
-            "title": "Amazing gift!",
-            "content": "<p>This exceeded all my expectations! Good quality, fits well and the print is better than I expected. My husband loves his cat on the shirt!</p>",
+            "title": "50th Birthday Celebration Shirt",
+            "content": "<p>This shirt was a hit for my Fiancé! I surprised him for his 50th Birthday and had over 3000 people sing Happy Birthday to him when I gave it to him! It was epic. Thank you!</p>",
             "verified": true,
             "verified_label": "Verified",
-            "thumbs_up": 5,
+            "thumbs_up": 12,
             "thumbs_down": 0
           }
         },
         "r3": {
           "type": "review",
           "settings": {
-            "author": "V. Arnold",
-            "date": "05/28/2026",
-            "rating": 4,
-            "title": "Love it",
-            "content": "<p>Wonderful. My only suggestion is to order your normal size. Beautiful work on the tropical print.</p>",
+            "author": "Kathleen",
+            "date": "06/10/2026",
+            "rating": 5,
+            "title": "Mens Hawaiian shirt",
+            "content": "<p>The shirt is nice quality and our 2 dogs photos are clear. Can't wait for the party my husband will wear it with pride. I highly recommend.</p>",
             "verified": true,
             "verified_label": "Verified",
-            "thumbs_up": 2,
+            "thumbs_up": 5,
             "thumbs_down": 0
           }
         }
       },
       "block_order": ["r1", "r2", "r3"],
       "settings": {
-        "heading": "At GeckoCustom We Fight Fake Reviews!",
+        "heading": "Customer Reviews",
         "average_rating": "4.89",
         "total_label": "Based on 5066 reviews",
         "pct_5": 91,
         "count_5": "4619",
-        "pct_4": 6,
-        "count_4": "300",
+        "pct_4": 7,
+        "count_4": "357",
         "pct_3": 2,
-        "count_3": "100",
-        "pct_2": 1,
-        "count_2": "30",
+        "count_3": "83",
+        "pct_2": 0,
+        "count_2": "4",
         "pct_1": 0,
-        "count_1": "17",
+        "count_1": "3",
         "show_write_button": true,
         "write_button_label": "Write a review",
         "write_button_link": "",
