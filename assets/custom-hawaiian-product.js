@@ -149,6 +149,15 @@
     });
   }
 
+  function setStickyTopOffset() {
+    var header = document.querySelector('sticky-header header, .section-header sticky-header, header.header');
+    var top = 20;
+    if (header) {
+      top = Math.ceil(header.getBoundingClientRect().height) + 12;
+    }
+    document.documentElement.style.setProperty('--hawaiian-sticky-top', top + 'px');
+  }
+
   function enhance(root) {
     if (!root) return;
 
@@ -168,6 +177,9 @@
   function init() {
     var root = document.querySelector(ROOT_SELECTOR);
     if (!root) return;
+
+    setStickyTopOffset();
+    window.addEventListener('resize', setStickyTopOffset);
 
     enhance(root);
 

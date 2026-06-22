@@ -7,6 +7,7 @@
   --hawaiian-card-radius: 12px;
   --hawaiian-swatch-size: 62px;
   --hawaiian-number-swatch-size: 78px;
+  --hawaiian-sticky-top: 20px;
 }
 
 /* ── Desktop grid layout ── */
@@ -15,7 +16,7 @@
     display: grid;
     grid-template-columns: 52% 48%;
     gap: 28px;
-    align-items: start;
+    align-items: stretch;
     max-width: 1280px;
     margin: 0 auto;
   }
@@ -27,10 +28,22 @@
     padding: 0;
   }
 
-  .custom-hawaiian-product-page .product__media-wrapper {
+  /* Colonne gauche = hauteur de la colonne droite → sticky jusqu'en bas des accordéons */
+  .custom-hawaiian-product-page .product__media-wrapper--hawaiian {
+    align-self: stretch;
+    position: relative;
+    min-height: 100%;
+  }
+
+  .custom-hawaiian-product-page .hawaiian-media-sticky {
     position: sticky;
-    top: 20px;
+    top: var(--hawaiian-sticky-top);
     z-index: 2;
+    width: 100%;
+  }
+
+  .custom-hawaiian-product-page .product__info-wrapper {
+    align-self: stretch;
   }
 
   .custom-hawaiian-product-page .product__info-container.product__column-sticky {
@@ -1012,6 +1025,7 @@
 
 /* ── Mobile ── */
 @media screen and (max-width: 749px) {
+  .custom-hawaiian-product-page .hawaiian-media-sticky,
   .custom-hawaiian-product-page .product__media-wrapper {
     position: static;
   }
