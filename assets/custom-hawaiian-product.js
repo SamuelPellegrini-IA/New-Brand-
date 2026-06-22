@@ -13,16 +13,6 @@
     ["Choose Flower's Color #4", 'Choose Flower Color #4']
   ];
 
-  var PREVIEW_SELECTORS = [
-    '.canvas-wrapper',
-    '.sl-canvas-container',
-    '.cl-preview-wrapper',
-    '#customily-preview',
-    '.customily-preview',
-    '[data-customily-preview]',
-    '.shopify-app-block [class*="preview"]'
-  ].join(',');
-
   function fixLabelGrammar(root) {
     LABEL_FIXES.forEach(function (pair) {
       var from = pair[0];
@@ -59,15 +49,6 @@
     });
   }
 
-  function moveLivePreviewToMedia(root) {
-    /* Preview Customily reste dans la colonne info — on ne déplace plus la galerie */
-    return;
-  }
-
-  function updatePreviewVisibility(mediaWrapper, host) {
-    return;
-  }
-
   function normalizeUploadButtonText(root) {
     root.querySelectorAll(
       '#customily-options .sl-image-placeholder > label > span, .customily-file-input label, .customily-download-button'
@@ -78,35 +59,6 @@
           el.textContent = 'Select Image';
         }
       }
-    });
-  }
-
-  function initPreviewButton(root) {
-    root.querySelectorAll('[data-gecko-preview-trigger]').forEach(function (btn) {
-      if (btn.dataset.bound === 'true') return;
-      btn.dataset.bound = 'true';
-      btn.addEventListener('click', function () {
-        var selectors = [
-          '.customily-preview-button',
-          '.gecko-preview-btn',
-          '[data-customily-preview]',
-          '#customily-options .sl-preview-btn',
-          'button[class*="preview"]'
-        ];
-        var clicked = false;
-        selectors.forEach(function (sel) {
-          if (clicked) return;
-          var target = document.querySelector(sel);
-          if (target && !root.contains(target)) {
-            target.click();
-            clicked = true;
-          }
-        });
-        if (!clicked) {
-          var inPage = root.querySelector('.customily-preview-button, [class*="preview"]');
-          if (inPage) inPage.click();
-        }
-      });
     });
   }
 
@@ -153,20 +105,6 @@
     return pageWidth;
   }
 
-  function injectPreviewFallback(root) {
-    if (!root || root.querySelector('[data-gecko-preview-trigger]')) return;
-
-    var form = root.querySelector('.product-form');
-    if (!form) return;
-
-    var btn = document.createElement('button');
-    btn.type = 'button';
-    btn.className = 'gecko-preview-btn';
-    btn.setAttribute('data-gecko-preview-trigger', '');
-    btn.textContent = 'Preview Your Personalization';
-    form.insertAdjacentElement('beforebegin', btn);
-  }
-
   function injectPostAtcFallback(root) {
     if (!root || root.querySelector('.gecko-post-atc')) return;
 
@@ -200,6 +138,21 @@
     anchor.insertAdjacentElement('afterend', wrap);
   }
 
+  function injectAccordionsFallback(root) {
+    if (!root || root.querySelector('.gecko-accordions')) return;
+
+    var anchor = root.querySelector('.gecko-post-atc') || root.querySelector('.product-form');
+    if (!anchor) return;
+
+    var tpl = document.getElementById('gecko-accordions-source');
+    if (!tpl || !tpl.content) return;
+
+    var node = tpl.content.firstElementChild;
+    if (node) {
+      anchor.insertAdjacentElement('afterend', node.cloneNode(true));
+    }
+  }
+
   function enhance(root) {
     if (!root) return;
 
@@ -208,12 +161,10 @@
       document.body.classList.add('product-custom-photo-tropical-cat-hawaiian-shirt');
     }
 
-    moveLivePreviewToMedia(root);
     wrapCustomilyOptions(root);
     fixLabelGrammar(root);
     tagNumberOfPhotosOption(root);
     normalizeUploadButtonText(root);
-    initPreviewButton(root);
   }
 
   function init() {
@@ -223,25 +174,25 @@
     setStickyTopOffset();
     window.addEventListener('resize', setStickyTopOffset);
 
-    injectPreviewFallback(root);
     injectPostAtcFallback(root);
+    injectAccordionsFallback(root);
     enhance(root);
 
     var observer = new MutationObserver(function () {
       enhance(root);
-      fixLabelGrammar(root);
-      tagNumberOfPhotosOption(root);
-      normalizeUploadButtonText(root);
+      injectAccordionsFallback(root);
     });
 
     observer.observe(root, { childList: true, subtree: true });
 
-    initPreviewButton(root);
-
     window.setTimeout(function () {
+      injectPostAtcFallback(root);
+      injectAccordionsFallback(root);
       enhance(root);
     }, 800);
     window.setTimeout(function () {
+      injectPostAtcFallback(root);
+      injectAccordionsFallback(root);
       enhance(root);
     }, 2500);
   }

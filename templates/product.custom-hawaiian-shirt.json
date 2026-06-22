@@ -1,3 +1,12 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
   "sections": {
     "main": {
@@ -102,9 +111,47 @@
             "content": "<p>Get ready for a shopping experience like no other! Explore our latest collection tailored for dog and cat lovers, camping enthusiasts, and families alike.</p><p><strong>Enjoy an exclusive 10% discount using code HOT10, combinable with other codes.</strong></p><p>🐶 <strong>For Dog &amp; Cat Lovers:</strong> Discover premium pet essentials and treats.</p><p>⛺ <strong>For Campers:</strong> Gear up with top-notch outdoor must-haves.</p><p>👨‍👩‍👧‍👦 <strong>For Families:</strong> Create lasting memories with unique keepsakes.</p>"
           }
         },
-        "preview_button": {
-          "type": "hawaiian_preview_button",
-          "settings": { "button_label": "Preview Your Personalization" }
+        "r1": {
+          "type": "gecko_review",
+          "settings": {
+            "author": "Genevieve Dew",
+            "date": "06/18/2026",
+            "rating": 5,
+            "title": "The shirt is of good quality",
+            "content": "<p>The shirt I ordered for my hubby came out almost perfect. The color etc. the picture brought tears to his eyes.</p>",
+            "verified": true,
+            "verified_label": "Verified",
+            "thumbs_up": 8,
+            "thumbs_down": 0
+          }
+        },
+        "r2": {
+          "type": "gecko_review",
+          "settings": {
+            "author": "Customer Lucy",
+            "date": "06/15/2026",
+            "rating": 5,
+            "title": "50th Birthday Celebration Shirt",
+            "content": "<p>This shirt was a hit for my Fiancé! It was epic. Thank you!</p>",
+            "verified": true,
+            "verified_label": "Verified",
+            "thumbs_up": 12,
+            "thumbs_down": 0
+          }
+        },
+        "r3": {
+          "type": "gecko_review",
+          "settings": {
+            "author": "Kathleen",
+            "date": "06/10/2026",
+            "rating": 5,
+            "title": "Mens Hawaiian shirt",
+            "content": "<p>The shirt is nice quality and our 2 dogs photos are clear. I highly recommend.</p>",
+            "verified": true,
+            "verified_label": "Verified",
+            "thumbs_up": 5,
+            "thumbs_down": 0
+          }
         }
       },
       "block_order": [
@@ -114,17 +161,35 @@
         "customily_personalizer",
         "gift_box",
         "quantity_selector",
-        "preview_button",
         "buy_buttons",
         "payment_trust",
         "shipping_timeline",
-        "tab_details",
-        "tab_shipping",
-        "tab_guarantee",
-        "tab_deals"
+        "r1",
+        "r2",
+        "r3"
       ],
       "settings": {
         "layout_style": "hawaiian_shirt",
+        "gecko_show_reviews": true,
+        "gecko_reviews_heading": "Customer Reviews",
+        "gecko_avg_rating": "4.89",
+        "gecko_reviews_total": "Based on 5066 reviews",
+        "gecko_pct_5": 91,
+        "gecko_count_5": "4619",
+        "gecko_pct_4": 7,
+        "gecko_count_4": "357",
+        "gecko_pct_3": 2,
+        "gecko_count_3": "83",
+        "gecko_pct_2": 0,
+        "gecko_count_2": "4",
+        "gecko_pct_1": 0,
+        "gecko_count_1": "3",
+        "gecko_show_write_button": true,
+        "gecko_write_label": "Write a review",
+        "gecko_filter_label": "Pictures First",
+        "gecko_show_pagination": true,
+        "gecko_pagination_pages": 3,
+        "gecko_reviews_per_page": 3,
         "enable_sticky_info": false,
         "color_scheme": "scheme-1",
         "media_size": "medium",
@@ -139,79 +204,7 @@
         "padding_top": 24,
         "padding_bottom": 24
       }
-    },
-    "reviews": {
-      "type": "product-reviews-gecko",
-      "blocks": {
-        "r1": {
-          "type": "review",
-          "settings": {
-            "author": "Genevieve Dew",
-            "date": "06/18/2026",
-            "rating": 5,
-            "title": "The shirt is of good quality",
-            "content": "<p>The shirt I ordered for my hubby came out almost perfect. The color etc. the picture brought tears to his eyes.</p>",
-            "verified": true,
-            "verified_label": "Verified",
-            "thumbs_up": 8,
-            "thumbs_down": 0
-          }
-        },
-        "r2": {
-          "type": "review",
-          "settings": {
-            "author": "Customer Lucy",
-            "date": "06/15/2026",
-            "rating": 5,
-            "title": "50th Birthday Celebration Shirt",
-            "content": "<p>This shirt was a hit for my Fiancé! It was epic. Thank you!</p>",
-            "verified": true,
-            "verified_label": "Verified",
-            "thumbs_up": 12,
-            "thumbs_down": 0
-          }
-        },
-        "r3": {
-          "type": "review",
-          "settings": {
-            "author": "Kathleen",
-            "date": "06/10/2026",
-            "rating": 5,
-            "title": "Mens Hawaiian shirt",
-            "content": "<p>The shirt is nice quality and our 2 dogs photos are clear. I highly recommend.</p>",
-            "verified": true,
-            "verified_label": "Verified",
-            "thumbs_up": 5,
-            "thumbs_down": 0
-          }
-        }
-      },
-      "block_order": ["r1", "r2", "r3"],
-      "settings": {
-        "heading": "Customer Reviews",
-        "average_rating": "4.89",
-        "total_label": "Based on 5066 reviews",
-        "pct_5": 91,
-        "count_5": "4619",
-        "pct_4": 7,
-        "count_4": "357",
-        "pct_3": 2,
-        "count_3": "83",
-        "pct_2": 0,
-        "count_2": "4",
-        "pct_1": 0,
-        "count_1": "3",
-        "show_write_button": true,
-        "write_button_label": "Write a review",
-        "write_button_link": "",
-        "filter_label": "Pictures First",
-        "show_pagination": true,
-        "pagination_pages": 3,
-        "reviews_per_page": 3,
-        "padding_top": 48,
-        "padding_bottom": 48
-      }
     }
   },
-  "order": ["main", "reviews"]
+  "order": ["main"]
 }

@@ -1,6 +1,7 @@
 <div class="gecko-accordions">
+  {%- assign accordion_uid = section.id | default: 'gecko' -%}
   <div class="product__accordion accordion quick-add-hidden">
-    <details id="Details-gecko-details-{{ section.id }}">
+      <details id="Details-gecko-details-{{ accordion_uid }}">
       <summary>
         <div class="summary__title">
           <h2 class="h4 accordion__title inline-richtext">Item details</h2>
@@ -24,7 +25,7 @@
     </details>
   </div>
   <div class="product__accordion accordion quick-add-hidden">
-    <details id="Details-gecko-shipping-{{ section.id }}">
+    <details id="Details-gecko-shipping-{{ accordion_uid }}">
       <summary>
         <div class="summary__title">
           <h2 class="h4 accordion__title inline-richtext">Shipping Info</h2>
@@ -42,7 +43,7 @@
     </details>
   </div>
   <div class="product__accordion accordion quick-add-hidden">
-    <details id="Details-gecko-guarantee-{{ section.id }}">
+    <details id="Details-gecko-guarantee-{{ accordion_uid }}">
       <summary>
         <div class="summary__title">
           <h2 class="h4 accordion__title inline-richtext">Satisfaction Guarantee</h2>
@@ -59,7 +60,7 @@
     </details>
   </div>
   <div class="product__accordion accordion quick-add-hidden">
-    <details id="Details-gecko-deals-{{ section.id }}">
+    <details id="Details-gecko-deals-{{ accordion_uid }}">
       <summary>
         <div class="summary__title">
           <h2 class="h4 accordion__title inline-richtext">Hot Deals</h2>

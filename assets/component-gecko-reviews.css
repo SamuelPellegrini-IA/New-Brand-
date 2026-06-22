@@ -28,6 +28,13 @@
   border-top: 1px solid #eee;
 }
 
+.gecko-reviews--in-product {
+  padding-top: 40px;
+  padding-bottom: 48px;
+  border-top: 1px solid #eee;
+  margin-top: 8px;
+}
+
 .gecko-reviews {
   background: #fff;
   color: #222;

@@ -613,6 +613,23 @@
 .custom-hawaiian-product-page .shopify-payment-button {
   margin-top: 0 !important;
 }
+
+.custom-hawaiian-product-page .gecko-preview-btn,
+.custom-hawaiian-product-page [data-gecko-preview-trigger],
+.custom-hawaiian-product-page #customily-options .sl-preview-btn,
+.custom-hawaiian-product-page #cl_optionsapp .sl-preview-btn,
+.custom-hawaiian-product-page .customily-preview-button,
+.custom-hawaiian-product-page #customily-options button[class*="preview"],
+.custom-hawaiian-product-page #customily-options button[class*="Preview"] {
+  display: none !important;
+  visibility: hidden !important;
+  height: 0 !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  overflow: hidden !important;
+  border: 0 !important;
+}
+
 .custom-hawaiian-product-page .gecko-preview-btn {
   width: 100%;
   display: flex;

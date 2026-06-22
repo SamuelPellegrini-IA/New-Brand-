@@ -365,7 +365,9 @@
     </main>
 
     {%- if gecko_product_active -%}
-      {%- render 'gecko-reviews-embed' -%}
+      <template id="gecko-accordions-source">
+        {%- render 'gecko-accordions' -%}
+      </template>
     {%- endif -%}
 
     {% sections 'footer-group' %}

@@ -1,0 +1,162 @@
+{%- liquid
+  assign review_blocks = section.blocks | where: 'type', 'gecko_review'
+  if review_blocks.size == 0
+    assign review_blocks = section.blocks | where: 'type', 'review'
+  endif
+
+  assign avg = section.settings.gecko_avg_rating | default: section.settings.average_rating | default: '4.89' | times: 1.0
+  assign avg_pct = avg | divided_by: 5.0 | times: 100
+-%}
+
+{%- if section.settings.gecko_show_reviews != false -%}
+  {{ 'component-gecko-reviews.css' | asset_url | stylesheet_tag }}
+
+  <section class="gecko-reviews gecko-reviews--in-product" id="customer-reviews">
+    <div class="gecko-reviews__wrap page-width">
+      <h2 class="gecko-reviews__title">{{ section.settings.gecko_reviews_heading | default: 'Customer Reviews' | escape }}</h2>
+
+      <div class="gecko-reviews__summary">
+        <div class="gecko-reviews__avg">
+          <div class="gecko-stars gecko-stars--lg" style="--p: {{ avg_pct }}%;" role="img" aria-label="{{ avg }} / 5"></div>
+          <div class="gecko-reviews__avg-num">{{ avg }} out of 5</div>
+          <div class="gecko-reviews__total">{{ section.settings.gecko_reviews_total | default: 'Based on 5066 reviews' | escape }}</div>
+        </div>
+
+        <div class="gecko-reviews__bars">
+          {%- for i in (1..5) reversed -%}
+            {%- liquid
+              assign pct_key = 'gecko_pct_' | append: i
+              assign cnt_key = 'gecko_count_' | append: i
+              assign pct = section.settings[pct_key]
+              assign cnt = section.settings[cnt_key]
+            -%}
+            <div class="gecko-reviews__bar-row">
+              <span class="gecko-reviews__bar-label">{{ i }} <span class="gecko-stars gecko-stars--xs" style="--p:100%;" aria-hidden="true"></span></span>
+              <div class="gecko-reviews__bar-track"><div class="gecko-reviews__bar-fill" style="width: {{ pct }}%;"></div></div>
+              <span class="gecko-reviews__bar-count">{{ cnt }}</span>
+            </div>
+          {%- endfor -%}
+        </div>
+
+        {%- if section.settings.gecko_show_write_button -%}
+          <div class="gecko-reviews__write">
+            <button type="button" class="gecko-reviews__write-btn" data-gecko-write-toggle aria-expanded="false" aria-controls="gecko-write-review-{{ section.id }}">
+              {{ section.settings.gecko_write_label | default: 'Write a review' | escape }}
+            </button>
+          </div>
+        {%- endif -%}
+      </div>
+
+      <div class="gecko-reviews__write-form" id="gecko-write-review-{{ section.id }}" hidden>
+        {%- form 'contact', id: 'GeckoReviewForm', class: 'gecko-review-form' -%}
+          <input type="hidden" name="contact[tags]" value="product-review, {{ product.handle | default: 'general' }}">
+          <h3 class="gecko-review-form__heading">Write a review</h3>
+          <div class="gecko-review-form__grid">
+            <label class="gecko-review-form__field">
+              <span>Name</span>
+              <input type="text" name="contact[name]" required autocomplete="name">
+            </label>
+            <label class="gecko-review-form__field">
+              <span>Email</span>
+              <input type="email" name="contact[email]" required autocomplete="email">
+            </label>
+            <label class="gecko-review-form__field gecko-review-form__field--full">
+              <span>Review title</span>
+              <input type="text" name="contact[Review title]" required>
+            </label>
+            <label class="gecko-review-form__field">
+              <span>Rating (1–5)</span>
+              <select name="contact[Rating]" required>
+                <option value="5">5 stars</option>
+                <option value="4">4 stars</option>
+                <option value="3">3 stars</option>
+                <option value="2">2 stars</option>
+                <option value="1">1 star</option>
+              </select>
+            </label>
+            <label class="gecko-review-form__field gecko-review-form__field--full">
+              <span>Your review</span>
+              <textarea name="contact[body]" rows="5" required placeholder="Share your experience..."></textarea>
+            </label>
+            <label class="gecko-review-form__field gecko-review-form__field--full">
+              <span>Photo link (optional)</span>
+              <input type="url" name="contact[Photo URL]" placeholder="https://...">
+            </label>
+          </div>
+          <button type="submit" class="gecko-reviews__write-btn">Submit review</button>
+        {%- endform -%}
+        <p class="gecko-review-form__note">Your review will be verified before publishing. Add photos in the theme editor on each review block.</p>
+      </div>
+
+      {%- if section.settings.gecko_filter_label != blank -%}
+        <div class="gecko-reviews__filter">
+          <button type="button" class="gecko-reviews__filter-btn" aria-expanded="false">{{ section.settings.gecko_filter_label | escape }} ▾</button>
+        </div>
+      {%- endif -%}
+
+      {%- if review_blocks.size > 0 -%}
+        <div class="gecko-reviews__list" data-gecko-reviews-list data-per-page="{{ section.settings.gecko_reviews_per_page | default: 3 }}">
+          {%- for block in review_blocks -%}
+            {%- liquid
+              assign r = block.settings.rating | times: 1.0
+              assign r_pct = r | divided_by: 5.0 | times: 100
+            -%}
+            <article class="gecko-reviews__item" data-review-item {{ block.shopify_attributes }}>
+              <div class="gecko-reviews__item-head">
+                <div class="gecko-stars" style="--p: {{ r_pct }}%;" role="img" aria-label="{{ block.settings.rating }} / 5"></div>
+                {%- if block.settings.date != blank -%}
+                  <time class="gecko-reviews__date">{{ block.settings.date | escape }}</time>
+                {%- endif -%}
+              </div>
+              <div class="gecko-reviews__author-row">
+                <span class="gecko-reviews__author">{{ block.settings.author | escape }}</span>
+                {%- if block.settings.verified -%}
+                  <span class="gecko-reviews__verified">{{ block.settings.verified_label | default: 'Verified' | escape }}</span>
+                {%- endif -%}
+              </div>
+              {%- if block.settings.title != blank -%}
+                <h3 class="gecko-reviews__item-title">{{ block.settings.title | escape }}</h3>
+              {%- endif -%}
+              <div class="gecko-reviews__item-text rte">{{ block.settings.content }}</div>
+              {%- liquid
+                assign has_photos = false
+                if block.settings.review_photo != blank or block.settings.review_photo_2 != blank or block.settings.review_photo_3 != blank or block.settings.review_photo_4 != blank
+                  assign has_photos = true
+                endif
+              -%}
+              {%- if has_photos -%}
+                <div class="gecko-reviews__photos">
+                  {%- for i in (1..4) -%}
+                    {%- capture photo_key -%}review_photo{% if i > 1 %}_{{ i }}{% endif %}{%- endcapture -%}
+                    {%- assign photo = block.settings[photo_key] -%}
+                    {%- if photo != blank -%}
+                      <a href="{{ photo | image_url: width: 1200 }}" target="_blank" rel="noopener">
+                        <img src="{{ photo | image_url: width: 160 }}" alt="" width="80" height="80" loading="lazy">
+                      </a>
+                    {%- endif -%}
+                  {%- endfor -%}
+                </div>
+              {%- endif -%}
+              <div class="gecko-reviews__votes">
+                <button type="button" class="gecko-reviews__vote" aria-label="Helpful">👍 <span>{{ block.settings.thumbs_up | default: 0 }}</span></button>
+                <button type="button" class="gecko-reviews__vote" aria-label="Not helpful">👎 <span>{{ block.settings.thumbs_down | default: 0 }}</span></button>
+              </div>
+            </article>
+          {%- endfor -%}
+        </div>
+
+        {%- if section.settings.gecko_show_pagination -%}
+          <nav class="gecko-reviews__pagination" data-gecko-reviews-pagination aria-label="Pagination avis">
+            {%- assign total_pages = section.settings.gecko_pagination_pages | default: 3 -%}
+            {%- for p in (1..total_pages) -%}
+              <button type="button" class="gecko-reviews__page{% if p == 1 %} is-active{% endif %}" data-page="{{ p }}">{{ p }}</button>
+            {%- endfor -%}
+            <button type="button" class="gecko-reviews__page gecko-reviews__page--next" data-page="next" aria-label="Suivant">›</button>
+          </nav>
+        {%- endif -%}
+      {%- endif -%}
+    </div>
+  </section>
+
+  <script src="{{ 'gecko-reviews.js' | asset_url }}" defer="defer"></script>
+{%- endif -%}

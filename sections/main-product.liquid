@@ -258,7 +258,7 @@
                 {%- when 'hawaiian_product_rating' -%}
                   {%- render 'hawaiian-product-rating', block: block -%}
                 {%- when 'hawaiian_preview_button' -%}
-                  {%- render 'hawaiian-preview-button', block: block -%}
+                  {%- comment -%} Bouton preview désactivé — Customily gère l'aperçu {%- endcomment -%}
                 {%- when 'hawaiian_payment_trust' -%}
                   {%- unless hawaiian_layout -%}
                     {%- render 'hawaiian-payment-trust', block: block -%}
@@ -551,9 +551,6 @@
                     product_form_id: product_form_id
                   %}
                 {%- when 'buy_buttons' -%}
-                  {%- if hawaiian_layout -%}
-                    {%- render 'gecko-product-fallback-stack', section: section, slot: 'before_buy' -%}
-                  {%- endif -%}
                   {%- render 'buy-buttons',
                     block: block,
                     product: product,
@@ -819,6 +816,10 @@
       </script>
     </div>
   </product-component>
+
+  {%- if hawaiian_layout -%}
+    {%- render 'gecko-reviews-panel', section: section -%}
+  {%- endif -%}
 </product-info>
 
 {% schema %}
@@ -1334,6 +1335,25 @@
           "label": "Étape 3 — date",
           "default": "Jul 04 - 07"
         }
+      ]
+    },
+    {
+      "type": "gecko_review",
+      "name": "Avis client (Gecko)",
+      "settings": [
+        { "type": "text", "id": "author", "label": "Auteur", "default": "Customer" },
+        { "type": "text", "id": "date", "label": "Date", "default": "06/18/2026" },
+        { "type": "range", "id": "rating", "min": 1, "max": 5, "step": 1, "label": "Note", "default": 5 },
+        { "type": "text", "id": "title", "label": "Titre", "default": "Great product" },
+        { "type": "richtext", "id": "content", "label": "Texte", "default": "<p>Love it!</p>" },
+        { "type": "image_picker", "id": "review_photo", "label": "Photo 1" },
+        { "type": "image_picker", "id": "review_photo_2", "label": "Photo 2" },
+        { "type": "image_picker", "id": "review_photo_3", "label": "Photo 3" },
+        { "type": "image_picker", "id": "review_photo_4", "label": "Photo 4" },
+        { "type": "checkbox", "id": "verified", "label": "Acheteur vérifié", "default": true },
+        { "type": "text", "id": "verified_label", "label": "Label vérifié", "default": "Verified" },
+        { "type": "number", "id": "thumbs_up", "label": "Pouces levés", "default": 3 },
+        { "type": "number", "id": "thumbs_down", "label": "Pouces baissés", "default": 0 }
       ]
     },
     {
@@ -2676,6 +2696,156 @@
       "id": "enable_video_looping",
       "default": false,
       "label": "t:sections.main-product.settings.enable_video_looping.label"
+    },
+    {
+      "type": "header",
+      "content": "Avis clients Gecko"
+    },
+    {
+      "type": "checkbox",
+      "id": "gecko_show_reviews",
+      "label": "Afficher les avis sous le produit",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "gecko_reviews_heading",
+      "label": "Titre section avis",
+      "default": "Customer Reviews"
+    },
+    {
+      "type": "text",
+      "id": "gecko_avg_rating",
+      "label": "Note moyenne",
+      "default": "4.89"
+    },
+    {
+      "type": "text",
+      "id": "gecko_reviews_total",
+      "label": "Texte total avis",
+      "default": "Based on 5066 reviews"
+    },
+    {
+      "type": "range",
+      "id": "gecko_pct_5",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "%",
+      "label": "5 étoiles %",
+      "default": 91
+    },
+    {
+      "type": "text",
+      "id": "gecko_count_5",
+      "label": "Nombre 5 étoiles",
+      "default": "4619"
+    },
+    {
+      "type": "range",
+      "id": "gecko_pct_4",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "%",
+      "label": "4 étoiles %",
+      "default": 7
+    },
+    {
+      "type": "text",
+      "id": "gecko_count_4",
+      "label": "Nombre 4 étoiles",
+      "default": "357"
+    },
+    {
+      "type": "range",
+      "id": "gecko_pct_3",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "%",
+      "label": "3 étoiles %",
+      "default": 2
+    },
+    {
+      "type": "text",
+      "id": "gecko_count_3",
+      "label": "Nombre 3 étoiles",
+      "default": "83"
+    },
+    {
+      "type": "range",
+      "id": "gecko_pct_2",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "%",
+      "label": "2 étoiles %",
+      "default": 0
+    },
+    {
+      "type": "text",
+      "id": "gecko_count_2",
+      "label": "Nombre 2 étoiles",
+      "default": "4"
+    },
+    {
+      "type": "range",
+      "id": "gecko_pct_1",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "%",
+      "label": "1 étoile %",
+      "default": 0
+    },
+    {
+      "type": "text",
+      "id": "gecko_count_1",
+      "label": "Nombre 1 étoile",
+      "default": "3"
+    },
+    {
+      "type": "checkbox",
+      "id": "gecko_show_write_button",
+      "label": "Bouton Write a review",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "gecko_write_label",
+      "label": "Texte bouton écrire",
+      "default": "Write a review"
+    },
+    {
+      "type": "text",
+      "id": "gecko_filter_label",
+      "label": "Label filtre",
+      "default": "Pictures First"
+    },
+    {
+      "type": "checkbox",
+      "id": "gecko_show_pagination",
+      "label": "Pagination",
+      "default": true
+    },
+    {
+      "type": "range",
+      "id": "gecko_pagination_pages",
+      "min": 1,
+      "max": 10,
+      "step": 1,
+      "label": "Nombre de pages",
+      "default": 3
+    },
+    {
+      "type": "range",
+      "id": "gecko_reviews_per_page",
+      "min": 1,
+      "max": 10,
+      "step": 1,
+      "label": "Avis par page",
+      "default": 3
     },
     {
       "type": "header",
