@@ -59,54 +59,13 @@
     });
   }
 
-  function updatePreviewVisibility(mediaWrapper, host) {
-    if (!mediaWrapper || !host) return;
-
-    var hasPreview = !!host.querySelector(
-      'canvas, img[src]:not([src=""]), .sl-canvas-container canvas, #customily-preview canvas, .customily-preview canvas'
-    );
-
-    if (hasPreview) {
-      mediaWrapper.classList.add('hawaiian-preview-active');
-    } else {
-      mediaWrapper.classList.remove('hawaiian-preview-active');
-    }
+  function moveLivePreviewToMedia(root) {
+    /* Preview Customily reste dans la colonne info — on ne déplace plus la galerie */
+    return;
   }
 
-  function moveLivePreviewToMedia(root) {
-    var mediaWrapper = root.querySelector('.product__media-wrapper');
-    if (!mediaWrapper) return;
-
-    var host = mediaWrapper.querySelector('.hawaiian-live-preview-host');
-    if (!host) {
-      host = document.createElement('div');
-      host.className = 'hawaiian-live-preview-host';
-      mediaWrapper.insertBefore(host, mediaWrapper.firstChild);
-    }
-
-    var infoColumn = root.querySelector('.product__info-wrapper');
-    if (!infoColumn) return;
-
-    PREVIEW_SELECTORS.split(',').forEach(function (selector) {
-      selector = selector.trim();
-      infoColumn.querySelectorAll(selector).forEach(function (node) {
-        if (node.closest('.hawaiian-options-card')) return;
-        if (host.contains(node)) return;
-        node.classList.add('hawaiian-preview-moved');
-        host.appendChild(node);
-      });
-    });
-
-    infoColumn.querySelectorAll('.shopify-app-block').forEach(function (block) {
-      if (block.querySelector('#customily-options, #cl_optionsapp')) return;
-      var hasPreview = block.querySelector(PREVIEW_SELECTORS);
-      if (hasPreview && !host.contains(block)) {
-        block.classList.add('hawaiian-preview-moved');
-        host.appendChild(block);
-      }
-    });
-
-    updatePreviewVisibility(mediaWrapper, host);
+  function updatePreviewVisibility(mediaWrapper, host) {
+    return;
   }
 
   function normalizeUploadButtonText(root) {
@@ -178,20 +137,6 @@
     var mediaWrapper = pageWidth.querySelector('.product__media-wrapper');
     if (mediaWrapper) {
       mediaWrapper.classList.add('product__media-wrapper--hawaiian');
-      if (!mediaWrapper.querySelector('.hawaiian-media-sticky')) {
-        var sticky = document.createElement('div');
-        sticky.className = 'hawaiian-media-sticky';
-        if (!sticky.querySelector('.hawaiian-live-preview-host')) {
-          var host = document.createElement('div');
-          host.className = 'hawaiian-live-preview-host';
-          host.setAttribute('aria-label', 'Product live preview');
-          sticky.appendChild(host);
-        }
-        while (mediaWrapper.firstChild) {
-          sticky.appendChild(mediaWrapper.firstChild);
-        }
-        mediaWrapper.appendChild(sticky);
-      }
     }
 
     pageWidth.querySelectorAll('.product-form__submit').forEach(function (btn) {

@@ -129,30 +129,10 @@
   }
 }
 
-/* Customily live preview in media column */
+/* Customily live preview — la galerie produit reste visible */
 .custom-hawaiian-product-page .hawaiian-live-preview-host {
   width: 100%;
-}
-
-.custom-hawaiian-product-page .hawaiian-live-preview-host .canvas-wrapper,
-.custom-hawaiian-product-page .hawaiian-live-preview-host .sl-canvas-container,
-.custom-hawaiian-product-page .hawaiian-live-preview-host .cl-preview-wrapper,
-.custom-hawaiian-product-page .hawaiian-live-preview-host #customily-preview,
-.custom-hawaiian-product-page .hawaiian-live-preview-host .customily-preview {
-  width: 100% !important;
-  max-width: 100%;
-  border-radius: var(--hawaiian-card-radius);
-  overflow: hidden;
-}
-
-.custom-hawaiian-product-page .hawaiian-live-preview-host canvas,
-.custom-hawaiian-product-page .hawaiian-live-preview-host img {
-  border-radius: var(--hawaiian-card-radius);
-}
-
-/* Hide default gallery when Customily preview is active */
-.custom-hawaiian-product-page .product__media-wrapper.hawaiian-preview-active:has(.hawaiian-live-preview-host:not(:empty)) media-gallery {
-  display: none;
+  margin-bottom: 12px;
 }
 
 /* ── Product info header ── */
@@ -216,12 +196,6 @@
 .custom-hawaiian-product-page .price .price__compare s {
   color: #888;
   font-size: 1.1rem;
-}
-
-/* Hide native variant picker — Customily gère les options sur Gecko */
-.custom-hawaiian-product-page variant-selects,
-.custom-hawaiian-product-page .product-form__input--pill {
-  display: none !important;
 }
 
 .custom-hawaiian-product-page .product__title a {
@@ -1022,11 +996,6 @@
   font-size: 17px;
   font-weight: 700;
   min-height: 54px;
-}
-
-/* Hide duplicate preview blocks in info column after JS move */
-.custom-hawaiian-product-page .hawaiian-preview-moved {
-  display: none !important;
 }
 
 /* ── Mobile ── */
