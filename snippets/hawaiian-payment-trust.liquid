@@ -10,9 +10,17 @@
     {%- if block.settings.payment_icons_image != blank -%}
       {{
         block.settings.payment_icons_image
-        | image_url: width: 600
+        | image_url: width: 900
         | image_tag: loading: 'lazy', alt: block.settings.payment_icons_alt, class: 'gecko-payment-trust__icons-img'
       }}
+    {%- elsif block.settings.payment_icons_url != blank -%}
+      <img
+        src="{{ block.settings.payment_icons_url | escape }}"
+        alt="{{ block.settings.payment_icons_alt | escape }}"
+        class="gecko-payment-trust__icons-img"
+        loading="lazy"
+        width="900"
+      >
     {%- else -%}
       <div class="gecko-payment-trust__icons-fallback" aria-hidden="true">
         <span>PayPal</span><span>VISA</span><span>Apple Pay</span><span>Mastercard</span><span>Amex</span>

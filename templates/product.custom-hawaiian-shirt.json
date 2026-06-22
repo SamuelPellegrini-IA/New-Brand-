@@ -46,6 +46,8 @@
           "type": "hawaiian_payment_trust",
           "settings": {
             "checkout_text": "Guaranteed safe & secure checkout via:",
+            "payment_icons_url": "https://cdn.shopify.com/s/files/1/0703/7363/8402/files/gempages_491320059759690869-06c6bd7f-3ea0-465e-acbb-729b767ad902_2.webp?v=1782123204",
+            "payment_icons_alt": "Payment methods",
             "secure_text": "Secure transaction"
           }
         },

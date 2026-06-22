@@ -707,7 +707,7 @@
 }
 
 .custom-hawaiian-product-page .gecko-payment-trust__icons-img {
-  max-width: 320px;
+  max-width: 100%;
   width: 100%;
   height: auto;
   margin: 0 auto;
