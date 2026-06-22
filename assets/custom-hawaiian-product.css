@@ -569,7 +569,29 @@
   min-height: 38px;
 }
 
-/* ── Preview button (après accordéons, comme Gecko) ── */
+/* ── Product info column — centré, net ── */
+.custom-hawaiian-product-page .product__info-wrapper {
+  width: 100%;
+}
+
+.custom-hawaiian-product-page .product__info-container {
+  max-width: 100%;
+  padding-left: 0;
+  padding-right: 0;
+}
+
+.custom-hawaiian-product-page .product-form__buttons,
+.custom-hawaiian-product-page .gecko-post-atc,
+.custom-hawaiian-product-page .gecko-payment-trust,
+.custom-hawaiian-product-page .gecko-shipping-timeline__headline {
+  width: 100%;
+}
+
+.custom-hawaiian-product-page .gecko-post-atc {
+  margin-top: 4px;
+}
+
+/* ── Preview button (avant ADD TO CART, comme Gecko) ── */
 .custom-hawaiian-product-page .gecko-preview-btn {
   width: 100%;
   display: flex;
@@ -583,8 +605,10 @@
   font-size: 16px;
   font-weight: 700;
   cursor: pointer;
-  margin: 20px 0 0;
-  transition: background 0.2s ease;
+  margin: 16px 0 12px;
+  transition: background 0.2s ease, border-color 0.2s ease;
+  text-align: center;
+  line-height: 1.2;
 }
 
 .custom-hawaiian-product-page .gecko-preview-btn:hover {
@@ -614,6 +638,7 @@
 
 .custom-hawaiian-product-page .gecko-post-atc {
   width: 100%;
+  text-align: center;
 }
 
 .custom-hawaiian-product-page .product-form__buttons {
@@ -621,6 +646,7 @@
   flex-direction: column;
   gap: 0;
   margin-top: 0;
+  width: 100%;
 }
 
 /* ── Gift box Gecko ── */
@@ -780,7 +806,7 @@
 }
 
 .custom-hawaiian-product-page .gecko-payment-trust__icons-img {
-  max-width: 100%;
+  max-width: 420px;
   width: 100%;
   height: auto;
   margin: 0 auto;
@@ -933,44 +959,68 @@
   line-height: 1.4;
 }
 
-/* ── Accordions Gecko ── */
-.custom-hawaiian-product-page .product__accordion {
-  border: none !important;
-  border-top: 1px solid #eee !important;
-  border-bottom: 1px solid #eee !important;
-  margin: 0 !important;
+/* ── Accordions Gecko — net, aligné ── */
+.custom-hawaiian-product-page .gecko-accordions,
+.custom-hawaiian-product-page .product__info-container > .product__accordion {
+  margin-top: 20px;
 }
 
-.custom-hawaiian-product-page .product__accordion:first-of-type {
-  margin-top: 8px !important;
+.custom-hawaiian-product-page .product__accordion {
+  border: none !important;
+  border-top: 1px solid #e5e5e5 !important;
+  border-bottom: none !important;
+  margin: 0 !important;
+  background: transparent;
+}
+
+.custom-hawaiian-product-page .gecko-accordions .product__accordion:last-child,
+.custom-hawaiian-product-page .product__info-container > .product__accordion:last-of-type {
+  border-bottom: 1px solid #e5e5e5 !important;
 }
 
 .custom-hawaiian-product-page .product__accordion + .product__accordion {
-  border-top: none !important;
+  border-top: 1px solid #e5e5e5 !important;
 }
 
 .custom-hawaiian-product-page .product__accordion summary {
-  padding: 16px 0 !important;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 18px 0 !important;
   list-style: none;
+  cursor: pointer;
+}
+
+.custom-hawaiian-product-page .product__accordion summary::-webkit-details-marker {
+  display: none;
 }
 
 .custom-hawaiian-product-page .product__accordion .summary__title {
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  width: 100%;
+  flex: 1;
+  min-width: 0;
 }
 
 .custom-hawaiian-product-page .product__accordion .accordion__title {
-  font-size: 15px !important;
+  font-size: 16px !important;
   font-weight: 600 !important;
-  color: #333 !important;
+  color: #222 !important;
+  letter-spacing: 0;
+  margin: 0;
 }
 
 .custom-hawaiian-product-page .product__accordion svg.icon-caret {
-  width: 12px;
-  height: 12px;
+  width: 11px;
+  height: 11px;
   flex-shrink: 0;
+  color: #333;
+  transition: transform 0.2s ease;
+}
+
+.custom-hawaiian-product-page .product__accordion details[open] > summary svg.icon-caret {
+  transform: rotate(180deg);
 }
 
 .custom-hawaiian-product-page .product__accordion .icon-accordion {
@@ -978,9 +1028,9 @@
 }
 
 .custom-hawaiian-product-page .product__accordion .accordion__content {
-  padding: 0 0 16px !important;
+  padding: 0 0 18px !important;
   font-size: 14px;
-  line-height: 1.6;
+  line-height: 1.65;
   color: #555;
 }
 

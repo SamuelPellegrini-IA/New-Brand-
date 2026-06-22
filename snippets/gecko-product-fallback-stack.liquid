@@ -50,14 +50,21 @@
   </div>
 {%- endif -%}
 
-{%- if slot == 'after_blocks' -%}
-  {%- if tab_count == 0 -%}
+{%- if slot == 'before_buy' and has_preview == false -%}
+  <button type="button" class="gecko-preview-btn" data-gecko-preview-trigger>
+    Preview Your Personalization
+  </button>
+{%- endif -%}
+
+{%- if slot == 'after_blocks' and tab_count == 0 -%}
+  <div class="gecko-accordions">
     <div class="product__accordion accordion quick-add-hidden">
-      <details id="Details-gecko-details-{{ section.id }}" open>
+      <details id="Details-gecko-details-{{ section.id }}">
         <summary>
           <div class="summary__title">
             <h2 class="h4 accordion__title inline-richtext">Item details</h2>
           </div>
+          {{- 'icon-caret.svg' | inline_asset_content -}}
         </summary>
         <div class="accordion__content rte">
           <p>Capture your furry friend's unique personality in a vibrant, custom photo tropical style <strong>cat Hawaii Shirt</strong>!</p>
@@ -71,6 +78,7 @@
           <div class="summary__title">
             <h2 class="h4 accordion__title inline-richtext">Shipping Info</h2>
           </div>
+          {{- 'icon-caret.svg' | inline_asset_content -}}
         </summary>
         <div class="accordion__content rte">
           <p>All products are made to order. US standard shipping: 10–15 business days after processing.</p>
@@ -83,17 +91,25 @@
           <div class="summary__title">
             <h2 class="h4 accordion__title inline-richtext">Satisfaction Guarantee</h2>
           </div>
+          {{- 'icon-caret.svg' | inline_asset_content -}}
         </summary>
         <div class="accordion__content rte">
           <p>Full refund or replacement within 30 days for faulty or defective products.</p>
         </div>
       </details>
     </div>
-  {%- endif -%}
-
-  {%- if has_preview == false -%}
-    <button type="button" class="gecko-preview-btn" data-gecko-preview-trigger>
-      Preview Your Personalization
-    </button>
-  {%- endif -%}
+    <div class="product__accordion accordion quick-add-hidden">
+      <details id="Details-gecko-deals-{{ section.id }}">
+        <summary>
+          <div class="summary__title">
+            <h2 class="h4 accordion__title inline-richtext">Hot Deals</h2>
+          </div>
+          {{- 'icon-caret.svg' | inline_asset_content -}}
+        </summary>
+        <div class="accordion__content rte">
+          <p><strong>Enjoy an exclusive 10% discount using code HOT10.</strong></p>
+        </div>
+      </details>
+    </div>
+  </div>
 {%- endif -%}

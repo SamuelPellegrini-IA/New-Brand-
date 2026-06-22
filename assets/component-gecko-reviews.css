@@ -22,6 +22,12 @@
 .gecko-stars--lg { font-size: 2.4rem; letter-spacing: 3px; }
 .gecko-stars--xs { font-size: 0.9rem; letter-spacing: 1px; }
 
+.gecko-reviews--embed {
+  padding-top: 48px;
+  padding-bottom: 56px;
+  border-top: 1px solid #eee;
+}
+
 .gecko-reviews {
   background: #fff;
   color: #222;

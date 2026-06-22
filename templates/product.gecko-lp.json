@@ -123,14 +123,14 @@
         "customily_personalizer",
         "gift_box",
         "quantity_selector",
+        "preview_button",
         "buy_buttons",
         "payment_trust",
         "shipping_timeline",
         "tab_details",
         "tab_shipping",
         "tab_guarantee",
-        "tab_deals",
-        "preview_button"
+        "tab_deals"
       ],
       "settings": {
         "layout_style": "hawaiian_shirt",
@@ -222,5 +222,5 @@
       }
     }
   },
-  "order": ["main", "reviews"]
+  "order": ["main"]
 }

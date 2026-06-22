@@ -153,6 +153,20 @@
     return pageWidth;
   }
 
+  function injectPreviewFallback(root) {
+    if (!root || root.querySelector('[data-gecko-preview-trigger]')) return;
+
+    var form = root.querySelector('.product-form');
+    if (!form) return;
+
+    var btn = document.createElement('button');
+    btn.type = 'button';
+    btn.className = 'gecko-preview-btn';
+    btn.setAttribute('data-gecko-preview-trigger', '');
+    btn.textContent = 'Preview Your Personalization';
+    form.insertAdjacentElement('beforebegin', btn);
+  }
+
   function injectPostAtcFallback(root) {
     if (!root || root.querySelector('.gecko-post-atc')) return;
 
@@ -209,6 +223,7 @@
     setStickyTopOffset();
     window.addEventListener('resize', setStickyTopOffset);
 
+    injectPreviewFallback(root);
     injectPostAtcFallback(root);
     enhance(root);
 
@@ -220,6 +235,8 @@
     });
 
     observer.observe(root, { childList: true, subtree: true });
+
+    initPreviewButton(root);
 
     window.setTimeout(function () {
       enhance(root);

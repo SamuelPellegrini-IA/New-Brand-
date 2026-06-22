@@ -334,7 +334,9 @@
     -%}
     {%- if gecko_product_active -%}
       {{ 'custom-hawaiian-product.css' | asset_url | stylesheet_tag }}
+      {{ 'component-gecko-reviews.css' | asset_url | stylesheet_tag }}
       <script src="{{ 'custom-hawaiian-product.js' | asset_url }}" defer="defer"></script>
+      <script src="{{ 'gecko-reviews.js' | asset_url }}" defer="defer"></script>
     {%- endif -%}
   </head>
 
@@ -358,6 +360,10 @@
     >
       {{ content_for_layout }}
     </main>
+
+    {%- if gecko_product_active -%}
+      {%- render 'gecko-reviews-embed' -%}
+    {%- endif -%}
 
     {% sections 'footer-group' %}
 
