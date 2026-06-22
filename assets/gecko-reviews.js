@@ -39,5 +39,56 @@
     showPage(1);
   }
 
-  document.querySelectorAll('.gecko-reviews').forEach(initPagination);
+  function initWriteForm(root) {
+    var toggle = root.querySelector('[data-gecko-write-toggle]');
+    if (!toggle) return;
+
+    var targetId = toggle.getAttribute('aria-controls');
+    var panel = targetId ? document.getElementById(targetId) : root.querySelector('.gecko-reviews__write-form');
+    if (!panel) return;
+
+    toggle.addEventListener('click', function () {
+      var isOpen = !panel.hidden;
+      panel.hidden = isOpen;
+      toggle.setAttribute('aria-expanded', String(!isOpen));
+      if (!isOpen) {
+        panel.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+      }
+    });
+  }
+
+  function initPicturesFirst(root) {
+    var filterBtn = root.querySelector('.gecko-reviews__filter-btn');
+    var list = root.querySelector('[data-gecko-reviews-list]');
+    if (!filterBtn || !list) return;
+
+    var items = Array.prototype.slice.call(list.querySelectorAll('[data-review-item]'));
+    var photosFirst = false;
+
+    filterBtn.addEventListener('click', function () {
+      photosFirst = !photosFirst;
+      filterBtn.setAttribute('aria-expanded', String(photosFirst));
+
+      items.sort(function (a, b) {
+        var aPhotos = a.querySelector('.gecko-reviews__photos') ? 1 : 0;
+        var bPhotos = b.querySelector('.gecko-reviews__photos') ? 1 : 0;
+        if (photosFirst) return bPhotos - aPhotos;
+        return 0;
+      });
+
+      items.forEach(function (item) {
+        list.appendChild(item);
+      });
+
+      initPagination(root);
+    });
+  }
+
+  function init(root) {
+    initPagination(root);
+    initWriteForm(root);
+    initPicturesFirst(root);
+  }
+
+  document.querySelectorAll('.gecko-reviews').forEach(init);
 })();

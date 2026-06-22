@@ -222,5 +222,5 @@
       }
     }
   },
-  "order": ["main"]
+  "order": ["main", "reviews"]
 }

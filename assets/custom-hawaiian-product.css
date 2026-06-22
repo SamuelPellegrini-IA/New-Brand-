@@ -588,10 +588,31 @@
 }
 
 .custom-hawaiian-product-page .gecko-post-atc {
-  margin-top: 4px;
+  width: 100%;
+  text-align: center;
+  margin-top: 0;
 }
 
-/* ── Preview button (avant ADD TO CART, comme Gecko) ── */
+.custom-hawaiian-product-page .product-form {
+  margin-bottom: 0;
+}
+
+.custom-hawaiian-product-page .product-form__buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  margin: 0;
+  width: 100%;
+}
+
+.custom-hawaiian-product-page .gecko-atc-btn {
+  margin-bottom: 0 !important;
+}
+
+.custom-hawaiian-product-page pickup-availability,
+.custom-hawaiian-product-page .shopify-payment-button {
+  margin-top: 0 !important;
+}
 .custom-hawaiian-product-page .gecko-preview-btn {
   width: 100%;
   display: flex;
@@ -634,19 +655,6 @@
 .custom-hawaiian-product-page .gecko-atc-btn:hover {
   background: linear-gradient(180deg, #ffc87a 0%, #febd69 100%) !important;
   transform: none;
-}
-
-.custom-hawaiian-product-page .gecko-post-atc {
-  width: 100%;
-  text-align: center;
-}
-
-.custom-hawaiian-product-page .product-form__buttons {
-  display: flex;
-  flex-direction: column;
-  gap: 0;
-  margin-top: 0;
-  width: 100%;
 }
 
 /* ── Gift box Gecko ── */
@@ -767,7 +775,7 @@
 /* ── Payment trust ── */
 .custom-hawaiian-product-page .gecko-payment-trust {
   text-align: center;
-  margin: 18px 0 0;
+  margin: 6px 0 0;
   padding: 0;
   border-top: none;
 }
@@ -861,7 +869,7 @@
 
 /* ── Shipping timeline ── */
 .custom-hawaiian-product-page .gecko-shipping-timeline {
-  margin: 22px 0 8px;
+  margin: 14px 0 4px;
   padding: 0;
 }
 
@@ -962,7 +970,7 @@
 /* ── Accordions Gecko — net, aligné ── */
 .custom-hawaiian-product-page .gecko-accordions,
 .custom-hawaiian-product-page .product__info-container > .product__accordion {
-  margin-top: 20px;
+  margin-top: 12px;
 }
 
 .custom-hawaiian-product-page .product__accordion {

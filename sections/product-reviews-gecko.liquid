@@ -50,10 +50,59 @@
 
       {%- if section.settings.show_write_button -%}
         <div class="gecko-reviews__write">
-          <a class="gecko-reviews__write-btn" href="{{ section.settings.write_button_link | default: '#' }}">{{ section.settings.write_button_label | escape }}</a>
+          {%- if section.settings.write_button_link != blank -%}
+            <a class="gecko-reviews__write-btn" href="{{ section.settings.write_button_link }}">{{ section.settings.write_button_label | escape }}</a>
+          {%- else -%}
+            <button type="button" class="gecko-reviews__write-btn" data-gecko-write-toggle aria-expanded="false" aria-controls="gecko-write-review-{{ section.id }}">
+              {{ section.settings.write_button_label | escape }}
+            </button>
+          {%- endif -%}
         </div>
       {%- endif -%}
     </div>
+
+    {%- if section.settings.show_write_button and section.settings.write_button_link == blank -%}
+      <div class="gecko-reviews__write-form" id="gecko-write-review-{{ section.id }}" hidden>
+        {%- form 'contact', id: 'GeckoReviewForm', class: 'gecko-review-form' -%}
+          <input type="hidden" name="contact[tags]" value="product-review, {{ product.handle | default: 'general' }}">
+          <h3 class="gecko-review-form__heading">Write a review</h3>
+          <div class="gecko-review-form__grid">
+            <label class="gecko-review-form__field">
+              <span>Name</span>
+              <input type="text" name="contact[name]" required autocomplete="name">
+            </label>
+            <label class="gecko-review-form__field">
+              <span>Email</span>
+              <input type="email" name="contact[email]" required autocomplete="email">
+            </label>
+            <label class="gecko-review-form__field gecko-review-form__field--full">
+              <span>Review title</span>
+              <input type="text" name="contact[Review title]" required>
+            </label>
+            <label class="gecko-review-form__field">
+              <span>Rating (1–5)</span>
+              <select name="contact[Rating]" required>
+                <option value="5">5 stars</option>
+                <option value="4">4 stars</option>
+                <option value="3">3 stars</option>
+                <option value="2">2 stars</option>
+                <option value="1">1 star</option>
+              </select>
+            </label>
+            <label class="gecko-review-form__field gecko-review-form__field--full">
+              <span>Your review</span>
+              <textarea name="contact[body]" rows="5" required placeholder="Share your experience with this product..."></textarea>
+            </label>
+            <label class="gecko-review-form__field gecko-review-form__field--full">
+              <span>Photo link (optional)</span>
+              <input type="url" name="contact[Photo URL]" placeholder="https://...">
+            </label>
+          </div>
+          <button type="submit" class="gecko-reviews__write-btn">Submit review</button>
+        {%- endform -%}
+        <p class="gecko-review-form__note">Your review will be sent to our team for verification before publishing.</p>
+      </div>
+    {%- endif -%}
 
     {%- if section.settings.filter_label != blank -%}
       <div class="gecko-reviews__filter">
@@ -132,7 +181,9 @@
   "name": "Avis clients Gecko",
   "tag": "section",
   "class": "section",
+  "max_blocks": 50,
   "settings": [
+    { "type": "paragraph", "content": "Ajoutez des blocs « Avis » pour chaque témoignage. Uploadez jusqu'à 4 photos par avis via Photo 1–4." },
     { "type": "text", "id": "heading", "label": "Titre", "default": "At GeckoCustom We Fight Fake Reviews!" },
     { "type": "header", "content": "Résumé des notes" },
     { "type": "text", "id": "average_rating", "label": "Note moyenne (sur 5)", "default": "4.89" },

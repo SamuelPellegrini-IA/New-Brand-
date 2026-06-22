@@ -268,6 +268,7 @@
                     {%- render 'hawaiian-shipping-timeline', block: block -%}
                   {%- endunless -%}
                 {%- when 'collapsible_tab' -%}
+                  {%- unless hawaiian_layout -%}
                   <div class="product__accordion accordion quick-add-hidden" {{ block.shopify_attributes }}>
                     <details id="Details-{{ block.id }}-{{ section.id }}">
                       <summary>
@@ -285,6 +286,7 @@
                       </div>
                     </details>
                   </div>
+                  {%- endunless -%}
                 {%- when 'quantity_selector' -%}
                   <div
                     id="Quantity-Form-{{ section.id }}"
@@ -563,6 +565,7 @@
                   -%}
                   {%- if hawaiian_layout -%}
                     {%- render 'hawaiian-post-atc', section: section -%}
+                    {%- render 'gecko-accordions', section: section -%}
                   {%- endif -%}
                 {%- when 'rating' -%}
                   {%- if product.metafields.reviews.rating.value != blank -%}
@@ -755,9 +758,6 @@
                   {% render 'icon-with-text', block: block %}
               {%- endcase -%}
             {%- endfor -%}
-            {%- if hawaiian_layout -%}
-              {%- render 'gecko-product-fallback-stack', section: section, slot: 'after_blocks' -%}
-            {%- endif -%}
             <a href="{{ product.url }}" class="link product__view-details animate-arrow">
               {{ 'products.product.view_full_details' | t }}
               {{- 'icon-arrow.svg' | inline_asset_content -}}

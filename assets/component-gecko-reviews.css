@@ -176,9 +176,71 @@
   background: none;
   border: none;
   font-size: 1.2rem;
-  color: #888;
+  color: #218f78;
   cursor: pointer;
   padding: 0.2rem 0.4rem;
+}
+
+.gecko-reviews__write-form {
+  margin: 0 0 2rem;
+  padding: 2rem;
+  background: #f9f9f9;
+  border: 1px solid #e8e8e8;
+  border-radius: 12px;
+}
+
+.gecko-review-form__heading {
+  margin: 0 0 1.2rem;
+  font-size: 1.6rem;
+  font-weight: 700;
+  text-align: center;
+}
+
+.gecko-review-form__grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem 1.2rem;
+  margin-bottom: 1.2rem;
+}
+
+.gecko-review-form__field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  font-size: 1.3rem;
+}
+
+.gecko-review-form__field--full {
+  grid-column: 1 / -1;
+}
+
+.gecko-review-form__field span {
+  font-weight: 600;
+  color: #333;
+}
+
+.gecko-review-form__field input,
+.gecko-review-form__field select,
+.gecko-review-form__field textarea {
+  width: 100%;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  padding: 0.8rem 1rem;
+  font: inherit;
+  background: #fff;
+}
+
+.gecko-review-form__note {
+  margin: 1rem 0 0;
+  font-size: 1.2rem;
+  color: #666;
+  text-align: center;
+}
+
+.gecko-reviews__write-btn {
+  border: none;
+  cursor: pointer;
+  font: inherit;
 }
 
 .gecko-reviews__pagination {

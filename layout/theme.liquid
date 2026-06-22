@@ -337,6 +337,9 @@
       {{ 'component-gecko-reviews.css' | asset_url | stylesheet_tag }}
       <script src="{{ 'custom-hawaiian-product.js' | asset_url }}" defer="defer"></script>
       <script src="{{ 'gecko-reviews.js' | asset_url }}" defer="defer"></script>
+      <style>
+        body:has(#customer-reviews) #customer-reviews-fallback { display: none !important; }
+      </style>
     {%- endif -%}
   </head>
 
