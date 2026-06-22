@@ -18,7 +18,11 @@
 
   {%- liquid
     assign hawaiian_layout = false
-    if template.suffix == 'new-lp-gecko' or template.suffix == 'gecko-hawaiian' or template.suffix == 'custom-hawaiian-shirt'
+    if template.suffix == 'new-lp-gecko' or template.suffix == 'gecko-hawaiian' or template.suffix == 'custom-hawaiian-shirt' or template.suffix == 'gecko-lp'
+      assign hawaiian_layout = true
+    elsif request.params.view == 'new-lp-gecko' or request.params.view == 'gecko-hawaiian' or request.params.view == 'custom-hawaiian-shirt' or request.params.view == 'gecko-lp'
+      assign hawaiian_layout = true
+    elsif product.handle == 'custom-photo-tropical-style-cat-hawaii-shirt' or product.handle == 'custom-photo-tropical-cat-hawaiian-shirt'
       assign hawaiian_layout = true
     elsif section.settings.layout_style == 'hawaiian_shirt'
       assign hawaiian_layout = true
@@ -137,6 +141,9 @@
                       </h2>
                     </a>
                   </div>
+                  {%- if hawaiian_layout -%}
+                    {%- render 'gecko-product-fallback-stack', section: section, slot: 'after_title' -%}
+                  {%- endif -%}
                 {%- when 'price' -%}
                   <div id="price-{{ section.id }}" role="status" {{ block.shopify_attributes }}>
                     {%- render 'price',
@@ -172,6 +179,9 @@
                       {{ form | payment_terms }}
                     {%- endform -%}
                   </div>
+                  {%- if hawaiian_layout -%}
+                    {%- render 'gecko-product-fallback-stack', section: section, slot: 'after_price' -%}
+                  {%- endif -%}
                 {%- when 'inventory' -%}
                   <p
                     class="product__inventory{% if block.settings.text_style == 'uppercase' %} caption-with-letter-spacing{% elsif block.settings.text_style == 'subtitle' %} subtitle{% endif %}{% if product.selected_or_first_available_variant.inventory_management != 'shopify' %} visibility-hidden{% endif %}"
@@ -743,6 +753,9 @@
                   {% render 'icon-with-text', block: block %}
               {%- endcase -%}
             {%- endfor -%}
+            {%- if hawaiian_layout -%}
+              {%- render 'gecko-product-fallback-stack', section: section, slot: 'after_blocks' -%}
+            {%- endif -%}
             <a href="{{ product.url }}" class="link product__view-details animate-arrow">
               {{ 'products.product.view_full_details' | t }}
               {{- 'icon-arrow.svg' | inline_asset_content -}}

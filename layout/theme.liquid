@@ -319,9 +319,26 @@
         document.documentElement.classList.add('shopify-design-mode');
       }
     </script>
+
+    {%- liquid
+      assign gecko_product_active = false
+      if template.name == 'product'
+        if template.suffix == 'new-lp-gecko' or template.suffix == 'gecko-hawaiian' or template.suffix == 'custom-hawaiian-shirt' or template.suffix == 'gecko-lp'
+          assign gecko_product_active = true
+        elsif request.params.view == 'new-lp-gecko' or request.params.view == 'gecko-hawaiian' or request.params.view == 'custom-hawaiian-shirt' or request.params.view == 'gecko-lp'
+          assign gecko_product_active = true
+        elsif product.handle == 'custom-photo-tropical-style-cat-hawaii-shirt' or product.handle == 'custom-photo-tropical-cat-hawaiian-shirt'
+          assign gecko_product_active = true
+        endif
+      endif
+    -%}
+    {%- if gecko_product_active -%}
+      {{ 'custom-hawaiian-product.css' | asset_url | stylesheet_tag }}
+      <script src="{{ 'custom-hawaiian-product.js' | asset_url }}" defer="defer"></script>
+    {%- endif -%}
   </head>
 
-  <body class="gradient{% if settings.animations_hover_elements != 'none' %} animate--hover-{{ settings.animations_hover_elements }}{% endif %}">
+  <body class="gradient{% if settings.animations_hover_elements != 'none' %} animate--hover-{{ settings.animations_hover_elements }}{% endif %}{% if gecko_product_active %} gecko-product-active{% endif %}">
     <a class="skip-to-content-link button visually-hidden" href="#MainContent">
       {{ 'accessibility.skip_to_text' | t }}
     </a>
@@ -400,6 +417,12 @@
 
     {%- if settings.cart_type == 'drawer' -%}
       <script src="{{ 'cart-drawer.js' | asset_url }}" defer="defer"></script>
+    {%- endif -%}
+
+    {%- if gecko_product_active -%}
+      <template id="gecko-shipping-timeline-source">
+        {%- render 'hawaiian-shipping-timeline', block: blank, use_defaults: true -%}
+      </template>
     {%- endif -%}
   </body>
 </html>

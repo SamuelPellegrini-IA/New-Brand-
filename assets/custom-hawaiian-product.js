@@ -2,6 +2,8 @@
   'use strict';
 
   var ROOT_SELECTOR = '.custom-hawaiian-product-page';
+  var PAYMENT_IMG =
+    'https://cdn.shopify.com/s/files/1/0703/7363/8402/files/gempages_491320059759690869-06c6bd7f-3ea0-465e-acbb-729b767ad902_2.webp?v=1782123204';
   var LABEL_FIXES = [
     ["Choose Leaves's Color #1", 'Choose Leaves Color #1'],
     ["Choose Leaves's Color #2", 'Choose Leaves Color #2'],
@@ -158,6 +160,87 @@
     document.documentElement.style.setProperty('--hawaiian-sticky-top', top + 'px');
   }
 
+  function bootstrapGeckoShell() {
+    if (!document.body.classList.contains('gecko-product-active')) return null;
+
+    var pageWidth = document.querySelector('product-info .page-width, .section-main-product .page-width');
+    if (!pageWidth) return null;
+
+    if (!pageWidth.classList.contains('custom-hawaiian-product-page')) {
+      pageWidth.classList.add('custom-hawaiian-product-page');
+    }
+
+    var product = pageWidth.querySelector('.product');
+    if (product) {
+      product.classList.add('product--hawaiian-layout');
+    }
+
+    var mediaWrapper = pageWidth.querySelector('.product__media-wrapper');
+    if (mediaWrapper) {
+      mediaWrapper.classList.add('product__media-wrapper--hawaiian');
+      if (!mediaWrapper.querySelector('.hawaiian-media-sticky')) {
+        var sticky = document.createElement('div');
+        sticky.className = 'hawaiian-media-sticky';
+        if (!sticky.querySelector('.hawaiian-live-preview-host')) {
+          var host = document.createElement('div');
+          host.className = 'hawaiian-live-preview-host';
+          host.setAttribute('aria-label', 'Product live preview');
+          sticky.appendChild(host);
+        }
+        while (mediaWrapper.firstChild) {
+          sticky.appendChild(mediaWrapper.firstChild);
+        }
+        mediaWrapper.appendChild(sticky);
+      }
+    }
+
+    pageWidth.querySelectorAll('.product-form__submit').forEach(function (btn) {
+      btn.classList.add('gecko-atc-btn');
+      var span = btn.querySelector('span');
+      if (span) {
+        var label = (span.textContent || '').trim();
+        if (!label || /add to cart/i.test(label)) {
+          span.textContent = 'ADD TO CART';
+        }
+      }
+    });
+
+    return pageWidth;
+  }
+
+  function injectPostAtcFallback(root) {
+    if (!root || root.querySelector('.gecko-post-atc')) return;
+
+    var anchor = root.querySelector('.product-form');
+    if (!anchor) return;
+
+    var wrap = document.createElement('div');
+    wrap.className = 'gecko-post-atc';
+    wrap.innerHTML =
+      '<div class="gecko-payment-trust">' +
+      '<p class="gecko-payment-trust__checkout">' +
+      '<span class="gecko-payment-trust__shield gecko-payment-trust__shield--blue" aria-hidden="true">✓</span>' +
+      'Guaranteed safe &amp; secure checkout via:' +
+      '</p>' +
+      '<div class="gecko-payment-trust__icons">' +
+      '<img src="' +
+      PAYMENT_IMG +
+      '" alt="Payment methods" class="gecko-payment-trust__icons-img" loading="lazy" width="900">' +
+      '</div>' +
+      '<p class="gecko-payment-trust__secure">' +
+      '<span class="gecko-payment-trust__shield gecko-payment-trust__shield--green" aria-hidden="true">✓</span>' +
+      'Secure transaction' +
+      '</p>' +
+      '</div>';
+
+    var source = document.getElementById('gecko-shipping-timeline-source');
+    if (source && source.content) {
+      wrap.appendChild(source.content.cloneNode(true));
+    }
+
+    anchor.insertAdjacentElement('afterend', wrap);
+  }
+
   function enhance(root) {
     if (!root) return;
 
@@ -175,12 +258,13 @@
   }
 
   function init() {
-    var root = document.querySelector(ROOT_SELECTOR);
+    var root = document.querySelector(ROOT_SELECTOR) || bootstrapGeckoShell();
     if (!root) return;
 
     setStickyTopOffset();
     window.addEventListener('resize', setStickyTopOffset);
 
+    injectPostAtcFallback(root);
     enhance(root);
 
     var observer = new MutationObserver(function () {
