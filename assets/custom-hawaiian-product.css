@@ -581,10 +581,18 @@
 }
 
 .custom-hawaiian-product-page .product-form__buttons,
+.custom-hawaiian-product-page .custom-product-atc-wrapper,
 .custom-hawaiian-product-page .gecko-post-atc,
-.custom-hawaiian-product-page .gecko-payment-trust,
+.custom-hawaiian-product-page .product-checkout-security,
 .custom-hawaiian-product-page .gecko-shipping-timeline__headline {
   width: 100%;
+}
+
+.custom-hawaiian-product-page .product-form__buttons,
+.custom-hawaiian-product-page .custom-product-atc-wrapper {
+  max-width: 520px;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .custom-hawaiian-product-page .gecko-post-atc {
@@ -792,109 +800,127 @@
   transform: rotate(45deg);
 }
 
-/* ── Payment trust ── */
-.custom-hawaiian-product-page .gecko-payment-trust {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
+/* ── Payment trust / checkout security ── */
+.custom-hawaiian-product-page .product-checkout-security {
+  width: 100%;
+  max-width: 520px;
+  margin: 18px auto 0;
   text-align: center;
-  width: 100%;
-  max-width: 100%;
-  margin: 6px auto 0;
-  padding: 0;
-  border-top: none;
 }
 
-.custom-hawaiian-product-page .gecko-payment-trust__checkout {
+.custom-hawaiian-product-page .product-checkout-security__title {
   display: flex;
   align-items: center;
   justify-content: center;
   gap: 6px;
+  text-align: center;
   font-size: 13px;
-  font-weight: 600;
-  color: #1a8fd1;
-  margin: 0 0 10px;
+  font-weight: 700;
+  color: #0088cc;
+  margin: 0 0 12px;
 }
 
-.custom-hawaiian-product-page .gecko-payment-trust__secure {
+.custom-hawaiian-product-page .product-checkout-security__icons {
   display: flex;
   align-items: center;
   justify-content: center;
   gap: 6px;
-  font-size: 13px;
-  font-weight: 600;
-  color: #218f78;
-  margin: 10px 0 0;
-}
-
-.custom-hawaiian-product-page .gecko-payment-trust__shield {
-  display: inline-flex;
-  flex-shrink: 0;
-  line-height: 0;
-}
-
-.custom-hawaiian-product-page .gecko-payment-trust__icons {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 100%;
-  margin: 0 auto;
-  max-width: 100%;
-}
-
-.custom-hawaiian-product-page .gecko-payment-trust__icons-img {
-  max-width: min(420px, 100%);
-  width: auto;
-  height: auto;
-  margin: 0 auto;
-  display: block;
-}
-
-.custom-hawaiian-product-page .gecko-payment-trust__icons-fallback {
-  display: flex;
   flex-wrap: wrap;
-  justify-content: center;
-  gap: 8px;
+  margin: 0 auto 12px;
+}
+
+.custom-hawaiian-product-page .product-checkout-security__icons img,
+.custom-hawaiian-product-page .product-checkout-security__icon {
+  height: 24px;
+  width: auto;
+  max-width: 100%;
+  display: block;
+  object-fit: contain;
+}
+
+.custom-hawaiian-product-page .product-checkout-security__icon--badge {
+  height: auto;
+  border: 1px solid #ddd;
+  padding: 4px 8px;
+  border-radius: 4px;
+  background: #fafafa;
   font-size: 11px;
   font-weight: 700;
   color: #666;
 }
 
-.custom-hawaiian-product-page .gecko-payment-trust__icons-fallback span {
-  border: 1px solid #ddd;
-  padding: 4px 8px;
-  border-radius: 4px;
-  background: #fafafa;
+.custom-hawaiian-product-page .product-checkout-security__icons-fallback {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 6px;
 }
 
-.custom-hawaiian-product-page .gecko-payment-trust__learn-more {
+.custom-hawaiian-product-page .product-checkout-security__secure {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  font-size: 14px;
+  font-weight: 600;
+  color: #008060;
+  text-align: center;
+  margin: 0;
+}
+
+.custom-hawaiian-product-page .product-checkout-security__shield {
+  display: inline-flex;
+  flex-shrink: 0;
+  line-height: 0;
+}
+
+.custom-hawaiian-product-page .product-checkout-security__learn-more {
   margin-top: 10px;
   text-align: left;
   font-size: 12px;
   color: #666;
 }
 
-.custom-hawaiian-product-page .gecko-payment-trust__learn-more summary {
+.custom-hawaiian-product-page .product-checkout-security__learn-more summary {
   cursor: pointer;
-  color: #1a8fd1;
+  color: #0088cc;
   font-weight: 600;
   list-style: none;
 }
 
-.custom-hawaiian-product-page .gecko-payment-trust__learn-more summary::-webkit-details-marker {
+.custom-hawaiian-product-page .product-checkout-security__learn-more summary::-webkit-details-marker {
   display: none;
 }
 
-.custom-hawaiian-product-page .gecko-payment-trust__learn-more-content {
+.custom-hawaiian-product-page .product-checkout-security__learn-more-content {
   margin-top: 8px;
   line-height: 1.5;
   font-size: 12px;
   color: #555;
 }
 
-.custom-hawaiian-product-page .gecko-payment-trust__learn-more-content p {
+.custom-hawaiian-product-page .product-checkout-security__learn-more-content p {
   margin: 0;
+}
+
+@media screen and (max-width: 749px) {
+  .custom-hawaiian-product-page .product-checkout-security {
+    max-width: 100%;
+    padding: 0 12px;
+  }
+
+  .custom-hawaiian-product-page .product-checkout-security__icons {
+    gap: 5px;
+  }
+
+  .custom-hawaiian-product-page .product-checkout-security__icons img,
+  .custom-hawaiian-product-page .product-checkout-security__icon {
+    height: 22px;
+  }
+
+  .custom-hawaiian-product-page .product-checkout-security__icon--badge {
+    height: auto;
+  }
 }
 
 /* ── Shipping timeline ── */

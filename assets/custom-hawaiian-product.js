@@ -114,18 +114,18 @@
     var wrap = document.createElement('div');
     wrap.className = 'gecko-post-atc';
     wrap.innerHTML =
-      '<div class="gecko-payment-trust">' +
-      '<p class="gecko-payment-trust__checkout">' +
-      '<span class="gecko-payment-trust__shield gecko-payment-trust__shield--blue" aria-hidden="true">✓</span>' +
+      '<div class="product-checkout-security">' +
+      '<p class="product-checkout-security__title">' +
+      '<span class="product-checkout-security__shield product-checkout-security__shield--blue" aria-hidden="true">✓</span>' +
       'Guaranteed safe &amp; secure checkout via:' +
       '</p>' +
-      '<div class="gecko-payment-trust__icons">' +
+      '<div class="product-checkout-security__icons">' +
       '<img src="' +
       PAYMENT_IMG +
-      '" alt="Payment methods" class="gecko-payment-trust__icons-img" loading="lazy" width="900">' +
+      '" alt="Payment methods" class="product-checkout-security__icon" loading="lazy" width="900">' +
       '</div>' +
-      '<p class="gecko-payment-trust__secure">' +
-      '<span class="gecko-payment-trust__shield gecko-payment-trust__shield--green" aria-hidden="true">✓</span>' +
+      '<p class="product-checkout-security__secure">' +
+      '<span class="product-checkout-security__shield product-checkout-security__shield--green" aria-hidden="true">✓</span>' +
       'Secure transaction' +
       '</p>' +
       '</div>';

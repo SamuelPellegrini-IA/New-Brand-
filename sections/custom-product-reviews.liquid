@@ -1,0 +1,498 @@
+{{ 'custom-product-reviews.css' | asset_url | stylesheet_tag }}
+
+{%- liquid
+  assign star_color = section.settings.star_color | default: '#ffb800'
+  assign text_color = section.settings.text_color | default: '#1a1a1a'
+  assign bg_color = section.settings.background_color | default: '#ffffff'
+  assign avg_num = section.settings.average_rating_text | split: '/' | first | strip | times: 1.0
+  if avg_num == 0
+    assign avg_num = 4.8
+  endif
+-%}
+
+<section
+  class="custom-reviews"
+  id="custom-product-reviews-{{ section.id }}"
+  style="--reviews-bg: {{ bg_color }}; --reviews-star: {{ star_color }}; --reviews-text: {{ text_color }};"
+>
+  <div class="custom-reviews__container">
+    <div class="custom-reviews__header">
+      {%- if section.settings.title != blank -%}
+        <h2 class="custom-reviews__title">{{ section.settings.title | escape }}</h2>
+      {%- endif -%}
+      {%- if section.settings.subtitle != blank -%}
+        <p class="custom-reviews__subtitle">{{ section.settings.subtitle | escape }}</p>
+      {%- endif -%}
+      <div class="custom-reviews__rating">
+        <span class="custom-reviews__stars" aria-hidden="true">
+          {%- assign avg_rounded = avg_num | round -%}
+          {%- for i in (1..5) -%}
+            {%- if i <= avg_rounded -%}★{%- else -%}☆{%- endif -%}
+          {%- endfor -%}
+        </span>
+        {%- if section.settings.average_rating_text != blank -%}
+          <span class="custom-reviews__rating-value">{{ section.settings.average_rating_text | escape }}</span>
+        {%- endif -%}
+        {%- if section.settings.total_reviews_text != blank -%}
+          <span class="custom-reviews__rating-count">{{ section.settings.total_reviews_text | escape }}</span>
+        {%- endif -%}
+      </div>
+    </div>
+
+    {%- if section.settings.show_review_summary -%}
+      <div class="custom-reviews__summary">
+        <div class="custom-reviews__summary-inner">
+          <div class="custom-reviews__summary-score">
+            <div class="custom-reviews__stars custom-reviews__stars--lg" aria-hidden="true">
+              {%- assign avg_rounded = avg_num | round -%}
+              {%- for i in (1..5) -%}
+                {%- if i <= avg_rounded -%}★{%- else -%}☆{%- endif -%}
+              {%- endfor -%}
+            </div>
+            <div class="custom-reviews__summary-avg">{{ section.settings.average_rating_text | escape }}</div>
+            <div class="custom-reviews__rating-count">{{ section.settings.total_reviews_text | escape }}</div>
+          </div>
+
+          <div class="custom-reviews__bars">
+            {%- for i in (5..1) -%}
+              {%- liquid
+                assign pct_key = 'pct_' | append: i
+                assign cnt_key = 'count_' | append: i
+                assign pct = section.settings[pct_key]
+                assign cnt = section.settings[cnt_key]
+              -%}
+              <div class="custom-reviews__bar-row">
+                <span class="custom-reviews__bar-label">{{ i }} ★</span>
+                <div class="custom-reviews__bar-track">
+                  <div class="custom-reviews__bar-fill" style="width: {{ pct }}%;"></div>
+                </div>
+                <span class="custom-reviews__bar-count">{{ cnt }}</span>
+              </div>
+            {%- endfor -%}
+          </div>
+        </div>
+
+        {%- if section.settings.button_text != blank -%}
+          <div class="custom-reviews__write-wrap">
+            {%- if section.settings.button_link != blank -%}
+              <a href="{{ section.settings.button_link }}" class="custom-reviews__write-btn">{{ section.settings.button_text | escape }}</a>
+            {%- else -%}
+              <button type="button" class="custom-reviews__write-btn">{{ section.settings.button_text | escape }}</button>
+            {%- endif -%}
+          </div>
+        {%- endif -%}
+      </div>
+    {%- endif -%}
+
+    {%- if section.settings.show_photo_reviews -%}
+      {%- liquid
+        assign has_photo_row = false
+        for block in section.blocks
+          if block.settings.customer_photo != blank or block.settings.product_photo != blank
+            assign has_photo_row = true
+            break
+          endif
+        endfor
+      -%}
+      {%- if has_photo_row -%}
+        <div class="custom-reviews__photo-row">
+          {%- for block in section.blocks -%}
+            {%- if block.settings.customer_photo != blank -%}
+              <div class="custom-reviews__photo-thumb" {{ block.shopify_attributes }}>
+                {{
+                  block.settings.customer_photo
+                  | image_url: width: 160
+                  | image_tag: loading: 'lazy', alt: block.settings.customer_name, widths: '80, 120, 160'
+                }}
+              </div>
+            {%- elsif block.settings.product_photo != blank -%}
+              <div class="custom-reviews__photo-thumb" {{ block.shopify_attributes }}>
+                {{
+                  block.settings.product_photo
+                  | image_url: width: 160
+                  | image_tag: loading: 'lazy', alt: block.settings.review_title, widths: '80, 120, 160'
+                }}
+              </div>
+            {%- endif -%}
+          {%- endfor -%}
+        </div>
+      {%- endif -%}
+    {%- endif -%}
+
+    {%- if section.blocks.size > 0 -%}
+      <div class="custom-reviews__grid">
+        {%- for block in section.blocks -%}
+          {%- liquid
+            assign rating = block.settings.rating | default: 5
+            assign has_customer_photo = false
+            assign has_product_photo = false
+            if block.settings.customer_photo != blank
+              assign has_customer_photo = true
+            endif
+            if block.settings.product_photo != blank
+              assign has_product_photo = true
+            endif
+            assign photo_count = 0
+            if has_customer_photo
+              assign photo_count = photo_count | plus: 1
+            endif
+            if has_product_photo
+              assign photo_count = photo_count | plus: 1
+            endif
+          -%}
+          <article class="custom-review-card" {{ block.shopify_attributes }}>
+            {%- if photo_count > 0 and section.settings.show_photo_reviews -%}
+              <div class="custom-review-card__images{% if photo_count == 1 %} custom-review-card__images--single{% endif %}">
+                {%- if has_customer_photo -%}
+                  <div class="custom-review-card__image">
+                    {{
+                      block.settings.customer_photo
+                      | image_url: width: 600
+                      | image_tag: loading: 'lazy', alt: block.settings.customer_name, widths: '300, 450, 600'
+                    }}
+                  </div>
+                {%- endif -%}
+                {%- if has_product_photo -%}
+                  <div class="custom-review-card__image">
+                    {{
+                      block.settings.product_photo
+                      | image_url: width: 600
+                      | image_tag: loading: 'lazy', alt: block.settings.review_title, widths: '300, 450, 600'
+                    }}
+                  </div>
+                {%- endif -%}
+              </div>
+            {%- endif -%}
+
+            <div class="custom-review-card__top">
+              <div class="custom-review-card__meta">
+                {%- if block.settings.customer_name != blank -%}
+                  <p class="custom-review-card__name">{{ block.settings.customer_name | escape }}</p>
+                {%- endif -%}
+                {%- if block.settings.date_text != blank -%}
+                  <p class="custom-review-card__date">{{ block.settings.date_text | escape }}</p>
+                {%- endif -%}
+                {%- if block.settings.country_text != blank -%}
+                  <p class="custom-review-card__location">{{ block.settings.country_text | escape }}</p>
+                {%- endif -%}
+                {%- if block.settings.variant_text != blank -%}
+                  <p class="custom-review-card__variant">{{ block.settings.variant_text | escape }}</p>
+                {%- endif -%}
+              </div>
+              {%- if block.settings.verified_buyer -%}
+                <span class="custom-review-card__verified">✓ Verified buyer</span>
+              {%- endif -%}
+            </div>
+
+            <div class="custom-review-card__card-stars custom-reviews__stars" role="img" aria-label="{{ rating }} out of 5 stars">
+              {%- for i in (1..5) -%}
+                {%- if i <= rating -%}★{%- else -%}☆{%- endif -%}
+              {%- endfor -%}
+            </div>
+
+            {%- if block.settings.review_title != blank -%}
+              <h3 class="custom-review-card__title">{{ block.settings.review_title | escape }}</h3>
+            {%- endif -%}
+
+            {%- if block.settings.review_text != blank -%}
+              <p class="custom-review-card__text">{{ block.settings.review_text | escape }}</p>
+            {%- endif -%}
+          </article>
+        {%- endfor -%}
+      </div>
+    {%- endif -%}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Custom product reviews",
+  "tag": "section",
+  "class": "section",
+  "max_blocks": 50,
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Section title",
+      "default": "Customer Reviews"
+    },
+    {
+      "type": "text",
+      "id": "subtitle",
+      "label": "Section subtitle",
+      "default": "Real feedback from happy customers"
+    },
+    {
+      "type": "text",
+      "id": "average_rating_text",
+      "label": "Average rating text",
+      "default": "4.8/5"
+    },
+    {
+      "type": "text",
+      "id": "total_reviews_text",
+      "label": "Total reviews text",
+      "default": "Based on 5,066 reviews"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_review_summary",
+      "label": "Show review summary",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_photo_reviews",
+      "label": "Show photo reviews",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "button_text",
+      "label": "Button text",
+      "default": "Write a review"
+    },
+    {
+      "type": "url",
+      "id": "button_link",
+      "label": "Button link"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "star_color",
+      "label": "Star color",
+      "default": "#ffb800"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text color",
+      "default": "#1a1a1a"
+    },
+    {
+      "type": "header",
+      "content": "Rating distribution"
+    },
+    {
+      "type": "range",
+      "id": "pct_5",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "%",
+      "label": "5 stars (%)",
+      "default": 88
+    },
+    {
+      "type": "text",
+      "id": "count_5",
+      "label": "5 stars count",
+      "default": "4458"
+    },
+    {
+      "type": "range",
+      "id": "pct_4",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "%",
+      "label": "4 stars (%)",
+      "default": 8
+    },
+    {
+      "type": "text",
+      "id": "count_4",
+      "label": "4 stars count",
+      "default": "405"
+    },
+    {
+      "type": "range",
+      "id": "pct_3",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "%",
+      "label": "3 stars (%)",
+      "default": 3
+    },
+    {
+      "type": "text",
+      "id": "count_3",
+      "label": "3 stars count",
+      "default": "152"
+    },
+    {
+      "type": "range",
+      "id": "pct_2",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "%",
+      "label": "2 stars (%)",
+      "default": 1
+    },
+    {
+      "type": "text",
+      "id": "count_2",
+      "label": "2 stars count",
+      "default": "35"
+    },
+    {
+      "type": "range",
+      "id": "pct_1",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "%",
+      "label": "1 star (%)",
+      "default": 0
+    },
+    {
+      "type": "text",
+      "id": "count_1",
+      "label": "1 star count",
+      "default": "16"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "review",
+      "name": "Review",
+      "settings": [
+        {
+          "type": "text",
+          "id": "customer_name",
+          "label": "Customer name",
+          "default": "Sarah M."
+        },
+        {
+          "type": "range",
+          "id": "rating",
+          "min": 1,
+          "max": 5,
+          "step": 1,
+          "label": "Rating",
+          "default": 5
+        },
+        {
+          "type": "text",
+          "id": "review_title",
+          "label": "Review title",
+          "default": "Better than expected"
+        },
+        {
+          "type": "textarea",
+          "id": "review_text",
+          "label": "Review text",
+          "default": "The shirt came out better than expected. The photo quality looks great and it was a perfect gift."
+        },
+        {
+          "type": "image_picker",
+          "id": "customer_photo",
+          "label": "Customer photo"
+        },
+        {
+          "type": "image_picker",
+          "id": "product_photo",
+          "label": "Product photo"
+        },
+        {
+          "type": "checkbox",
+          "id": "verified_buyer",
+          "label": "Verified buyer",
+          "default": true
+        },
+        {
+          "type": "text",
+          "id": "date_text",
+          "label": "Date text",
+          "default": "06/12/2026"
+        },
+        {
+          "type": "text",
+          "id": "country_text",
+          "label": "Country (optional)"
+        },
+        {
+          "type": "text",
+          "id": "variant_text",
+          "label": "Product variant (optional)"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Custom product reviews",
+      "blocks": [
+        {
+          "type": "review",
+          "settings": {
+            "customer_name": "Sarah M.",
+            "rating": 5,
+            "review_title": "Better than expected",
+            "review_text": "The shirt came out better than expected. The photo quality looks great and it was a perfect gift.",
+            "verified_buyer": true,
+            "date_text": "06/12/2026",
+            "country_text": "United States"
+          }
+        },
+        {
+          "type": "review",
+          "settings": {
+            "customer_name": "James T.",
+            "rating": 5,
+            "review_title": "Perfect summer gift",
+            "review_text": "Super fun summer shirt. My husband loved seeing our cat on it.",
+            "verified_buyer": true,
+            "date_text": "06/08/2026",
+            "country_text": "Canada"
+          }
+        },
+        {
+          "type": "review",
+          "settings": {
+            "customer_name": "Emily R.",
+            "rating": 5,
+            "review_title": "Easy and clean result",
+            "review_text": "Easy to upload the photo and the result looks really clean.",
+            "verified_buyer": true,
+            "date_text": "06/02/2026"
+          }
+        },
+        {
+          "type": "review",
+          "settings": {
+            "customer_name": "Michael K.",
+            "rating": 4,
+            "review_title": "Great quality fabric",
+            "review_text": "Soft material and vibrant print. Shipping took a bit longer than expected but worth the wait.",
+            "verified_buyer": true,
+            "date_text": "05/28/2026",
+            "variant_text": "Men's / Large"
+          }
+        },
+        {
+          "type": "review",
+          "settings": {
+            "customer_name": "Lisa P.",
+            "rating": 5,
+            "review_title": "Hit at the family reunion",
+            "review_text": "Everyone asked where we got the matching shirts. The colors popped and the fit was true to size.",
+            "verified_buyer": true,
+            "date_text": "05/20/2026",
+            "country_text": "United Kingdom"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

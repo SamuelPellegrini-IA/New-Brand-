@@ -128,77 +128,93 @@
         "padding_bottom": 24
       }
     },
-    "reviews": {
-      "type": "product-reviews-gecko",
+    "custom_product_reviews": {
+      "type": "custom-product-reviews",
       "blocks": {
-        "r1": {
+        "review_1": {
           "type": "review",
           "settings": {
-            "author": "Genevieve Dew",
-            "date": "06/18/2026",
+            "customer_name": "Sarah M.",
             "rating": 5,
-            "title": "The shirt is of good quality",
-            "content": "<p>The shirt I ordered for my hubby came out almost perfect. The color etc. the picture brought tears to his eyes.</p>",
-            "verified": true,
-            "verified_label": "Verified",
-            "thumbs_up": 8,
-            "thumbs_down": 0
+            "review_title": "Better than expected",
+            "review_text": "The shirt came out better than expected. The photo quality looks great and it was a perfect gift.",
+            "verified_buyer": true,
+            "date_text": "06/12/2026",
+            "country_text": "United States"
           }
         },
-        "r2": {
+        "review_2": {
           "type": "review",
           "settings": {
-            "author": "Customer Lucy",
-            "date": "06/15/2026",
+            "customer_name": "James T.",
             "rating": 5,
-            "title": "50th Birthday Celebration Shirt",
-            "content": "<p>This shirt was a hit for my Fiancé! It was epic. Thank you!</p>",
-            "verified": true,
-            "verified_label": "Verified",
-            "thumbs_up": 12,
-            "thumbs_down": 0
+            "review_title": "Perfect summer gift",
+            "review_text": "Super fun summer shirt. My husband loved seeing our cat on it.",
+            "verified_buyer": true,
+            "date_text": "06/08/2026",
+            "country_text": "Canada"
           }
         },
-        "r3": {
+        "review_3": {
           "type": "review",
           "settings": {
-            "author": "Kathleen",
-            "date": "06/10/2026",
+            "customer_name": "Emily R.",
             "rating": 5,
-            "title": "Mens Hawaiian shirt",
-            "content": "<p>The shirt is nice quality and our 2 dogs photos are clear. I highly recommend.</p>",
-            "verified": true,
-            "verified_label": "Verified",
-            "thumbs_up": 5,
-            "thumbs_down": 0
+            "review_title": "Easy and clean result",
+            "review_text": "Easy to upload the photo and the result looks really clean.",
+            "verified_buyer": true,
+            "date_text": "06/02/2026"
+          }
+        },
+        "review_4": {
+          "type": "review",
+          "settings": {
+            "customer_name": "Michael K.",
+            "rating": 4,
+            "review_title": "Great quality fabric",
+            "review_text": "Soft material and vibrant print. Shipping took a bit longer than expected but worth the wait.",
+            "verified_buyer": true,
+            "date_text": "05/28/2026",
+            "variant_text": "Men's / Large"
+          }
+        },
+        "review_5": {
+          "type": "review",
+          "settings": {
+            "customer_name": "Lisa P.",
+            "rating": 5,
+            "review_title": "Hit at the family reunion",
+            "review_text": "Everyone asked where we got the matching shirts. The colors popped and the fit was true to size.",
+            "verified_buyer": true,
+            "date_text": "05/20/2026",
+            "country_text": "United Kingdom"
           }
         }
       },
-      "block_order": ["r1", "r2", "r3"],
+      "block_order": ["review_1", "review_2", "review_3", "review_4", "review_5"],
       "settings": {
-        "heading": "Customer Reviews",
-        "average_rating": "4.89",
-        "total_label": "Based on 5066 reviews",
-        "pct_5": 91,
-        "count_5": "4619",
-        "pct_4": 7,
-        "count_4": "357",
-        "pct_3": 2,
-        "count_3": "83",
-        "pct_2": 0,
-        "count_2": "4",
+        "title": "Customer Reviews",
+        "subtitle": "Real feedback from happy customers",
+        "average_rating_text": "4.8/5",
+        "total_reviews_text": "Based on 5,066 reviews",
+        "show_review_summary": true,
+        "show_photo_reviews": true,
+        "button_text": "Write a review",
+        "background_color": "#ffffff",
+        "star_color": "#ffb800",
+        "text_color": "#1a1a1a",
+        "pct_5": 88,
+        "count_5": "4458",
+        "pct_4": 8,
+        "count_4": "405",
+        "pct_3": 3,
+        "count_3": "152",
+        "pct_2": 1,
+        "count_2": "35",
         "pct_1": 0,
-        "count_1": "3",
-        "show_write_button": true,
-        "write_button_label": "Write a review",
-        "filter_label": "Pictures First",
-        "show_pagination": true,
-        "pagination_pages": 3,
-        "reviews_per_page": 3,
-        "padding_top": 40,
-        "padding_bottom": 48
+        "count_1": "16"
       }
     }
   },
-  "order": ["main", "reviews"]
+  "order": ["main", "custom_product_reviews"]
 }

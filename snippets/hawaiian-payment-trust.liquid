@@ -1,9 +1,9 @@
-<div class="gecko-payment-trust" {{ block.shopify_attributes }}>
+<div class="product-checkout-security" {{ block.shopify_attributes }}>
   {%- if block.settings.checkout_text != blank -%}
-    <p class="gecko-payment-trust__checkout">
-      <span class="gecko-payment-trust__shield gecko-payment-trust__shield--blue" aria-hidden="true">
+    <p class="product-checkout-security__title">
+      <span class="product-checkout-security__shield product-checkout-security__shield--blue" aria-hidden="true">
         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
-          <path d="M8 1 2 3.5v4.2c0 3.1 2.5 5.5 6 6.8 3.5-1.3 6-3.7 6-6.8V3.5L8 1Z" fill="#1a8fd1"/>
+          <path d="M8 1 2 3.5v4.2c0 3.1 2.5 5.5 6 6.8 3.5-1.3 6-3.7 6-6.8V3.5L8 1Z" fill="#0088cc"/>
           <path d="m6.2 8.1 1.3 1.3 2.8-2.8" stroke="#fff" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>
         </svg>
       </span>
@@ -11,33 +11,37 @@
     </p>
   {%- endif -%}
 
-  <div class="gecko-payment-trust__icons">
+  <div class="product-checkout-security__icons">
     {%- if block.settings.payment_icons_image != blank -%}
       {{
         block.settings.payment_icons_image
         | image_url: width: 900
-        | image_tag: loading: 'lazy', alt: block.settings.payment_icons_alt, class: 'gecko-payment-trust__icons-img'
+        | image_tag: loading: 'lazy', alt: block.settings.payment_icons_alt, class: 'product-checkout-security__icon'
       }}
     {%- elsif block.settings.payment_icons_url != blank -%}
       <img
         src="{{ block.settings.payment_icons_url | escape }}"
         alt="{{ block.settings.payment_icons_alt | escape }}"
-        class="gecko-payment-trust__icons-img"
+        class="product-checkout-security__icon"
         loading="lazy"
         width="900"
       >
     {%- else -%}
-      <div class="gecko-payment-trust__icons-fallback" aria-hidden="true">
-        <span>PayPal</span><span>VISA</span><span>Apple Pay</span><span>Mastercard</span><span>Amex</span>
+      <div class="product-checkout-security__icons-fallback" aria-hidden="true">
+        <span class="product-checkout-security__icon product-checkout-security__icon--badge">PayPal</span>
+        <span class="product-checkout-security__icon product-checkout-security__icon--badge">VISA</span>
+        <span class="product-checkout-security__icon product-checkout-security__icon--badge">Apple Pay</span>
+        <span class="product-checkout-security__icon product-checkout-security__icon--badge">Mastercard</span>
+        <span class="product-checkout-security__icon product-checkout-security__icon--badge">Amex</span>
       </div>
     {%- endif -%}
   </div>
 
   {%- if block.settings.secure_text != blank -%}
-    <p class="gecko-payment-trust__secure">
-      <span class="gecko-payment-trust__shield gecko-payment-trust__shield--green" aria-hidden="true">
+    <p class="product-checkout-security__secure">
+      <span class="product-checkout-security__shield product-checkout-security__shield--green" aria-hidden="true">
         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
-          <path d="M8 1 2 3.5v4.2c0 3.1 2.5 5.5 6 6.8 3.5-1.3 6-3.7 6-6.8V3.5L8 1Z" fill="#218f78"/>
+          <path d="M8 1 2 3.5v4.2c0 3.1 2.5 5.5 6 6.8 3.5-1.3 6-3.7 6-6.8V3.5L8 1Z" fill="#008060"/>
           <path d="m6.2 8.1 1.3 1.3 2.8-2.8" stroke="#fff" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>
         </svg>
       </span>
@@ -46,9 +50,9 @@
   {%- endif -%}
 
   {%- if block.settings.learn_more_text != blank -%}
-    <details class="gecko-payment-trust__learn-more">
+    <details class="product-checkout-security__learn-more">
       <summary>{{ block.settings.learn_more_label | default: 'Learn more' | escape }}</summary>
-      <div class="gecko-payment-trust__learn-more-content rte">{{ block.settings.learn_more_text }}</div>
+      <div class="product-checkout-security__learn-more-content rte">{{ block.settings.learn_more_text }}</div>
     </details>
   {%- endif -%}
 </div>
