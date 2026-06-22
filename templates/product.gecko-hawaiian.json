@@ -10,7 +10,7 @@
             "rating_value": 4.9,
             "review_count": "5066",
             "review_label": "reviews",
-            "reviews_link": "#customer-reviews"
+            "reviews_link": ""
           }
         },
         "price": { "type": "price", "settings": {} },
