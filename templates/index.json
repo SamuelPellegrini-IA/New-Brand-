@@ -16,7 +16,10 @@
         "heading": "Transformez la photo de votre chat en <em>chemise tropicale unique</em>",
         "subheading": "Téléversez 1 à 5 photos, choisissez vos couleurs de feuilles tropicales et de fleurs hawaïennes, et recevez une chemise made-to-order imprimée en haute définition — le cadeau parfait pour les amoureux des chats.",
         "button_label": "Créer ma chemise maintenant",
-        "button_link": "shopify://products/custom-photo-tropical-cat-hawaiian-shirt"
+        "button_link": "shopify://products/custom-photo-tropical-cat-hawaiian-shirt",
+        "product": "custom-photo-tropical-cat-hawaiian-shirt",
+        "product_handle": "custom-photo-tropical-cat-hawaiian-shirt",
+        "show_price": true
       }
     },
     "trust": {
@@ -66,7 +69,14 @@
       "settings": {
         "label": "Le produit",
         "heading": "La chemise hawaïenne qui raconte votre histoire",
-        "text": "Notre Custom Photo Tropical Cat Hawaiian Shirt combine l'esprit des chemises Aloha avec votre compagnon à quatre pattes. Que ce soit pour vous ou pour offrir, c'est une pièce dont on parle longtemps."
+        "text": "Notre Custom Photo Tropical Cat Hawaiian Shirt combine l'esprit des chemises Aloha avec votre compagnon à quatre pattes. Que ce soit pour vous ou pour offrir, c'est une pièce dont on parle longtemps.",
+        "product": "custom-photo-tropical-cat-hawaiian-shirt",
+        "product_handle": "custom-photo-tropical-cat-hawaiian-shirt",
+        "show_price": true,
+        "show_product_gallery": true,
+        "gallery_limit": 4,
+        "button_label": "Personnaliser ma chemise",
+        "button_link": "shopify://products/custom-photo-tropical-cat-hawaiian-shirt"
       }
     },
     "customize": {

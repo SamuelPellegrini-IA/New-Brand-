@@ -57,6 +57,20 @@
     });
   }
 
+  function updatePreviewVisibility(mediaWrapper, host) {
+    if (!mediaWrapper || !host) return;
+
+    var hasPreview = !!host.querySelector(
+      'canvas, img[src]:not([src=""]), .sl-canvas-container canvas, #customily-preview canvas, .customily-preview canvas'
+    );
+
+    if (hasPreview) {
+      mediaWrapper.classList.add('hawaiian-preview-active');
+    } else {
+      mediaWrapper.classList.remove('hawaiian-preview-active');
+    }
+  }
+
   function moveLivePreviewToMedia(root) {
     var mediaWrapper = root.querySelector('.product__media-wrapper');
     if (!mediaWrapper) return;
@@ -78,7 +92,6 @@
         if (host.contains(node)) return;
         node.classList.add('hawaiian-preview-moved');
         host.appendChild(node);
-        mediaWrapper.classList.add('hawaiian-preview-active');
       });
     });
 
@@ -88,9 +101,10 @@
       if (hasPreview && !host.contains(block)) {
         block.classList.add('hawaiian-preview-moved');
         host.appendChild(block);
-        mediaWrapper.classList.add('hawaiian-preview-active');
       }
     });
+
+    updatePreviewVisibility(mediaWrapper, host);
   }
 
   function normalizeUploadButtonText(root) {

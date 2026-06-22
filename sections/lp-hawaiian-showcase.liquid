@@ -1,11 +1,54 @@
 {{ 'section-lp-hawaiian.css' | asset_url | stylesheet_tag }}
+{%- if section.settings.show_price -%}
+  {{ 'component-price.css' | asset_url | stylesheet_tag }}
+{%- endif -%}
+
+{%- liquid
+  assign lp_product = section.settings.product
+  if lp_product == blank
+    assign fallback_handle = section.settings.product_handle | default: 'custom-photo-tropical-cat-hawaiian-shirt'
+    assign lp_product = all_products[fallback_handle]
+  endif
+
+  assign showcase_heading = section.settings.heading
+  if showcase_heading == blank and lp_product != blank
+    assign showcase_heading = lp_product.title
+  endif
+
+  assign showcase_button_link = section.settings.button_link
+  if showcase_button_link == blank and lp_product != blank
+    assign showcase_button_link = lp_product.url
+  endif
+-%}
 
 <section class="lp-hawaiian lp-hawaiian-showcase">
   <div class="lp-hawaiian__wrap">
     <div class="lp-hawaiian-showcase__grid">
       <div class="lp-hawaiian-showcase__media">
         {%- if section.settings.image != blank -%}
-          {{ section.settings.image | image_url: width: 800 | image_tag: loading: 'lazy', alt: section.settings.heading }}
+          {{
+            section.settings.image
+            | image_url: width: 800
+            | image_tag: loading: 'lazy', alt: showcase_heading
+          }}
+        {%- elsif lp_product != blank and lp_product.media.size > 0 and section.settings.show_product_gallery -%}
+          <div class="lp-hawaiian-showcase__gallery">
+            {%- for media in lp_product.media limit: section.settings.gallery_limit -%}
+              <div class="lp-hawaiian-showcase__gallery-item">
+                {{
+                  media.preview_image
+                  | image_url: width: 600
+                  | image_tag: loading: 'lazy', alt: lp_product.title
+                }}
+              </div>
+            {%- endfor -%}
+          </div>
+        {%- elsif lp_product != blank and lp_product.featured_media != blank -%}
+          {{
+            lp_product.featured_media.preview_image
+            | image_url: width: 800
+            | image_tag: loading: 'lazy', alt: lp_product.title
+          }}
         {%- else -%}
           {{ 'product-apparel-1' | placeholder_svg_tag: 'placeholder-svg' }}
         {%- endif -%}
@@ -14,11 +57,20 @@
         {%- if section.settings.label != blank -%}
           <p class="lp-hawaiian__section-label">{{ section.settings.label | escape }}</p>
         {%- endif -%}
-        {%- if section.settings.heading != blank -%}
-          <h2 class="lp-hawaiian__title" style="font-size:clamp(2rem,3.5vw,2.8rem);">{{ section.settings.heading }}</h2>
+        {%- if showcase_heading != blank -%}
+          <h2 class="lp-hawaiian__title" style="font-size:clamp(2rem,3.5vw,2.8rem);">{{ showcase_heading | escape }}</h2>
+        {%- endif -%}
+        {%- if section.settings.show_price and lp_product != blank -%}
+          <div class="lp-hawaiian-showcase__price">
+            {%- render 'price', product: lp_product, use_variant: true, show_badges: true -%}
+          </div>
         {%- endif -%}
         {%- if section.settings.text != blank -%}
           <p class="lp-hawaiian__subtitle" style="margin-bottom:0;">{{ section.settings.text | escape }}</p>
+        {%- elsif lp_product != blank and lp_product.description != blank and section.settings.use_product_description -%}
+          <div class="lp-hawaiian__subtitle rte" style="margin-bottom:0;">
+            {{ lp_product.description | strip_html | truncate: 280 }}
+          </div>
         {%- endif -%}
         {%- if section.blocks.size > 0 -%}
           <ul class="lp-hawaiian-showcase__list">
@@ -32,6 +84,11 @@
             {%- endfor -%}
           </ul>
         {%- endif -%}
+        {%- if section.settings.button_label != blank -%}
+          <a href="{{ showcase_button_link }}" class="lp-hawaiian__btn lp-hawaiian-showcase__btn">
+            {{ section.settings.button_label | escape }}
+          </a>
+        {%- endif -%}
       </div>
     </div>
   </div>
@@ -43,10 +100,29 @@
   "tag": "section",
   "class": "section",
   "settings": [
+    {
+      "type": "product",
+      "id": "product",
+      "label": "Produit Shopify",
+      "info": "Affiche les images, le titre et le prix de votre produit."
+    },
+    {
+      "type": "text",
+      "id": "product_handle",
+      "label": "Handle produit (secours)",
+      "default": "custom-photo-tropical-cat-hawaiian-shirt",
+      "info": "Utilisé si aucun produit n'est sélectionné ci-dessus."
+    },
     { "type": "text", "id": "label", "label": "Label", "default": "Le produit" },
-    { "type": "text", "id": "heading", "label": "Titre", "default": "Une chemise hawaïenne aussi unique que votre compagnon" },
+    { "type": "text", "id": "heading", "label": "Titre", "default": "La chemise hawaïenne qui raconte votre histoire", "info": "Laisser vide pour utiliser le titre du produit Shopify." },
     { "type": "textarea", "id": "text", "label": "Description", "default": "Notre chemise Tropical Cat Hawaii Shirt allie le charme des motifs tropicaux à votre photo personnelle. Chaque pièce est imprimée sur demande avec des couleurs éclatantes qui ne passent pas inaperçues." },
-    { "type": "image_picker", "id": "image", "label": "Image" }
+    { "type": "checkbox", "id": "use_product_description", "label": "Utiliser la description produit si le texte est vide", "default": false },
+    { "type": "checkbox", "id": "show_price", "label": "Afficher le prix", "default": true },
+    { "type": "checkbox", "id": "show_product_gallery", "label": "Afficher plusieurs images produit", "default": true },
+    { "type": "range", "id": "gallery_limit", "min": 2, "max": 6, "step": 1, "label": "Nombre d'images galerie", "default": 4 },
+    { "type": "text", "id": "button_label", "label": "Bouton", "default": "Personnaliser ma chemise" },
+    { "type": "url", "id": "button_link", "label": "Lien du bouton", "info": "Par défaut : URL du produit Shopify." },
+    { "type": "image_picker", "id": "image", "label": "Image (remplace les images produit)" }
   ],
   "blocks": [
     {

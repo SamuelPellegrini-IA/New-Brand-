@@ -1,4 +1,15 @@
 {{ 'section-lp-hawaiian.css' | asset_url | stylesheet_tag }}
+{%- if section.settings.show_price -%}
+  {{ 'component-price.css' | asset_url | stylesheet_tag }}
+{%- endif -%}
+
+{%- liquid
+  assign lp_product = section.settings.product
+  if lp_product == blank
+    assign fallback_handle = section.settings.product_handle | default: 'custom-photo-tropical-cat-hawaiian-shirt'
+    assign lp_product = all_products[fallback_handle]
+  endif
+-%}
 
 <section class="lp-hawaiian lp-hawaiian-hero">
   <div class="lp-hawaiian__wrap">
@@ -19,11 +30,22 @@
         {%- if section.settings.subheading != blank -%}
           <p class="lp-hawaiian__subtitle">{{ section.settings.subheading | escape }}</p>
         {%- endif -%}
+        {%- liquid
+          assign hero_button_link = section.settings.button_link
+          if hero_button_link == blank and lp_product != blank
+            assign hero_button_link = lp_product.url
+          endif
+        -%}
         <div class="lp-hawaiian-hero__actions">
           {%- if section.settings.button_label != blank -%}
-            <a href="{{ section.settings.button_link }}" class="lp-hawaiian__btn">
+            <a href="{{ hero_button_link }}" class="lp-hawaiian__btn">
               {{ section.settings.button_label | escape }}
             </a>
+          {%- endif -%}
+          {%- if section.settings.show_price and lp_product != blank -%}
+            <p class="lp-hawaiian-hero__price">
+              {%- render 'price', product: lp_product, use_variant: true, show_badges: false -%}
+            </p>
           {%- endif -%}
         </div>
         {%- if section.blocks.size > 0 -%}
@@ -37,11 +59,21 @@
         {%- endif -%}
       </div>
       <div class="lp-hawaiian-hero__media">
-        {%- if section.settings.image != blank -%}
+        {%- liquid
+          assign hero_image = section.settings.image
+          assign hero_alt = section.settings.heading | strip_html
+          if hero_image == blank and lp_product != blank and lp_product.featured_media != blank
+            assign hero_image = lp_product.featured_media.preview_image
+            if hero_alt == blank
+              assign hero_alt = lp_product.title
+            endif
+          endif
+        -%}
+        {%- if hero_image != blank -%}
           {{
-            section.settings.image
+            hero_image
             | image_url: width: 1200
-            | image_tag: loading: 'eager', fetchpriority: 'high', alt: section.settings.heading
+            | image_tag: loading: 'eager', fetchpriority: 'high', alt: hero_alt
           }}
         {%- else -%}
           {{ 'product-apparel-2' | placeholder_svg_tag: 'placeholder-svg' }}
@@ -64,7 +96,25 @@
     { "type": "textarea", "id": "subheading", "label": "Sous-titre", "default": "Téléversez 1 à 5 photos, choisissez vos couleurs de feuilles et de fleurs, et recevez une chemise hawaïenne made-to-order — le cadeau parfait pour les amoureux des chats." },
     { "type": "text", "id": "button_label", "label": "Bouton", "default": "Créer ma chemise maintenant" },
     { "type": "url", "id": "button_link", "label": "Lien du bouton" },
-    { "type": "image_picker", "id": "image", "label": "Image hero (chemise personnalisée)" }
+    {
+      "type": "product",
+      "id": "product",
+      "label": "Produit Shopify",
+      "info": "Affiche l'image et le prix du produit si aucune image manuelle n'est choisie."
+    },
+    {
+      "type": "text",
+      "id": "product_handle",
+      "label": "Handle produit (secours)",
+      "default": "custom-photo-tropical-cat-hawaiian-shirt",
+      "info": "Utilisé si aucun produit n'est sélectionné ci-dessus."
+    },
+    { "type": "checkbox", "id": "show_price", "label": "Afficher le prix du produit", "default": true },
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Image hero (remplace l'image produit)"
+    }
   ],
   "blocks": [
     {
