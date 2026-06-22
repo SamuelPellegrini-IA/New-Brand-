@@ -78,6 +78,65 @@
             "step3_label": "Estimated arrival",
             "disclaimer": "* The ETA is applied for US orders only. All products are made to order."
           }
+        },
+        "review_1": {
+          "type": "gecko_review",
+          "settings": {
+            "customer_name": "Sarah M.",
+            "rating": 5,
+            "review_title": "Better than expected",
+            "review_text": "The shirt came out better than expected. The photo quality looks great and it was a perfect gift.",
+            "verified_buyer": true,
+            "date_text": "06/12/2026",
+            "country_text": "United States"
+          }
+        },
+        "review_2": {
+          "type": "gecko_review",
+          "settings": {
+            "customer_name": "James T.",
+            "rating": 5,
+            "review_title": "Perfect summer gift",
+            "review_text": "Super fun summer shirt. My husband loved seeing our cat on it.",
+            "verified_buyer": true,
+            "date_text": "06/08/2026",
+            "country_text": "Canada"
+          }
+        },
+        "review_3": {
+          "type": "gecko_review",
+          "settings": {
+            "customer_name": "Emily R.",
+            "rating": 5,
+            "review_title": "Easy and clean result",
+            "review_text": "Easy to upload the photo and the result looks really clean.",
+            "verified_buyer": true,
+            "date_text": "06/02/2026"
+          }
+        },
+        "review_4": {
+          "type": "gecko_review",
+          "settings": {
+            "customer_name": "Michael K.",
+            "rating": 4,
+            "review_title": "Great quality fabric",
+            "review_text": "Soft material and vibrant print. Shipping took a bit longer than expected but worth the wait.",
+            "verified_buyer": true,
+            "date_text": "05/28/2026",
+            "variant_text": "Men's / Large"
+          }
+        },
+        "review_5": {
+          "type": "gecko_review",
+          "settings": {
+            "customer_name": "Lisa P.",
+            "rating": 5,
+            "review_title": "Hit at the family reunion",
+            "review_text": "Everyone asked where we got the matching shirts. The colors popped and the fit was true to size.",
+            "verified_buyer": true,
+            "date_text": "05/20/2026",
+            "country_text": "United Kingdom"
+          }
         }
       },
       "block_order": [
@@ -89,30 +148,45 @@
         "quantity_selector",
         "buy_buttons",
         "payment_trust",
-        "shipping_timeline"
+        "shipping_timeline",
+        "review_1",
+        "review_2",
+        "review_3",
+        "review_4",
+        "review_5"
       ],
       "settings": {
         "layout_style": "hawaiian_shirt",
-        "gecko_show_reviews": false,
+        "gecko_show_reviews": true,
         "gecko_reviews_heading": "Customer Reviews",
-        "gecko_avg_rating": "4.89",
-        "gecko_reviews_total": "Based on 5066 reviews",
-        "gecko_pct_5": 91,
-        "gecko_count_5": "4619",
-        "gecko_pct_4": 7,
-        "gecko_count_4": "357",
-        "gecko_pct_3": 2,
-        "gecko_count_3": "83",
-        "gecko_pct_2": 0,
-        "gecko_count_2": "4",
+        "gecko_reviews_subtitle": "Real feedback from happy customers",
+        "gecko_avg_rating": "4.8/5",
+        "gecko_reviews_total": "Based on 5,066 reviews",
+        "gecko_show_review_summary": true,
+        "gecko_show_review_photos": true,
+        "gecko_reviews_bg": "#ffffff",
+        "gecko_star_color": "#ffb800",
+        "gecko_text_color": "#1a1a1a",
+        "gecko_pct_5": 88,
+        "gecko_count_5": "4458",
+        "gecko_pct_4": 8,
+        "gecko_count_4": "405",
+        "gecko_pct_3": 3,
+        "gecko_count_3": "152",
+        "gecko_pct_2": 1,
+        "gecko_count_2": "35",
         "gecko_pct_1": 0,
-        "gecko_count_1": "3",
+        "gecko_count_1": "16",
         "gecko_show_write_button": true,
         "gecko_write_label": "Write a review",
-        "gecko_filter_label": "Pictures First",
-        "gecko_show_pagination": true,
-        "gecko_pagination_pages": 3,
-        "gecko_reviews_per_page": 3,
+        "gecko_acc_item_details_title": "Item details",
+        "gecko_acc_item_details_content": "<p>Capture your furry friend's unique personality in a vibrant, custom photo tropical style <strong>cat Hawaii Shirt</strong>! Perfect for the cat lover in your life, it also makes a memorable summer or beach trip gift!</p><p><strong>Preview:</strong></p><ul><li>Choose an option and upload your photo.</li><li>Click <strong>Preview Your Personalization</strong> to see the preview.</li><li>Double-check your options before purchasing.</li></ul><p><strong>Product Details:</strong></p><ul><li>Fabric: 100% polyester</li><li>Regular fit</li><li>Short sleeve, lapel collar, button closure</li><li>Fabric weight: 120g/m²</li><li>Care: machine wash cold, do not bleach, tumble dry low</li><li>Made on demand — no minimum order quantity</li></ul><p><strong>Processing Time:</strong> 3–5 business days<br><strong>Shipping Time:</strong> 10–15 business days</p>",
+        "gecko_acc_shipping_title": "Shipping Info",
+        "gecko_acc_shipping_content": "<ul><li>The above time frame is only applied for orders to the US with standard shipping methods.</li><li>International orders: It may take 2–5 days longer due to the customs clearance process.</li><li><strong>Orders can be cancelled or modified only within 2 hours after being placed.</strong></li><li>All products are made to order.</li></ul>",
+        "gecko_acc_guarantee_title": "Satisfaction Guarantee",
+        "gecko_acc_guarantee_content": "<ul><li>Full-refund or replace a new item (no extra fee within 30 days since your purchase) for faulty, defective or damaged products.</li><li>Full-refund if the item is not as described.</li><li>We have 24/7/365 ticket and email support.</li></ul>",
+        "gecko_acc_deals_title": "Hot Deals",
+        "gecko_acc_deals_content": "<p>Get ready for a shopping experience like no other! Explore our latest collection tailored for dog and cat lovers, camping enthusiasts, and families alike.</p><p><strong>Enjoy an exclusive 10% discount using code HOT10, combinable with other codes.</strong></p>",
         "enable_sticky_info": false,
         "color_scheme": "scheme-1",
         "media_size": "medium",
@@ -127,94 +201,7 @@
         "padding_top": 24,
         "padding_bottom": 24
       }
-    },
-    "custom_product_reviews": {
-      "type": "custom-product-reviews",
-      "blocks": {
-        "review_1": {
-          "type": "review",
-          "settings": {
-            "customer_name": "Sarah M.",
-            "rating": 5,
-            "review_title": "Better than expected",
-            "review_text": "The shirt came out better than expected. The photo quality looks great and it was a perfect gift.",
-            "verified_buyer": true,
-            "date_text": "06/12/2026",
-            "country_text": "United States"
-          }
-        },
-        "review_2": {
-          "type": "review",
-          "settings": {
-            "customer_name": "James T.",
-            "rating": 5,
-            "review_title": "Perfect summer gift",
-            "review_text": "Super fun summer shirt. My husband loved seeing our cat on it.",
-            "verified_buyer": true,
-            "date_text": "06/08/2026",
-            "country_text": "Canada"
-          }
-        },
-        "review_3": {
-          "type": "review",
-          "settings": {
-            "customer_name": "Emily R.",
-            "rating": 5,
-            "review_title": "Easy and clean result",
-            "review_text": "Easy to upload the photo and the result looks really clean.",
-            "verified_buyer": true,
-            "date_text": "06/02/2026"
-          }
-        },
-        "review_4": {
-          "type": "review",
-          "settings": {
-            "customer_name": "Michael K.",
-            "rating": 4,
-            "review_title": "Great quality fabric",
-            "review_text": "Soft material and vibrant print. Shipping took a bit longer than expected but worth the wait.",
-            "verified_buyer": true,
-            "date_text": "05/28/2026",
-            "variant_text": "Men's / Large"
-          }
-        },
-        "review_5": {
-          "type": "review",
-          "settings": {
-            "customer_name": "Lisa P.",
-            "rating": 5,
-            "review_title": "Hit at the family reunion",
-            "review_text": "Everyone asked where we got the matching shirts. The colors popped and the fit was true to size.",
-            "verified_buyer": true,
-            "date_text": "05/20/2026",
-            "country_text": "United Kingdom"
-          }
-        }
-      },
-      "block_order": ["review_1", "review_2", "review_3", "review_4", "review_5"],
-      "settings": {
-        "title": "Customer Reviews",
-        "subtitle": "Real feedback from happy customers",
-        "average_rating_text": "4.8/5",
-        "total_reviews_text": "Based on 5,066 reviews",
-        "show_review_summary": true,
-        "show_photo_reviews": true,
-        "button_text": "Write a review",
-        "background_color": "#ffffff",
-        "star_color": "#ffb800",
-        "text_color": "#1a1a1a",
-        "pct_5": 88,
-        "count_5": "4458",
-        "pct_4": 8,
-        "count_4": "405",
-        "pct_3": 3,
-        "count_3": "152",
-        "pct_2": 1,
-        "count_2": "35",
-        "pct_1": 0,
-        "count_1": "16"
-      }
     }
   },
-  "order": ["main", "custom_product_reviews"]
+  "order": ["main"]
 }

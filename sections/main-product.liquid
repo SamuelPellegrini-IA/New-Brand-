@@ -816,6 +816,10 @@
       <script type="application/ld+json">
         {{ product | structured_data }}
       </script>
+
+      {%- if hawaiian_layout and section.settings.gecko_show_reviews -%}
+        {%- render 'custom-product-reviews-main', section: section -%}
+      {%- endif -%}
     </div>
   </product-component>
 
@@ -1339,21 +1343,24 @@
     },
     {
       "type": "gecko_review",
-      "name": "Avis client (Gecko)",
+      "name": "Review",
       "settings": [
-        { "type": "text", "id": "author", "label": "Auteur", "default": "Customer" },
-        { "type": "text", "id": "date", "label": "Date", "default": "06/18/2026" },
-        { "type": "range", "id": "rating", "min": 1, "max": 5, "step": 1, "label": "Note", "default": 5 },
-        { "type": "text", "id": "title", "label": "Titre", "default": "Great product" },
-        { "type": "richtext", "id": "content", "label": "Texte", "default": "<p>Love it!</p>" },
-        { "type": "image_picker", "id": "review_photo", "label": "Photo 1" },
-        { "type": "image_picker", "id": "review_photo_2", "label": "Photo 2" },
-        { "type": "image_picker", "id": "review_photo_3", "label": "Photo 3" },
-        { "type": "image_picker", "id": "review_photo_4", "label": "Photo 4" },
-        { "type": "checkbox", "id": "verified", "label": "Acheteur vérifié", "default": true },
-        { "type": "text", "id": "verified_label", "label": "Label vérifié", "default": "Verified" },
-        { "type": "number", "id": "thumbs_up", "label": "Pouces levés", "default": 3 },
-        { "type": "number", "id": "thumbs_down", "label": "Pouces baissés", "default": 0 }
+        { "type": "text", "id": "customer_name", "label": "Customer name", "default": "Sarah M." },
+        { "type": "text", "id": "author", "label": "Customer name (legacy)", "info": "Use Customer name above" },
+        { "type": "range", "id": "rating", "min": 1, "max": 5, "step": 1, "label": "Rating", "default": 5 },
+        { "type": "text", "id": "review_title", "label": "Review title", "default": "Better than expected" },
+        { "type": "text", "id": "title", "label": "Review title (legacy)" },
+        { "type": "textarea", "id": "review_text", "label": "Review text", "default": "The shirt came out better than expected. The photo quality looks great and it was a perfect gift." },
+        { "type": "richtext", "id": "content", "label": "Review text (rich text, legacy)" },
+        { "type": "image_picker", "id": "customer_photo", "label": "Customer photo" },
+        { "type": "image_picker", "id": "review_photo", "label": "Customer photo (legacy)" },
+        { "type": "image_picker", "id": "product_photo", "label": "Product photo" },
+        { "type": "checkbox", "id": "verified_buyer", "label": "Verified buyer", "default": true },
+        { "type": "checkbox", "id": "verified", "label": "Verified buyer (legacy)", "default": true },
+        { "type": "text", "id": "date_text", "label": "Date", "default": "06/12/2026" },
+        { "type": "text", "id": "date", "label": "Date (legacy)" },
+        { "type": "text", "id": "country_text", "label": "Country (optional)" },
+        { "type": "text", "id": "variant_text", "label": "Product variant (optional)" }
       ]
     },
     {
@@ -2699,7 +2706,55 @@
     },
     {
       "type": "header",
-      "content": "Avis clients Gecko"
+      "content": "Accordéons produit"
+    },
+    {
+      "type": "text",
+      "id": "gecko_acc_item_details_title",
+      "label": "Titre — Item details",
+      "default": "Item details"
+    },
+    {
+      "type": "richtext",
+      "id": "gecko_acc_item_details_content",
+      "label": "Contenu — Item details"
+    },
+    {
+      "type": "text",
+      "id": "gecko_acc_shipping_title",
+      "label": "Titre — Shipping Info",
+      "default": "Shipping Info"
+    },
+    {
+      "type": "richtext",
+      "id": "gecko_acc_shipping_content",
+      "label": "Contenu — Shipping Info"
+    },
+    {
+      "type": "text",
+      "id": "gecko_acc_guarantee_title",
+      "label": "Titre — Satisfaction Guarantee",
+      "default": "Satisfaction Guarantee"
+    },
+    {
+      "type": "richtext",
+      "id": "gecko_acc_guarantee_content",
+      "label": "Contenu — Satisfaction Guarantee"
+    },
+    {
+      "type": "text",
+      "id": "gecko_acc_deals_title",
+      "label": "Titre — Hot Deals",
+      "default": "Hot Deals"
+    },
+    {
+      "type": "richtext",
+      "id": "gecko_acc_deals_content",
+      "label": "Contenu — Hot Deals"
+    },
+    {
+      "type": "header",
+      "content": "Avis clients"
     },
     {
       "type": "checkbox",
@@ -2715,15 +2770,51 @@
     },
     {
       "type": "text",
+      "id": "gecko_reviews_subtitle",
+      "label": "Sous-titre section avis",
+      "default": "Real feedback from happy customers"
+    },
+    {
+      "type": "text",
       "id": "gecko_avg_rating",
-      "label": "Note moyenne",
-      "default": "4.89"
+      "label": "Note moyenne (ex: 4.8 ou 4.8/5)",
+      "default": "4.8/5"
     },
     {
       "type": "text",
       "id": "gecko_reviews_total",
       "label": "Texte total avis",
-      "default": "Based on 5066 reviews"
+      "default": "Based on 5,066 reviews"
+    },
+    {
+      "type": "checkbox",
+      "id": "gecko_show_review_summary",
+      "label": "Afficher le résumé des notes",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "gecko_show_review_photos",
+      "label": "Afficher les photos des avis",
+      "default": true
+    },
+    {
+      "type": "color",
+      "id": "gecko_reviews_bg",
+      "label": "Couleur de fond avis",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "gecko_star_color",
+      "label": "Couleur des étoiles",
+      "default": "#ffb800"
+    },
+    {
+      "type": "color",
+      "id": "gecko_text_color",
+      "label": "Couleur du texte avis",
+      "default": "#1a1a1a"
     },
     {
       "type": "range",

@@ -60,6 +60,20 @@
   font-size: 28px;
 }
 
+.custom-reviews--in-product {
+  padding-top: 32px;
+  padding-bottom: 32px;
+  margin-top: 8px;
+  width: 100%;
+}
+
+@media screen and (max-width: 749px) {
+  .custom-reviews--in-product {
+    padding-top: 24px;
+    padding-bottom: 24px;
+  }
+}
+
 .custom-reviews__summary {
   max-width: 640px;
   margin: 0 auto 36px;

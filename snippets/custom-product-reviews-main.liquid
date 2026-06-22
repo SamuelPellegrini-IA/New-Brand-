@@ -1,0 +1,207 @@
+{{ 'custom-product-reviews.css' | asset_url | stylesheet_tag }}
+
+{%- liquid
+  assign review_blocks = section.blocks | where: 'type', 'gecko_review'
+  assign star_color = section.settings.gecko_star_color | default: '#ffb800'
+  assign text_color = section.settings.gecko_text_color | default: '#1a1a1a'
+  assign bg_color = section.settings.gecko_reviews_bg | default: '#ffffff'
+  assign avg_raw = section.settings.gecko_avg_rating | default: '4.8'
+  assign avg_display = avg_raw
+  unless avg_display contains '/'
+    assign avg_display = avg_display | append: '/5'
+  endunless
+  assign avg_num = avg_raw | split: '/' | first | strip | times: 1.0
+  if avg_num == 0
+    assign avg_num = 4.8
+  endif
+  assign show_summary = section.settings.gecko_show_review_summary
+  if show_summary == nil
+    assign show_summary = true
+  endif
+  assign show_photos = section.settings.gecko_show_review_photos
+  if show_photos == nil
+    assign show_photos = true
+  endif
+-%}
+
+<section
+  class="custom-reviews custom-reviews--in-product"
+  id="customer-reviews"
+  style="--reviews-bg: {{ bg_color }}; --reviews-star: {{ star_color }}; --reviews-text: {{ text_color }};"
+>
+  <div class="custom-reviews__container">
+    <div class="custom-reviews__header">
+      {%- if section.settings.gecko_reviews_heading != blank -%}
+        <h2 class="custom-reviews__title">{{ section.settings.gecko_reviews_heading | escape }}</h2>
+      {%- endif -%}
+      {%- if section.settings.gecko_reviews_subtitle != blank -%}
+        <p class="custom-reviews__subtitle">{{ section.settings.gecko_reviews_subtitle | escape }}</p>
+      {%- endif -%}
+      <div class="custom-reviews__rating">
+        <span class="custom-reviews__stars" aria-hidden="true">
+          {%- assign avg_rounded = avg_num | round -%}
+          {%- for i in (1..5) -%}
+            {%- if i <= avg_rounded -%}★{%- else -%}☆{%- endif -%}
+          {%- endfor -%}
+        </span>
+        <span class="custom-reviews__rating-value">{{ avg_display | escape }}</span>
+        {%- if section.settings.gecko_reviews_total != blank -%}
+          <span class="custom-reviews__rating-count">{{ section.settings.gecko_reviews_total | escape }}</span>
+        {%- endif -%}
+      </div>
+    </div>
+
+    {%- if show_summary -%}
+      <div class="custom-reviews__summary">
+        <div class="custom-reviews__summary-inner">
+          <div class="custom-reviews__summary-score">
+            <div class="custom-reviews__stars custom-reviews__stars--lg" aria-hidden="true">
+              {%- assign avg_rounded = avg_num | round -%}
+              {%- for i in (1..5) -%}
+                {%- if i <= avg_rounded -%}★{%- else -%}☆{%- endif -%}
+              {%- endfor -%}
+            </div>
+            <div class="custom-reviews__summary-avg">{{ avg_display | escape }}</div>
+            <div class="custom-reviews__rating-count">{{ section.settings.gecko_reviews_total | escape }}</div>
+          </div>
+
+          <div class="custom-reviews__bars">
+            {%- for i in (5..1) -%}
+              {%- liquid
+                assign pct_key = 'gecko_pct_' | append: i
+                assign cnt_key = 'gecko_count_' | append: i
+                assign pct = section.settings[pct_key]
+                assign cnt = section.settings[cnt_key]
+              -%}
+              <div class="custom-reviews__bar-row">
+                <span class="custom-reviews__bar-label">{{ i }} ★</span>
+                <div class="custom-reviews__bar-track">
+                  <div class="custom-reviews__bar-fill" style="width: {{ pct }}%;"></div>
+                </div>
+                <span class="custom-reviews__bar-count">{{ cnt }}</span>
+              </div>
+            {%- endfor -%}
+          </div>
+        </div>
+
+        {%- if section.settings.gecko_show_write_button and section.settings.gecko_write_label != blank -%}
+          <div class="custom-reviews__write-wrap">
+            <button type="button" class="custom-reviews__write-btn">{{ section.settings.gecko_write_label | escape }}</button>
+          </div>
+        {%- endif -%}
+      </div>
+    {%- endif -%}
+
+    {%- if show_photos and review_blocks.size > 0 -%}
+      {%- liquid
+        assign has_photo_row = false
+        for block in review_blocks
+          assign customer_photo = block.settings.customer_photo | default: block.settings.review_photo
+          if customer_photo != blank or block.settings.product_photo != blank
+            assign has_photo_row = true
+            break
+          endif
+        endfor
+      -%}
+      {%- if has_photo_row -%}
+        <div class="custom-reviews__photo-row">
+          {%- for block in review_blocks -%}
+            {%- liquid
+              assign customer_photo = block.settings.customer_photo | default: block.settings.review_photo
+              assign customer_name = block.settings.customer_name | default: block.settings.author
+              assign review_title = block.settings.review_title | default: block.settings.title
+            -%}
+            {%- if customer_photo != blank -%}
+              <div class="custom-reviews__photo-thumb" {{ block.shopify_attributes }}>
+                {{ customer_photo | image_url: width: 160 | image_tag: loading: 'lazy', alt: customer_name, widths: '80, 120, 160' }}
+              </div>
+            {%- elsif block.settings.product_photo != blank -%}
+              <div class="custom-reviews__photo-thumb" {{ block.shopify_attributes }}>
+                {{ block.settings.product_photo | image_url: width: 160 | image_tag: loading: 'lazy', alt: review_title, widths: '80, 120, 160' }}
+              </div>
+            {%- endif -%}
+          {%- endfor -%}
+        </div>
+      {%- endif -%}
+    {%- endif -%}
+
+    {%- if review_blocks.size > 0 -%}
+      <div class="custom-reviews__grid">
+        {%- for block in review_blocks -%}
+          {%- liquid
+            assign rating = block.settings.rating | default: 5
+            assign customer_name = block.settings.customer_name | default: block.settings.author
+            assign review_title = block.settings.review_title | default: block.settings.title
+            assign review_text = block.settings.review_text
+            if review_text == blank and block.settings.content != blank
+              assign review_text = block.settings.content | strip_html
+            endif
+            assign customer_photo = block.settings.customer_photo | default: block.settings.review_photo
+            assign verified = block.settings.verified_buyer
+            if verified == nil
+              assign verified = block.settings.verified
+            endif
+            assign date_text = block.settings.date_text | default: block.settings.date
+            assign photo_count = 0
+            if customer_photo != blank
+              assign photo_count = photo_count | plus: 1
+            endif
+            if block.settings.product_photo != blank
+              assign photo_count = photo_count | plus: 1
+            endif
+          -%}
+          <article class="custom-review-card" {{ block.shopify_attributes }}>
+            {%- if photo_count > 0 and show_photos -%}
+              <div class="custom-review-card__images{% if photo_count == 1 %} custom-review-card__images--single{% endif %}">
+                {%- if customer_photo != blank -%}
+                  <div class="custom-review-card__image">
+                    {{ customer_photo | image_url: width: 600 | image_tag: loading: 'lazy', alt: customer_name, widths: '300, 450, 600' }}
+                  </div>
+                {%- endif -%}
+                {%- if block.settings.product_photo != blank -%}
+                  <div class="custom-review-card__image">
+                    {{ block.settings.product_photo | image_url: width: 600 | image_tag: loading: 'lazy', alt: review_title, widths: '300, 450, 600' }}
+                  </div>
+                {%- endif -%}
+              </div>
+            {%- endif -%}
+
+            <div class="custom-review-card__top">
+              <div class="custom-review-card__meta">
+                {%- if customer_name != blank -%}
+                  <p class="custom-review-card__name">{{ customer_name | escape }}</p>
+                {%- endif -%}
+                {%- if date_text != blank -%}
+                  <p class="custom-review-card__date">{{ date_text | escape }}</p>
+                {%- endif -%}
+                {%- if block.settings.country_text != blank -%}
+                  <p class="custom-review-card__location">{{ block.settings.country_text | escape }}</p>
+                {%- endif -%}
+                {%- if block.settings.variant_text != blank -%}
+                  <p class="custom-review-card__variant">{{ block.settings.variant_text | escape }}</p>
+                {%- endif -%}
+              </div>
+              {%- if verified -%}
+                <span class="custom-review-card__verified">✓ Verified buyer</span>
+              {%- endif -%}
+            </div>
+
+            <div class="custom-review-card__card-stars custom-reviews__stars" role="img" aria-label="{{ rating }} out of 5 stars">
+              {%- for i in (1..5) -%}
+                {%- if i <= rating -%}★{%- else -%}☆{%- endif -%}
+              {%- endfor -%}
+            </div>
+
+            {%- if review_title != blank -%}
+              <h3 class="custom-review-card__title">{{ review_title | escape }}</h3>
+            {%- endif -%}
+
+            {%- if review_text != blank -%}
+              <p class="custom-review-card__text">{{ review_text | escape }}</p>
+            {%- endif -%}
+          </article>
+        {%- endfor -%}
+      </div>
+    {%- endif -%}
+  </div>
+</section>
