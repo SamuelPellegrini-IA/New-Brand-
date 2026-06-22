@@ -27,6 +27,10 @@
           assign hawaiian_layout = true
           break
         endif
+        if layout_block.type == 'hawaiian_payment_trust' or layout_block.type == 'hawaiian_shipping_timeline' or layout_block.type == 'hawaiian_gift_box'
+          assign hawaiian_layout = true
+          break
+        endif
       endfor
     endunless
   -%}

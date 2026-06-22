@@ -12,6 +12,12 @@
 
 /* ── Desktop grid layout ── */
 @media screen and (min-width: 750px) {
+  .custom-hawaiian-product-page,
+  .custom-hawaiian-product-page .page-width,
+  .custom-hawaiian-product-page .product.product--hawaiian-layout {
+    overflow: visible;
+  }
+
   .custom-hawaiian-product-page .product.product--hawaiian-layout {
     display: grid;
     grid-template-columns: 52% 48%;

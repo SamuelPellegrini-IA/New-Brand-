@@ -24,6 +24,11 @@
       if block.settings.show_dynamic_checkout and gift_card_recipient_feature_active == false
         assign show_dynamic_checkout = true
       endif
+
+      assign gecko_atc = false
+      if block.settings.gecko_button_style or hawaiian_layout
+        assign gecko_atc = true
+      endif
     -%}
 
     <product-form
@@ -76,7 +81,7 @@
             id="ProductSubmitButton-{{ section_id }}"
             type="submit"
             name="add"
-            class="product-form__submit button button--full-width {% if show_dynamic_checkout %}button--secondary{% else %}button--primary{% endif %}{% if block.settings.gecko_button_style %} gecko-atc-btn{% endif %}"
+            class="product-form__submit button button--full-width {% if show_dynamic_checkout %}button--secondary{% else %}button--primary{% endif %}{% if gecko_atc %} gecko-atc-btn{% endif %}"
             {% if product.selected_or_first_available_variant.available == false
               or quantity_rule_soldout
               or product.selected_or_first_available_variant == null
@@ -90,8 +95,10 @@
               {%- elsif product.selected_or_first_available_variant.available == false or quantity_rule_soldout -%}
                 {{ 'products.product.sold_out' | t }}
               {%- else -%}
-                {%- if block.settings.gecko_atc_label != blank and block.settings.gecko_button_style -%}
+                {%- if gecko_atc and block.settings.gecko_atc_label != blank -%}
                   {{ block.settings.gecko_atc_label | escape }}
+                {%- elsif gecko_atc -%}
+                  ADD TO CART
                 {%- else -%}
                   {{ 'products.product.add_to_cart' | t }}
                 {%- endif -%}
@@ -106,7 +113,7 @@
       {%- endform -%}
     </product-form>
 
-    {%- if block.settings.gecko_button_style and section != blank -%}
+    {%- if hawaiian_layout and section != blank -%}
       {%- render 'hawaiian-post-atc', section: section -%}
     {%- endif -%}
   {%- else -%}
@@ -124,7 +131,7 @@
     </div>
   {%- endif -%}
 
-  {%- if show_pickup_availability and block.settings.gecko_button_style != true -%}
+  {%- if show_pickup_availability and gecko_atc != true -%}
     {{ 'component-pickup-availability.css' | asset_url | stylesheet_tag }}
 
     {%- assign pick_up_availabilities = product.selected_or_first_available_variant.store_availabilities
