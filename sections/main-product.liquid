@@ -711,6 +711,8 @@
                   {% render 'lp-pp-blocks', block: block %}
                 {%- when 'lp_quick_glance' -%}
                   {% render 'lp-pp-blocks', block: block %}
+                {%- when 'lp_variant_style' -%}
+                  {% render 'lp-pp-blocks', block: block %}
                 {%- when 'lp_price_color' -%}
                   {% render 'lp-pp-blocks', block: block %}
                 {%- when 'lp_save_badge' -%}
@@ -834,6 +836,20 @@
           { "value": "medal", "label": "Médaille" }, { "value": "camera", "label": "Appareil photo" }, { "value": "check", "label": "Coche" }, { "value": "drop", "label": "Goutte" }, { "value": "leaf", "label": "Feuille" }, { "value": "shield", "label": "Bouclier" }, { "value": "truck", "label": "Camion" }, { "value": "lock", "label": "Cadenas" }, { "value": "heart", "label": "Cœur" }, { "value": "gift", "label": "Cadeau" }, { "value": "ruler", "label": "Règle" }, { "value": "recycle", "label": "Recyclage" }, { "value": "star", "label": "Étoile" }
         ] },
         { "type": "text", "id": "label_4", "label": "Texte 4", "default": "Fade-resistant colors" }
+      ]
+    },
+    {
+      "type": "lp_variant_style",
+      "name": "Variantes couleurs ★",
+      "settings": [
+        { "type": "paragraph", "content": "Couleurs des boutons de variantes (Option / Style / Size)." },
+        { "type": "color", "id": "sel_border", "label": "Bordure sélectionné", "default": "#159a4b" },
+        { "type": "color", "id": "sel_text", "label": "Texte sélectionné", "default": "#0f7d3c" },
+        { "type": "color", "id": "sel_bg", "label": "Fond sélectionné", "default": "#f2fbf6" },
+        { "type": "color", "id": "unsel_border", "label": "Bordure non sélectionné", "default": "#e3e3e3" },
+        { "type": "color", "id": "unsel_text", "label": "Texte non sélectionné", "default": "#1a1a1a" },
+        { "type": "color", "id": "hover_border", "label": "Bordure au survol", "default": "#159a4b" },
+        { "type": "range", "id": "radius", "min": 0, "max": 28, "step": 1, "unit": "px", "label": "Arrondi des boutons", "default": 12 }
       ]
     },
     {

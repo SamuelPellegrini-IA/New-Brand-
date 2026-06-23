@@ -1,6 +1,45 @@
 {%- comment -%} Renders editable product-page marketing blocks. Param: block {%- endcomment -%}
 {%- case block.type -%}
 
+  {%- when 'lp_variant_style' -%}
+    {%- liquid
+      assign sel_border = block.settings.sel_border | default: '#159a4b'
+      assign sel_text = block.settings.sel_text | default: '#0f7d3c'
+      assign sel_bg = block.settings.sel_bg | default: '#f2fbf6'
+      assign unsel_border = block.settings.unsel_border | default: '#e3e3e3'
+      assign unsel_text = block.settings.unsel_text | default: '#1a1a1a'
+      assign hover_border = block.settings.hover_border | default: '#159a4b'
+      assign radius = block.settings.radius | default: 12
+    -%}
+    <style>
+      .product-form__input--pill { margin-bottom: 1.3rem; }
+      .product-form__input--pill .form__label { font-weight: 700; font-size: 1.4rem; margin-bottom: .7rem; }
+      .product-form__input--pill input[type='radio'] + label {
+        border: 1.5px solid {{ unsel_border }};
+        border-radius: {{ radius }}px;
+        padding: 1rem 1.6rem;
+        margin: 0 .6rem .6rem 0;
+        font-weight: 600;
+        color: {{ unsel_text }};
+        background: #fff;
+        transition: border-color .15s ease, color .15s ease, box-shadow .15s ease, transform .05s ease;
+      }
+      .product-form__input--pill input[type='radio']:hover + label { border-color: {{ hover_border }}; }
+      .product-form__input--pill input[type='radio']:checked + label {
+        border-color: {{ sel_border }} !important;
+        color: {{ sel_text }} !important;
+        box-shadow: 0 0 0 1.5px {{ sel_border }} inset !important;
+        background: {{ sel_bg }} !important;
+      }
+      .product-form__input--pill input[type='radio']:active + label { transform: scale(.97); }
+      .product-form__input--pill input[type='radio']:disabled + label {
+        color: #bbb; border-color: #eee; text-decoration: line-through; cursor: not-allowed;
+      }
+      .product-form__input--pill input[type='radio']:focus-visible + label {
+        outline: 2px solid {{ sel_border }}; outline-offset: 2px;
+      }
+    </style>
+
   {%- when 'lp_trust_badge' -%}
     {%- liquid
       assign full = block.settings.stars | floor
