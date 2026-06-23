@@ -711,6 +711,8 @@
                   {% render 'lp-pp-blocks', block: block %}
                 {%- when 'lp_quick_glance' -%}
                   {% render 'lp-pp-blocks', block: block %}
+                {%- when 'lp_save_badge' -%}
+                  {% render 'lp-pp-blocks', block: block %}
                 {%- when 'lp_fit_bar' -%}
                   {% render 'lp-pp-blocks', block: block %}
                 {%- when 'lp_low_stock' -%}
@@ -830,6 +832,20 @@
           { "value": "medal", "label": "Médaille" }, { "value": "camera", "label": "Appareil photo" }, { "value": "check", "label": "Coche" }, { "value": "drop", "label": "Goutte" }, { "value": "leaf", "label": "Feuille" }, { "value": "shield", "label": "Bouclier" }, { "value": "truck", "label": "Camion" }, { "value": "lock", "label": "Cadenas" }, { "value": "heart", "label": "Cœur" }, { "value": "gift", "label": "Cadeau" }, { "value": "ruler", "label": "Règle" }, { "value": "recycle", "label": "Recyclage" }, { "value": "star", "label": "Étoile" }
         ] },
         { "type": "text", "id": "label_4", "label": "Texte 4", "default": "Fade-resistant colors" }
+      ]
+    },
+    {
+      "type": "lp_save_badge",
+      "name": "Save % badge ★",
+      "settings": [
+        { "type": "checkbox", "id": "show_save", "label": "Afficher la remise auto (%)", "default": true },
+        { "type": "text", "id": "save_prefix", "label": "Texte avant %", "default": "Save" },
+        { "type": "text", "id": "save_suffix", "label": "Texte après %", "default": "OFF" },
+        { "type": "color", "id": "save_bg", "label": "Fond badge remise", "default": "#1a8f3c" },
+        { "type": "color", "id": "save_text_color", "label": "Texte badge remise", "default": "#ffffff" },
+        { "type": "text", "id": "per_piece_text", "label": "Texte 2e badge (ex: only $9.99 per piece)" },
+        { "type": "color", "id": "pp_bg", "label": "Fond 2e badge", "default": "#1a1a1a" },
+        { "type": "color", "id": "pp_text_color", "label": "Texte 2e badge", "default": "#ffffff" }
       ]
     },
     {
