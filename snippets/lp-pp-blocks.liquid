@@ -3,37 +3,59 @@
 
   {%- when 'lp_variant_style' -%}
     {%- liquid
-      assign sel_border = block.settings.sel_border | default: '#159a4b'
-      assign sel_text = block.settings.sel_text | default: '#0f7d3c'
-      assign sel_bg = block.settings.sel_bg | default: '#f2fbf6'
-      assign unsel_border = block.settings.unsel_border | default: '#e3e3e3'
-      assign unsel_text = block.settings.unsel_text | default: '#1a1a1a'
-      assign hover_border = block.settings.hover_border | default: '#159a4b'
-      assign radius = block.settings.radius | default: 12
+      assign sel_border = block.settings.sel_border | default: '#101936'
+      assign sel_text = block.settings.sel_text | default: '#ffffff'
+      assign sel_bg = block.settings.sel_bg | default: '#101936'
+      assign unsel_border = block.settings.unsel_border | default: '#101936'
+      assign unsel_text = block.settings.unsel_text | default: '#1f1f1f'
+      assign hover_border = block.settings.hover_border | default: '#101936'
+      assign radius = block.settings.radius | default: 4
     -%}
     <style>
+      /* Premium product title + subtitle (scoped: only loads on templates using this block) */
+      .product__title h1,
+      .product__title .h1,
+      .product__title h2.h1,
+      .custom-hawaiian-product-page .product__title h1,
+      .custom-hawaiian-product-page .product__title .h1 {
+        font-family: Georgia, "Times New Roman", "Playfair Display", serif !important;
+        font-weight: 800 !important;
+        color: #101936 !important;
+        line-height: 1.14 !important;
+        letter-spacing: -.01em !important;
+        font-size: clamp(2.6rem, 3.6vw, 3.4rem) !important;
+        margin: 0 0 .8rem !important;
+        text-transform: none !important;
+      }
+      .product__text:not(.caption-with-letter-spacing),
+      .custom-hawaiian-product-page .product__text:not(.caption-with-letter-spacing) {
+        color: #666666 !important;
+        font-size: 1.5rem !important;
+        line-height: 1.5 !important;
+      }
+      /* Variant buttons */
       .product-form__input--pill { margin-bottom: 1.3rem; }
-      .product-form__input--pill .form__label { font-weight: 700; font-size: 1.4rem; margin-bottom: .7rem; }
+      .product-form__input--pill .form__label { font-weight: 700; font-size: 1.4rem; margin-bottom: .7rem; color: #1f1f1f; }
       .product-form__input--pill input[type='radio'] + label {
-        border: 1.5px solid {{ unsel_border }};
+        border: 1px solid {{ unsel_border }};
         border-radius: {{ radius }}px;
         padding: 1rem 1.6rem;
         margin: 0 .6rem .6rem 0;
         font-weight: 600;
         color: {{ unsel_text }};
         background: #fff;
-        transition: border-color .15s ease, color .15s ease, box-shadow .15s ease, transform .05s ease;
+        transition: border-color .15s ease, color .15s ease, background .15s ease, box-shadow .15s ease, transform .05s ease;
       }
       .product-form__input--pill input[type='radio']:hover + label { border-color: {{ hover_border }}; }
       .product-form__input--pill input[type='radio']:checked + label {
         border-color: {{ sel_border }} !important;
         color: {{ sel_text }} !important;
-        box-shadow: 0 0 0 1.5px {{ sel_border }} inset !important;
+        box-shadow: 0 0 0 1px {{ sel_border }} inset !important;
         background: {{ sel_bg }} !important;
       }
       .product-form__input--pill input[type='radio']:active + label { transform: scale(.97); }
       .product-form__input--pill input[type='radio']:disabled + label {
-        color: #bbb; border-color: #eee; text-decoration: line-through; cursor: not-allowed;
+        color: #bbb; border-color: #eee; text-decoration: line-through; cursor: not-allowed; background: #fff;
       }
       .product-form__input--pill input[type='radio']:focus-visible + label {
         outline: 2px solid {{ sel_border }}; outline-offset: 2px;
@@ -58,18 +80,22 @@
       .lp-size-chart-link svg { width: 15px; height: 15px; stroke: currentColor; fill: none; stroke-width: 1.6; }
       .lp-scm__overlay { position: fixed; inset: 0; background: rgba(0,0,0,.6); display: none; align-items: center; justify-content: center; z-index: 99999; padding: 20px; }
       .lp-scm__overlay.is-open { display: flex; }
-      .lp-scm__box { background: #fff; border-radius: 12px; max-width: 760px; width: 100%; max-height: 90vh; overflow: auto; position: relative; padding: 20px; }
-      .lp-scm__close { position: absolute; top: 8px; right: 12px; background: none; border: none; font-size: 28px; line-height: 1; cursor: pointer; color: #111; }
-      .lp-scm__title { font-weight: 700; font-size: 18px; margin: 0 0 12px; padding-right: 24px; }
-      .lp-scm__box img { width: 100%; height: auto; display: block; border-radius: 8px; }
+      .lp-scm__box { background: #fff; border-radius: 14px; max-width: 900px; width: 100%; max-height: 90vh; overflow: auto; position: relative; padding: 16px; }
+      .lp-scm__close { position: absolute; top: 8px; right: 12px; background: none; border: none; font-size: 28px; line-height: 1; cursor: pointer; color: #111; z-index: 1; }
+      .lp-scm__title { font-weight: 700; font-size: 18px; margin: 0 0 12px; padding-right: 24px; color: #1f1f1f; }
+      .lp-scm__box img { width: 100%; height: auto; display: block; object-fit: contain; border-radius: 8px; }
+      .lp-scm__fallback { padding: 28px 8px; text-align: center; color: #666; font-size: 15px; }
       {%- endif -%}
     </style>
     {%- if block.settings.show_size_chart -%}
       {%- assign sc_text = block.settings.sc_text | default: 'size chart' -%}
       {%- assign sc_option = block.settings.sc_option | default: 'Size' -%}
-      {%- assign sc_has_modal = false -%}
-      {%- if block.settings.sc_image != blank or block.settings.sc_richtext != blank -%}{%- assign sc_has_modal = true -%}{%- endif -%}
-      {%- if sc_has_modal -%}
+      {%- comment -%} Modal is used unless an external link is set without any image/richtext content. {%- endcomment -%}
+      {%- assign sc_has_content = false -%}
+      {%- if block.settings.sc_image != blank or block.settings.sc_richtext != blank -%}{%- assign sc_has_content = true -%}{%- endif -%}
+      {%- assign sc_use_modal = true -%}
+      {%- if sc_has_content == false and block.settings.sc_link != blank -%}{%- assign sc_use_modal = false -%}{%- endif -%}
+      {%- if sc_use_modal -%}
         <div class="lp-scm__overlay" id="lp-scm-{{ block.id }}" role="dialog" aria-modal="true">
           <div class="lp-scm__box">
             <button type="button" class="lp-scm__close" aria-label="Fermer">&times;</button>
@@ -78,6 +104,8 @@
               <img src="{{ block.settings.sc_image | image_url: width: 1000 }}" alt="{{ block.settings.sc_title | default: 'Size chart' | escape }}" loading="lazy">
             {%- elsif block.settings.sc_richtext != blank -%}
               <div class="rte">{{ block.settings.sc_richtext }}</div>
+            {%- else -%}
+              <div class="lp-scm__fallback">Size chart coming soon.</div>
             {%- endif -%}
           </div>
         </div>
@@ -87,10 +115,11 @@
         var TEXT = {{ sc_text | json }};
         var OPT = {{ sc_option | json }}.toLowerCase();
         var LINK = {{ block.settings.sc_link | default: '' | json }};
-        var HAS_MODAL = {% if sc_has_modal %}true{% else %}false{% endif %};
+        var HAS_MODAL = {% if sc_use_modal %}true{% else %}false{% endif %};
         var overlay = document.getElementById('lp-scm-{{ block.id }}');
         var ICON = '<svg viewBox="0 0 24 24"><path d="M3 8h18v8H3z"/><path d="M7 8v3M11 8v4M15 8v3M19 8v4"/></svg>';
-        function openModal(){ if(overlay){ overlay.classList.add('is-open'); } }
+        function openModal(){ if(overlay){ overlay.classList.add('is-open'); document.body.style.overflow = 'hidden'; } }
+        function closeModal(){ if(overlay){ overlay.classList.remove('is-open'); document.body.style.overflow = ''; } }
         function inject(){
           var labels = document.querySelectorAll('.product-form__input .form__label, .product-form__input legend');
           for (var i=0;i<labels.length;i++){
@@ -112,9 +141,9 @@
         }
         if (overlay){
           overlay.addEventListener('click', function(e){
-            if (e.target === overlay || e.target.classList.contains('lp-scm__close')) overlay.classList.remove('is-open');
+            if (e.target === overlay || e.target.classList.contains('lp-scm__close')) closeModal();
           });
-          document.addEventListener('keydown', function(e){ if (e.key === 'Escape') overlay.classList.remove('is-open'); });
+          document.addEventListener('keydown', function(e){ if (e.key === 'Escape' && overlay.classList.contains('is-open')) closeModal(); });
         }
         var scheduled = false;
         function schedule(){ if (scheduled) return; scheduled = true; requestAnimationFrame(function(){ scheduled = false; inject(); }); }

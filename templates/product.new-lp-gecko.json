@@ -15,15 +15,19 @@
         "cro_style": {
           "type": "lp_variant_style",
           "settings": {
-            "sel_border": "#159a4b",
-            "sel_text": "#0f7d3c",
-            "sel_bg": "#f2fbf6",
-            "unsel_border": "#e3e3e3",
-            "unsel_text": "#1a1a1a",
-            "hover_border": "#159a4b",
-            "radius": 12,
+            "sel_border": "#101936",
+            "sel_text": "#ffffff",
+            "sel_bg": "#101936",
+            "unsel_border": "#101936",
+            "unsel_text": "#1f1f1f",
+            "hover_border": "#101936",
+            "radius": 4,
             "tighten_buttons": true,
-            "show_more_options": false
+            "show_more_options": false,
+            "show_size_chart": true,
+            "sc_text": "size chart",
+            "sc_option": "Size",
+            "sc_title": "Size chart"
           }
         },
         "tp_badge": {
@@ -56,7 +60,7 @@
         "price_color": {
           "type": "lp_price_color",
           "settings": {
-            "price_color": "#c8102e",
+            "price_color": "#b40000",
             "bold_price": true,
             "price_size": 28,
             "gap_above": 6,
@@ -71,10 +75,10 @@
             "show_save": true,
             "save_prefix": "Save",
             "save_suffix": "OFF",
-            "save_bg": "#1a8f3c",
+            "save_bg": "#b40000",
             "save_text_color": "#ffffff",
             "per_piece_text": "",
-            "pp_bg": "#1a1a1a",
+            "pp_bg": "#101936",
             "pp_text_color": "#ffffff"
           }
         },
@@ -82,17 +86,17 @@
           "type": "lp_quick_glance",
           "settings": {
             "heading": "At a quick glance:",
-            "icon_color": "#159a4b",
-            "text_color": "#111111",
-            "divider_color": "#ececec",
+            "icon_color": "#1f1f1f",
+            "text_color": "#1f1f1f",
+            "divider_color": "#e5e5e5",
             "icon_1": "medal",
-            "label_1": "Premium soft fabric",
+            "label_1": "Premium Soft Fabric",
             "icon_2": "camera",
-            "label_2": "Your photo printed",
+            "label_2": "Your Photo Printed",
             "icon_3": "check",
-            "label_3": "Made to order",
+            "label_3": "Made To Order",
             "icon_4": "drop",
-            "label_4": "Fade-resistant colors"
+            "label_4": "Fade-Resistant Colors"
           }
         },
         "variant_picker": {
@@ -105,24 +109,24 @@
         "fit_bar": {
           "type": "lp_fit_bar",
           "settings": {
-            "text": "Customers say this fits <u>true to size</u> based on 5,210 reviews",
+            "text": "Men say this fits <u>true to size</u> based on 5,210 Reviews",
             "show_icon": true,
-            "bg_color": "#fff6d4",
-            "text_color": "#5a4500",
-            "icon_color": "#7a5b00"
+            "bg_color": "#fff0b8",
+            "text_color": "#1f1f1f",
+            "icon_color": "#1f1f1f"
           }
         },
         "low_stock": {
           "type": "lp_low_stock",
           "settings": {
             "heading": "WARNING: Low Stock Notice",
-            "body": "<p>This product sold out 12 times last year. We encourage you to take advantage of the limited sale and buy now. Ordering now helps you avoid future stock-outs.</p>",
-            "ps_text": "<p>PS: Only available here — don't buy fakes on Amazon/eBay.</p>",
-            "heading_color": "#b00020",
-            "icon_color": "#b00020",
-            "text_color": "#333333",
-            "bg_color": "#ffffff",
-            "border_color": "#e6e6e6"
+            "body": "<p>This product sold out <strong>12 times</strong> last year. We encourage you to take advantage of the <strong>limited sale</strong> and buy now. Ordering now helps you avoid future stock-outs.</p>",
+            "ps_text": "<p>PS: Only available <strong>here</strong>, don't buy fakes on Amazon/eBay.</p>",
+            "heading_color": "#1f1f1f",
+            "icon_color": "#1f1f1f",
+            "text_color": "#666666",
+            "bg_color": "#fafafa",
+            "border_color": "#d9d9d9"
           }
         },
         "buy_buttons": {
