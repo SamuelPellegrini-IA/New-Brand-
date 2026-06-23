@@ -142,8 +142,12 @@
     if (!root || root.querySelector('.gecko-accordions')) return;
 
     // Skip the legacy fallback when the theme already renders native
-    // collapsible tabs (collapsible_tab blocks). Avoids duplicate accordions.
-    if (root.querySelector('.product__accordion')) return;
+    // collapsible tabs (collapsible_tab blocks) anywhere on the page.
+    // Injected fallbacks live inside .gecko-accordions, native ones do not.
+    var existing = document.querySelectorAll('.product__accordion');
+    for (var n = 0; n < existing.length; n++) {
+      if (!existing[n].closest('.gecko-accordions')) return;
+    }
 
     var anchor = root.querySelector('.gecko-post-atc') || root.querySelector('.product-form');
     if (!anchor) return;
