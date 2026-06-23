@@ -332,6 +332,17 @@
         endif
       endif
     -%}
+    {%- liquid
+      assign boxhero_lp_active = false
+      if template.name == 'product'
+        if template.suffix == 'boxhero' or request.params.view == 'boxhero'
+          assign boxhero_lp_active = true
+        endif
+      endif
+    -%}
+    {%- if boxhero_lp_active -%}
+      {{ 'boxhero-lp.css' | asset_url | stylesheet_tag }}
+    {%- endif -%}
     {%- if gecko_product_active -%}
       {{ 'custom-hawaiian-product.css' | asset_url | stylesheet_tag }}
       {{ 'component-gecko-reviews.css' | asset_url | stylesheet_tag }}
@@ -343,7 +354,7 @@
     {%- endif -%}
   </head>
 
-  <body class="gradient{% if settings.animations_hover_elements != 'none' %} animate--hover-{{ settings.animations_hover_elements }}{% endif %}{% if gecko_product_active %} gecko-product-active{% endif %}">
+  <body class="gradient{% if settings.animations_hover_elements != 'none' %} animate--hover-{{ settings.animations_hover_elements }}{% endif %}{% if gecko_product_active %} gecko-product-active{% endif %}{% if boxhero_lp_active %} boxhero-lp-active{% endif %}">
     <a class="skip-to-content-link button visually-hidden" href="#MainContent">
       {{ 'accessibility.skip_to_text' | t }}
     </a>

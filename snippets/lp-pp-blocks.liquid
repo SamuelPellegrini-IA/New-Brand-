@@ -321,4 +321,58 @@
       {%- if block.settings.ps_text != blank -%}<div class="rte">{{ block.settings.ps_text }}</div>{%- endif -%}
     </div>
 
+  {%- when 'lp_bh_review' -%}
+    {%- liquid
+      assign bh_r = block.settings.rating | times: 1.0
+      assign bh_pct = bh_r | divided_by: 5.0 | times: 100
+    -%}
+    <div class="lp-bh-review" style="display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin:2px 0 14px;font-family:'Montserrat',-apple-system,'Segoe UI',Roboto,Arial,sans-serif" {{ block.shopify_attributes }}>
+      <span style="font-size:16px;font-weight:700;color:{{ block.settings.text_color }};line-height:1">{{ block.settings.rating }}</span>
+      <span class="lp-bh-stars" style="--p:{{ bh_pct }}%;--on:{{ block.settings.star_color }};--off:{{ block.settings.track_color }}" role="img" aria-label="{{ block.settings.rating }}/5"></span>
+      <span style="font-size:13px;font-weight:500;color:{{ block.settings.text_color }};opacity:.85">{{ block.settings.reviews_text }}</span>
+    </div>
+
+  {%- when 'lp_bh_trust' -%}
+    <div class="lp-bh-trust" style="display:grid;grid-template-columns:repeat({{ block.settings.columns | default: 2 }},1fr);gap:10px;margin:14px 0" {{ block.shopify_attributes }}>
+      {%- for i in (1..3) -%}
+        {%- liquid
+          assign hkey = 'heading_' | append: i
+          assign skey = 'sub_' | append: i
+          assign ikey = 'icon_' | append: i
+          assign hd = block.settings[hkey]
+          assign sb = block.settings[skey]
+          assign ic = block.settings[ikey]
+        -%}
+        {%- if hd != blank -%}
+          <div style="display:flex;align-items:center;gap:10px;background:{{ block.settings.bg_color }};border:1px solid {{ block.settings.border_color }};border-radius:10px;padding:12px 14px">
+            <span style="flex:0 0 auto;display:inline-flex;color:{{ block.settings.icon_color }}">
+              {%- case ic -%}
+                {%- when 'truck' -%}<svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="3" width="15" height="13" rx="1"/><path d="M16 8h4l3 3v5h-7z"/><circle cx="5.5" cy="18.5" r="2"/><circle cx="18.5" cy="18.5" r="2"/></svg>
+                {%- when 'support' -%}<svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M4 14v-3a8 8 0 0 1 16 0v3"/><rect x="2.5" y="13.5" width="4" height="6" rx="1.5"/><rect x="17.5" y="13.5" width="4" height="6" rx="1.5"/><path d="M20 19a4 4 0 0 1-4 3h-2"/></svg>
+                {%- when 'shield' -%}<svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l8 3v6c0 5-3.4 8.5-8 11-4.6-2.5-8-6-8-11V5z"/><path d="M9 12l2 2 4-4"/></svg>
+                {%- when 'leaf' -%}<svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M21 3C9 4 4 9 4 19c6-1 13-4 16-13"/><path d="M8 17c3-5 7-8 11-9"/></svg>
+                {%- when 'refresh' -%}<svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 0 1 15-6.7L21 8"/><path d="M21 3v5h-5"/><path d="M21 12a9 9 0 0 1-15 6.7L3 16"/><path d="M3 21v-5h5"/></svg>
+                {%- else -%}<svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M8 12l2.5 2.5L16 9"/></svg>
+              {%- endcase -%}
+            </span>
+            <span style="font-family:'Montserrat',-apple-system,'Segoe UI',Roboto,Arial,sans-serif;line-height:1.25">
+              <span style="display:block;font-size:13px;font-weight:700;color:{{ block.settings.text_color }}">{{ hd }}</span>
+              {%- if sb != blank -%}<span style="display:block;font-size:12px;color:{{ block.settings.text_color }};opacity:.7">{{ sb }}</span>{%- endif -%}
+            </span>
+          </div>
+        {%- endif -%}
+      {%- endfor -%}
+    </div>
+
+  {%- when 'lp_bh_stock' -%}
+    {%- assign bh_left = block.settings.units_left | default: 8 -%}
+    <div class="lp-bh-stock" style="margin:14px 0;font-family:'Montserrat',-apple-system,'Segoe UI',Roboto,Arial,sans-serif" {{ block.shopify_attributes }}>
+      <div style="display:flex;align-items:center;justify-content:space-between;gap:10px;font-size:13px;font-weight:600;color:{{ block.settings.text_color }};margin:0 0 6px">
+        <span class="lp-bh-stock__dot" style="--c:{{ block.settings.bar_color }}">{{ block.settings.label | replace: '[qty]', bh_left }}</span>
+      </div>
+      <div style="height:8px;border-radius:999px;background:{{ block.settings.track_color }};overflow:hidden">
+        <div style="height:100%;width:{{ block.settings.bar_width | default: 22 }}%;border-radius:999px;background:{{ block.settings.bar_color }}"></div>
+      </div>
+    </div>
+
 {%- endcase -%}

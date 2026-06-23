@@ -6,27 +6,26 @@
         "cro_style": {
           "type": "lp_variant_style",
           "settings": {
-            "sel_border": "#101936",
+            "sel_border": "#000000",
             "sel_text": "#ffffff",
-            "sel_bg": "#101936",
-            "unsel_border": "#101936",
-            "unsel_text": "#1f1f1f",
-            "hover_border": "#101936",
+            "sel_bg": "#000000",
+            "unsel_border": "#000000",
+            "unsel_text": "#000000",
+            "hover_border": "#000000",
             "radius": 4,
             "tighten_buttons": true,
             "show_more_options": false
           }
         },
-        "tp_badge": {
-          "type": "lp_trust_badge",
+        "bh_review": {
+          "type": "lp_bh_review",
           "settings": {
-            "rating_label": "Excellent",
-            "stars": 4.5,
-            "reviews_text": "3809+ reviews",
-            "platform_text": "Trustpilot",
-            "link": "",
-            "star_color": "#00b67a",
-            "text_color": "#1a1a1a"
+            "rating": "4.8",
+            "stars": 4.8,
+            "reviews_text": "Based on 136 Reviews",
+            "star_color": "#000000",
+            "track_color": "#e0e0e0",
+            "text_color": "#000000"
           }
         },
         "title": {
@@ -47,43 +46,32 @@
         "price_color": {
           "type": "lp_price_color",
           "settings": {
-            "price_color": "#b40000",
+            "price_color": "#000000",
             "bold_price": true,
-            "price_size": 28,
+            "price_size": 24,
             "gap_above": 6,
             "color_sale_badge": true,
             "hide_tax_line": true,
             "hide_installments": true
           }
         },
-        "save_badge": {
-          "type": "lp_save_badge",
+        "bh_trust": {
+          "type": "lp_bh_trust",
           "settings": {
-            "show_save": true,
-            "save_prefix": "Save",
-            "save_suffix": "OFF",
-            "save_bg": "#b40000",
-            "save_text_color": "#ffffff",
-            "per_piece_text": "",
-            "pp_bg": "#101936",
-            "pp_text_color": "#ffffff"
-          }
-        },
-        "quick_glance": {
-          "type": "lp_quick_glance",
-          "settings": {
-            "heading": "At a quick glance:",
-            "icon_color": "#1f1f1f",
-            "text_color": "#1f1f1f",
-            "divider_color": "#e5e5e5",
-            "icon_1": "medal",
-            "label_1": "Premium Soft Fabric",
-            "icon_2": "camera",
-            "label_2": "Your Photo Printed",
+            "columns": 2,
+            "bg_color": "#f9f9f9",
+            "border_color": "rgba(0,0,0,0)",
+            "icon_color": "#000000",
+            "text_color": "#000000",
+            "icon_1": "truck",
+            "heading_1": "Free Shipping",
+            "sub_1": "Free worldwide shipping",
+            "icon_2": "support",
+            "heading_2": "24/7 Support",
+            "sub_2": "We're here to help",
             "icon_3": "check",
-            "label_3": "Made To Order",
-            "icon_4": "drop",
-            "label_4": "Fade-Resistant Colors"
+            "heading_3": "",
+            "sub_3": ""
           }
         },
         "variant_picker": {
@@ -93,27 +81,15 @@
             "swatch_shape": "square"
           }
         },
-        "fit_bar": {
-          "type": "lp_fit_bar",
+        "bh_stock": {
+          "type": "lp_bh_stock",
           "settings": {
-            "text": "Men say this fits <u>true to size</u> based on 5,210 Reviews",
-            "show_icon": true,
-            "bg_color": "#fff0b8",
-            "text_color": "#1f1f1f",
-            "icon_color": "#1f1f1f"
-          }
-        },
-        "low_stock": {
-          "type": "lp_low_stock",
-          "settings": {
-            "heading": "WARNING: Low Stock Notice",
-            "body": "<p>This product sold out <strong>12 times</strong> last year. We encourage you to take advantage of the <strong>limited sale</strong> and buy now. Ordering now helps you avoid future stock-outs.</p>",
-            "ps_text": "<p>PS: Only available <strong>here</strong>, don't buy fakes on Amazon/eBay.</p>",
-            "heading_color": "#1f1f1f",
-            "icon_color": "#1f1f1f",
-            "text_color": "#666666",
-            "bg_color": "#fafafa",
-            "border_color": "#d9d9d9"
+            "label": "Hurry up! Only [qty] items left in stock",
+            "units_left": 8,
+            "bar_width": 22,
+            "bar_color": "#ea0404",
+            "track_color": "#e4e4e4",
+            "text_color": "#1f1f1f"
           }
         },
         "buy_buttons": {
@@ -172,16 +148,14 @@
       },
       "block_order": [
         "cro_style",
-        "tp_badge",
+        "bh_review",
         "title",
         "subtitle",
         "price",
         "price_color",
-        "save_badge",
-        "quick_glance",
+        "bh_trust",
         "variant_picker",
-        "fit_bar",
-        "low_stock",
+        "bh_stock",
         "buy_buttons",
         "description",
         "acc_details",

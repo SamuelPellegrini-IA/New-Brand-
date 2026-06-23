@@ -723,6 +723,12 @@
                   {% render 'lp-pp-blocks', block: block %}
                 {%- when 'lp_low_stock' -%}
                   {% render 'lp-pp-blocks', block: block %}
+                {%- when 'lp_bh_review' -%}
+                  {% render 'lp-pp-blocks', block: block %}
+                {%- when 'lp_bh_trust' -%}
+                  {% render 'lp-pp-blocks', block: block %}
+                {%- when 'lp_bh_stock' -%}
+                  {% render 'lp-pp-blocks', block: block %}
               {%- endcase -%}
             {%- endfor -%}
             <a href="{{ product.url }}" class="link product__view-details animate-arrow">
@@ -921,6 +927,59 @@
         { "type": "color", "id": "text_color", "label": "Couleur du texte", "default": "#666666" },
         { "type": "color", "id": "bg_color", "label": "Couleur de fond", "default": "#fafafa" },
         { "type": "color", "id": "border_color", "label": "Couleur de bordure", "default": "#d9d9d9" }
+      ]
+    },
+    {
+      "type": "lp_bh_review",
+      "name": "BoxHero · Ligne d'avis ★",
+      "settings": [
+        { "type": "text", "id": "rating", "label": "Note (sur 5)", "default": "4.8" },
+        { "type": "range", "id": "stars", "min": 3, "max": 5, "step": 0.1, "label": "Étoiles remplies", "default": 4.8 },
+        { "type": "text", "id": "reviews_text", "label": "Texte des avis", "default": "Based on 136 Reviews" },
+        { "type": "color", "id": "star_color", "label": "Couleur étoiles", "default": "#000000" },
+        { "type": "color", "id": "track_color", "label": "Couleur étoiles vides", "default": "#e0e0e0" },
+        { "type": "color", "id": "text_color", "label": "Couleur du texte", "default": "#000000" }
+      ]
+    },
+    {
+      "type": "lp_bh_trust",
+      "name": "BoxHero · Cartes trust ★",
+      "settings": [
+        { "type": "range", "id": "columns", "min": 1, "max": 3, "step": 1, "label": "Colonnes", "default": 2 },
+        { "type": "color", "id": "bg_color", "label": "Fond des cartes", "default": "#f9f9f9" },
+        { "type": "color", "id": "border_color", "label": "Bordure", "default": "rgba(0,0,0,0)" },
+        { "type": "color", "id": "icon_color", "label": "Couleur des icônes", "default": "#000000" },
+        { "type": "color", "id": "text_color", "label": "Couleur du texte", "default": "#000000" },
+        { "type": "header", "content": "Carte 1" },
+        { "type": "select", "id": "icon_1", "label": "Icône 1", "default": "truck", "options": [
+          { "value": "truck", "label": "Camion" }, { "value": "support", "label": "Support" }, { "value": "shield", "label": "Bouclier" }, { "value": "leaf", "label": "Feuille" }, { "value": "refresh", "label": "Retour" }, { "value": "check", "label": "Coche" }
+        ] },
+        { "type": "text", "id": "heading_1", "label": "Titre 1", "default": "Free Shipping" },
+        { "type": "text", "id": "sub_1", "label": "Sous-texte 1", "default": "Free worldwide shipping" },
+        { "type": "header", "content": "Carte 2" },
+        { "type": "select", "id": "icon_2", "label": "Icône 2", "default": "support", "options": [
+          { "value": "truck", "label": "Camion" }, { "value": "support", "label": "Support" }, { "value": "shield", "label": "Bouclier" }, { "value": "leaf", "label": "Feuille" }, { "value": "refresh", "label": "Retour" }, { "value": "check", "label": "Coche" }
+        ] },
+        { "type": "text", "id": "heading_2", "label": "Titre 2", "default": "24/7 Support" },
+        { "type": "text", "id": "sub_2", "label": "Sous-texte 2", "default": "We're here to help" },
+        { "type": "header", "content": "Carte 3 (optionnel)" },
+        { "type": "select", "id": "icon_3", "label": "Icône 3", "default": "refresh", "options": [
+          { "value": "truck", "label": "Camion" }, { "value": "support", "label": "Support" }, { "value": "shield", "label": "Bouclier" }, { "value": "leaf", "label": "Feuille" }, { "value": "refresh", "label": "Retour" }, { "value": "check", "label": "Coche" }
+        ] },
+        { "type": "text", "id": "heading_3", "label": "Titre 3" },
+        { "type": "text", "id": "sub_3", "label": "Sous-texte 3" }
+      ]
+    },
+    {
+      "type": "lp_bh_stock",
+      "name": "BoxHero · Barre de stock ★",
+      "settings": [
+        { "type": "text", "id": "label", "label": "Texte (utilise [qty])", "default": "Hurry up! Only [qty] items left in stock" },
+        { "type": "range", "id": "units_left", "min": 1, "max": 99, "step": 1, "label": "Unités restantes", "default": 8 },
+        { "type": "range", "id": "bar_width", "min": 5, "max": 100, "step": 1, "unit": "%", "label": "Remplissage de la barre", "default": 22 },
+        { "type": "color", "id": "bar_color", "label": "Couleur de la barre", "default": "#ea0404" },
+        { "type": "color", "id": "track_color", "label": "Fond de la barre", "default": "#e4e4e4" },
+        { "type": "color", "id": "text_color", "label": "Couleur du texte", "default": "#1f1f1f" }
       ]
     },
     {
