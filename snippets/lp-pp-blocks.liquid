@@ -48,7 +48,82 @@
       .shopify-payment-button__button { margin-bottom: .4rem !important; }
       .gecko-post-atc, .product-checkout-security { margin-top: .6rem !important; }
       {%- endif -%}
+      {%- if block.settings.show_size_chart -%}
+      .product-form__input--pill .form__label { display: flex; align-items: center; }
+      .lp-size-chart-link {
+        margin-left: auto; display: inline-flex; align-items: center; gap: 5px;
+        font-size: 13px; font-weight: 500; text-decoration: underline; text-underline-offset: 2px;
+        color: {{ unsel_text }}; cursor: pointer; background: none; border: none;
+      }
+      .lp-size-chart-link svg { width: 15px; height: 15px; stroke: currentColor; fill: none; stroke-width: 1.6; }
+      .lp-scm__overlay { position: fixed; inset: 0; background: rgba(0,0,0,.6); display: none; align-items: center; justify-content: center; z-index: 99999; padding: 20px; }
+      .lp-scm__overlay.is-open { display: flex; }
+      .lp-scm__box { background: #fff; border-radius: 12px; max-width: 760px; width: 100%; max-height: 90vh; overflow: auto; position: relative; padding: 20px; }
+      .lp-scm__close { position: absolute; top: 8px; right: 12px; background: none; border: none; font-size: 28px; line-height: 1; cursor: pointer; color: #111; }
+      .lp-scm__title { font-weight: 700; font-size: 18px; margin: 0 0 12px; padding-right: 24px; }
+      .lp-scm__box img { width: 100%; height: auto; display: block; border-radius: 8px; }
+      {%- endif -%}
     </style>
+    {%- if block.settings.show_size_chart -%}
+      {%- assign sc_text = block.settings.sc_text | default: 'size chart' -%}
+      {%- assign sc_option = block.settings.sc_option | default: 'Size' -%}
+      {%- assign sc_has_modal = false -%}
+      {%- if block.settings.sc_image != blank or block.settings.sc_richtext != blank -%}{%- assign sc_has_modal = true -%}{%- endif -%}
+      {%- if sc_has_modal -%}
+        <div class="lp-scm__overlay" id="lp-scm-{{ block.id }}" role="dialog" aria-modal="true">
+          <div class="lp-scm__box">
+            <button type="button" class="lp-scm__close" aria-label="Fermer">&times;</button>
+            {%- if block.settings.sc_title != blank -%}<p class="lp-scm__title">{{ block.settings.sc_title }}</p>{%- endif -%}
+            {%- if block.settings.sc_image != blank -%}
+              <img src="{{ block.settings.sc_image | image_url: width: 1000 }}" alt="{{ block.settings.sc_title | default: 'Size chart' | escape }}" loading="lazy">
+            {%- elsif block.settings.sc_richtext != blank -%}
+              <div class="rte">{{ block.settings.sc_richtext }}</div>
+            {%- endif -%}
+          </div>
+        </div>
+      {%- endif -%}
+      <script>
+      (function(){
+        var TEXT = {{ sc_text | json }};
+        var OPT = {{ sc_option | json }}.toLowerCase();
+        var LINK = {{ block.settings.sc_link | default: '' | json }};
+        var HAS_MODAL = {% if sc_has_modal %}true{% else %}false{% endif %};
+        var overlay = document.getElementById('lp-scm-{{ block.id }}');
+        var ICON = '<svg viewBox="0 0 24 24"><path d="M3 8h18v8H3z"/><path d="M7 8v3M11 8v4M15 8v3M19 8v4"/></svg>';
+        function openModal(){ if(overlay){ overlay.classList.add('is-open'); } }
+        function inject(){
+          var labels = document.querySelectorAll('.product-form__input .form__label, .product-form__input legend');
+          for (var i=0;i<labels.length;i++){
+            var lbl = labels[i];
+            var t = (lbl.textContent||'').trim().toLowerCase();
+            if (t.indexOf(OPT) === -1) continue;
+            if (lbl.querySelector('.lp-size-chart-link')) continue;
+            var a = document.createElement('a');
+            a.className = 'lp-size-chart-link';
+            a.href = (!HAS_MODAL && LINK) ? LINK : '#';
+            if (!HAS_MODAL && LINK){ a.target = '_blank'; a.rel = 'noopener'; }
+            a.innerHTML = ICON + '<span>' + TEXT + '</span>';
+            a.addEventListener('click', function(e){
+              if (HAS_MODAL){ e.preventDefault(); openModal(); }
+              else if (!LINK){ e.preventDefault(); }
+            });
+            lbl.appendChild(a);
+          }
+        }
+        if (overlay){
+          overlay.addEventListener('click', function(e){
+            if (e.target === overlay || e.target.classList.contains('lp-scm__close')) overlay.classList.remove('is-open');
+          });
+          document.addEventListener('keydown', function(e){ if (e.key === 'Escape') overlay.classList.remove('is-open'); });
+        }
+        var scheduled = false;
+        function schedule(){ if (scheduled) return; scheduled = true; requestAnimationFrame(function(){ scheduled = false; inject(); }); }
+        if (document.readyState !== 'loading') inject(); else document.addEventListener('DOMContentLoaded', inject);
+        document.addEventListener('shopify:section:load', inject);
+        try { new MutationObserver(schedule).observe(document.body, { childList: true, subtree: true }); } catch(e){}
+      })();
+      </script>
+    {%- endif -%}
 
   {%- when 'lp_trust_badge' -%}
     {%- liquid

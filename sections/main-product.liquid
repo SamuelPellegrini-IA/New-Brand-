@@ -852,7 +852,15 @@
         { "type": "range", "id": "radius", "min": 0, "max": 28, "step": 1, "unit": "px", "label": "Arrondi des boutons", "default": 12 },
         { "type": "header", "content": "Boutons d'achat" },
         { "type": "checkbox", "id": "tighten_buttons", "label": "Réduire l'espace autour des boutons", "default": true },
-        { "type": "checkbox", "id": "show_more_options", "label": "Afficher \"More payment options\"", "default": false }
+        { "type": "checkbox", "id": "show_more_options", "label": "Afficher \"More payment options\"", "default": false },
+        { "type": "header", "content": "Guide des tailles (size chart)" },
+        { "type": "checkbox", "id": "show_size_chart", "label": "Afficher le lien \"size chart\"", "default": true },
+        { "type": "text", "id": "sc_text", "label": "Texte du lien", "default": "size chart" },
+        { "type": "text", "id": "sc_option", "label": "Nom de l'option ciblée (ex: Size / Taille)", "default": "Size" },
+        { "type": "text", "id": "sc_title", "label": "Titre de la popup" },
+        { "type": "image_picker", "id": "sc_image", "label": "Image du guide des tailles (ouvre une popup)" },
+        { "type": "richtext", "id": "sc_richtext", "label": "Ou tableau/texte (si pas d'image)" },
+        { "type": "url", "id": "sc_link", "label": "Ou lien externe (si ni image ni tableau)" }
       ]
     },
     {
