@@ -21,7 +21,9 @@
             "unsel_border": "#e3e3e3",
             "unsel_text": "#1a1a1a",
             "hover_border": "#159a4b",
-            "radius": 12
+            "radius": 12,
+            "tighten_buttons": true,
+            "show_more_options": false
           }
         },
         "tp_badge": {
@@ -31,6 +33,7 @@
             "stars": 4.5,
             "reviews_text": "3809+ reviews",
             "platform_text": "Trustpilot",
+            "link": "",
             "star_color": "#00b67a",
             "text_color": "#1a1a1a"
           }
@@ -122,10 +125,6 @@
             "border_color": "#e6e6e6"
           }
         },
-        "quantity_selector": {
-          "type": "quantity_selector",
-          "settings": {}
-        },
         "buy_buttons": {
           "type": "buy_buttons",
           "settings": {
@@ -141,28 +140,36 @@
           "type": "collapsible_tab",
           "settings": {
             "heading": "Item details",
-            "content": "<p>Capture your furry friend's unique personality in a vibrant, custom photo tropical style <strong>cat Hawaii Shirt</strong>! Perfect for the cat lover in your life, it also makes a memorable summer or beach trip gift!</p><p><strong>Product details:</strong></p><ul><li>Fabric: 100% polyester</li><li>Regular fit</li><li>Short sleeve, lapel collar, button closure</li><li>Fabric weight: 120g/m²</li><li>Care: machine wash cold, do not bleach, tumble dry low</li><li>Made on demand — no minimum order quantity</li></ul><p><strong>Processing time:</strong> 3–5 business days<br><strong>Shipping time:</strong> 10–15 business days</p>"
+            "icon": "check_mark",
+            "content": "<p>Capture your furry friend's unique personality in a vibrant, custom photo tropical style <strong>cat Hawaii Shirt</strong>! Perfect for the cat lover in your life, it also makes a memorable summer or beach trip gift!</p><p><strong>Product details:</strong></p><ul><li>Fabric: 100% polyester</li><li>Regular fit</li><li>Short sleeve, lapel collar, button closure</li><li>Fabric weight: 120g/m²</li><li>Care: machine wash cold, do not bleach, tumble dry low</li><li>Made on demand — no minimum order quantity</li></ul><p><strong>Processing time:</strong> 3–5 business days<br><strong>Shipping time:</strong> 10–15 business days</p>",
+            "page": ""
           }
         },
         "acc_shipping": {
           "type": "collapsible_tab",
           "settings": {
             "heading": "Shipping Info",
-            "content": "<ul><li>The above time frame is only applied for orders to the US with standard shipping methods.</li><li>International orders: it may take 2–5 days longer due to the customs clearance process.</li><li><strong>Orders can be cancelled or modified only within 2 hours after being placed.</strong></li><li>All products are made to order.</li></ul>"
+            "icon": "check_mark",
+            "content": "<ul><li>The above time frame is only applied for orders to the US with standard shipping methods.</li><li>International orders: it may take 2–5 days longer due to the customs clearance process.</li><li><strong>Orders can be cancelled or modified only within 2 hours after being placed.</strong></li><li>All products are made to order.</li></ul>",
+            "page": ""
           }
         },
         "acc_guarantee": {
           "type": "collapsible_tab",
           "settings": {
             "heading": "Satisfaction Guarantee",
-            "content": "<ul><li>Full refund or replacement (no extra fee, within 30 days of purchase) for faulty, defective or damaged products.</li><li>Full refund if the item is not as described.</li><li>We have 24/7/365 ticket and email support.</li></ul>"
+            "icon": "check_mark",
+            "content": "<ul><li>Full refund or replacement (no extra fee, within 30 days of purchase) for faulty, defective or damaged products.</li><li>Full refund if the item is not as described.</li><li>We have 24/7/365 ticket and email support.</li></ul>",
+            "page": ""
           }
         },
         "acc_deals": {
           "type": "collapsible_tab",
           "settings": {
             "heading": "Hot Deals",
-            "content": "<p>Get ready for a shopping experience like no other! Explore our latest collection tailored for dog and cat lovers, camping enthusiasts, and families alike.</p><p><strong>Enjoy an exclusive 10% discount using code HOT10, combinable with other codes.</strong></p>"
+            "icon": "check_mark",
+            "content": "<p>Get ready for a shopping experience like no other! Explore our latest collection tailored for dog and cat lovers, camping enthusiasts, and families alike.</p><p><strong>Enjoy an exclusive 10% discount using code HOT10, combinable with other codes.</strong></p>",
+            "page": ""
           }
         },
         "share": {
@@ -184,7 +191,6 @@
         "variant_picker",
         "fit_bar",
         "low_stock",
-        "quantity_selector",
         "buy_buttons",
         "description",
         "acc_details",
@@ -374,16 +380,31 @@
       ],
       "settings": {
         "heading": "Customer Reviews",
+        "heading_size": 32,
         "average_rating": "4.9",
         "total_label": "Based on 50 reviews",
+        "star_color": "#ffce31",
+        "bar_color": "#1a1a1a",
+        "track_color": "#ececec",
+        "show_counts": false,
         "pct_5": 92,
+        "count_5": "35",
         "pct_4": 6,
+        "count_4": "3",
         "pct_3": 2,
+        "count_3": "2",
         "pct_2": 0,
+        "count_2": "0",
         "pct_1": 0,
+        "count_1": "0",
         "show_write_button": true,
         "write_button_label": "Write a review",
-        "columns": 2
+        "write_button_link": "",
+        "columns": 2,
+        "background": "#ffffff",
+        "text_color": "#121212",
+        "padding_top": 40,
+        "padding_bottom": 40
       }
     },
     "related-products": {
