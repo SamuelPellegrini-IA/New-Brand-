@@ -18,25 +18,8 @@
 
   {%- liquid
     assign hawaiian_layout = false
-    if template.suffix == 'new-lp-gecko' or template.suffix == 'gecko-hawaiian' or template.suffix == 'custom-hawaiian-shirt' or template.suffix == 'gecko-lp'
+    if section.settings.layout_style == 'hawaiian_shirt'
       assign hawaiian_layout = true
-    elsif request.params.view == 'new-lp-gecko' or request.params.view == 'gecko-hawaiian' or request.params.view == 'custom-hawaiian-shirt' or request.params.view == 'gecko-lp'
-      assign hawaiian_layout = true
-    elsif product.handle == 'custom-photo-tropical-style-cat-hawaii-shirt' or product.handle == 'custom-photo-tropical-cat-hawaiian-shirt'
-      assign hawaiian_layout = true
-    elsif section.settings.layout_style == 'hawaiian_shirt'
-      assign hawaiian_layout = true
-    else
-      for layout_block in section.blocks
-        if layout_block.type == 'buy_buttons' and layout_block.settings.gecko_button_style
-          assign hawaiian_layout = true
-          break
-        endif
-        if layout_block.type == 'hawaiian_payment_trust' or layout_block.type == 'hawaiian_shipping_timeline' or layout_block.type == 'hawaiian_gift_box'
-          assign hawaiian_layout = true
-          break
-        endif
-      endfor
     endif
   -%}
   {%- if hawaiian_layout -%}
@@ -106,12 +89,9 @@
       <div class="product product--{{ section.settings.media_size }} product--{{ section.settings.media_position }} product--{{ section.settings.gallery_layout }} product--mobile-{{ section.settings.mobile_thumbnails }}{% if hawaiian_layout %} product--hawaiian-layout{% endif %} grid grid--1-col {% if product.media.size > 0 %}grid--2-col-tablet{% else %}product--no-media{% endif %}">
         <div class="grid__item product__media-wrapper{% if hawaiian_layout %} product__media-wrapper--hawaiian{% endif %}">
           {%- if hawaiian_layout -%}
-            <div class="hawaiian-media-sticky">
-              {% render 'product-media-gallery', variant_images: variant_images %}
-            </div>
-          {%- else -%}
-            {% render 'product-media-gallery', variant_images: variant_images %}
+            <div class="hawaiian-live-preview-host" aria-label="Product live preview"></div>
           {%- endif -%}
+          {% render 'product-media-gallery', variant_images: variant_images %}
         </div>
         <div class="product__info-wrapper grid__item{% if settings.page_width > 1400 and section.settings.media_size == "small" %} product__info-wrapper--extra-padding{% endif %}{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}">
           <section
@@ -140,9 +120,6 @@
                       </h2>
                     </a>
                   </div>
-                  {%- if hawaiian_layout -%}
-                    {%- render 'gecko-product-fallback-stack', section: section, slot: 'after_title' -%}
-                  {%- endif -%}
                 {%- when 'price' -%}
                   <div id="price-{{ section.id }}" role="status" {{ block.shopify_attributes }}>
                     {%- render 'price',
@@ -178,9 +155,6 @@
                       {{ form | payment_terms }}
                     {%- endform -%}
                   </div>
-                  {%- if hawaiian_layout -%}
-                    {%- render 'gecko-product-fallback-stack', section: section, slot: 'after_price' -%}
-                  {%- endif -%}
                 {%- when 'inventory' -%}
                   <p
                     class="product__inventory{% if block.settings.text_style == 'uppercase' %} caption-with-letter-spacing{% elsif block.settings.text_style == 'subtitle' %} subtitle{% endif %}{% if product.selected_or_first_available_variant.inventory_management != 'shopify' %} visibility-hidden{% endif %}"
@@ -255,22 +229,7 @@
                     block: block,
                     product_form_id: product_form_id
                   -%}
-                {%- when 'hawaiian_product_rating' -%}
-                  {%- render 'hawaiian-product-rating', block: block -%}
-                {%- when 'gecko_review' -%}
-                  {%- comment -%} Avis rendus dans la section « Avis clients Gecko » {%- endcomment -%}
-                {%- when 'hawaiian_preview_button' -%}
-                  {%- comment -%} Bouton preview désactivé — Customily gère l'aperçu {%- endcomment -%}
-                {%- when 'hawaiian_payment_trust' -%}
-                  {%- unless hawaiian_layout -%}
-                    {%- render 'hawaiian-payment-trust', block: block -%}
-                  {%- endunless -%}
-                {%- when 'hawaiian_shipping_timeline' -%}
-                  {%- unless hawaiian_layout -%}
-                    {%- render 'hawaiian-shipping-timeline', block: block -%}
-                  {%- endunless -%}
                 {%- when 'collapsible_tab' -%}
-                  {%- unless hawaiian_layout -%}
                   <div class="product__accordion accordion quick-add-hidden" {{ block.shopify_attributes }}>
                     <details id="Details-{{ block.id }}-{{ section.id }}">
                       <summary>
@@ -288,7 +247,6 @@
                       </div>
                     </details>
                   </div>
-                  {%- endunless -%}
                 {%- when 'quantity_selector' -%}
                   <div
                     id="Quantity-Form-{{ section.id }}"
@@ -558,14 +516,8 @@
                     product: product,
                     product_form_id: product_form_id,
                     section_id: section.id,
-                    section: section,
-                    hawaiian_layout: hawaiian_layout,
                     show_pickup_availability: true
                   -%}
-                  {%- if hawaiian_layout -%}
-                    {%- render 'hawaiian-post-atc', section: section -%}
-                    {%- render 'gecko-accordions', section: section -%}
-                  {%- endif -%}
                 {%- when 'rating' -%}
                   {%- if product.metafields.reviews.rating.value != blank -%}
                     <div class="rating-wrapper">
@@ -755,6 +707,14 @@
                   </product-recommendations>
                 {%- when 'icon-with-text' -%}
                   {% render 'icon-with-text', block: block %}
+                {%- when 'lp_trust_badge' -%}
+                  {% render 'lp-pp-blocks', block: block %}
+                {%- when 'lp_quick_glance' -%}
+                  {% render 'lp-pp-blocks', block: block %}
+                {%- when 'lp_fit_bar' -%}
+                  {% render 'lp-pp-blocks', block: block %}
+                {%- when 'lp_low_stock' -%}
+                  {% render 'lp-pp-blocks', block: block %}
               {%- endcase -%}
             {%- endfor -%}
             <a href="{{ product.url }}" class="link product__view-details animate-arrow">
@@ -816,14 +776,8 @@
       <script type="application/ld+json">
         {{ product | structured_data }}
       </script>
-
-      {%- if hawaiian_layout and section.settings.gecko_show_reviews -%}
-        {%- render 'custom-product-reviews-main', section: section -%}
-      {%- endif -%}
     </div>
   </product-component>
-
-  {%- endif -%}
 </product-info>
 
 {% schema %}
@@ -834,6 +788,74 @@
   "blocks": [
     {
       "type": "@app"
+    },
+    {
+      "type": "lp_trust_badge",
+      "name": "Trust badge ★",
+      "settings": [
+        { "type": "text", "id": "rating_label", "label": "Mot de gauche", "default": "Excellent" },
+        { "type": "range", "id": "stars", "min": 3, "max": 5, "step": 0.5, "label": "Étoiles remplies", "default": 4.5 },
+        { "type": "text", "id": "reviews_text", "label": "Texte des avis", "default": "3809+ reviews" },
+        { "type": "text", "id": "platform_text", "label": "Plateforme", "default": "Trustpilot" },
+        { "type": "url", "id": "link", "label": "Lien (optionnel)" },
+        { "type": "color", "id": "star_color", "label": "Couleur des étoiles", "default": "#00b67a" },
+        { "type": "color", "id": "text_color", "label": "Couleur du texte", "default": "#1a1a1a" }
+      ]
+    },
+    {
+      "type": "lp_quick_glance",
+      "name": "Quick glance ★",
+      "settings": [
+        { "type": "text", "id": "heading", "label": "Titre", "default": "At a quick glance:" },
+        { "type": "color", "id": "icon_color", "label": "Couleur des icônes", "default": "#159a4b" },
+        { "type": "color", "id": "text_color", "label": "Couleur du texte", "default": "#111111" },
+        { "type": "color", "id": "divider_color", "label": "Couleur des séparateurs", "default": "#ececec" },
+        { "type": "header", "content": "Atout 1" },
+        { "type": "select", "id": "icon_1", "label": "Icône 1", "default": "medal", "options": [
+          { "value": "medal", "label": "Médaille" }, { "value": "camera", "label": "Appareil photo" }, { "value": "check", "label": "Coche" }, { "value": "drop", "label": "Goutte" }, { "value": "leaf", "label": "Feuille" }, { "value": "shield", "label": "Bouclier" }, { "value": "truck", "label": "Camion" }, { "value": "lock", "label": "Cadenas" }, { "value": "heart", "label": "Cœur" }, { "value": "gift", "label": "Cadeau" }, { "value": "ruler", "label": "Règle" }, { "value": "recycle", "label": "Recyclage" }, { "value": "star", "label": "Étoile" }
+        ] },
+        { "type": "text", "id": "label_1", "label": "Texte 1", "default": "Premium soft fabric" },
+        { "type": "header", "content": "Atout 2" },
+        { "type": "select", "id": "icon_2", "label": "Icône 2", "default": "camera", "options": [
+          { "value": "medal", "label": "Médaille" }, { "value": "camera", "label": "Appareil photo" }, { "value": "check", "label": "Coche" }, { "value": "drop", "label": "Goutte" }, { "value": "leaf", "label": "Feuille" }, { "value": "shield", "label": "Bouclier" }, { "value": "truck", "label": "Camion" }, { "value": "lock", "label": "Cadenas" }, { "value": "heart", "label": "Cœur" }, { "value": "gift", "label": "Cadeau" }, { "value": "ruler", "label": "Règle" }, { "value": "recycle", "label": "Recyclage" }, { "value": "star", "label": "Étoile" }
+        ] },
+        { "type": "text", "id": "label_2", "label": "Texte 2", "default": "Your photo printed" },
+        { "type": "header", "content": "Atout 3" },
+        { "type": "select", "id": "icon_3", "label": "Icône 3", "default": "check", "options": [
+          { "value": "medal", "label": "Médaille" }, { "value": "camera", "label": "Appareil photo" }, { "value": "check", "label": "Coche" }, { "value": "drop", "label": "Goutte" }, { "value": "leaf", "label": "Feuille" }, { "value": "shield", "label": "Bouclier" }, { "value": "truck", "label": "Camion" }, { "value": "lock", "label": "Cadenas" }, { "value": "heart", "label": "Cœur" }, { "value": "gift", "label": "Cadeau" }, { "value": "ruler", "label": "Règle" }, { "value": "recycle", "label": "Recyclage" }, { "value": "star", "label": "Étoile" }
+        ] },
+        { "type": "text", "id": "label_3", "label": "Texte 3", "default": "Made to order" },
+        { "type": "header", "content": "Atout 4" },
+        { "type": "select", "id": "icon_4", "label": "Icône 4", "default": "drop", "options": [
+          { "value": "medal", "label": "Médaille" }, { "value": "camera", "label": "Appareil photo" }, { "value": "check", "label": "Coche" }, { "value": "drop", "label": "Goutte" }, { "value": "leaf", "label": "Feuille" }, { "value": "shield", "label": "Bouclier" }, { "value": "truck", "label": "Camion" }, { "value": "lock", "label": "Cadenas" }, { "value": "heart", "label": "Cœur" }, { "value": "gift", "label": "Cadeau" }, { "value": "ruler", "label": "Règle" }, { "value": "recycle", "label": "Recyclage" }, { "value": "star", "label": "Étoile" }
+        ] },
+        { "type": "text", "id": "label_4", "label": "Texte 4", "default": "Fade-resistant colors" }
+      ]
+    },
+    {
+      "type": "lp_fit_bar",
+      "name": "Fit social bar ★",
+      "settings": [
+        { "type": "inline_richtext", "id": "text", "label": "Texte", "default": "Customers say this fits <u>true to size</u> based on 5,210 reviews" },
+        { "type": "checkbox", "id": "show_icon", "label": "Afficher l'icône", "default": true },
+        { "type": "color", "id": "bg_color", "label": "Couleur de fond", "default": "#fff6d4" },
+        { "type": "color", "id": "text_color", "label": "Couleur du texte", "default": "#5a4500" },
+        { "type": "color", "id": "icon_color", "label": "Couleur de l'icône", "default": "#7a5b00" }
+      ]
+    },
+    {
+      "type": "lp_low_stock",
+      "name": "Low stock box ★",
+      "settings": [
+        { "type": "text", "id": "heading", "label": "Titre", "default": "WARNING: Low Stock Notice" },
+        { "type": "richtext", "id": "body", "label": "Texte principal", "default": "<p>This product sold out 12 times last year. We encourage you to take advantage of the limited sale and buy now. Ordering now helps you avoid future stock-outs.</p>" },
+        { "type": "richtext", "id": "ps_text", "label": "Texte PS", "default": "<p>PS: Only available here — don't buy fakes on Amazon/eBay.</p>" },
+        { "type": "color", "id": "heading_color", "label": "Couleur du titre", "default": "#b00020" },
+        { "type": "color", "id": "icon_color", "label": "Couleur de l'icône", "default": "#b00020" },
+        { "type": "color", "id": "text_color", "label": "Couleur du texte", "default": "#333333" },
+        { "type": "color", "id": "bg_color", "label": "Couleur de fond", "default": "#ffffff" },
+        { "type": "color", "id": "border_color", "label": "Couleur de bordure", "default": "#e6e6e6" }
+      ]
     },
     {
       "type": "text",
@@ -1013,18 +1035,6 @@
           "default": true,
           "label": "t:sections.main-product.blocks.buy_buttons.settings.show_gift_card_recipient.label",
           "info": "t:sections.main-product.blocks.buy_buttons.settings.show_gift_card_recipient.info"
-        },
-        {
-          "type": "checkbox",
-          "id": "gecko_button_style",
-          "label": "Style bouton Gecko (gradient orange)",
-          "default": false
-        },
-        {
-          "type": "text",
-          "id": "gecko_atc_label",
-          "label": "Texte bouton ATC personnalisé",
-          "default": "ADD TO CART"
         }
       ]
     },
@@ -1059,55 +1069,14 @@
       ]
     },
     {
-      "type": "hawaiian_product_rating",
-      "name": "Note produit (style Gecko)",
-      "limit": 1,
-      "settings": [
-        {
-          "type": "range",
-          "id": "rating_value",
-          "min": 1,
-          "max": 5,
-          "step": 0.1,
-          "label": "Note moyenne",
-          "default": 4.9
-        },
-        {
-          "type": "text",
-          "id": "review_count",
-          "label": "Nombre d'avis",
-          "default": "5066"
-        },
-        {
-          "type": "text",
-          "id": "review_label",
-          "label": "Libellé avis",
-          "default": "reviews"
-        },
-        {
-          "type": "text",
-          "id": "reviews_link",
-          "label": "Lien vers les avis",
-          "default": "#customer-reviews",
-          "info": "Ex. #customer-reviews ou URL complète"
-        }
-      ]
-    },
-    {
       "type": "hawaiian_gift_box",
       "name": "Hawaiian gift box add-on",
       "limit": 1,
       "settings": [
         {
           "type": "text",
-          "id": "header_title",
-          "label": "Titre bandeau",
-          "default": "Gift Box For Hawaii Shirt"
-        },
-        {
-          "type": "text",
           "id": "title",
-          "label": "Titre interne (legacy)",
+          "label": "Card title",
           "default": "Gift Box For Hawaii Shirt"
         },
         {
@@ -1156,211 +1125,6 @@
           "label": "Gift box variant ID",
           "info": "TODO: Set the Shopify variant ID for the gift box product once it exists."
         }
-      ]
-    },
-    {
-      "type": "hawaiian_preview_button",
-      "name": "Bouton aperçu personnalisation",
-      "limit": 1,
-      "settings": [
-        {
-          "type": "text",
-          "id": "button_label",
-          "label": "Texte du bouton",
-          "default": "Preview Your Personalization"
-        }
-      ]
-    },
-    {
-      "type": "hawaiian_payment_trust",
-      "name": "Badges paiement & confiance",
-      "limit": 1,
-      "settings": [
-        {
-          "type": "text",
-          "id": "checkout_text",
-          "label": "Texte checkout sécurisé",
-          "default": "Guaranteed safe & secure checkout via:"
-        },
-        {
-          "type": "image_picker",
-          "id": "payment_icons_image",
-          "label": "Image icônes paiement"
-        },
-        {
-          "type": "text",
-          "id": "payment_icons_url",
-          "label": "URL image icônes (si pas d'image uploadée)",
-          "info": "Lien direct vers une image (ex. fichier Shopify CDN)."
-        },
-        {
-          "type": "text",
-          "id": "payment_icons_alt",
-          "label": "Texte alternatif icônes",
-          "default": "Payment methods"
-        },
-        {
-          "type": "text",
-          "id": "secure_text",
-          "label": "Texte transaction sécurisée",
-          "default": "Secure transaction"
-        },
-        {
-          "type": "text",
-          "id": "learn_more_label",
-          "label": "Libellé Learn more",
-          "default": "Learn more"
-        },
-        {
-          "type": "richtext",
-          "id": "learn_more_text",
-          "label": "Texte PCI / Learn more",
-          "default": "<p>If you choose a direct payment gateway to complete your purchase your credit card is encrypted through the Payment Card Industry Data Security Standard (PCI-DSS).</p>"
-        }
-      ]
-    },
-    {
-      "type": "hawaiian_shipping_timeline",
-      "name": "Timeline livraison",
-      "limit": 1,
-      "settings": [
-        {
-          "type": "header",
-          "content": "Calcul automatique des dates"
-        },
-        {
-          "type": "checkbox",
-          "id": "use_auto_dates",
-          "label": "Calculer les dates automatiquement",
-          "default": true,
-          "info": "Les dates se mettent à jour chaque jour selon les délais ci-dessous."
-        },
-        {
-          "type": "range",
-          "id": "processing_days_min",
-          "min": 0,
-          "max": 10,
-          "step": 1,
-          "label": "Production min. (jours ouvrés)",
-          "default": 2
-        },
-        {
-          "type": "range",
-          "id": "processing_days_max",
-          "min": 0,
-          "max": 14,
-          "step": 1,
-          "label": "Production max. (jours ouvrés)",
-          "default": 3
-        },
-        {
-          "type": "range",
-          "id": "shipping_days_min",
-          "min": 1,
-          "max": 30,
-          "step": 1,
-          "label": "Livraison min. (jours)",
-          "default": 12
-        },
-        {
-          "type": "range",
-          "id": "shipping_days_max",
-          "min": 1,
-          "max": 45,
-          "step": 1,
-          "label": "Livraison max. (jours)",
-          "default": 15
-        },
-        {
-          "type": "text",
-          "id": "arrival_message_before",
-          "label": "Texte avant les dates",
-          "default": "Arrives"
-        },
-        {
-          "type": "text",
-          "id": "arrival_message_after",
-          "label": "Texte après les dates",
-          "default": "if you order today. Hooray!"
-        },
-        {
-          "type": "header",
-          "content": "Libellés de la timeline"
-        },
-        {
-          "type": "text",
-          "id": "step1_label",
-          "label": "Étape 1 — label",
-          "default": "Order placed"
-        },
-        {
-          "type": "text",
-          "id": "step2_label",
-          "label": "Étape 2 — label",
-          "default": "Order ships"
-        },
-        {
-          "type": "text",
-          "id": "step3_label",
-          "label": "Étape 3 — label",
-          "default": "Estimated arrival"
-        },
-        {
-          "type": "text",
-          "id": "disclaimer",
-          "label": "Note bas de page",
-          "default": "* The ETA is applied for US orders only. All products are made to order."
-        },
-        {
-          "type": "header",
-          "content": "Dates manuelles (si calcul auto désactivé)"
-        },
-        {
-          "type": "text",
-          "id": "arrival_text",
-          "label": "Texte arrivée complet (HTML autorisé pour gras)",
-          "default": "Arrives <strong>Jul 04 - 07</strong> if you order today. Hooray!"
-        },
-        {
-          "type": "text",
-          "id": "step1_date",
-          "label": "Étape 1 — date",
-          "default": "Jun 22"
-        },
-        {
-          "type": "text",
-          "id": "step2_date",
-          "label": "Étape 2 — date",
-          "default": "Jun 24 - 25"
-        },
-        {
-          "type": "text",
-          "id": "step3_date",
-          "label": "Étape 3 — date",
-          "default": "Jul 04 - 07"
-        }
-      ]
-    },
-    {
-      "type": "gecko_review",
-      "name": "Review",
-      "settings": [
-        { "type": "text", "id": "customer_name", "label": "Customer name", "default": "Sarah M." },
-        { "type": "text", "id": "author", "label": "Customer name (legacy)", "info": "Use Customer name above" },
-        { "type": "range", "id": "rating", "min": 1, "max": 5, "step": 1, "label": "Rating", "default": 5 },
-        { "type": "text", "id": "review_title", "label": "Review title", "default": "Better than expected" },
-        { "type": "text", "id": "title", "label": "Review title (legacy)" },
-        { "type": "textarea", "id": "review_text", "label": "Review text", "default": "The shirt came out better than expected. The photo quality looks great and it was a perfect gift." },
-        { "type": "richtext", "id": "content", "label": "Review text (rich text, legacy)" },
-        { "type": "image_picker", "id": "customer_photo", "label": "Customer photo" },
-        { "type": "image_picker", "id": "review_photo", "label": "Customer photo (legacy)" },
-        { "type": "image_picker", "id": "product_photo", "label": "Product photo" },
-        { "type": "checkbox", "id": "verified_buyer", "label": "Verified buyer", "default": true },
-        { "type": "checkbox", "id": "verified", "label": "Verified buyer (legacy)", "default": true },
-        { "type": "text", "id": "date_text", "label": "Date", "default": "06/12/2026" },
-        { "type": "text", "id": "date", "label": "Date (legacy)" },
-        { "type": "text", "id": "country_text", "label": "Country (optional)" },
-        { "type": "text", "id": "variant_text", "label": "Product variant (optional)" }
       ]
     },
     {
@@ -2703,240 +2467,6 @@
       "id": "enable_video_looping",
       "default": false,
       "label": "t:sections.main-product.settings.enable_video_looping.label"
-    },
-    {
-      "type": "header",
-      "content": "Accordéons produit"
-    },
-    {
-      "type": "text",
-      "id": "gecko_acc_item_details_title",
-      "label": "Titre — Item details",
-      "default": "Item details"
-    },
-    {
-      "type": "richtext",
-      "id": "gecko_acc_item_details_content",
-      "label": "Contenu — Item details"
-    },
-    {
-      "type": "text",
-      "id": "gecko_acc_shipping_title",
-      "label": "Titre — Shipping Info",
-      "default": "Shipping Info"
-    },
-    {
-      "type": "richtext",
-      "id": "gecko_acc_shipping_content",
-      "label": "Contenu — Shipping Info"
-    },
-    {
-      "type": "text",
-      "id": "gecko_acc_guarantee_title",
-      "label": "Titre — Satisfaction Guarantee",
-      "default": "Satisfaction Guarantee"
-    },
-    {
-      "type": "richtext",
-      "id": "gecko_acc_guarantee_content",
-      "label": "Contenu — Satisfaction Guarantee"
-    },
-    {
-      "type": "text",
-      "id": "gecko_acc_deals_title",
-      "label": "Titre — Hot Deals",
-      "default": "Hot Deals"
-    },
-    {
-      "type": "richtext",
-      "id": "gecko_acc_deals_content",
-      "label": "Contenu — Hot Deals"
-    },
-    {
-      "type": "header",
-      "content": "Avis clients"
-    },
-    {
-      "type": "checkbox",
-      "id": "gecko_show_reviews",
-      "label": "Afficher les avis sous le produit",
-      "default": true
-    },
-    {
-      "type": "text",
-      "id": "gecko_reviews_heading",
-      "label": "Titre section avis",
-      "default": "Customer Reviews"
-    },
-    {
-      "type": "text",
-      "id": "gecko_reviews_subtitle",
-      "label": "Sous-titre section avis",
-      "default": "Real feedback from happy customers"
-    },
-    {
-      "type": "text",
-      "id": "gecko_avg_rating",
-      "label": "Note moyenne (ex: 4.8 ou 4.8/5)",
-      "default": "4.8/5"
-    },
-    {
-      "type": "text",
-      "id": "gecko_reviews_total",
-      "label": "Texte total avis",
-      "default": "Based on 5,066 reviews"
-    },
-    {
-      "type": "checkbox",
-      "id": "gecko_show_review_summary",
-      "label": "Afficher le résumé des notes",
-      "default": true
-    },
-    {
-      "type": "checkbox",
-      "id": "gecko_show_review_photos",
-      "label": "Afficher les photos des avis",
-      "default": true
-    },
-    {
-      "type": "color",
-      "id": "gecko_reviews_bg",
-      "label": "Couleur de fond avis",
-      "default": "#ffffff"
-    },
-    {
-      "type": "color",
-      "id": "gecko_star_color",
-      "label": "Couleur des étoiles",
-      "default": "#ffb800"
-    },
-    {
-      "type": "color",
-      "id": "gecko_text_color",
-      "label": "Couleur du texte avis",
-      "default": "#1a1a1a"
-    },
-    {
-      "type": "range",
-      "id": "gecko_pct_5",
-      "min": 0,
-      "max": 100,
-      "step": 1,
-      "unit": "%",
-      "label": "5 étoiles %",
-      "default": 91
-    },
-    {
-      "type": "text",
-      "id": "gecko_count_5",
-      "label": "Nombre 5 étoiles",
-      "default": "4619"
-    },
-    {
-      "type": "range",
-      "id": "gecko_pct_4",
-      "min": 0,
-      "max": 100,
-      "step": 1,
-      "unit": "%",
-      "label": "4 étoiles %",
-      "default": 7
-    },
-    {
-      "type": "text",
-      "id": "gecko_count_4",
-      "label": "Nombre 4 étoiles",
-      "default": "357"
-    },
-    {
-      "type": "range",
-      "id": "gecko_pct_3",
-      "min": 0,
-      "max": 100,
-      "step": 1,
-      "unit": "%",
-      "label": "3 étoiles %",
-      "default": 2
-    },
-    {
-      "type": "text",
-      "id": "gecko_count_3",
-      "label": "Nombre 3 étoiles",
-      "default": "83"
-    },
-    {
-      "type": "range",
-      "id": "gecko_pct_2",
-      "min": 0,
-      "max": 100,
-      "step": 1,
-      "unit": "%",
-      "label": "2 étoiles %",
-      "default": 0
-    },
-    {
-      "type": "text",
-      "id": "gecko_count_2",
-      "label": "Nombre 2 étoiles",
-      "default": "4"
-    },
-    {
-      "type": "range",
-      "id": "gecko_pct_1",
-      "min": 0,
-      "max": 100,
-      "step": 1,
-      "unit": "%",
-      "label": "1 étoile %",
-      "default": 0
-    },
-    {
-      "type": "text",
-      "id": "gecko_count_1",
-      "label": "Nombre 1 étoile",
-      "default": "3"
-    },
-    {
-      "type": "checkbox",
-      "id": "gecko_show_write_button",
-      "label": "Bouton Write a review",
-      "default": true
-    },
-    {
-      "type": "text",
-      "id": "gecko_write_label",
-      "label": "Texte bouton écrire",
-      "default": "Write a review"
-    },
-    {
-      "type": "text",
-      "id": "gecko_filter_label",
-      "label": "Label filtre",
-      "default": "Pictures First"
-    },
-    {
-      "type": "checkbox",
-      "id": "gecko_show_pagination",
-      "label": "Pagination",
-      "default": true
-    },
-    {
-      "type": "range",
-      "id": "gecko_pagination_pages",
-      "min": 1,
-      "max": 10,
-      "step": 1,
-      "label": "Nombre de pages",
-      "default": 3
-    },
-    {
-      "type": "range",
-      "id": "gecko_reviews_per_page",
-      "min": 1,
-      "max": 10,
-      "step": 1,
-      "label": "Avis par page",
-      "default": 3
     },
     {
       "type": "header",
