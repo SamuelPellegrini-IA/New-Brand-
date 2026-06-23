@@ -62,6 +62,17 @@
       </div>
     </div>
 
+  {%- when 'lp_price_color' -%}
+    {%- if block.settings.price_color != blank -%}
+      <style>
+        .price__sale .price-item--sale,
+        .price__regular .price-item--regular {
+          color: {{ block.settings.price_color }} !important;
+          {% if block.settings.bold_price %}font-weight: 700 !important;{% endif %}
+        }
+      </style>
+    {%- endif -%}
+
   {%- when 'lp_save_badge' -%}
     {%- assign v = product.selected_or_first_available_variant -%}
     <div style="display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin:8px 0 4px" {{ block.shopify_attributes }}>
