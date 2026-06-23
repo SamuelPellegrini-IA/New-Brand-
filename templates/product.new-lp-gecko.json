@@ -44,6 +44,13 @@
           "type": "price",
           "settings": {}
         },
+        "price_color": {
+          "type": "lp_price_color",
+          "settings": {
+            "price_color": "#d0021b",
+            "bold_price": true
+          }
+        },
         "save_badge": {
           "type": "lp_save_badge",
           "settings": {
@@ -153,6 +160,7 @@
         "title",
         "subtitle",
         "price",
+        "price_color",
         "save_badge",
         "quick_glance",
         "variant_picker",
