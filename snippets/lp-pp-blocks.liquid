@@ -72,6 +72,12 @@
       /* reduce gap between the text above and the price */
       .product__text { margin: 0 0 {{ gap_above }}px !important; }
       #price-{{ section.id }}, .price { margin-top: 0 !important; }
+      {%- if block.settings.hide_tax_line -%}
+      .product__tax { display: none !important; }
+      {%- endif -%}
+      {%- if block.settings.hide_installments -%}
+      .installment, shopify-payment-terms { display: none !important; }
+      {%- endif -%}
       /* align price row + badge on one centered line */
       .price,
       .price__container,

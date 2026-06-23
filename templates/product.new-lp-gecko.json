@@ -50,6 +50,7 @@
             "price_color": "#c8102e",
             "bold_price": true,
             "price_size": 28,
+            "gap_above": 6,
             "color_sale_badge": true
           }
         },
