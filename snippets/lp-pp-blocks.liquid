@@ -38,6 +38,16 @@
       .product-form__input--pill input[type='radio']:focus-visible + label {
         outline: 2px solid {{ sel_border }}; outline-offset: 2px;
       }
+      {%- unless block.settings.show_more_options -%}
+      .shopify-payment-button__more-options { display: none !important; }
+      {%- endunless -%}
+      {%- if block.settings.tighten_buttons -%}
+      .product-form__buttons { margin-top: .8rem !important; margin-bottom: 1rem !important; }
+      .product-form__submit { margin-bottom: .6rem !important; }
+      .shopify-payment-button { margin-top: 0 !important; }
+      .shopify-payment-button__button { margin-bottom: .4rem !important; }
+      .gecko-post-atc, .product-checkout-security { margin-top: .6rem !important; }
+      {%- endif -%}
     </style>
 
   {%- when 'lp_trust_badge' -%}
