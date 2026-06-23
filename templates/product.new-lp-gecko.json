@@ -12,6 +12,12 @@
     "main": {
       "type": "main-product",
       "blocks": {
+        "cro_style": {
+          "type": "custom_liquid",
+          "settings": {
+            "custom_liquid": "<style>.product-form__input--pill{margin-bottom:1.3rem}.product-form__input--pill .form__label{font-weight:700;font-size:1.4rem;margin-bottom:.7rem}.product-form__input--pill input[type='radio']+label{border:1.5px solid #e3e3e3;border-radius:12px;padding:1rem 1.6rem;margin:0 .6rem .6rem 0;font-weight:600;color:#1a1a1a;background:#fff;transition:border-color .15s ease,color .15s ease,box-shadow .15s ease,transform .05s ease}.product-form__input--pill input[type='radio']:hover+label{border-color:#159a4b}.product-form__input--pill input[type='radio']:checked+label{border-color:#159a4b !important;color:#0f7d3c !important;box-shadow:0 0 0 1.5px #159a4b inset !important;background:#f2fbf6 !important}.product-form__input--pill input[type='radio']:active+label{transform:scale(.97)}.product-form__input--pill input[type='radio']:disabled+label{color:#bbb;border-color:#eee;text-decoration:line-through;cursor:not-allowed}.product-form__input--pill input[type='radio']:focus-visible+label{outline:2px solid #159a4b;outline-offset:2px}</style>"
+          }
+        },
         "tp_badge": {
           "type": "lp_trust_badge",
           "settings": {
@@ -98,12 +104,6 @@
             "border_color": "#e6e6e6"
           }
         },
-        "personalization": {
-          "type": "custom_liquid",
-          "settings": {
-            "custom_liquid": "<div style=\"border:2px dashed #c9c9c9;border-radius:10px;padding:18px;text-align:center;color:#777;font-size:13px;margin:10px 0;\">Personnalisation : dans l'editeur de theme, ajoutez ici le bloc d'app \"Customily\" (icone Apps dans la liste des blocs), puis supprimez ce bloc placeholder.</div>"
-          }
-        },
         "quantity_selector": {
           "type": "quantity_selector",
           "settings": {}
@@ -148,6 +148,7 @@
         }
       },
       "block_order": [
+        "cro_style",
         "tp_badge",
         "title",
         "subtitle",
@@ -157,7 +158,6 @@
         "variant_picker",
         "fit_bar",
         "low_stock",
-        "personalization",
         "quantity_selector",
         "buy_buttons",
         "description",
