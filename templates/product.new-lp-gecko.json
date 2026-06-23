@@ -13,9 +13,14 @@
       "type": "main-product",
       "blocks": {
         "tp_badge": {
-          "type": "custom_liquid",
+          "type": "lp_trust_badge",
           "settings": {
-            "custom_liquid": "<style>.pp-tp{display:flex;align-items:center;flex-wrap:wrap;gap:8px;font-size:14px;margin:2px 0 14px;line-height:1.2}.pp-tp__lbl{font-weight:700}.pp-tp__stars{display:inline-flex;gap:2px}.pp-tp__stars i{width:18px;height:18px;background:#00b67a;display:inline-flex;align-items:center;justify-content:center;color:#fff;font-style:normal;font-size:11px;border-radius:2px}.pp-tp__stars i.half{background:linear-gradient(90deg,#00b67a 50%,#dcdce6 50%)}.pp-tp a{color:inherit;text-decoration:underline}.pp-tp__tp{font-weight:700;white-space:nowrap}</style><div class='pp-tp'><span class='pp-tp__lbl'>Excellent</span><span class='pp-tp__stars'><i>\u2605</i><i>\u2605</i><i>\u2605</i><i>\u2605</i><i class='half'>\u2605</i></span><span><a href='#reviews'>3809+ reviews</a> on <span class='pp-tp__tp'>\u2605 Trustpilot</span></span></div>"
+            "rating_label": "Excellent",
+            "stars": 4.5,
+            "reviews_text": "3809+ reviews",
+            "platform_text": "Trustpilot",
+            "star_color": "#00b67a",
+            "text_color": "#1a1a1a"
           }
         },
         "title": {
@@ -33,10 +38,34 @@
           "type": "price",
           "settings": {}
         },
-        "quick_glance": {
-          "type": "custom_liquid",
+        "save_badge": {
+          "type": "lp_save_badge",
           "settings": {
-            "custom_liquid": "<style>.pp-qg{margin:16px 0;border-top:1px solid #ececec;border-bottom:1px solid #ececec;padding:12px 0}.pp-qg__t{font-size:12px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;margin:0 0 10px;color:#111}.pp-qg__row{display:flex;flex-wrap:wrap}.pp-qg__i{flex:1 1 0;min-width:130px;display:flex;align-items:center;gap:9px;padding:4px 14px;border-left:1px solid #ececec;font-size:13px;line-height:1.25;font-weight:500}.pp-qg__i:first-child{border-left:0;padding-left:0}.pp-qg__i svg{width:30px;height:30px;flex:0 0 30px;stroke:#111;fill:none;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round}</style><div class='pp-qg'><div class='pp-qg__t'>At a quick glance:</div><div class='pp-qg__row'><div class='pp-qg__i'><svg viewBox='0 0 24 24'><path d='M12 3l2.2 5.3 5.8 .5-4.4 3.8 1.3 5.6L12 15.9 7.1 18.8l1.3-5.6L4 9.8l5.8-.5z'/></svg><span>Premium soft fabric</span></div><div class='pp-qg__i'><svg viewBox='0 0 24 24'><rect x='3' y='7' width='18' height='13' rx='2'/><circle cx='12' cy='13.5' r='3.4'/><path d='M8.5 7l1.3-2h4.4l1.3 2'/></svg><span>Your photo printed</span></div><div class='pp-qg__i'><svg viewBox='0 0 24 24'><path d='M20 7L9.5 17.5 4 12'/></svg><span>Made to order</span></div><div class='pp-qg__i'><svg viewBox='0 0 24 24'><path d='M12 3s6 6.4 6 11a6 6 0 1 1-12 0c0-4.6 6-11 6-11z'/></svg><span>Fade-resistant colors</span></div></div></div>"
+            "show_save": true,
+            "save_prefix": "Save",
+            "save_suffix": "OFF",
+            "save_bg": "#1a8f3c",
+            "save_text_color": "#ffffff",
+            "per_piece_text": "",
+            "pp_bg": "#1a1a1a",
+            "pp_text_color": "#ffffff"
+          }
+        },
+        "quick_glance": {
+          "type": "lp_quick_glance",
+          "settings": {
+            "heading": "At a quick glance:",
+            "icon_color": "#159a4b",
+            "text_color": "#111111",
+            "divider_color": "#ececec",
+            "icon_1": "medal",
+            "label_1": "Premium soft fabric",
+            "icon_2": "camera",
+            "label_2": "Your photo printed",
+            "icon_3": "check",
+            "label_3": "Made to order",
+            "icon_4": "drop",
+            "label_4": "Fade-resistant colors"
           }
         },
         "variant_picker": {
@@ -47,15 +76,26 @@
           }
         },
         "fit_bar": {
-          "type": "custom_liquid",
+          "type": "lp_fit_bar",
           "settings": {
-            "custom_liquid": "<style>.pp-fit{background:#fff6d4;border-radius:8px;padding:10px 14px;font-size:13px;display:flex;align-items:center;gap:9px;margin:14px 0;line-height:1.3}.pp-fit u{cursor:pointer}.pp-fit svg{width:18px;height:18px;flex:0 0 18px;stroke:#7a5b00;fill:none;stroke-width:1.7}</style><div class='pp-fit'><svg viewBox='0 0 24 24'><circle cx='12' cy='8' r='3.2'/><path d='M5 20c0-3.6 3.1-6 7-6s7 2.4 7 6'/></svg><span>Customers say this fits <u>true to size</u> based on 5,210 reviews</span></div>"
+            "text": "Customers say this fits <u>true to size</u> based on 5,210 reviews",
+            "show_icon": true,
+            "bg_color": "#fff6d4",
+            "text_color": "#5a4500",
+            "icon_color": "#7a5b00"
           }
         },
         "low_stock": {
-          "type": "custom_liquid",
+          "type": "lp_low_stock",
           "settings": {
-            "custom_liquid": "<style>.pp-warn{border:1px solid #e6e6e6;border-radius:10px;padding:16px;margin:14px 0;font-size:13px;line-height:1.55}.pp-warn__h{display:flex;align-items:center;gap:8px;font-weight:700;font-size:15px;margin:0 0 8px}.pp-warn__h svg{width:20px;height:20px;flex:0 0 20px;stroke:#111;fill:none;stroke-width:1.7}.pp-warn p{margin:0 0 8px}.pp-warn p:last-child{margin:0}</style><div class='pp-warn'><div class='pp-warn__h'><svg viewBox='0 0 24 24'><circle cx='12' cy='12' r='9'/><path d='M12 8h.01M11.2 11.5h1v4.5'/></svg>WARNING: Low Stock Notice</div><p>This product sold out <strong>12 times</strong> last year. We encourage you to take advantage of the <strong>limited sale</strong> and buy now. Ordering now helps you avoid future stock-outs.</p><p><strong>PS:</strong> Only available <strong>here</strong> &mdash; don't buy fakes on Amazon/eBay.</p></div>"
+            "heading": "WARNING: Low Stock Notice",
+            "body": "<p>This product sold out 12 times last year. We encourage you to take advantage of the limited sale and buy now. Ordering now helps you avoid future stock-outs.</p>",
+            "ps_text": "<p>PS: Only available here — don't buy fakes on Amazon/eBay.</p>",
+            "heading_color": "#b00020",
+            "icon_color": "#b00020",
+            "text_color": "#333333",
+            "bg_color": "#ffffff",
+            "border_color": "#e6e6e6"
           }
         },
         "personalization": {
@@ -112,6 +152,7 @@
         "title",
         "subtitle",
         "price",
+        "save_badge",
         "quick_glance",
         "variant_picker",
         "fit_bar",
