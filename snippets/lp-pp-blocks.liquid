@@ -1,0 +1,85 @@
+{%- comment -%} Renders editable product-page marketing blocks. Param: block {%- endcomment -%}
+{%- case block.type -%}
+
+  {%- when 'lp_trust_badge' -%}
+    {%- liquid
+      assign full = block.settings.stars | floor
+      assign rem = block.settings.stars | minus: full
+      assign half_index = full | plus: 1
+    -%}
+    <div
+      style="display:flex;align-items:center;flex-wrap:wrap;gap:8px;font-size:14px;line-height:1.2;margin:2px 0 14px;color:{{ block.settings.text_color }}"
+      {{ block.shopify_attributes }}
+    >
+      {%- if block.settings.rating_label != blank -%}
+        <span style="font-weight:700">{{ block.settings.rating_label }}</span>
+      {%- endif -%}
+      <span style="display:inline-flex;gap:2px">
+        {%- for i in (1..5) -%}
+          {%- if i <= full -%}
+            <span style="width:18px;height:18px;background:{{ block.settings.star_color }};display:inline-flex;align-items:center;justify-content:center;color:#fff;font-size:11px;border-radius:2px">&#9733;</span>
+          {%- elsif i == half_index and rem >= 0.5 -%}
+            <span style="width:18px;height:18px;background:linear-gradient(90deg,{{ block.settings.star_color }} 50%,#dcdce6 50%);display:inline-flex;align-items:center;justify-content:center;color:#fff;font-size:11px;border-radius:2px">&#9733;</span>
+          {%- else -%}
+            <span style="width:18px;height:18px;background:#dcdce6;display:inline-flex;align-items:center;justify-content:center;color:#fff;font-size:11px;border-radius:2px">&#9733;</span>
+          {%- endif -%}
+        {%- endfor -%}
+      </span>
+      <span>
+        {%- if block.settings.link != blank -%}
+          <a href="{{ block.settings.link }}" style="color:inherit;text-decoration:underline">{{ block.settings.reviews_text }}</a>
+        {%- else -%}
+          <span style="text-decoration:underline">{{ block.settings.reviews_text }}</span>
+        {%- endif -%}
+        {%- if block.settings.platform_text != blank -%}
+          on <strong style="white-space:nowrap;color:{{ block.settings.star_color }}">&#9733; {{ block.settings.platform_text }}</strong>
+        {%- endif -%}
+      </span>
+    </div>
+
+  {%- when 'lp_quick_glance' -%}
+    <style>
+      #pp-qg-{{ block.id }} .pp-qg__i:first-child{border-left:0;padding-left:0}
+      #pp-qg-{{ block.id }} svg{width:30px;height:30px;flex:0 0 30px;fill:none;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round}
+      @media(max-width:749px){#pp-qg-{{ block.id }} .pp-qg__i{min-width:46%}}
+    </style>
+    <div id="pp-qg-{{ block.id }}" style="margin:16px 0;border-top:1px solid {{ block.settings.divider_color }};border-bottom:1px solid {{ block.settings.divider_color }};padding:12px 0" {{ block.shopify_attributes }}>
+      {%- if block.settings.heading != blank -%}
+        <div style="font-size:12px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;margin:0 0 10px;color:{{ block.settings.text_color }}">{{ block.settings.heading }}</div>
+      {%- endif -%}
+      <div style="display:flex;flex-wrap:wrap">
+        {%- for n in (1..4) -%}
+          {%- assign icon_key = 'icon_' | append: n -%}
+          {%- assign label_key = 'label_' | append: n -%}
+          {%- assign lbl = block.settings[label_key] -%}
+          {%- if lbl != blank -%}
+            <div class="pp-qg__i" style="flex:1 1 0;min-width:130px;display:flex;align-items:center;gap:9px;padding:4px 14px;border-left:1px solid {{ block.settings.divider_color }};font-size:13px;line-height:1.25;font-weight:500;color:{{ block.settings.text_color }}">
+              {% render 'lp-pp-icon', name: block.settings[icon_key], color: block.settings.icon_color %}
+              <span>{{ lbl }}</span>
+            </div>
+          {%- endif -%}
+        {%- endfor -%}
+      </div>
+    </div>
+
+  {%- when 'lp_fit_bar' -%}
+    <div style="background:{{ block.settings.bg_color }};color:{{ block.settings.text_color }};border-radius:8px;padding:10px 14px;font-size:13px;display:flex;align-items:center;gap:9px;margin:14px 0;line-height:1.3" {{ block.shopify_attributes }}>
+      {%- if block.settings.show_icon -%}
+        <svg viewBox="0 0 24 24" style="width:18px;height:18px;flex:0 0 18px;stroke:{{ block.settings.icon_color }};fill:none;stroke-width:1.7"><circle cx="12" cy="8" r="3.2"/><path d="M5 20c0-3.6 3.1-6 7-6s7 2.4 7 6"/></svg>
+      {%- endif -%}
+      <span>{{ block.settings.text }}</span>
+    </div>
+
+  {%- when 'lp_low_stock' -%}
+    <div style="border:1px solid {{ block.settings.border_color }};background:{{ block.settings.bg_color }};color:{{ block.settings.text_color }};border-radius:10px;padding:16px;margin:14px 0;font-size:13px;line-height:1.55" {{ block.shopify_attributes }}>
+      {%- if block.settings.heading != blank -%}
+        <div style="display:flex;align-items:center;gap:8px;font-weight:700;font-size:15px;margin:0 0 8px;color:{{ block.settings.heading_color }}">
+          <svg viewBox="0 0 24 24" style="width:20px;height:20px;flex:0 0 20px;stroke:{{ block.settings.icon_color }};fill:none;stroke-width:1.7"><circle cx="12" cy="12" r="9"/><path d="M12 8h.01M11.2 11.5h1v4.5"/></svg>
+          {{ block.settings.heading }}
+        </div>
+      {%- endif -%}
+      <div class="rte">{{ block.settings.body }}</div>
+      {%- if block.settings.ps_text != blank -%}<div class="rte">{{ block.settings.ps_text }}</div>{%- endif -%}
+    </div>
+
+{%- endcase -%}
