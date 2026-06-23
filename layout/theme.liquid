@@ -323,9 +323,9 @@
     {%- liquid
       assign gecko_product_active = false
       if template.name == 'product'
-        if template.suffix == 'new-lp-gecko' or template.suffix == 'gecko-hawaiian' or template.suffix == 'custom-hawaiian-shirt' or template.suffix == 'gecko-lp'
+        if template.suffix == 'boxhero' or template.suffix == 'new-lp-gecko' or template.suffix == 'gecko-hawaiian' or template.suffix == 'custom-hawaiian-shirt' or template.suffix == 'gecko-lp'
           assign gecko_product_active = true
-        elsif request.params.view == 'new-lp-gecko' or request.params.view == 'gecko-hawaiian' or request.params.view == 'custom-hawaiian-shirt' or request.params.view == 'gecko-lp'
+        elsif request.params.view == 'boxhero' or request.params.view == 'new-lp-gecko' or request.params.view == 'gecko-hawaiian' or request.params.view == 'custom-hawaiian-shirt' or request.params.view == 'gecko-lp'
           assign gecko_product_active = true
         elsif product.handle == 'custom-photo-tropical-style-cat-hawaii-shirt' or product.handle == 'custom-photo-tropical-cat-hawaiian-shirt'
           assign gecko_product_active = true
