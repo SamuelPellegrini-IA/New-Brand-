@@ -48,7 +48,9 @@
           "type": "lp_price_color",
           "settings": {
             "price_color": "#d0021b",
-            "bold_price": true
+            "bold_price": true,
+            "price_size": 28,
+            "color_sale_badge": true
           }
         },
         "save_badge": {
@@ -130,21 +132,28 @@
           "type": "collapsible_tab",
           "settings": {
             "heading": "Item details",
-            "content": "<p>Premium quality, made to order with your photo. Add your materials, fit, dimensions and care instructions here.</p>"
+            "content": "<p>Capture your furry friend's unique personality in a vibrant, custom photo tropical style <strong>cat Hawaii Shirt</strong>! Perfect for the cat lover in your life, it also makes a memorable summer or beach trip gift!</p><p><strong>Product details:</strong></p><ul><li>Fabric: 100% polyester</li><li>Regular fit</li><li>Short sleeve, lapel collar, button closure</li><li>Fabric weight: 120g/m²</li><li>Care: machine wash cold, do not bleach, tumble dry low</li><li>Made on demand — no minimum order quantity</li></ul><p><strong>Processing time:</strong> 3–5 business days<br><strong>Shipping time:</strong> 10–15 business days</p>"
           }
         },
         "acc_shipping": {
           "type": "collapsible_tab",
           "settings": {
             "heading": "Shipping Info",
-            "content": "<p>Processing time: 3-5 business days. Shipping time: 10-15 business days. International orders may take a few days longer.</p>"
+            "content": "<ul><li>The above time frame is only applied for orders to the US with standard shipping methods.</li><li>International orders: it may take 2–5 days longer due to the customs clearance process.</li><li><strong>Orders can be cancelled or modified only within 2 hours after being placed.</strong></li><li>All products are made to order.</li></ul>"
           }
         },
         "acc_guarantee": {
           "type": "collapsible_tab",
           "settings": {
             "heading": "Satisfaction Guarantee",
-            "content": "<p>Full refund or replacement within 30 days for any faulty, defective or damaged item. Full refund if the item is not as described.</p>"
+            "content": "<ul><li>Full refund or replacement (no extra fee, within 30 days of purchase) for faulty, defective or damaged products.</li><li>Full refund if the item is not as described.</li><li>We have 24/7/365 ticket and email support.</li></ul>"
+          }
+        },
+        "acc_deals": {
+          "type": "collapsible_tab",
+          "settings": {
+            "heading": "Hot Deals",
+            "content": "<p>Get ready for a shopping experience like no other! Explore our latest collection tailored for dog and cat lovers, camping enthusiasts, and families alike.</p><p><strong>Enjoy an exclusive 10% discount using code HOT10, combinable with other codes.</strong></p>"
           }
         },
         "share": {
@@ -172,6 +181,7 @@
         "acc_details",
         "acc_shipping",
         "acc_guarantee",
+        "acc_deals",
         "share"
       ],
       "settings": {
