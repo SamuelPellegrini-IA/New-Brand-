@@ -23,6 +23,13 @@
           "type": "title",
           "settings": {}
         },
+        "subtitle": {
+          "type": "text",
+          "settings": {
+            "text": "Personalize it with your own photo — a unique, made-to-order gift they will treasure.",
+            "text_style": "body"
+          }
+        },
         "price": {
           "type": "price",
           "settings": {}
@@ -38,16 +45,52 @@
           "type": "quantity_selector",
           "settings": {}
         },
+        "personalization": {
+          "type": "custom_liquid",
+          "settings": {
+            "custom_liquid": "<div style=\"border:2px dashed #c9c9c9;border-radius:10px;padding:18px;text-align:center;color:#777;font-size:13px;margin:10px 0;\">Personnalisation : dans l'editeur de theme, ajoutez ici le bloc d'app \"Customily\" (icone Apps dans la liste des blocs), puis supprimez ce bloc placeholder.</div>"
+          }
+        },
         "buy_buttons": {
           "type": "buy_buttons",
           "settings": {
-            "show_dynamic_checkout": false,
-            "show_gift_card_recipient": true
+            "show_dynamic_checkout": true,
+            "show_gift_card_recipient": false
+          }
+        },
+        "trust": {
+          "type": "icon-with-text",
+          "settings": {
+            "layout": "horizontal",
+            "heading_1": "Secure checkout",
+            "heading_2": "Fast worldwide shipping",
+            "heading_3": "Satisfaction guaranteed"
           }
         },
         "description": {
           "type": "description",
           "settings": {}
+        },
+        "acc_details": {
+          "type": "collapsible_tab",
+          "settings": {
+            "heading": "Item details",
+            "content": "<p>Premium quality, made to order with your photo. Add your materials, fit, dimensions and care instructions here.</p>"
+          }
+        },
+        "acc_shipping": {
+          "type": "collapsible_tab",
+          "settings": {
+            "heading": "Shipping Info",
+            "content": "<p>Processing time: 3-5 business days. Shipping time: 10-15 business days. International orders may take a few days longer.</p>"
+          }
+        },
+        "acc_guarantee": {
+          "type": "collapsible_tab",
+          "settings": {
+            "heading": "Satisfaction Guarantee",
+            "content": "<p>Full refund or replacement within 30 days for any faulty, defective or damaged item. Full refund if the item is not as described.</p>"
+          }
         },
         "share": {
           "type": "share",
@@ -59,11 +102,17 @@
       "block_order": [
         "vendor",
         "title",
+        "subtitle",
         "price",
         "variant_picker",
         "quantity_selector",
+        "personalization",
         "buy_buttons",
+        "trust",
         "description",
+        "acc_details",
+        "acc_shipping",
+        "acc_guarantee",
         "share"
       ],
       "settings": {
@@ -248,17 +297,6 @@
         "columns": 2
       }
     },
-    "disclosures": {
-      "type": "disclosures",
-      "settings": {
-        "heading": "Disclosures",
-        "heading_size": "h2",
-        "open_by_default": false,
-        "color_scheme": "",
-        "padding_top": 36,
-        "padding_bottom": 0
-      }
-    },
     "related-products": {
       "type": "related-products",
       "settings": {
@@ -281,7 +319,6 @@
   "order": [
     "main",
     "reviews",
-    "disclosures",
     "related-products"
   ]
 }
