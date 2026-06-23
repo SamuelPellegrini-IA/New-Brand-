@@ -71,6 +71,52 @@
     grid-template-columns: repeat({{ section.settings.columns }}, 1fr);
     gap: 1.6rem;
   }
+  /* Carousel mode (BoxHero style) */
+  .lp-reviews-{{ uid }} .lp-rv-carousel { position: relative; }
+  .lp-reviews-{{ uid }}.lp-rv--carousel .lp-rv-list {
+    display: flex;
+    grid-template-columns: none;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scroll-behavior: smooth;
+    -webkit-overflow-scrolling: touch;
+    gap: 1.6rem;
+    padding: 4px 2px 14px;
+    scrollbar-width: none;
+  }
+  .lp-reviews-{{ uid }}.lp-rv--carousel .lp-rv-list::-webkit-scrollbar { display: none; }
+  .lp-reviews-{{ uid }}.lp-rv--carousel .lp-rv-card {
+    flex: 0 0 calc((100% - (var(--per) - 1) * 1.6rem) / var(--per));
+    scroll-snap-align: start;
+    background: #fff;
+  }
+  .lp-reviews-{{ uid }} .lp-rv-nav {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 2;
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+    border: 1px solid rgba(0,0,0,.12);
+    background: #fff;
+    color: #1a1a1a;
+    display: grid;
+    place-items: center;
+    cursor: pointer;
+    box-shadow: 0 2px 10px rgba(0,0,0,.08);
+    transition: opacity .15s ease, background .15s ease;
+  }
+  .lp-reviews-{{ uid }} .lp-rv-nav:hover { background: #f4f4f4; }
+  .lp-reviews-{{ uid }} .lp-rv-nav svg { width: 18px; height: 18px; }
+  .lp-reviews-{{ uid }} .lp-rv-nav--prev { left: -8px; }
+  .lp-reviews-{{ uid }} .lp-rv-nav--next { right: -8px; }
+  .lp-reviews-{{ uid }} .lp-rv-nav[disabled] { opacity: .35; cursor: default; }
+  @media screen and (max-width: 749px) {
+    .lp-reviews-{{ uid }}.lp-rv--carousel .lp-rv-card { flex-basis: calc(100% - 3.2rem); }
+    .lp-reviews-{{ uid }} .lp-rv-nav--prev { left: 0; }
+    .lp-reviews-{{ uid }} .lp-rv-nav--next { right: 0; }
+  }
   .lp-reviews-{{ uid }} .lp-rv-card {
     border: 1px solid rgba(0,0,0,.08);
     border-radius: 12px;
@@ -94,7 +140,7 @@
   }
 {%- endstyle -%}
 
-<div class="lp-reviews-{{ uid }}">
+<div class="lp-reviews-{{ uid }}{% if section.settings.enable_carousel %} lp-rv--carousel{% endif %}" style="--per: {{ section.settings.cards_per_view | default: 3 }};">
   <div class="lp-rv-wrap">
     {%- if section.settings.heading != blank -%}
       <h2 class="lp-rv-title">{{ section.settings.heading }}</h2>
@@ -130,7 +176,16 @@
     {%- endif -%}
 
     {%- if section.blocks.size > 0 -%}
-      <div class="lp-rv-list">
+      <div class="lp-rv-carousel" data-lp-rv-carousel>
+      {%- if section.settings.enable_carousel -%}
+        <button type="button" class="lp-rv-nav lp-rv-nav--prev" data-lp-rv-prev aria-label="Précédent">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"></polyline></svg>
+        </button>
+        <button type="button" class="lp-rv-nav lp-rv-nav--next" data-lp-rv-next aria-label="Suivant">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
+        </button>
+      {%- endif -%}
+      <div class="lp-rv-list" data-lp-rv-track>
         {%- for block in section.blocks -%}
           {%- liquid
             assign r = block.settings.rating | times: 1.0
@@ -174,9 +229,42 @@
           </div>
         {%- endfor -%}
       </div>
+      </div>
     {%- endif -%}
   </div>
 </div>
+
+{%- if section.settings.enable_carousel -%}
+  <script>
+    (function () {
+      var root = document.currentScript.previousElementSibling;
+      if (!root) { return; }
+      var carousel = root.querySelector('[data-lp-rv-carousel]');
+      if (!carousel) { return; }
+      var track = carousel.querySelector('[data-lp-rv-track]');
+      var prev = carousel.querySelector('[data-lp-rv-prev]');
+      var next = carousel.querySelector('[data-lp-rv-next]');
+      if (!track) { return; }
+      function step() {
+        var card = track.querySelector('.lp-rv-card');
+        if (!card) { return track.clientWidth; }
+        var gap = parseFloat(getComputedStyle(track).columnGap || getComputedStyle(track).gap || '16') || 16;
+        return card.getBoundingClientRect().width + gap;
+      }
+      function update() {
+        if (!prev || !next) { return; }
+        var max = track.scrollWidth - track.clientWidth - 2;
+        prev.disabled = track.scrollLeft <= 2;
+        next.disabled = track.scrollLeft >= max;
+      }
+      if (prev) { prev.addEventListener('click', function () { track.scrollBy({ left: -step(), behavior: 'smooth' }); }); }
+      if (next) { next.addEventListener('click', function () { track.scrollBy({ left: step(), behavior: 'smooth' }); }); }
+      track.addEventListener('scroll', update, { passive: true });
+      window.addEventListener('resize', update);
+      update();
+    })();
+  </script>
+{%- endif -%}
 
 {% schema %}
 {
@@ -209,7 +297,9 @@
     { "type": "text", "id": "write_button_label", "label": "Texte du bouton", "default": "Write a review" },
     { "type": "url", "id": "write_button_link", "label": "Lien du bouton" },
     { "type": "header", "content": "Liste des avis" },
-    { "type": "range", "id": "columns", "min": 1, "max": 3, "step": 1, "label": "Colonnes (desktop)", "default": 1 },
+    { "type": "range", "id": "columns", "min": 1, "max": 3, "step": 1, "label": "Colonnes (desktop, mode grille)", "default": 1 },
+    { "type": "checkbox", "id": "enable_carousel", "label": "Mode carrousel (style BoxHero)", "default": false },
+    { "type": "range", "id": "cards_per_view", "min": 1, "max": 4, "step": 1, "label": "Cartes visibles (carrousel, desktop)", "default": 3 },
     { "type": "header", "content": "Apparence" },
     { "type": "color", "id": "background", "label": "Fond", "default": "#ffffff" },
     { "type": "color", "id": "text_color", "label": "Texte", "default": "#121212" },

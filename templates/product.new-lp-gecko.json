@@ -405,6 +405,8 @@
         "write_button_label": "Write a review",
         "write_button_link": "",
         "columns": 2,
+        "enable_carousel": true,
+        "cards_per_view": 3,
         "background": "#ffffff",
         "text_color": "#121212",
         "padding_top": 40,
