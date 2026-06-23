@@ -47,7 +47,7 @@
         "price_color": {
           "type": "lp_price_color",
           "settings": {
-            "price_color": "#d0021b",
+            "price_color": "#c8102e",
             "bold_price": true,
             "price_size": 28,
             "color_sale_badge": true
@@ -350,7 +350,18 @@
         }
       },
       "block_order": [
-        "r1", "r2", "r3", "r4", "r5", "r6", "r7", "r8", "r9", "r10", "r11", "r12"
+        "r1",
+        "r2",
+        "r3",
+        "r4",
+        "r5",
+        "r6",
+        "r7",
+        "r8",
+        "r9",
+        "r10",
+        "r11",
+        "r12"
       ],
       "settings": {
         "heading": "Customer Reviews",

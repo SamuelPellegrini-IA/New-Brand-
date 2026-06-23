@@ -64,24 +64,38 @@
 
   {%- when 'lp_price_color' -%}
     {%- liquid
-      assign psize = block.settings.price_size | default: 26
-      assign csize = psize | times: 70 | divided_by: 100
+      assign psize = block.settings.price_size | default: 28
+      assign csize = psize | times: 60 | divided_by: 100
+      assign gap_above = block.settings.gap_above | default: 6
     -%}
     <style>
-      .price { align-items: center; column-gap: .8rem; row-gap: .4rem; flex-wrap: wrap; }
-      .price__container { display: flex; align-items: center; flex-wrap: wrap; column-gap: .8rem; row-gap: .2rem; }
-      .price__sale, .price__regular { display: flex; align-items: center; flex-wrap: wrap; gap: .6rem; }
+      /* reduce gap between the text above and the price */
+      .product__text { margin: 0 0 {{ gap_above }}px !important; }
+      #price-{{ section.id }}, .price { margin-top: 0 !important; }
+      /* align price row + badge on one centered line */
+      .price,
+      .price__container,
+      .price__regular,
+      .price__sale {
+        display: flex !important;
+        align-items: center !important;
+        flex-wrap: wrap;
+        column-gap: .6rem;
+        row-gap: .2rem;
+      }
       .price .price-item--sale,
       .price__regular .price-item--regular {
         {% if block.settings.price_color != blank %}color: {{ block.settings.price_color }} !important;{% endif %}
-        {% if block.settings.bold_price %}font-weight: 700 !important;{% endif %}
+        {% if block.settings.bold_price %}font-weight: 800 !important;{% endif %}
         font-size: {{ psize }}px !important;
-        line-height: 1.1 !important;
+        line-height: 1 !important;
       }
       .price__sale .price-item--regular {
         font-size: {{ csize }}px !important;
-        opacity: .7;
+        opacity: .5;
+        align-self: center;
       }
+      .price__badge-sale { align-self: center; margin: 0 !important; }
       {%- if block.settings.color_sale_badge and block.settings.price_color != blank -%}
         .price__badge-sale,
         .price .badge.price__badge-sale,
