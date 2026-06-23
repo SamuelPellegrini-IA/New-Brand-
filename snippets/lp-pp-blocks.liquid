@@ -129,11 +129,20 @@
       {%- endif -%}
       /* align price row + badge on one centered line */
       .price,
-      .price__container,
-      .price__regular,
-      .price__sale {
+      .price__container {
         display: flex !important;
         align-items: center !important;
+        flex-wrap: wrap;
+        column-gap: .6rem;
+        row-gap: .2rem;
+      }
+      /* never show both price blocks at once (avoids duplicate price) */
+      .price--on-sale .price__regular { display: none !important; }
+      .price:not(.price--on-sale) .price__sale { display: none !important; }
+      .price--on-sale .price__sale,
+      .price:not(.price--on-sale) .price__regular {
+        display: flex !important;
+        align-items: center;
         flex-wrap: wrap;
         column-gap: .6rem;
         row-gap: .2rem;
