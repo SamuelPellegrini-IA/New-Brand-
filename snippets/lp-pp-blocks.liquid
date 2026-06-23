@@ -12,35 +12,38 @@
       assign radius = block.settings.radius | default: 4
     -%}
     <style>
-      /* Premium product title + subtitle (scoped: only loads on templates using this block) */
+      @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&display=swap');
+      /* Premium product title + subtitle (scoped: only loads on templates using this block) - matches BoxHero (Montserrat) */
       .product__title h1,
       .product__title .h1,
       .product__title h2.h1,
       .custom-hawaiian-product-page .product__title h1,
       .custom-hawaiian-product-page .product__title .h1 {
-        font-family: Georgia, "Times New Roman", "Playfair Display", serif !important;
-        font-weight: 800 !important;
+        font-family: "Montserrat", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif !important;
+        font-weight: 700 !important;
         color: #101936 !important;
-        line-height: 1.18 !important;
+        line-height: 1.12 !important;
         letter-spacing: -.01em !important;
-        font-size: clamp(2rem, 2.6vw, 2.6rem) !important;
-        margin: 0 0 .8rem !important;
+        font-size: clamp(2.2rem, 2.7vw, 3rem) !important;
+        margin: 0 0 .7rem !important;
         text-transform: none !important;
       }
       .product__text:not(.caption-with-letter-spacing),
       .custom-hawaiian-product-page .product__text:not(.caption-with-letter-spacing) {
+        font-family: "Montserrat", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif !important;
         color: #666666 !important;
         font-size: 1.5rem !important;
         line-height: 1.5 !important;
       }
       /* Variant buttons */
       .product-form__input--pill { margin-bottom: 1.3rem; }
-      .product-form__input--pill .form__label { font-weight: 700; font-size: 1.4rem; margin-bottom: .7rem; color: #1f1f1f; }
+      .product-form__input--pill .form__label { font-family: "Montserrat", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; font-weight: 700; font-size: 1.4rem; margin-bottom: .7rem; color: #1f1f1f; }
       .product-form__input--pill input[type='radio'] + label {
         border: 1px solid {{ unsel_border }};
         border-radius: {{ radius }}px;
         padding: 1rem 1.6rem;
         margin: 0 .6rem .6rem 0;
+        font-family: "Montserrat", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
         font-weight: 600;
         color: {{ unsel_text }};
         background: #fff;
