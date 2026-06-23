@@ -141,6 +141,10 @@
   function injectAccordionsFallback(root) {
     if (!root || root.querySelector('.gecko-accordions')) return;
 
+    // Skip the legacy fallback when the theme already renders native
+    // collapsible tabs (collapsible_tab blocks). Avoids duplicate accordions.
+    if (root.querySelector('.product__accordion')) return;
+
     var anchor = root.querySelector('.gecko-post-atc') || root.querySelector('.product-form');
     if (!anchor) return;
 

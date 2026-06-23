@@ -63,15 +63,35 @@
     </div>
 
   {%- when 'lp_price_color' -%}
-    {%- if block.settings.price_color != blank -%}
-      <style>
-        .price__sale .price-item--sale,
-        .price__regular .price-item--regular {
-          color: {{ block.settings.price_color }} !important;
-          {% if block.settings.bold_price %}font-weight: 700 !important;{% endif %}
+    {%- liquid
+      assign psize = block.settings.price_size | default: 26
+      assign csize = psize | times: 70 | divided_by: 100
+    -%}
+    <style>
+      .price { align-items: center; column-gap: .8rem; row-gap: .4rem; flex-wrap: wrap; }
+      .price__container { display: flex; align-items: center; flex-wrap: wrap; column-gap: .8rem; row-gap: .2rem; }
+      .price__sale, .price__regular { display: flex; align-items: center; flex-wrap: wrap; gap: .6rem; }
+      .price .price-item--sale,
+      .price__regular .price-item--regular {
+        {% if block.settings.price_color != blank %}color: {{ block.settings.price_color }} !important;{% endif %}
+        {% if block.settings.bold_price %}font-weight: 700 !important;{% endif %}
+        font-size: {{ psize }}px !important;
+        line-height: 1.1 !important;
+      }
+      .price__sale .price-item--regular {
+        font-size: {{ csize }}px !important;
+        opacity: .7;
+      }
+      {%- if block.settings.color_sale_badge and block.settings.price_color != blank -%}
+        .price__badge-sale,
+        .price .badge.price__badge-sale,
+        span.price__badge-sale {
+          background-color: {{ block.settings.price_color }} !important;
+          color: #fff !important;
+          border-color: {{ block.settings.price_color }} !important;
         }
-      </style>
-    {%- endif -%}
+      {%- endif -%}
+    </style>
 
   {%- when 'lp_save_badge' -%}
     {%- assign v = product.selected_or_first_available_variant -%}
