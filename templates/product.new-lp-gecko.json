@@ -23,11 +23,15 @@
             "hover_border": "#101936",
             "radius": 4,
             "tighten_buttons": true,
-            "show_more_options": false,
-            "show_size_chart": true,
+            "show_more_options": false
+          }
+        },
+        "size_chart": {
+          "type": "lp_size_chart",
+          "settings": {
+            "sc_title": "Size chart",
             "sc_text": "size chart",
-            "sc_option": "Size",
-            "sc_title": "Size chart"
+            "sc_option": "Size"
           }
         },
         "tp_badge": {
@@ -193,6 +197,7 @@
         "save_badge",
         "quick_glance",
         "variant_picker",
+        "size_chart",
         "fit_bar",
         "low_stock",
         "buy_buttons",

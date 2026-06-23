@@ -21,9 +21,9 @@
         font-family: Georgia, "Times New Roman", "Playfair Display", serif !important;
         font-weight: 800 !important;
         color: #101936 !important;
-        line-height: 1.14 !important;
+        line-height: 1.18 !important;
         letter-spacing: -.01em !important;
-        font-size: clamp(2.6rem, 3.6vw, 3.4rem) !important;
+        font-size: clamp(2rem, 2.6vw, 2.6rem) !important;
         margin: 0 0 .8rem !important;
         text-transform: none !important;
       }
@@ -70,12 +70,27 @@
       .shopify-payment-button__button { margin-bottom: .4rem !important; }
       .gecko-post-atc, .product-checkout-security { margin-top: .6rem !important; }
       {%- endif -%}
-      {%- if block.settings.show_size_chart -%}
+    </style>
+
+  {%- when 'lp_size_chart' -%}
+    {%- liquid
+      assign sc_text = block.settings.sc_text | default: 'size chart'
+      assign sc_option = block.settings.sc_option | default: 'Size'
+      assign sc_has_content = false
+      if block.settings.sc_image != blank or block.settings.sc_richtext != blank
+        assign sc_has_content = true
+      endif
+      assign sc_use_modal = true
+      if sc_has_content == false and block.settings.sc_link != blank
+        assign sc_use_modal = false
+      endif
+    -%}
+    <style>
       .product-form__input--pill .form__label { display: flex; align-items: center; }
       .lp-size-chart-link {
         margin-left: auto; display: inline-flex; align-items: center; gap: 5px;
         font-size: 13px; font-weight: 500; text-decoration: underline; text-underline-offset: 2px;
-        color: {{ unsel_text }}; cursor: pointer; background: none; border: none;
+        color: #1f1f1f; cursor: pointer; background: none; border: none;
       }
       .lp-size-chart-link svg { width: 15px; height: 15px; stroke: currentColor; fill: none; stroke-width: 1.6; }
       .lp-scm__overlay { position: fixed; inset: 0; background: rgba(0,0,0,.6); display: none; align-items: center; justify-content: center; z-index: 99999; padding: 20px; }
@@ -85,74 +100,64 @@
       .lp-scm__title { font-weight: 700; font-size: 18px; margin: 0 0 12px; padding-right: 24px; color: #1f1f1f; }
       .lp-scm__box img { width: 100%; height: auto; display: block; object-fit: contain; border-radius: 8px; }
       .lp-scm__fallback { padding: 28px 8px; text-align: center; color: #666; font-size: 15px; }
-      {%- endif -%}
     </style>
-    {%- if block.settings.show_size_chart -%}
-      {%- assign sc_text = block.settings.sc_text | default: 'size chart' -%}
-      {%- assign sc_option = block.settings.sc_option | default: 'Size' -%}
-      {%- comment -%} Modal is used unless an external link is set without any image/richtext content. {%- endcomment -%}
-      {%- assign sc_has_content = false -%}
-      {%- if block.settings.sc_image != blank or block.settings.sc_richtext != blank -%}{%- assign sc_has_content = true -%}{%- endif -%}
-      {%- assign sc_use_modal = true -%}
-      {%- if sc_has_content == false and block.settings.sc_link != blank -%}{%- assign sc_use_modal = false -%}{%- endif -%}
-      {%- if sc_use_modal -%}
-        <div class="lp-scm__overlay" id="lp-scm-{{ block.id }}" role="dialog" aria-modal="true">
-          <div class="lp-scm__box">
-            <button type="button" class="lp-scm__close" aria-label="Fermer">&times;</button>
-            {%- if block.settings.sc_title != blank -%}<p class="lp-scm__title">{{ block.settings.sc_title }}</p>{%- endif -%}
-            {%- if block.settings.sc_image != blank -%}
-              <img src="{{ block.settings.sc_image | image_url: width: 1000 }}" alt="{{ block.settings.sc_title | default: 'Size chart' | escape }}" loading="lazy">
-            {%- elsif block.settings.sc_richtext != blank -%}
-              <div class="rte">{{ block.settings.sc_richtext }}</div>
-            {%- else -%}
-              <div class="lp-scm__fallback">Size chart coming soon.</div>
-            {%- endif -%}
-          </div>
+    {%- if sc_use_modal -%}
+      <div class="lp-scm__overlay" id="lp-scm-{{ block.id }}" role="dialog" aria-modal="true" {{ block.shopify_attributes }}>
+        <div class="lp-scm__box">
+          <button type="button" class="lp-scm__close" aria-label="Fermer">&times;</button>
+          {%- if block.settings.sc_title != blank -%}<p class="lp-scm__title">{{ block.settings.sc_title }}</p>{%- endif -%}
+          {%- if block.settings.sc_image != blank -%}
+            <img src="{{ block.settings.sc_image | image_url: width: 1000 }}" alt="{{ block.settings.sc_title | default: 'Size chart' | escape }}" loading="lazy">
+          {%- elsif block.settings.sc_richtext != blank -%}
+            <div class="rte">{{ block.settings.sc_richtext }}</div>
+          {%- else -%}
+            <div class="lp-scm__fallback">Size chart coming soon.</div>
+          {%- endif -%}
         </div>
-      {%- endif -%}
-      <script>
-      (function(){
-        var TEXT = {{ sc_text | json }};
-        var OPT = {{ sc_option | json }}.toLowerCase();
-        var LINK = {{ block.settings.sc_link | default: '' | json }};
-        var HAS_MODAL = {% if sc_use_modal %}true{% else %}false{% endif %};
-        var overlay = document.getElementById('lp-scm-{{ block.id }}');
-        var ICON = '<svg viewBox="0 0 24 24"><path d="M3 8h18v8H3z"/><path d="M7 8v3M11 8v4M15 8v3M19 8v4"/></svg>';
-        function openModal(){ if(overlay){ overlay.classList.add('is-open'); document.body.style.overflow = 'hidden'; } }
-        function closeModal(){ if(overlay){ overlay.classList.remove('is-open'); document.body.style.overflow = ''; } }
-        function inject(){
-          var labels = document.querySelectorAll('.product-form__input .form__label, .product-form__input legend');
-          for (var i=0;i<labels.length;i++){
-            var lbl = labels[i];
-            var t = (lbl.textContent||'').trim().toLowerCase();
-            if (t.indexOf(OPT) === -1) continue;
-            if (lbl.querySelector('.lp-size-chart-link')) continue;
-            var a = document.createElement('a');
-            a.className = 'lp-size-chart-link';
-            a.href = (!HAS_MODAL && LINK) ? LINK : '#';
-            if (!HAS_MODAL && LINK){ a.target = '_blank'; a.rel = 'noopener'; }
-            a.innerHTML = ICON + '<span>' + TEXT + '</span>';
-            a.addEventListener('click', function(e){
-              if (HAS_MODAL){ e.preventDefault(); openModal(); }
-              else if (!LINK){ e.preventDefault(); }
-            });
-            lbl.appendChild(a);
-          }
-        }
-        if (overlay){
-          overlay.addEventListener('click', function(e){
-            if (e.target === overlay || e.target.classList.contains('lp-scm__close')) closeModal();
-          });
-          document.addEventListener('keydown', function(e){ if (e.key === 'Escape' && overlay.classList.contains('is-open')) closeModal(); });
-        }
-        var scheduled = false;
-        function schedule(){ if (scheduled) return; scheduled = true; requestAnimationFrame(function(){ scheduled = false; inject(); }); }
-        if (document.readyState !== 'loading') inject(); else document.addEventListener('DOMContentLoaded', inject);
-        document.addEventListener('shopify:section:load', inject);
-        try { new MutationObserver(schedule).observe(document.body, { childList: true, subtree: true }); } catch(e){}
-      })();
-      </script>
+      </div>
     {%- endif -%}
+    <script>
+    (function(){
+      var TEXT = {{ sc_text | json }};
+      var OPT = {{ sc_option | json }}.toLowerCase();
+      var LINK = {{ block.settings.sc_link | default: '' | json }};
+      var HAS_MODAL = {% if sc_use_modal %}true{% else %}false{% endif %};
+      var overlay = document.getElementById('lp-scm-{{ block.id }}');
+      var ICON = '<svg viewBox="0 0 24 24"><path d="M3 8h18v8H3z"/><path d="M7 8v3M11 8v4M15 8v3M19 8v4"/></svg>';
+      function openModal(){ if(overlay){ overlay.classList.add('is-open'); document.body.style.overflow = 'hidden'; } }
+      function closeModal(){ if(overlay){ overlay.classList.remove('is-open'); document.body.style.overflow = ''; } }
+      function inject(){
+        var labels = document.querySelectorAll('.product-form__input .form__label, .product-form__input legend');
+        for (var i=0;i<labels.length;i++){
+          var lbl = labels[i];
+          var t = (lbl.textContent||'').trim().toLowerCase();
+          if (t.indexOf(OPT) === -1) continue;
+          if (lbl.querySelector('.lp-size-chart-link')) continue;
+          var a = document.createElement('a');
+          a.className = 'lp-size-chart-link';
+          a.href = (!HAS_MODAL && LINK) ? LINK : '#';
+          if (!HAS_MODAL && LINK){ a.target = '_blank'; a.rel = 'noopener'; }
+          a.innerHTML = ICON + '<span>' + TEXT + '</span>';
+          a.addEventListener('click', function(e){
+            if (HAS_MODAL){ e.preventDefault(); openModal(); }
+            else if (!LINK){ e.preventDefault(); }
+          });
+          lbl.appendChild(a);
+        }
+      }
+      if (overlay){
+        overlay.addEventListener('click', function(e){
+          if (e.target === overlay || e.target.classList.contains('lp-scm__close')) closeModal();
+        });
+        document.addEventListener('keydown', function(e){ if (e.key === 'Escape' && overlay.classList.contains('is-open')) closeModal(); });
+      }
+      var scheduled = false;
+      function schedule(){ if (scheduled) return; scheduled = true; requestAnimationFrame(function(){ scheduled = false; inject(); }); }
+      if (document.readyState !== 'loading') inject(); else document.addEventListener('DOMContentLoaded', inject);
+      document.addEventListener('shopify:section:load', inject);
+      try { new MutationObserver(schedule).observe(document.body, { childList: true, subtree: true }); } catch(e){}
+    })();
+    </script>
 
   {%- when 'lp_trust_badge' -%}
     {%- liquid
@@ -263,27 +268,33 @@
         opacity: .5;
         align-self: center;
       }
-      .price__badge-sale { align-self: center; margin: 0 !important; }
-      {%- if block.settings.color_sale_badge and block.settings.price_color != blank -%}
-        .price__badge-sale,
-        .price .badge.price__badge-sale,
-        span.price__badge-sale {
-          background-color: {{ block.settings.price_color }} !important;
-          color: #fff !important;
-          border-color: {{ block.settings.price_color }} !important;
-        }
-      {%- endif -%}
+      /* The "Save % OFF" badge replaces the default "Sale" badge */
+      .price__badge-sale { display: none !important; }
+      /* Render the price inline so the Save badge can sit right beside it */
+      #price-{{ section.id }} {
+        display: inline-flex !important;
+        align-items: center !important;
+        vertical-align: middle;
+      }
+      .lp-save-badge-row {
+        display: inline-flex !important;
+        vertical-align: middle;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: 8px;
+        margin: 0 0 0 .7rem !important;
+      }
     </style>
 
   {%- when 'lp_save_badge' -%}
     {%- assign v = product.selected_or_first_available_variant -%}
-    <div style="display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin:8px 0 4px" {{ block.shopify_attributes }}>
+    <div class="lp-save-badge-row" style="display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin:8px 0 4px" {{ block.shopify_attributes }}>
       {%- if block.settings.show_save and v.compare_at_price > v.price -%}
         {%- assign pct = v.compare_at_price | minus: v.price | times: 100.0 | divided_by: v.compare_at_price | round -%}
-        <span style="display:inline-flex;align-items:center;background:{{ block.settings.save_bg }};color:{{ block.settings.save_text_color }};font-weight:700;font-size:13px;padding:4px 10px;border-radius:6px;line-height:1.2">{{ block.settings.save_prefix }} {{ pct }}% {{ block.settings.save_suffix }}</span>
+        <span style="display:inline-flex;align-items:center;background:{{ block.settings.save_bg }};color:{{ block.settings.save_text_color }};font-weight:700;font-size:13px;padding:5px 12px;border-radius:999px;line-height:1.2;white-space:nowrap">{{ block.settings.save_prefix }} {{ pct }}% {{ block.settings.save_suffix }}</span>
       {%- endif -%}
       {%- if block.settings.per_piece_text != blank -%}
-        <span style="display:inline-flex;align-items:center;background:{{ block.settings.pp_bg }};color:{{ block.settings.pp_text_color }};font-weight:600;font-size:13px;padding:4px 10px;border-radius:6px;line-height:1.2">{{ block.settings.per_piece_text }}</span>
+        <span style="display:inline-flex;align-items:center;background:{{ block.settings.pp_bg }};color:{{ block.settings.pp_text_color }};font-weight:600;font-size:13px;padding:5px 12px;border-radius:999px;line-height:1.2;white-space:nowrap">{{ block.settings.per_piece_text }}</span>
       {%- endif -%}
     </div>
 
