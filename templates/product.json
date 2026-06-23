@@ -23,11 +23,7 @@
             "hover_border": "#101936",
             "radius": 4,
             "tighten_buttons": true,
-            "show_more_options": false,
-            "show_size_chart": true,
-            "sc_text": "size chart",
-            "sc_option": "Size",
-            "sc_title": "Size chart"
+            "show_more_options": false
           }
         },
         "tp_badge": {

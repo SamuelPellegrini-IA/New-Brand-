@@ -10,47 +10,161 @@
 {
   "order": [
     "main",
-    "disclosures",
+    "reviews",
     "related-products"
   ],
   "sections": {
-    "disclosures": {
-      "settings": {
-        "padding_bottom": 0,
-        "padding_top": 36
-      },
-      "type": "disclosures"
-    },
     "main": {
       "block_order": [
-        "vendor",
+        "cro_style",
+        "tp_badge",
         "title",
+        "subtitle",
         "price",
+        "price_color",
+        "save_badge",
+        "quick_glance",
         "variant_picker",
-        "quantity_selector",
+        "fit_bar",
+        "low_stock",
         "buy_buttons",
         "description",
+        "acc_details",
+        "acc_shipping",
+        "acc_guarantee",
+        "acc_deals",
         "share"
       ],
       "blocks": {
+        "acc_deals": {
+          "settings": {
+            "content": "<p>Get ready for a shopping experience like no other! Explore our latest collection tailored for dog and cat lovers, camping enthusiasts, and families alike.</p><p><strong>Enjoy an exclusive 10% discount using code HOT10, combinable with other codes.</strong></p>",
+            "heading": "Hot Deals",
+            "icon": "check_mark",
+            "page": ""
+          },
+          "type": "collapsible_tab"
+        },
+        "acc_details": {
+          "settings": {
+            "content": "<p>Capture your furry friend's unique personality in a vibrant, custom photo tropical style <strong>cat Hawaii Shirt</strong>! Perfect for the cat lover in your life, it also makes a memorable summer or beach trip gift!</p><p><strong>Product details:</strong></p><ul><li>Fabric: 100% polyester</li><li>Regular fit</li><li>Short sleeve, lapel collar, button closure</li><li>Fabric weight: 120g/m²</li><li>Care: machine wash cold, do not bleach, tumble dry low</li><li>Made on demand — no minimum order quantity</li></ul><p><strong>Processing time:</strong> 3–5 business days<br><strong>Shipping time:</strong> 10–15 business days</p>",
+            "heading": "Item details",
+            "icon": "check_mark",
+            "page": ""
+          },
+          "type": "collapsible_tab"
+        },
+        "acc_guarantee": {
+          "settings": {
+            "content": "<ul><li>Full refund or replacement (no extra fee, within 30 days of purchase) for faulty, defective or damaged products.</li><li>Full refund if the item is not as described.</li><li>We have 24/7/365 ticket and email support.</li></ul>",
+            "heading": "Satisfaction Guarantee",
+            "icon": "check_mark",
+            "page": ""
+          },
+          "type": "collapsible_tab"
+        },
+        "acc_shipping": {
+          "settings": {
+            "content": "<ul><li>The above time frame is only applied for orders to the US with standard shipping methods.</li><li>International orders: it may take 2–5 days longer due to the customs clearance process.</li><li><strong>Orders can be cancelled or modified only within 2 hours after being placed.</strong></li><li>All products are made to order.</li></ul>",
+            "heading": "Shipping Info",
+            "icon": "check_mark",
+            "page": ""
+          },
+          "type": "collapsible_tab"
+        },
         "buy_buttons": {
           "settings": {
             "show_dynamic_checkout": true,
-            "show_gift_card_recipient": true
+            "show_gift_card_recipient": false
           },
           "type": "buy_buttons"
+        },
+        "cro_style": {
+          "settings": {
+            "hover_border": "#101936",
+            "radius": 4,
+            "sel_bg": "#101936",
+            "sel_border": "#101936",
+            "sel_text": "#ffffff",
+            "show_more_options": false,
+            "tighten_buttons": true,
+            "unsel_border": "#101936",
+            "unsel_text": "#1f1f1f"
+          },
+          "type": "lp_variant_style"
         },
         "description": {
           "settings": {},
           "type": "description"
         },
+        "fit_bar": {
+          "settings": {
+            "bg_color": "#fff0b8",
+            "icon_color": "#1f1f1f",
+            "show_icon": true,
+            "text": "Men say this fits <u>true to size</u> based on 5,210 Reviews",
+            "text_color": "#1f1f1f"
+          },
+          "type": "lp_fit_bar"
+        },
+        "low_stock": {
+          "settings": {
+            "bg_color": "#fafafa",
+            "body": "<p>This product sold out <strong>12 times</strong> last year. We encourage you to take advantage of the <strong>limited sale</strong> and buy now. Ordering now helps you avoid future stock-outs.</p>",
+            "border_color": "#d9d9d9",
+            "heading": "WARNING: Low Stock Notice",
+            "heading_color": "#1f1f1f",
+            "icon_color": "#1f1f1f",
+            "ps_text": "<p>PS: Only available <strong>here</strong>, don't buy fakes on Amazon/eBay.</p>",
+            "text_color": "#666666"
+          },
+          "type": "lp_low_stock"
+        },
         "price": {
           "settings": {},
           "type": "price"
         },
-        "quantity_selector": {
-          "settings": {},
-          "type": "quantity_selector"
+        "price_color": {
+          "settings": {
+            "bold_price": true,
+            "color_sale_badge": true,
+            "gap_above": 6,
+            "hide_installments": true,
+            "hide_tax_line": true,
+            "price_color": "#b40000",
+            "price_size": 28
+          },
+          "type": "lp_price_color"
+        },
+        "quick_glance": {
+          "settings": {
+            "divider_color": "#e5e5e5",
+            "heading": "At a quick glance:",
+            "icon_1": "medal",
+            "icon_2": "camera",
+            "icon_3": "check",
+            "icon_4": "drop",
+            "icon_color": "#1f1f1f",
+            "label_1": "Premium Soft Fabric",
+            "label_2": "Your Photo Printed",
+            "label_3": "Made To Order",
+            "label_4": "Fade-Resistant Colors",
+            "text_color": "#1f1f1f"
+          },
+          "type": "lp_quick_glance"
+        },
+        "save_badge": {
+          "settings": {
+            "per_piece_text": "",
+            "pp_bg": "#101936",
+            "pp_text_color": "#ffffff",
+            "save_bg": "#b40000",
+            "save_prefix": "Save",
+            "save_suffix": "OFF",
+            "save_text_color": "#ffffff",
+            "show_save": true
+          },
+          "type": "lp_save_badge"
         },
         "share": {
           "settings": {
@@ -58,23 +172,35 @@
           },
           "type": "share"
         },
+        "subtitle": {
+          "settings": {
+            "text": "From a simple photo to a one-of-a-kind, made-to-order gift they will treasure.",
+            "text_style": "body"
+          },
+          "type": "text"
+        },
         "title": {
           "settings": {},
           "type": "title"
         },
+        "tp_badge": {
+          "settings": {
+            "link": "",
+            "platform_text": "Trustpilot",
+            "rating_label": "Excellent",
+            "reviews_text": "3809+ reviews",
+            "star_color": "#00b67a",
+            "stars": 4.5,
+            "text_color": "#1a1a1a"
+          },
+          "type": "lp_trust_badge"
+        },
         "variant_picker": {
           "settings": {
             "picker_type": "button",
-            "swatch_shape": "circle"
+            "swatch_shape": "square"
           },
           "type": "variant_picker"
-        },
-        "vendor": {
-          "settings": {
-            "text": "{{ product.vendor }}",
-            "text_style": "uppercase"
-          },
-          "type": "text"
         }
       },
       "settings": {
@@ -82,12 +208,13 @@
         "constrain_to_viewport": true,
         "enable_sticky_info": true,
         "enable_video_looping": false,
-        "gallery_layout": "stacked",
+        "gallery_layout": "thumbnail_slider",
         "hide_variants": true,
         "image_zoom": "lightbox",
-        "media_fit": "contain",
+        "layout_style": "standard",
+        "media_fit": "cover",
         "media_position": "left",
-        "media_size": "large",
+        "media_size": "medium",
         "mobile_thumbnails": "hide",
         "padding_bottom": 12,
         "padding_top": 36
@@ -111,6 +238,199 @@
         "show_vendor": false
       },
       "type": "related-products"
+    },
+    "reviews": {
+      "block_order": [
+        "r1",
+        "r2",
+        "r3",
+        "r4",
+        "r5",
+        "r6",
+        "r7",
+        "r8",
+        "r9",
+        "r10",
+        "r11",
+        "r12"
+      ],
+      "blocks": {
+        "r1": {
+          "settings": {
+            "author": "Sophie M.",
+            "content": "<p>I ordered this for my mom's birthday with our family photo and she cried when she opened it. The print is crisp and the colors are so vibrant. Absolutely worth every penny.</p>",
+            "date": "May 2026",
+            "rating": 5,
+            "title": "The perfect gift",
+            "verified": true,
+            "verified_label": "Verified buyer"
+          },
+          "type": "review"
+        },
+        "r10": {
+          "settings": {
+            "author": "Noah G.",
+            "content": "<p>The finish is flawless and the photo reproduction is stunning. Packaging was premium too. This is how you do personalized products.</p>",
+            "date": "February 2026",
+            "rating": 5,
+            "title": "Incredible attention to detail",
+            "verified": true,
+            "verified_label": "Verified buyer"
+          },
+          "type": "review"
+        },
+        "r11": {
+          "settings": {
+            "author": "Ava L.",
+            "content": "<p>I cannot stop looking at it. Such a thoughtful, high-quality keepsake. Shipping was quick and everything was perfect.</p>",
+            "date": "January 2026",
+            "rating": 5,
+            "title": "My favorite purchase",
+            "verified": true,
+            "verified_label": "Verified buyer"
+          },
+          "type": "review"
+        },
+        "r12": {
+          "settings": {
+            "author": "V. Arnold",
+            "content": "<p>Wonderful. My only suggestion is to order your normal size. Beautiful work and a lovely keepsake.</p>",
+            "date": "January 2026",
+            "rating": 4,
+            "title": "Love it",
+            "verified": true,
+            "verified_label": "Verified buyer"
+          },
+          "type": "review"
+        },
+        "r2": {
+          "settings": {
+            "author": "James T.",
+            "content": "<p>Was a bit nervous ordering a personalized item online but this completely blew me away. The quality is top notch and it arrived faster than the estimated date.</p>",
+            "date": "May 2026",
+            "rating": 5,
+            "title": "Better than expected",
+            "verified": true,
+            "verified_label": "Verified buyer"
+          },
+          "type": "review"
+        },
+        "r3": {
+          "settings": {
+            "author": "Emma R.",
+            "content": "<p>The photo came out so clear and the material feels premium. I have already gotten so many compliments. Will definitely order again!</p>",
+            "date": "April 2026",
+            "rating": 5,
+            "title": "Absolutely love it",
+            "verified": true,
+            "verified_label": "Verified buyer"
+          },
+          "type": "review"
+        },
+        "r4": {
+          "settings": {
+            "author": "Michael B.",
+            "content": "<p>Really happy with the result. It took a couple of extra days to arrive but the quality made it worth the wait. Would order again.</p>",
+            "date": "April 2026",
+            "rating": 4,
+            "title": "Great product, worth the wait",
+            "verified": true,
+            "verified_label": "Verified buyer"
+          },
+          "type": "review"
+        },
+        "r5": {
+          "settings": {
+            "author": "Olivia W.",
+            "content": "<p>Customer service helped me adjust my photo and the final product is gorgeous. Highly recommend for anyone looking for a meaningful, personal gift.</p>",
+            "date": "April 2026",
+            "rating": 5,
+            "title": "Made my day",
+            "verified": true,
+            "verified_label": "Verified buyer"
+          },
+          "type": "review"
+        },
+        "r6": {
+          "settings": {
+            "author": "Daniel K.",
+            "content": "<p>Exactly as pictured and beautifully made. You can tell it is a quality item the moment you hold it. Very impressed.</p>",
+            "date": "March 2026",
+            "rating": 5,
+            "title": "Exceptional quality",
+            "verified": true,
+            "verified_label": "Verified buyer"
+          },
+          "type": "review"
+        },
+        "r7": {
+          "settings": {
+            "author": "Charlotte P.",
+            "content": "<p>This is my second time ordering and the quality is consistent every single time. The personalization makes it feel so special.</p>",
+            "date": "March 2026",
+            "rating": 5,
+            "title": "Will buy again",
+            "verified": true,
+            "verified_label": "Verified buyer"
+          },
+          "type": "review"
+        },
+        "r8": {
+          "settings": {
+            "author": "David E.",
+            "content": "<p>It is rare to find a company that delivers exactly what you ordered. It arrived in a timely manner and was exactly as pictured.</p>",
+            "date": "March 2026",
+            "rating": 5,
+            "title": "Shocking quality",
+            "verified": true,
+            "verified_label": "Verified buyer"
+          },
+          "type": "review"
+        },
+        "r9": {
+          "settings": {
+            "author": "Liz C.",
+            "content": "<p>This exceeded all my expectations! Good quality, fits well and the print is better than I expected.</p>",
+            "date": "February 2026",
+            "rating": 5,
+            "title": "Amazing",
+            "verified": true,
+            "verified_label": "Verified buyer"
+          },
+          "type": "review"
+        }
+      },
+      "settings": {
+        "average_rating": "4.9",
+        "background": "#ffffff",
+        "bar_color": "#1a1a1a",
+        "cards_per_view": 3,
+        "columns": 2,
+        "count_1": "0",
+        "count_2": "0",
+        "count_3": "2",
+        "count_4": "3",
+        "count_5": "35",
+        "enable_carousel": true,
+        "heading": "Customer Reviews",
+        "heading_size": 32,
+        "padding_bottom": 40,
+        "padding_top": 40,
+        "pct_1": 0,
+        "pct_2": 0,
+        "pct_3": 2,
+        "pct_4": 6,
+        "pct_5": 92,
+        "show_counts": false,
+        "show_write_button": true,
+        "star_color": "#ffce31",
+        "text_color": "#121212",
+        "total_label": "Based on 50 reviews",
+        "track_color": "#ececec",
+        "write_button_label": "Write a review",
+        "write_button_link": ""
+      },
+      "type": "lp-reviews-summary"
     }
   }
 }
