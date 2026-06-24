@@ -92,20 +92,20 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 8px;
+    gap: 7px;
     text-align: center;
-    font-size: clamp(18px, 4.2vw, 25px);
-    line-height: 1.28;
+    font-size: clamp(15px, 2vw, 18px);
+    line-height: 1.25;
     font-weight: 400;
     color: #2f2f2f;
-    margin-bottom: 28px;
+    margin-bottom: 18px;
     background: transparent !important;
   }
 
   .hapyco-header-icon {
-    width: 34px;
-    min-width: 34px;
-    height: 28px;
+    width: 24px;
+    min-width: 24px;
+    height: 20px;
     display: inline-flex;
     align-items: center;
     justify-content: center;
@@ -113,8 +113,8 @@
   }
 
   .hapyco-header-icon svg {
-    width: 31px;
-    height: 25px;
+    width: 22px;
+    height: 18px;
     display: block;
   }
 
@@ -129,13 +129,13 @@
     grid-template-columns: 1fr 1fr 1fr;
     align-items: start;
     width: 100%;
-    margin-bottom: 22px;
+    margin-bottom: 14px;
     background: transparent !important;
   }
 
   .hapyco-line {
     position: absolute;
-    top: 23px;
+    top: 16px;
     left: 7%;
     right: 7%;
     height: 1px;
@@ -168,41 +168,41 @@
   }
 
   .hapyco-circle {
-    width: 46px;
-    height: 46px;
+    width: 32px;
+    height: 32px;
     border-radius: 50%;
     background: #eeeeee;
     display: flex;
     align-items: center;
     justify-content: center;
     color: #000000;
-    margin-bottom: 13px;
+    margin-bottom: 9px;
   }
 
   .hapyco-circle svg {
-    width: 25px;
-    height: 25px;
+    width: 17px;
+    height: 17px;
     display: block;
   }
 
   .hapyco-date {
-    font-size: clamp(18px, 5vw, 24px);
+    font-size: clamp(14px, 2vw, 16px);
     line-height: 1.08;
     font-weight: 800;
     color: #16836f;
-    margin-bottom: 5px;
+    margin-bottom: 3px;
     letter-spacing: 0.1px;
   }
 
   .hapyco-label {
-    font-size: clamp(14px, 3.8vw, 19px);
+    font-size: clamp(11px, 1.6vw, 14px);
     line-height: 1.18;
     font-weight: 400;
     color: #2f2f2f;
   }
 
   .hapyco-note {
-    font-size: clamp(14px, 3.8vw, 18px);
+    font-size: clamp(11px, 1.5vw, 14px);
     line-height: 1.35;
     color: #16836f;
     font-style: italic;
@@ -210,75 +210,96 @@
     background: transparent !important;
   }
 
-  @media (max-width: 480px) {
+  @media (max-width: 768px) {
     .hapyco-delivery-header {
-      font-size: 18px;
-      gap: 7px;
-      margin-bottom: 24px;
+      font-size: 16px;
+      margin-bottom: 16px;
     }
 
     .hapyco-header-icon {
-      width: 30px;
-      min-width: 30px;
-      height: 24px;
+      width: 22px;
+      min-width: 22px;
+      height: 18px;
     }
 
     .hapyco-header-icon svg {
-      width: 28px;
-      height: 22px;
+      width: 20px;
+      height: 16px;
     }
 
     .hapyco-line {
-      top: 20px;
+      top: 17px;
+    }
+
+    .hapyco-circle {
+      width: 34px;
+      height: 34px;
+      margin-bottom: 8px;
+    }
+
+    .hapyco-circle svg {
+      width: 18px;
+      height: 18px;
+    }
+
+    .hapyco-date {
+      font-size: 15px;
+    }
+
+    .hapyco-label {
+      font-size: 12px;
+    }
+
+    .hapyco-note {
+      font-size: 12px;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .hapyco-delivery-header {
+      font-size: 15px;
+      gap: 6px;
+      margin-bottom: 14px;
+    }
+
+    .hapyco-header-icon {
+      width: 20px;
+      min-width: 20px;
+      height: 16px;
+    }
+
+    .hapyco-header-icon svg {
+      width: 18px;
+      height: 15px;
+    }
+
+    .hapyco-line {
+      top: 15px;
       left: 8%;
       right: 8%;
     }
 
     .hapyco-circle {
-      width: 40px;
-      height: 40px;
-      margin-bottom: 11px;
+      width: 30px;
+      height: 30px;
+      margin-bottom: 7px;
     }
 
     .hapyco-circle svg {
-      width: 22px;
-      height: 22px;
+      width: 16px;
+      height: 16px;
     }
 
     .hapyco-date {
-      font-size: 19px;
+      font-size: 14px;
     }
 
     .hapyco-label {
-      font-size: 15px;
+      font-size: 11px;
     }
 
     .hapyco-note {
-      font-size: 15px;
-    }
-  }
-
-  @media (max-width: 390px) {
-    .hapyco-date {
-      font-size: 17px;
-    }
-
-    .hapyco-label {
-      font-size: 13px;
-    }
-
-    .hapyco-note {
-      font-size: 13px;
-    }
-
-    .hapyco-circle {
-      width: 36px;
-      height: 36px;
-    }
-
-    .hapyco-circle svg {
-      width: 20px;
-      height: 20px;
+      font-size: 11px;
     }
   }
 </style>
