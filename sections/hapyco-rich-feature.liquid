@@ -3,18 +3,22 @@
   if section.settings.image_position == 'right'
     assign img_right = true
   endif
+  assign has_image = false
+  if section.settings.image != blank or section.settings.image_url != blank
+    assign has_image = true
+  endif
 -%}
-<div class="hapyco-rich section-{{ section.id }}-padding{% if img_right %} hapyco-rich--right{% endif %}" style="--rf-bg:{{ section.settings.bg_color }};--rf-text:{{ section.settings.text_color }};--rf-accent:{{ section.settings.accent_color }}">
+<div class="hapyco-rich section-{{ section.id }}-padding{% if img_right %} hapyco-rich--right{% endif %}{% unless has_image %} hapyco-rich--text{% endunless %}" style="--rf-bg:{{ section.settings.bg_color }};--rf-text:{{ section.settings.text_color }};--rf-accent:{{ section.settings.accent_color }}">
   <div class="page-width hapyco-rich__grid">
+    {%- if has_image -%}
     <div class="hapyco-rich__media">
       {%- if section.settings.image != blank -%}
         {{ section.settings.image | image_url: width: 1200 | image_tag: loading: 'lazy', class: 'hapyco-rich__img', alt: section.settings.heading }}
-      {%- elsif section.settings.image_url != blank -%}
-        <img class="hapyco-rich__img" src="{{ section.settings.image_url }}" alt="{{ section.settings.heading | escape }}" loading="lazy">
       {%- else -%}
-        <div class="hapyco-rich__img hapyco-rich__img--placeholder">{{ 'image' | placeholder_svg_tag }}</div>
+        <img class="hapyco-rich__img" src="{{ section.settings.image_url }}" alt="{{ section.settings.heading | escape }}" loading="lazy">
       {%- endif -%}
     </div>
+    {%- endif -%}
     <div class="hapyco-rich__content">
       {%- if section.settings.eyebrow != blank -%}<p class="hapyco-rich__eyebrow">{{ section.settings.eyebrow }}</p>{%- endif -%}
       {%- if section.settings.heading != blank -%}<h2 class="hapyco-rich__heading">{{ section.settings.heading }}</h2>{%- endif -%}
@@ -39,8 +43,11 @@
   .hapyco-rich__body, .hapyco-rich__bullets { font-size: 15px; line-height: 1.6; color: var(--rf-text); opacity: .85; }
   .hapyco-rich__bullets ul { padding-left: 18px; }
   .hapyco-rich__btn { display: inline-block; margin-top: 18px; background: var(--rf-accent); color: #fff; font-weight: 800; text-transform: uppercase; letter-spacing: .03em; padding: 14px 28px; border-radius: 10px; text-decoration: none; }
+  .hapyco-rich--text .hapyco-rich__grid { max-width: 760px; margin: 0 auto; text-align: center; }
+  .hapyco-rich--text .hapyco-rich__bullets ul { display: inline-block; text-align: left; }
   @media (min-width:750px){
     .hapyco-rich__grid { grid-template-columns: 1fr 1fr; gap: 48px; }
+    .hapyco-rich--text .hapyco-rich__grid { grid-template-columns: 1fr; }
     .hapyco-rich--right .hapyco-rich__media { order: 2; }
   }
 {%- endstyle -%}

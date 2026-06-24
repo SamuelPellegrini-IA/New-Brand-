@@ -1,0 +1,77 @@
+{%- liquid
+  assign has_img = false
+  if section.settings.image != blank or section.settings.image_url != blank
+    assign has_img = true
+  endif
+  assign has_mob = false
+  if section.settings.image_mobile != blank or section.settings.image_url_mobile != blank
+    assign has_mob = true
+  endif
+-%}
+<div class="hapyco-img section-{{ section.id }}-padding" style="--i-bg:{{ section.settings.bg_color }}">
+  <div class="{% if section.settings.full_width %}hapyco-img--full{% else %}page-width{% endif %}">
+    {%- capture media -%}
+      {%- if has_img -%}
+        {%- if section.settings.image != blank -%}
+          {{ section.settings.image | image_url: width: 2000 | image_tag: loading: 'lazy', class: 'hapyco-img__img hapyco-img__img--desktop', alt: section.settings.alt }}
+        {%- else -%}
+          <img class="hapyco-img__img hapyco-img__img--desktop" src="{{ section.settings.image_url }}" alt="{{ section.settings.alt | escape }}" loading="lazy">
+        {%- endif -%}
+      {%- endif -%}
+      {%- if has_mob -%}
+        {%- if section.settings.image_mobile != blank -%}
+          {{ section.settings.image_mobile | image_url: width: 1200 | image_tag: loading: 'lazy', class: 'hapyco-img__img hapyco-img__img--mobile', alt: section.settings.alt }}
+        {%- else -%}
+          <img class="hapyco-img__img hapyco-img__img--mobile" src="{{ section.settings.image_url_mobile }}" alt="{{ section.settings.alt | escape }}" loading="lazy">
+        {%- endif -%}
+      {%- endif -%}
+    {%- endcapture -%}
+    {%- if has_img or has_mob -%}
+      {%- if section.settings.link != blank -%}
+        <a href="{{ section.settings.link }}" class="hapyco-img__link">{{ media }}</a>
+      {%- else -%}
+        {{ media }}
+      {%- endif -%}
+    {%- else -%}
+      <div class="hapyco-img__ph">{{ 'lifestyle-1' | placeholder_svg_tag }}</div>
+    {%- endif -%}
+  </div>
+</div>
+
+{%- style -%}
+  .section-{{ section.id }}-padding { padding-top: {{ section.settings.padding_top }}px; padding-bottom: {{ section.settings.padding_bottom }}px; }
+  .hapyco-img { background: var(--i-bg); }
+  .hapyco-img--full { width: 100%; }
+  .hapyco-img__img { width: 100%; height: auto; display: block; {% if section.settings.radius > 0 %}border-radius: {{ section.settings.radius }}px;{% endif %} }
+  .hapyco-img__link { display: block; }
+  .hapyco-img__ph { aspect-ratio: 16/9; background: #ececec; }
+  {%- if has_mob -%}
+  .hapyco-img__img--mobile { display: none; }
+  @media (max-width: 749px){
+    .hapyco-img__img--desktop { display: none; }
+    .hapyco-img__img--mobile { display: block; }
+  }
+  {%- endif -%}
+{%- endstyle -%}
+
+{% schema %}
+{
+  "name": "Hapyco · Image",
+  "tag": "section",
+  "class": "section",
+  "settings": [
+    { "type": "image_picker", "id": "image", "label": "Image desktop (upload)" },
+    { "type": "text", "id": "image_url", "label": "OU image desktop par URL" },
+    { "type": "image_picker", "id": "image_mobile", "label": "Image mobile (upload, optionnel)" },
+    { "type": "text", "id": "image_url_mobile", "label": "OU image mobile par URL" },
+    { "type": "text", "id": "alt", "label": "Texte alternatif" },
+    { "type": "url", "id": "link", "label": "Lien (optionnel)" },
+    { "type": "checkbox", "id": "full_width", "label": "Pleine largeur", "default": true },
+    { "type": "range", "id": "radius", "min": 0, "max": 40, "step": 2, "unit": "px", "label": "Arrondi", "default": 0 },
+    { "type": "color", "id": "bg_color", "label": "Fond", "default": "#ffffff" },
+    { "type": "range", "id": "padding_top", "min": 0, "max": 100, "step": 4, "unit": "px", "label": "Padding haut", "default": 0 },
+    { "type": "range", "id": "padding_bottom", "min": 0, "max": 100, "step": 4, "unit": "px", "label": "Padding bas", "default": 0 }
+  ],
+  "presets": [{ "name": "Hapyco · Image" }]
+}
+{% endschema %}

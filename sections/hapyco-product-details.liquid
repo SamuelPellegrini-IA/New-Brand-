@@ -1,0 +1,132 @@
+{%- liquid
+  assign rows = section.blocks
+-%}
+<div class="hapyco-pd section-{{ section.id }}-padding" style="--pd-bg:{{ section.settings.bg_color }};--pd-text:{{ section.settings.text_color }};--pd-accent:{{ section.settings.accent_color }};--pd-head:{{ section.settings.table_head_bg }}">
+  <div class="page-width hapyco-pd__wrap">
+    {%- if section.settings.heading != blank -%}<h2 class="hapyco-pd__heading">{{ section.settings.heading }}</h2>{%- endif -%}
+    {%- if section.settings.intro != blank -%}<div class="hapyco-pd__intro rte">{{ section.settings.intro }}</div>{%- endif -%}
+
+    {%- if section.settings.details != blank -%}
+      <div class="hapyco-pd__block">
+        {%- if section.settings.details_title != blank -%}<h3 class="hapyco-pd__sub">{{ section.settings.details_title }}</h3>{%- endif -%}
+        <div class="hapyco-pd__body rte">{{ section.settings.details }}</div>
+      </div>
+    {%- endif -%}
+
+    {%- if section.settings.fit_text != blank -%}
+      <div class="hapyco-pd__block">
+        {%- if section.settings.fit_title != blank -%}<h3 class="hapyco-pd__sub">{{ section.settings.fit_title }}</h3>{%- endif -%}
+        <div class="hapyco-pd__body rte">{{ section.settings.fit_text }}</div>
+      </div>
+    {%- endif -%}
+
+    {%- if rows.size > 0 -%}
+      <div class="hapyco-pd__block">
+        {%- if section.settings.table_title != blank -%}<h3 class="hapyco-pd__sub">{{ section.settings.table_title }}</h3>{%- endif -%}
+        <div class="hapyco-pd__table-scroll">
+          <table class="hapyco-pd__table">
+            <thead>
+              <tr>
+                <th>{{ section.settings.col_1 }}</th>
+                <th>{{ section.settings.col_2 }}</th>
+                <th>{{ section.settings.col_3 }}</th>
+              </tr>
+            </thead>
+            <tbody>
+              {%- for row in rows -%}
+                <tr {{ row.shopify_attributes }}>
+                  <td class="hapyco-pd__size">{{ row.settings.size }}</td>
+                  <td>{{ row.settings.val_2 }}</td>
+                  <td>{{ row.settings.val_3 }}</td>
+                </tr>
+              {%- endfor -%}
+            </tbody>
+          </table>
+        </div>
+      </div>
+    {%- endif -%}
+
+    {%- if section.settings.chart_image != blank or section.settings.chart_image_url != blank -%}
+      <div class="hapyco-pd__block hapyco-pd__chart">
+        {%- if section.settings.chart_image != blank -%}
+          {{ section.settings.chart_image | image_url: width: 1200 | image_tag: loading: 'lazy', alt: 'Size chart' }}
+        {%- else -%}
+          <img src="{{ section.settings.chart_image_url }}" alt="Size chart" loading="lazy">
+        {%- endif -%}
+      </div>
+    {%- endif -%}
+  </div>
+</div>
+
+{%- style -%}
+  .section-{{ section.id }}-padding { padding-top: {{ section.settings.padding_top | times: 0.6 | round }}px; padding-bottom: {{ section.settings.padding_bottom | times: 0.6 | round }}px; }
+  @media (min-width:750px){ .section-{{ section.id }}-padding { padding-top: {{ section.settings.padding_top }}px; padding-bottom: {{ section.settings.padding_bottom }}px; } }
+  .hapyco-pd { background: var(--pd-bg); color: var(--pd-text); font-family: Montserrat, -apple-system, sans-serif; }
+  .hapyco-pd__wrap { max-width: 820px; }
+  .hapyco-pd__heading { font-size: clamp(22px,3vw,30px); font-weight: 800; margin: 0 0 16px; }
+  .hapyco-pd__intro { font-size: 15px; line-height: 1.65; opacity: .9; }
+  .hapyco-pd__block { margin-top: 28px; }
+  .hapyco-pd__sub { font-size: 16px; font-weight: 800; text-transform: uppercase; letter-spacing: .03em; margin: 0 0 10px; }
+  .hapyco-pd__body { font-size: 15px; line-height: 1.65; opacity: .9; }
+  .hapyco-pd__body ul { padding-left: 18px; }
+  .hapyco-pd__table-scroll { overflow-x: auto; }
+  .hapyco-pd__table { width: 100%; border-collapse: collapse; min-width: 360px; }
+  .hapyco-pd__table th, .hapyco-pd__table td { padding: 12px 14px; text-align: center; border: 1px solid #e3e3e3; font-size: 14px; }
+  .hapyco-pd__table thead th { background: var(--pd-head); color: #fff; font-weight: 700; }
+  .hapyco-pd__size { font-weight: 800; }
+  .hapyco-pd__chart img { width: 100%; height: auto; border-radius: 12px; display: block; }
+{%- endstyle -%}
+
+{% schema %}
+{
+  "name": "Hapyco · Détails produit",
+  "tag": "section",
+  "class": "section",
+  "max_blocks": 20,
+  "settings": [
+    { "type": "text", "id": "heading", "label": "Titre", "default": "Product Details" },
+    { "type": "richtext", "id": "intro", "label": "Description", "default": "<p>BoxHero Bamboo Boxer Shorts are crafted from ultra-stretchy bamboo fabric, making them 83% more durable than conventional boxers.</p>" },
+    { "type": "text", "id": "details_title", "label": "Titre détails", "default": "Details" },
+    { "type": "richtext", "id": "details", "label": "Détails", "default": "<ul><li>No-Roll Waistband that won't pinch or bunch</li><li>Hypoallergenic skin-safe fabric</li><li>Anti-odor BambooFiber\u2122 Technology</li><li>HeroMesh\u2122 360\u00b0 Cooling Zones</li><li>Supportive Contour Pouch</li><li>Pre-Shrunk to avoid laundry shrinking</li></ul>" },
+    { "type": "text", "id": "fit_title", "label": "Titre fit", "default": "Fit" },
+    { "type": "richtext", "id": "fit_text", "label": "Texte fit", "default": "<p>BoxHero Bamboo Boxer Shorts have a snug, supportive fit, designed to stay in place throughout the day. Take your normal size in boxer briefs.</p><p><strong>PRO TIP:</strong> If you're in between sizes or prefer a looser fit, consider sizing up.</p>" },
+    { "type": "header", "content": "Tableau des tailles" },
+    { "type": "text", "id": "table_title", "label": "Titre tableau", "default": "Body Measurements" },
+    { "type": "text", "id": "col_1", "label": "Colonne 1", "default": "Size" },
+    { "type": "text", "id": "col_2", "label": "Colonne 2", "default": "Waist (in)" },
+    { "type": "text", "id": "col_3", "label": "Colonne 3", "default": "Waist (cm)" },
+    { "type": "color", "id": "table_head_bg", "label": "Fond entête tableau", "default": "#00237e" },
+    { "type": "header", "content": "Image guide des tailles (optionnel)" },
+    { "type": "image_picker", "id": "chart_image", "label": "Image (upload)" },
+    { "type": "text", "id": "chart_image_url", "label": "OU image par URL" },
+    { "type": "header", "content": "Apparence" },
+    { "type": "color", "id": "bg_color", "label": "Fond", "default": "#ffffff" },
+    { "type": "color", "id": "text_color", "label": "Texte", "default": "#121212" },
+    { "type": "color", "id": "accent_color", "label": "Accent", "default": "#00237e" },
+    { "type": "range", "id": "padding_top", "min": 0, "max": 100, "step": 4, "unit": "px", "label": "Padding haut", "default": 48 },
+    { "type": "range", "id": "padding_bottom", "min": 0, "max": 100, "step": 4, "unit": "px", "label": "Padding bas", "default": 48 }
+  ],
+  "blocks": [
+    {
+      "type": "row",
+      "name": "Ligne tableau",
+      "settings": [
+        { "type": "text", "id": "size", "label": "Taille", "default": "S" },
+        { "type": "text", "id": "val_2", "label": "Valeur 2", "default": "30-31" },
+        { "type": "text", "id": "val_3", "label": "Valeur 3", "default": "76-78" }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Hapyco · Détails produit",
+      "blocks": [
+        { "type": "row", "settings": { "size": "S", "val_2": "30-31", "val_3": "76-78" } },
+        { "type": "row", "settings": { "size": "M", "val_2": "32-33", "val_3": "81-84" } },
+        { "type": "row", "settings": { "size": "L", "val_2": "34-37", "val_3": "85-93" } },
+        { "type": "row", "settings": { "size": "XL", "val_2": "38-43", "val_3": "94-105" } }
+      ]
+    }
+  ]
+}
+{% endschema %}
