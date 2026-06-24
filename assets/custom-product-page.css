@@ -37,6 +37,52 @@
     position: static;
     top: auto;
   }
+
+  /* Vertical thumbnails on the LEFT + main image on the right (BoxHero look) */
+  .boxhero-lp-active .product__media-wrapper--boxhero media-gallery {
+    display: flex;
+    flex-direction: row-reverse;
+    align-items: flex-start;
+    gap: 14px;
+  }
+
+  .boxhero-lp-active .product__media-wrapper--boxhero media-gallery > slider-component:not(.thumbnail-slider) {
+    flex: 1 1 auto;
+    min-width: 0;
+    margin: 0;
+  }
+
+  .boxhero-lp-active .product__media-wrapper--boxhero .thumbnail-slider {
+    flex: 0 0 86px;
+    width: 86px;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 6px;
+  }
+
+  .boxhero-lp-active .product__media-wrapper--boxhero .thumbnail-slider .thumbnail-list.slider--tablet-up {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    grid-template-columns: none;
+    gap: 8px;
+    padding: 2px;
+    max-height: 540px;
+    overflow-y: auto;
+    overflow-x: hidden;
+    scrollbar-width: thin;
+  }
+
+  .boxhero-lp-active .product__media-wrapper--boxhero .thumbnail-list.slider--tablet-up .thumbnail-list__item.slider__slide {
+    width: 100%;
+    flex: 0 0 auto;
+  }
+
+  /* Rotate the slider carets so they point up / down */
+  .boxhero-lp-active .product__media-wrapper--boxhero .thumbnail-slider .slider-button {
+    transform: rotate(90deg);
+    margin: 0 auto;
+  }
 }
 
 /* ── Stock bar under gallery (BoxHero pink fill) ── */
