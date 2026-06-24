@@ -583,5 +583,13 @@
         "error_heading": "Please adjust the following:"
       }
     }
+  },
+  "shopify": {
+    "checkout": {
+      "general": {
+        "complete_purchase_button_label": "Complete Purchase",
+        "pay_now_button_label": "Complete Purchase"
+      }
+    }
   }
 }
