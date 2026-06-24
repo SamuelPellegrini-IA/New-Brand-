@@ -212,11 +212,13 @@
         {%- for n in (1..4) -%}
           {%- assign icon_key = 'icon_' | append: n -%}
           {%- assign label_key = 'label_' | append: n -%}
+          {%- assign sub_key = 'sub_' | append: n -%}
           {%- assign lbl = block.settings[label_key] -%}
+          {%- assign sub = block.settings[sub_key] -%}
           {%- if lbl != blank -%}
             <div class="pp-qg__i" style="flex:1 1 0;min-width:130px;display:flex;align-items:center;gap:9px;padding:4px 14px;border-left:1px solid {{ block.settings.divider_color }};font-size:13px;line-height:1.25;font-weight:500;color:{{ block.settings.text_color }}">
               {% render 'lp-pp-icon', name: block.settings[icon_key], color: block.settings.icon_color %}
-              <span>{{ lbl }}</span>
+              <span>{% if sub != blank %}<strong style="display:block;font-weight:600">{{ lbl }}</strong><small style="display:block;font-size:11px;opacity:.75;font-weight:400">{{ sub }}</small>{% else %}{{ lbl }}{% endif %}</span>
             </div>
           {%- endif -%}
         {%- endfor -%}
@@ -373,6 +375,64 @@
       <div style="height:8px;border-radius:999px;background:{{ block.settings.track_color }};overflow:hidden">
         <div style="height:100%;width:{{ block.settings.bar_width | default: 22 }}%;border-radius:999px;background:{{ block.settings.bar_color }}"></div>
       </div>
+    </div>
+
+  {%- when 'lp_sale_badges' -%}
+    <div class="bh-sale-badges" {{ block.shopify_attributes }}>
+      {%- for i in (1..3) -%}
+        {%- assign badge_key = 'badge_' | append: i -%}
+        {%- assign badge_text = block.settings[badge_key] -%}
+        {%- if badge_text != blank -%}
+          <span class="bh-sale-badges__pill" style="background:{{ block.settings.bg_color }};color:{{ block.settings.text_color }}">{{ badge_text }}</span>
+        {%- endif -%}
+      {%- endfor -%}
+    </div>
+
+  {%- when 'lp_gallery_stock' -%}
+    <div class="bh-gallery-stock" {{ block.shopify_attributes }}>
+      <div class="bh-gallery-stock__labels">
+        <span>{{ block.settings.left_text }}</span>
+        <span>{{ block.settings.right_text }}</span>
+      </div>
+      <div class="bh-gallery-stock__track" style="background:{{ block.settings.track_color }}">
+        <div class="bh-gallery-stock__fill" style="width:{{ block.settings.bar_width }}%;background:{{ block.settings.bar_color }}"></div>
+      </div>
+    </div>
+
+  {%- when 'lp_payment_icons' -%}
+    <div class="bh-payment-icons" {{ block.shopify_attributes }}>
+      {%- if block.settings.show_shopify_icons -%}
+        <ul class="bh-payment-icons__list list list-payment" role="list">
+          {%- for type in shop.enabled_payment_types -%}
+            <li class="list-payment__item">
+              {{ type | payment_type_svg_tag: class: 'icon icon--full-color' }}
+            </li>
+          {%- endfor -%}
+        </ul>
+      {%- elsif block.settings.payment_icons_image != blank -%}
+        {{
+          block.settings.payment_icons_image
+          | image_url: width: 900
+          | image_tag: loading: 'lazy', alt: block.settings.payment_icons_alt, class: 'bh-payment-icons__image'
+        }}
+      {%- else -%}
+        <div class="bh-payment-icons__fallback" aria-hidden="true">
+          <span>PayPal</span><span>VISA</span><span>Apple Pay</span><span>Mastercard</span><span>Amex</span>
+        </div>
+      {%- endif -%}
+      {%- if block.settings.secure_text != blank -%}
+        <p class="bh-payment-icons__secure">{{ block.settings.secure_text }}</p>
+      {%- endif -%}
+    </div>
+
+  {%- when 'lp_stock_line' -%}
+    <p class="bh-stock-line{% if block.settings.show_pulse_dot %} bh-stock-line--pulse{% endif %}" style="--dot-color:{{ block.settings.dot_color }};color:{{ block.settings.text_color }}" {{ block.shopify_attributes }}>
+      {{ block.settings.text }}
+    </p>
+
+  {%- when 'lp_delivery_timeline' -%}
+    <div class="bh-delivery-wrap">
+      {%- render 'hawaiian-shipping-timeline', block: block, use_defaults: false -%}
     </div>
 
 {%- endcase -%}

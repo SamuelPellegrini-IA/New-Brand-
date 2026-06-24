@@ -342,6 +342,7 @@
     -%}
     {%- if boxhero_lp_active -%}
       {{ 'boxhero-lp.css' | asset_url | stylesheet_tag }}
+      {{ 'component-list-payment.css' | asset_url | stylesheet_tag }}
     {%- endif -%}
     {%- if gecko_product_active -%}
       {{ 'custom-hawaiian-product.css' | asset_url | stylesheet_tag }}

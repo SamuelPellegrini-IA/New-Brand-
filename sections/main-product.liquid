@@ -21,10 +21,19 @@
     if section.settings.layout_style == 'hawaiian_shirt'
       assign hawaiian_layout = true
     endif
+
+    assign boxhero_layout = false
+    if template.suffix == 'boxhero' or request.params.view == 'boxhero'
+      assign boxhero_layout = true
+    endif
   -%}
   {%- if hawaiian_layout -%}
     {{ 'custom-hawaiian-product.css' | asset_url | stylesheet_tag }}
     <script src="{{ 'custom-hawaiian-product.js' | asset_url }}" defer="defer"></script>
+  {%- endif -%}
+  {%- if boxhero_layout -%}
+    {{ 'custom-product-page.css' | asset_url | stylesheet_tag }}
+    <script src="{{ 'custom-product-page.js' | asset_url }}" defer="defer"></script>
   {%- endif -%}
 
   {% unless product.has_only_default_variant %}
@@ -85,22 +94,32 @@
 
   {% assign variant_images = product.images | where: 'attached_to_variant?', true | map: 'src' %}
   <product-component view-event-payload="{{ product | standard_event_data: 'view', context: 'page' | escape }}">
-    <div class="page-width{% if hawaiian_layout %} custom-hawaiian-product-page{% endif %}">
-      <div class="product product--{{ section.settings.media_size }} product--{{ section.settings.media_position }} product--{{ section.settings.gallery_layout }} product--mobile-{{ section.settings.mobile_thumbnails }}{% if hawaiian_layout %} product--hawaiian-layout{% endif %} grid grid--1-col {% if product.media.size > 0 %}grid--2-col-tablet{% else %}product--no-media{% endif %}">
-        <div class="grid__item product__media-wrapper{% if hawaiian_layout %} product__media-wrapper--hawaiian{% endif %}">
+    <div class="page-width{% if hawaiian_layout %} custom-hawaiian-product-page{% endif %}{% if boxhero_layout %} bh-product-page{% endif %}">
+      <div class="product product--{{ section.settings.media_size }} product--{{ section.settings.media_position }} product--{{ section.settings.gallery_layout }} product--mobile-{{ section.settings.mobile_thumbnails }}{% if hawaiian_layout %} product--hawaiian-layout{% endif %}{% if boxhero_layout %} product--boxhero-layout{% endif %} grid grid--1-col {% if product.media.size > 0 %}grid--2-col-tablet{% else %}product--no-media{% endif %}">
+        <div class="grid__item product__media-wrapper{% if hawaiian_layout %} product__media-wrapper--hawaiian{% endif %}{% if boxhero_layout %} product__media-wrapper--boxhero{% endif %}">
           {%- if hawaiian_layout -%}
             <div class="hawaiian-live-preview-host" aria-label="Product live preview"></div>
           {%- endif -%}
           {% render 'product-media-gallery', variant_images: variant_images %}
+          {%- if boxhero_layout -%}
+            {%- for block in section.blocks -%}
+              {%- if block.type == 'lp_gallery_stock' -%}
+                {% render 'lp-pp-blocks', block: block %}
+              {%- endif -%}
+            {%- endfor -%}
+          {%- endif -%}
         </div>
         <div class="product__info-wrapper grid__item{% if settings.page_width > 1400 and section.settings.media_size == "small" %} product__info-wrapper--extra-padding{% endif %}{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}">
           <section
             id="ProductInfo-{{ section.id }}"
-            class="product__info-container{% if section.settings.enable_sticky_info and hawaiian_layout == false %} product__column-sticky{% endif %}"
+            class="product__info-container{% if section.settings.enable_sticky_info and hawaiian_layout == false and boxhero_layout == false %} product__column-sticky{% endif %}"
           >
             {%- assign product_form_id = 'product-form-' | append: section.id -%}
 
             {%- for block in section.blocks -%}
+              {%- if block.type == 'lp_gallery_stock' -%}
+                {%- continue -%}
+              {%- endif -%}
               {%- case block.type -%}
                 {%- when '@app' -%}
                   {% render block %}
@@ -516,7 +535,10 @@
                     product: product,
                     product_form_id: product_form_id,
                     section_id: section.id,
-                    show_pickup_availability: true
+                    section: section,
+                    show_pickup_availability: true,
+                    hawaiian_layout: hawaiian_layout,
+                    boxhero_layout: boxhero_layout
                   -%}
                 {%- when 'rating' -%}
                   {%- if product.metafields.reviews.rating.value != blank -%}
@@ -723,11 +745,13 @@
                   {% render 'lp-pp-blocks', block: block %}
                 {%- when 'lp_low_stock' -%}
                   {% render 'lp-pp-blocks', block: block %}
-                {%- when 'lp_bh_review' -%}
+                {%- when 'lp_sale_badges' -%}
                   {% render 'lp-pp-blocks', block: block %}
-                {%- when 'lp_bh_trust' -%}
+                {%- when 'lp_payment_icons' -%}
                   {% render 'lp-pp-blocks', block: block %}
-                {%- when 'lp_bh_stock' -%}
+                {%- when 'lp_stock_line' -%}
+                  {% render 'lp-pp-blocks', block: block %}
+                {%- when 'lp_delivery_timeline' -%}
                   {% render 'lp-pp-blocks', block: block %}
               {%- endcase -%}
             {%- endfor -%}
@@ -829,21 +853,25 @@
           { "value": "medal", "label": "Médaille" }, { "value": "camera", "label": "Appareil photo" }, { "value": "check", "label": "Coche" }, { "value": "drop", "label": "Goutte" }, { "value": "leaf", "label": "Feuille" }, { "value": "shield", "label": "Bouclier" }, { "value": "truck", "label": "Camion" }, { "value": "lock", "label": "Cadenas" }, { "value": "heart", "label": "Cœur" }, { "value": "gift", "label": "Cadeau" }, { "value": "ruler", "label": "Règle" }, { "value": "recycle", "label": "Recyclage" }, { "value": "star", "label": "Étoile" }
         ] },
         { "type": "text", "id": "label_1", "label": "Texte 1", "default": "Premium soft fabric" },
+        { "type": "text", "id": "sub_1", "label": "Sous-texte 1 (optionnel)" },
         { "type": "header", "content": "Atout 2" },
         { "type": "select", "id": "icon_2", "label": "Icône 2", "default": "camera", "options": [
           { "value": "medal", "label": "Médaille" }, { "value": "camera", "label": "Appareil photo" }, { "value": "check", "label": "Coche" }, { "value": "drop", "label": "Goutte" }, { "value": "leaf", "label": "Feuille" }, { "value": "shield", "label": "Bouclier" }, { "value": "truck", "label": "Camion" }, { "value": "lock", "label": "Cadenas" }, { "value": "heart", "label": "Cœur" }, { "value": "gift", "label": "Cadeau" }, { "value": "ruler", "label": "Règle" }, { "value": "recycle", "label": "Recyclage" }, { "value": "star", "label": "Étoile" }
         ] },
         { "type": "text", "id": "label_2", "label": "Texte 2", "default": "Your photo printed" },
+        { "type": "text", "id": "sub_2", "label": "Sous-texte 2 (optionnel)" },
         { "type": "header", "content": "Atout 3" },
         { "type": "select", "id": "icon_3", "label": "Icône 3", "default": "check", "options": [
           { "value": "medal", "label": "Médaille" }, { "value": "camera", "label": "Appareil photo" }, { "value": "check", "label": "Coche" }, { "value": "drop", "label": "Goutte" }, { "value": "leaf", "label": "Feuille" }, { "value": "shield", "label": "Bouclier" }, { "value": "truck", "label": "Camion" }, { "value": "lock", "label": "Cadenas" }, { "value": "heart", "label": "Cœur" }, { "value": "gift", "label": "Cadeau" }, { "value": "ruler", "label": "Règle" }, { "value": "recycle", "label": "Recyclage" }, { "value": "star", "label": "Étoile" }
         ] },
         { "type": "text", "id": "label_3", "label": "Texte 3", "default": "Made to order" },
+        { "type": "text", "id": "sub_3", "label": "Sous-texte 3 (optionnel)" },
         { "type": "header", "content": "Atout 4" },
         { "type": "select", "id": "icon_4", "label": "Icône 4", "default": "drop", "options": [
           { "value": "medal", "label": "Médaille" }, { "value": "camera", "label": "Appareil photo" }, { "value": "check", "label": "Coche" }, { "value": "drop", "label": "Goutte" }, { "value": "leaf", "label": "Feuille" }, { "value": "shield", "label": "Bouclier" }, { "value": "truck", "label": "Camion" }, { "value": "lock", "label": "Cadenas" }, { "value": "heart", "label": "Cœur" }, { "value": "gift", "label": "Cadeau" }, { "value": "ruler", "label": "Règle" }, { "value": "recycle", "label": "Recyclage" }, { "value": "star", "label": "Étoile" }
         ] },
-        { "type": "text", "id": "label_4", "label": "Texte 4", "default": "Fade-resistant colors" }
+        { "type": "text", "id": "label_4", "label": "Texte 4", "default": "Fade-resistant colors" },
+        { "type": "text", "id": "sub_4", "label": "Sous-texte 4 (optionnel)" }
       ]
     },
     {
@@ -930,56 +958,68 @@
       ]
     },
     {
-      "type": "lp_bh_review",
-      "name": "BoxHero · Ligne d'avis ★",
+      "type": "lp_sale_badges",
+      "name": "Sale badges row ★",
+      "limit": 1,
       "settings": [
-        { "type": "text", "id": "rating", "label": "Note (sur 5)", "default": "4.8" },
-        { "type": "range", "id": "stars", "min": 3, "max": 5, "step": 0.1, "label": "Étoiles remplies", "default": 4.8 },
-        { "type": "text", "id": "reviews_text", "label": "Texte des avis", "default": "Based on 136 Reviews" },
-        { "type": "color", "id": "star_color", "label": "Couleur étoiles", "default": "#000000" },
-        { "type": "color", "id": "track_color", "label": "Couleur étoiles vides", "default": "#e0e0e0" },
-        { "type": "color", "id": "text_color", "label": "Couleur du texte", "default": "#000000" }
+        { "type": "text", "id": "badge_1", "label": "Badge 1", "default": "FATHER'S DAY SALE" },
+        { "type": "text", "id": "badge_2", "label": "Badge 2", "default": "BUY 5 GET 3 FREE TODAY" },
+        { "type": "text", "id": "badge_3", "label": "Badge 3 (optional)" },
+        { "type": "color", "id": "bg_color", "label": "Fond badge", "default": "#101936" },
+        { "type": "color", "id": "text_color", "label": "Texte badge", "default": "#ffffff" }
       ]
     },
     {
-      "type": "lp_bh_trust",
-      "name": "BoxHero · Cartes trust ★",
+      "type": "lp_gallery_stock",
+      "name": "Gallery stock bar ★",
+      "limit": 1,
       "settings": [
-        { "type": "range", "id": "columns", "min": 1, "max": 3, "step": 1, "label": "Colonnes", "default": 2 },
-        { "type": "color", "id": "bg_color", "label": "Fond des cartes", "default": "#f9f9f9" },
-        { "type": "color", "id": "border_color", "label": "Bordure", "default": "rgba(0,0,0,0)" },
-        { "type": "color", "id": "icon_color", "label": "Couleur des icônes", "default": "#000000" },
-        { "type": "color", "id": "text_color", "label": "Couleur du texte", "default": "#000000" },
-        { "type": "header", "content": "Carte 1" },
-        { "type": "select", "id": "icon_1", "label": "Icône 1", "default": "truck", "options": [
-          { "value": "truck", "label": "Camion" }, { "value": "support", "label": "Support" }, { "value": "shield", "label": "Bouclier" }, { "value": "leaf", "label": "Feuille" }, { "value": "refresh", "label": "Retour" }, { "value": "check", "label": "Coche" }
-        ] },
-        { "type": "text", "id": "heading_1", "label": "Titre 1", "default": "Free Shipping" },
-        { "type": "text", "id": "sub_1", "label": "Sous-texte 1", "default": "Free worldwide shipping" },
-        { "type": "header", "content": "Carte 2" },
-        { "type": "select", "id": "icon_2", "label": "Icône 2", "default": "support", "options": [
-          { "value": "truck", "label": "Camion" }, { "value": "support", "label": "Support" }, { "value": "shield", "label": "Bouclier" }, { "value": "leaf", "label": "Feuille" }, { "value": "refresh", "label": "Retour" }, { "value": "check", "label": "Coche" }
-        ] },
-        { "type": "text", "id": "heading_2", "label": "Titre 2", "default": "24/7 Support" },
-        { "type": "text", "id": "sub_2", "label": "Sous-texte 2", "default": "We're here to help" },
-        { "type": "header", "content": "Carte 3 (optionnel)" },
-        { "type": "select", "id": "icon_3", "label": "Icône 3", "default": "refresh", "options": [
-          { "value": "truck", "label": "Camion" }, { "value": "support", "label": "Support" }, { "value": "shield", "label": "Bouclier" }, { "value": "leaf", "label": "Feuille" }, { "value": "refresh", "label": "Retour" }, { "value": "check", "label": "Coche" }
-        ] },
-        { "type": "text", "id": "heading_3", "label": "Titre 3" },
-        { "type": "text", "id": "sub_3", "label": "Sous-texte 3" }
+        { "type": "text", "id": "left_text", "label": "Texte gauche", "default": "12% Stock Left" },
+        { "type": "text", "id": "right_text", "label": "Texte droite", "default": "Offer Ends Soon" },
+        { "type": "range", "id": "bar_width", "min": 5, "max": 100, "step": 1, "unit": "%", "label": "Remplissage barre", "default": 12 },
+        { "type": "color", "id": "bar_color", "label": "Couleur barre", "default": "#ea0404" },
+        { "type": "color", "id": "track_color", "label": "Couleur piste", "default": "#ececec" },
+        { "type": "color", "id": "text_color", "label": "Couleur texte", "default": "#1f1f1f" }
       ]
     },
     {
-      "type": "lp_bh_stock",
-      "name": "BoxHero · Barre de stock ★",
+      "type": "lp_payment_icons",
+      "name": "Payment icons ★",
+      "limit": 1,
       "settings": [
-        { "type": "text", "id": "label", "label": "Texte (utilise [qty])", "default": "Hurry up! Only [qty] items left in stock" },
-        { "type": "range", "id": "units_left", "min": 1, "max": 99, "step": 1, "label": "Unités restantes", "default": 8 },
-        { "type": "range", "id": "bar_width", "min": 5, "max": 100, "step": 1, "unit": "%", "label": "Remplissage de la barre", "default": 22 },
-        { "type": "color", "id": "bar_color", "label": "Couleur de la barre", "default": "#ea0404" },
-        { "type": "color", "id": "track_color", "label": "Fond de la barre", "default": "#e4e4e4" },
-        { "type": "color", "id": "text_color", "label": "Couleur du texte", "default": "#1f1f1f" }
+        { "type": "checkbox", "id": "show_shopify_icons", "label": "Afficher les icônes Shopify du magasin", "default": true },
+        { "type": "image_picker", "id": "payment_icons_image", "label": "Image des moyens de paiement (optionnel)" },
+        { "type": "text", "id": "payment_icons_alt", "label": "Texte alternatif image", "default": "Payment methods" },
+        { "type": "text", "id": "secure_text", "label": "Texte sécurité (optionnel)", "default": "Secure transaction" }
+      ]
+    },
+    {
+      "type": "lp_stock_line",
+      "name": "Stock / shipping line ★",
+      "limit": 1,
+      "settings": [
+        { "type": "inline_richtext", "id": "text", "label": "Texte", "default": "Only 39 Left In Stock: Ships in 24/48 Hours" },
+        { "type": "checkbox", "id": "show_pulse_dot", "label": "Afficher le point animé", "default": true },
+        { "type": "color", "id": "text_color", "label": "Couleur texte", "default": "#1f1f1f" },
+        { "type": "color", "id": "dot_color", "label": "Couleur point", "default": "#ea0404" }
+      ]
+    },
+    {
+      "type": "lp_delivery_timeline",
+      "name": "Delivery timeline ★",
+      "limit": 1,
+      "settings": [
+        { "type": "checkbox", "id": "use_auto_dates", "label": "Dates automatiques", "default": true },
+        { "type": "range", "id": "processing_days_min", "min": 0, "max": 14, "step": 1, "label": "Traitement min (jours)", "default": 1 },
+        { "type": "range", "id": "processing_days_max", "min": 0, "max": 14, "step": 1, "label": "Traitement max (jours)", "default": 2 },
+        { "type": "range", "id": "shipping_days_min", "min": 1, "max": 30, "step": 1, "label": "Livraison min (jours)", "default": 1 },
+        { "type": "range", "id": "shipping_days_max", "min": 1, "max": 30, "step": 1, "label": "Livraison max (jours)", "default": 2 },
+        { "type": "text", "id": "arrival_message_before", "label": "Message avant date", "default": "Arrives" },
+        { "type": "text", "id": "arrival_message_after", "label": "Message après date", "default": "if you order today." },
+        { "type": "text", "id": "step1_label", "label": "Étape 1", "default": "Order placed" },
+        { "type": "text", "id": "step2_label", "label": "Étape 2", "default": "Order ships" },
+        { "type": "text", "id": "step3_label", "label": "Étape 3", "default": "Estimated arrival" },
+        { "type": "text", "id": "disclaimer", "label": "Note bas de page", "default": "* ETA applies for US orders. All products are made to order." }
       ]
     },
     {
@@ -1160,6 +1200,18 @@
           "default": true,
           "label": "t:sections.main-product.blocks.buy_buttons.settings.show_gift_card_recipient.label",
           "info": "t:sections.main-product.blocks.buy_buttons.settings.show_gift_card_recipient.info"
+        },
+        {
+          "type": "checkbox",
+          "id": "gecko_button_style",
+          "label": "Yellow conversion CTA style",
+          "default": false
+        },
+        {
+          "type": "text",
+          "id": "gecko_atc_label",
+          "label": "Custom Add to Cart label",
+          "default": "ADD TO CART"
         }
       ]
     },

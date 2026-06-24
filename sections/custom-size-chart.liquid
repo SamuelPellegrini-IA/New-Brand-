@@ -1,0 +1,106 @@
+{%- if section.settings.show_section and section.settings.sc_image != blank -%}
+  <div class="page-width bh-size-chart-section section-{{ section.id }}-padding" id="bh-size-chart-{{ section.id }}">
+    {%- if section.settings.heading != blank -%}
+      <h2 class="bh-size-chart-section__heading">{{ section.settings.heading | escape }}</h2>
+    {%- endif -%}
+    {%- if section.settings.help_text != blank -%}
+      <p class="bh-size-chart-section__help">{{ section.settings.help_text | escape }}</p>
+    {%- endif -%}
+    <div class="bh-size-chart-section__image-wrap">
+      {%- assign sc_alt = section.settings.heading | default: 'Size chart' -%}
+      {{
+        section.settings.sc_image
+        | image_url: width: 1200
+        | image_tag: loading: 'lazy', alt: sc_alt, class: 'bh-size-chart-section__image'
+      }}
+    </div>
+  </div>
+
+  {%- style -%}
+    .section-{{ section.id }}-padding {
+      padding-top: {{ section.settings.padding_top | times: 0.75 | round: 0 }}px;
+      padding-bottom: {{ section.settings.padding_bottom | times: 0.75 | round: 0 }}px;
+    }
+    @media screen and (min-width: 750px) {
+      .section-{{ section.id }}-padding {
+        padding-top: {{ section.settings.padding_top }}px;
+        padding-bottom: {{ section.settings.padding_bottom }}px;
+      }
+    }
+    .bh-size-chart-section__heading {
+      font-family: Montserrat, sans-serif;
+      font-size: 22px;
+      font-weight: 700;
+      margin: 0 0 8px;
+      color: #101936;
+    }
+    .bh-size-chart-section__help {
+      font-size: 14px;
+      color: #666;
+      margin: 0 0 16px;
+    }
+    .bh-size-chart-section__image {
+      width: 100%;
+      height: auto;
+      border-radius: 12px;
+      border: 1px solid #e5e5e5;
+    }
+  {%- endstyle -%}
+{%- endif -%}
+
+{% schema %}
+{
+  "name": "Size chart (standalone)",
+  "tag": "section",
+  "class": "section",
+  "settings": [
+    {
+      "type": "checkbox",
+      "id": "show_section",
+      "label": "Show section",
+      "default": false
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Size Chart"
+    },
+    {
+      "type": "text",
+      "id": "help_text",
+      "label": "Help text"
+    },
+    {
+      "type": "image_picker",
+      "id": "sc_image",
+      "label": "Size chart image"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 80,
+      "step": 4,
+      "unit": "px",
+      "label": "Padding top",
+      "default": 36
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 80,
+      "step": 4,
+      "unit": "px",
+      "label": "Padding bottom",
+      "default": 36
+    }
+  ],
+  "presets": [
+    {
+      "name": "Size chart (standalone)"
+    }
+  ]
+}
+{% endschema %}

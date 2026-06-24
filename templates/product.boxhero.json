@@ -12,6 +12,16 @@
     "main": {
       "type": "main-product",
       "blocks": {
+        "sale_badges": {
+          "type": "lp_sale_badges",
+          "settings": {
+            "badge_1": "FATHER'S DAY SALE",
+            "badge_2": "BUY 5 GET 3 FREE TODAY",
+            "badge_3": "",
+            "bg_color": "#101936",
+            "text_color": "#ffffff"
+          }
+        },
         "cro_style": {
           "type": "lp_variant_style",
           "settings": {
@@ -81,18 +91,28 @@
         "quick_glance": {
           "type": "lp_quick_glance",
           "settings": {
-            "heading": "At a quick glance:",
+            "heading": "AT A QUICK GLANCE:",
             "icon_color": "#1f1f1f",
             "text_color": "#1f1f1f",
             "divider_color": "#e5e5e5",
             "icon_1": "medal",
-            "label_1": "Premium Soft Fabric",
-            "icon_2": "camera",
-            "label_2": "Your Photo Printed",
-            "icon_3": "check",
-            "label_3": "Made To Order",
-            "icon_4": "drop",
-            "label_4": "Fade-Resistant Colors"
+            "label_1": "4-Way Stretch",
+            "icon_2": "leaf",
+            "label_2": "Breathable Bamboo",
+            "icon_3": "shield",
+            "label_3": "Odor-Neutralizing",
+            "icon_4": "check",
+            "label_4": "Anti-Chafing Design"
+          }
+        },
+        "size_chart": {
+          "type": "lp_size_chart",
+          "settings": {
+            "sc_title": "Size Chart",
+            "sc_text": "size chart",
+            "sc_option": "Size",
+            "sc_richtext": "",
+            "sc_link": ""
           }
         },
         "variant_picker": {
@@ -116,7 +136,7 @@
           "type": "lp_low_stock",
           "settings": {
             "heading": "WARNING: Low Stock Notice",
-            "body": "<p>This product sold out <strong>12 times</strong> last year. We encourage you to take advantage of the <strong>limited sale</strong> and buy now. Ordering now helps you avoid future stock-outs.</p>",
+            "body": "<p>This product sold out <strong>12 times</strong> last year. We encourage you to take advantage of the <strong>limited sale</strong> and buy now. Ordering now helps you avoid future stock outs.</p>",
             "ps_text": "<p>PS: Only available <strong>here</strong>, don't buy fakes on Amazon/eBay.</p>",
             "heading_color": "#1f1f1f",
             "icon_color": "#1f1f1f",
@@ -128,13 +148,44 @@
         "buy_buttons": {
           "type": "buy_buttons",
           "settings": {
-            "show_dynamic_checkout": true,
-            "show_gift_card_recipient": false
+            "show_dynamic_checkout": false,
+            "show_gift_card_recipient": false,
+            "gecko_button_style": true,
+            "gecko_atc_label": "ADD TO CART"
           }
         },
-        "description": {
-          "type": "description",
-          "settings": {}
+        "payment_icons": {
+          "type": "lp_payment_icons",
+          "settings": {
+            "show_shopify_icons": true,
+            "payment_icons_alt": "Payment methods",
+            "secure_text": "Secure transaction"
+          }
+        },
+        "stock_line": {
+          "type": "lp_stock_line",
+          "settings": {
+            "text": "Only 39 Left In Stock: Ships in 24/48 Hours",
+            "show_pulse_dot": true,
+            "text_color": "#1f1f1f",
+            "dot_color": "#ea0404"
+          }
+        },
+        "delivery": {
+          "type": "lp_delivery_timeline",
+          "settings": {
+            "use_auto_dates": true,
+            "processing_days_min": 0,
+            "processing_days_max": 1,
+            "shipping_days_min": 1,
+            "shipping_days_max": 2,
+            "arrival_message_before": "Arrives",
+            "arrival_message_after": "if you order today.",
+            "step1_label": "Order placed",
+            "step2_label": "Order ships",
+            "step3_label": "Estimated arrival",
+            "disclaimer": "* ETA applies for US orders. All products are made to order."
+          }
         },
         "acc_details": {
           "type": "collapsible_tab",
@@ -172,14 +223,20 @@
             "page": ""
           }
         },
-        "share": {
-          "type": "share",
+        "gallery_stock": {
+          "type": "lp_gallery_stock",
           "settings": {
-            "share_label": "Share"
+            "left_text": "12% Stock Left",
+            "right_text": "Offer Ends Soon",
+            "bar_width": 12,
+            "bar_color": "#ea0404",
+            "track_color": "#ececec",
+            "text_color": "#1f1f1f"
           }
         }
       },
       "block_order": [
+        "sale_badges",
         "cro_style",
         "tp_badge",
         "title",
@@ -188,16 +245,19 @@
         "price_color",
         "save_badge",
         "quick_glance",
+        "size_chart",
         "variant_picker",
         "fit_bar",
         "low_stock",
         "buy_buttons",
-        "description",
+        "payment_icons",
+        "stock_line",
+        "delivery",
         "acc_details",
         "acc_shipping",
         "acc_guarantee",
         "acc_deals",
-        "share"
+        "gallery_stock"
       ],
       "settings": {
         "layout_style": "standard",
@@ -214,6 +274,16 @@
         "enable_video_looping": false,
         "padding_top": 36,
         "padding_bottom": 12
+      }
+    },
+    "size_chart_section": {
+      "type": "custom-size-chart",
+      "settings": {
+        "show_section": false,
+        "heading": "Size Chart",
+        "help_text": "Find your perfect fit using the chart below.",
+        "padding_top": 36,
+        "padding_bottom": 36
       }
     },
     "reviews": {
@@ -254,130 +324,9 @@
             "verified": true,
             "verified_label": "Verified buyer"
           }
-        },
-        "r4": {
-          "type": "review",
-          "settings": {
-            "author": "Michael B.",
-            "rating": 4,
-            "title": "Great product, worth the wait",
-            "content": "<p>Really happy with the result. It took a couple of extra days to arrive but the quality made it worth the wait. Would order again.</p>",
-            "date": "April 2026",
-            "verified": true,
-            "verified_label": "Verified buyer"
-          }
-        },
-        "r5": {
-          "type": "review",
-          "settings": {
-            "author": "Olivia W.",
-            "rating": 5,
-            "title": "Made my day",
-            "content": "<p>Customer service helped me adjust my photo and the final product is gorgeous. Highly recommend for anyone looking for a meaningful, personal gift.</p>",
-            "date": "April 2026",
-            "verified": true,
-            "verified_label": "Verified buyer"
-          }
-        },
-        "r6": {
-          "type": "review",
-          "settings": {
-            "author": "Daniel K.",
-            "rating": 5,
-            "title": "Exceptional quality",
-            "content": "<p>Exactly as pictured and beautifully made. You can tell it is a quality item the moment you hold it. Very impressed.</p>",
-            "date": "March 2026",
-            "verified": true,
-            "verified_label": "Verified buyer"
-          }
-        },
-        "r7": {
-          "type": "review",
-          "settings": {
-            "author": "Charlotte P.",
-            "rating": 5,
-            "title": "Will buy again",
-            "content": "<p>This is my second time ordering and the quality is consistent every single time. The personalization makes it feel so special.</p>",
-            "date": "March 2026",
-            "verified": true,
-            "verified_label": "Verified buyer"
-          }
-        },
-        "r8": {
-          "type": "review",
-          "settings": {
-            "author": "David E.",
-            "rating": 5,
-            "title": "Shocking quality",
-            "content": "<p>It is rare to find a company that delivers exactly what you ordered. It arrived in a timely manner and was exactly as pictured.</p>",
-            "date": "March 2026",
-            "verified": true,
-            "verified_label": "Verified buyer"
-          }
-        },
-        "r9": {
-          "type": "review",
-          "settings": {
-            "author": "Liz C.",
-            "rating": 5,
-            "title": "Amazing",
-            "content": "<p>This exceeded all my expectations! Good quality, fits well and the print is better than I expected.</p>",
-            "date": "February 2026",
-            "verified": true,
-            "verified_label": "Verified buyer"
-          }
-        },
-        "r10": {
-          "type": "review",
-          "settings": {
-            "author": "Noah G.",
-            "rating": 5,
-            "title": "Incredible attention to detail",
-            "content": "<p>The finish is flawless and the photo reproduction is stunning. Packaging was premium too. This is how you do personalized products.</p>",
-            "date": "February 2026",
-            "verified": true,
-            "verified_label": "Verified buyer"
-          }
-        },
-        "r11": {
-          "type": "review",
-          "settings": {
-            "author": "Ava L.",
-            "rating": 5,
-            "title": "My favorite purchase",
-            "content": "<p>I cannot stop looking at it. Such a thoughtful, high-quality keepsake. Shipping was quick and everything was perfect.</p>",
-            "date": "January 2026",
-            "verified": true,
-            "verified_label": "Verified buyer"
-          }
-        },
-        "r12": {
-          "type": "review",
-          "settings": {
-            "author": "V. Arnold",
-            "rating": 4,
-            "title": "Love it",
-            "content": "<p>Wonderful. My only suggestion is to order your normal size. Beautiful work and a lovely keepsake.</p>",
-            "date": "January 2026",
-            "verified": true,
-            "verified_label": "Verified buyer"
-          }
         }
       },
-      "block_order": [
-        "r1",
-        "r2",
-        "r3",
-        "r4",
-        "r5",
-        "r6",
-        "r7",
-        "r8",
-        "r9",
-        "r10",
-        "r11",
-        "r12"
-      ],
+      "block_order": ["r1", "r2", "r3"],
       "settings": {
         "heading": "Customer Reviews",
         "heading_size": 32,
@@ -426,9 +375,5 @@
       }
     }
   },
-  "order": [
-    "main",
-    "reviews",
-    "related-products"
-  ]
+  "order": ["main", "size_chart_section", "reviews", "related-products"]
 }
