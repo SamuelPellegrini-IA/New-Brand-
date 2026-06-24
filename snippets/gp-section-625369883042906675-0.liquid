@@ -76,11 +76,12 @@
 <style>
   .bh-delivery-section {
     width: 100%;
-    background: #ffffff;
+    background: transparent !important;
     font-family: inherit;
     color: #2d2d2d;
     box-sizing: border-box;
     padding: 0;
+    margin: 0;
   }
 
   .bh-delivery-header {
@@ -92,6 +93,7 @@
     font-weight: 400;
     margin-bottom: 45px;
     color: #2f2f2f;
+    background: transparent !important;
   }
 
   .bh-header-icon {
@@ -122,6 +124,7 @@
     align-items: start;
     width: 100%;
     margin-bottom: 30px;
+    background: transparent !important;
   }
 
   .bh-line {
@@ -139,6 +142,7 @@
     z-index: 2;
     display: flex;
     flex-direction: column;
+    background: transparent !important;
   }
 
   .bh-step-left {
@@ -196,6 +200,7 @@
     color: #16836f;
     font-style: italic;
     font-weight: 400;
+    background: transparent !important;
   }
 
   @media (max-width: 768px) {
@@ -249,56 +254,85 @@
 </style>
 
 <script>
-  document.addEventListener("DOMContentLoaded", function () {
-    function addDays(date, days) {
-      const result = new Date(date);
-      result.setDate(result.getDate() + days);
-      return result;
-    }
+  (function () {
+    function initDeliveryDates() {
+      const SHIP_START_DAYS = 2;
+      const SHIP_END_DAYS = 3;
+      const ARRIVAL_START_DAYS = 12;
+      const ARRIVAL_END_DAYS = 15;
 
-    function formatDate(date) {
-      return date.toLocaleDateString("en-US", {
-        month: "short",
-        day: "2-digit"
-      });
-    }
+      function getTodayInUS() {
+        const formatter = new Intl.DateTimeFormat("en-US", {
+          timeZone: "America/New_York",
+          year: "numeric",
+          month: "numeric",
+          day: "numeric"
+        });
 
-    function formatRange(start, end) {
-      const startMonth = start.toLocaleDateString("en-US", { month: "short" });
-      const endMonth = end.toLocaleDateString("en-US", { month: "short" });
+        const parts = formatter.formatToParts(new Date());
+        const year = Number(parts.find(part => part.type === "year").value);
+        const month = Number(parts.find(part => part.type === "month").value);
+        const day = Number(parts.find(part => part.type === "day").value);
 
-      const startDay = start.toLocaleDateString("en-US", { day: "2-digit" });
-      const endDay = end.toLocaleDateString("en-US", { day: "2-digit" });
-
-      if (startMonth === endMonth) {
-        return startMonth + " " + startDay + " – " + endDay;
+        return new Date(year, month - 1, day);
       }
 
-      return startMonth + " " + startDay + " – " + endMonth + " " + endDay;
+      function addDays(date, days) {
+        const result = new Date(date);
+        result.setDate(result.getDate() + days);
+        return result;
+      }
+
+      function formatSingleDate(date) {
+        return date.toLocaleDateString("en-US", {
+          month: "short",
+          day: "2-digit"
+        });
+      }
+
+      function formatRange(start, end) {
+        const startMonth = start.toLocaleDateString("en-US", { month: "short" });
+        const endMonth = end.toLocaleDateString("en-US", { month: "short" });
+
+        const startDay = start.toLocaleDateString("en-US", { day: "2-digit" });
+        const endDay = end.toLocaleDateString("en-US", { day: "2-digit" });
+
+        if (startMonth === endMonth) {
+          return startMonth + " " + startDay + " – " + endDay;
+        }
+
+        return startMonth + " " + startDay + " – " + endMonth + " " + endDay;
+      }
+
+      const today = getTodayInUS();
+
+      const orderDate = today;
+      const shipStart = addDays(today, SHIP_START_DAYS);
+      const shipEnd = addDays(today, SHIP_END_DAYS);
+      const arrivalStart = addDays(today, ARRIVAL_START_DAYS);
+      const arrivalEnd = addDays(today, ARRIVAL_END_DAYS);
+
+      const orderText = formatSingleDate(orderDate);
+      const shipText = formatRange(shipStart, shipEnd);
+      const arrivalText = formatRange(arrivalStart, arrivalEnd);
+
+      const orderEl = document.getElementById("bh-order-date");
+      const shipEl = document.getElementById("bh-ship-date");
+      const arrivalEl = document.getElementById("bh-arrival-date");
+      const headerArrivalEl = document.getElementById("bh-arrives-header");
+
+      if (orderEl) orderEl.textContent = orderText;
+      if (shipEl) shipEl.textContent = shipText;
+      if (arrivalEl) arrivalEl.textContent = arrivalText;
+      if (headerArrivalEl) headerArrivalEl.textContent = arrivalText;
     }
 
-    const today = new Date();
-
-    const orderDate = today;
-    const shipStart = addDays(today, 2);
-    const shipEnd = addDays(today, 3);
-    const arrivalStart = addDays(today, 12);
-    const arrivalEnd = addDays(today, 15);
-
-    const orderText = formatDate(orderDate);
-    const shipText = formatRange(shipStart, shipEnd);
-    const arrivalText = formatRange(arrivalStart, arrivalEnd);
-
-    const orderEl = document.getElementById("bh-order-date");
-    const shipEl = document.getElementById("bh-ship-date");
-    const arrivalEl = document.getElementById("bh-arrival-date");
-    const headerArrivalEl = document.getElementById("bh-arrives-header");
-
-    if (orderEl) orderEl.textContent = orderText;
-    if (shipEl) shipEl.textContent = shipText;
-    if (arrivalEl) arrivalEl.textContent = arrivalText;
-    if (headerArrivalEl) headerArrivalEl.textContent = arrivalText;
-  });
+    if (document.readyState === "loading") {
+      document.addEventListener("DOMContentLoaded", initDeliveryDates);
+    } else {
+      initDeliveryDates();
+    }
+  })();
 </script>
     </div>
     </div>
