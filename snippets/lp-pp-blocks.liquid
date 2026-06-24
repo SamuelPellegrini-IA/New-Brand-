@@ -435,4 +435,24 @@
       {%- render 'hawaiian-shipping-timeline', block: block, use_defaults: false -%}
     </div>
 
+  {%- when 'lp_circle_badge' -%}
+    {%- if block.settings.image != blank or block.settings.line_1 != blank or block.settings.line_2 != blank or block.settings.line_3 != blank -%}
+      <div
+        class="bh-circle-badge bh-circle-badge--{{ block.settings.position | default: 'top-right' }}"
+        style="--bh-cb-size:{{ block.settings.size | default: 92 }}px;--bh-cb-bg:{{ block.settings.bg_color }};--bh-cb-text:{{ block.settings.text_color }};--bh-cb-border:{{ block.settings.border_color }}"
+        {{ block.shopify_attributes }}
+      >
+        {%- if block.settings.image != blank -%}
+          {{ block.settings.image | image_url: width: 300 | image_tag: loading: 'lazy', alt: block.settings.line_1 | default: 'Badge', class: 'bh-circle-badge__img' }}
+        {%- else -%}
+          {%- if block.settings.show_stars -%}
+            <span class="bh-circle-badge__stars" aria-hidden="true">★★★★★</span>
+          {%- endif -%}
+          {%- if block.settings.line_1 != blank -%}<span class="bh-circle-badge__l1">{{ block.settings.line_1 }}</span>{%- endif -%}
+          {%- if block.settings.line_2 != blank -%}<span class="bh-circle-badge__l2">{{ block.settings.line_2 }}</span>{%- endif -%}
+          {%- if block.settings.line_3 != blank -%}<span class="bh-circle-badge__l3">{{ block.settings.line_3 }}</span>{%- endif -%}
+        {%- endif -%}
+      </div>
+    {%- endif -%}
+
 {%- endcase -%}

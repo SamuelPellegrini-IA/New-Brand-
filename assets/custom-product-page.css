@@ -85,6 +85,64 @@
   }
 }
 
+/* ── Circle badge over gallery (editable) ── */
+.boxhero-lp-active .product__media-wrapper--boxhero {
+  position: relative;
+}
+
+.bh-circle-badge {
+  position: absolute;
+  z-index: 5;
+  width: var(--bh-cb-size, 92px);
+  height: var(--bh-cb-size, 92px);
+  border-radius: 50%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  background: var(--bh-cb-bg, #121212);
+  color: var(--bh-cb-text, #fff);
+  border: 2px solid var(--bh-cb-border, #fff);
+  box-shadow: 0 4px 14px rgba(0, 0, 0, .18);
+  font-family: Montserrat, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  padding: 6px;
+  line-height: 1.05;
+  overflow: hidden;
+}
+
+.bh-circle-badge--top-right { top: 12px; right: 12px; }
+.bh-circle-badge--top-left { top: 12px; left: 12px; }
+.bh-circle-badge--bottom-right { bottom: 12px; right: 12px; }
+.bh-circle-badge--bottom-left { bottom: 12px; left: 12px; }
+
+.bh-circle-badge__img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  border-radius: 50%;
+}
+
+.bh-circle-badge__stars {
+  font-size: 9px;
+  letter-spacing: 1px;
+  color: #ffce31;
+  margin-bottom: 2px;
+}
+
+.bh-circle-badge__l1 { font-size: 15px; font-weight: 800; }
+.bh-circle-badge__l2 { font-size: 9px; font-weight: 700; letter-spacing: .04em; }
+.bh-circle-badge__l3 { font-size: 9px; font-weight: 700; letter-spacing: .04em; }
+
+@media screen and (max-width: 749px) {
+  .bh-circle-badge {
+    --bh-cb-size: 72px;
+  }
+  .bh-circle-badge__l1 { font-size: 12px; }
+  .bh-circle-badge__l2,
+  .bh-circle-badge__l3 { font-size: 7px; }
+}
+
 /* ── Stock bar under gallery (BoxHero pink fill) ── */
 .bh-gallery-stock {
   margin: 14px auto 0;

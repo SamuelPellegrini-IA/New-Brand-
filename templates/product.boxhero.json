@@ -233,6 +233,20 @@
             "track_color": "#eeeeec",
             "text_color": "#121212"
           }
+        },
+        "circle_badge": {
+          "type": "lp_circle_badge",
+          "settings": {
+            "show_stars": true,
+            "line_1": "500,000+",
+            "line_2": "MEN 45+",
+            "line_3": "SWITCHED",
+            "position": "top-right",
+            "size": 92,
+            "bg_color": "#121212",
+            "text_color": "#ffffff",
+            "border_color": "#ffffff"
+          }
         }
       },
       "block_order": [
@@ -257,7 +271,8 @@
         "acc_shipping",
         "acc_guarantee",
         "acc_deals",
-        "gallery_stock"
+        "gallery_stock",
+        "circle_badge"
       ],
       "settings": {
         "layout_style": "standard",

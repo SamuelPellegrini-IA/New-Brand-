@@ -100,6 +100,13 @@
           {%- if hawaiian_layout -%}
             <div class="hawaiian-live-preview-host" aria-label="Product live preview"></div>
           {%- endif -%}
+          {%- if boxhero_layout -%}
+            {%- for block in section.blocks -%}
+              {%- if block.type == 'lp_circle_badge' -%}
+                {% render 'lp-pp-blocks', block: block %}
+              {%- endif -%}
+            {%- endfor -%}
+          {%- endif -%}
           {% render 'product-media-gallery', variant_images: variant_images %}
           {%- if boxhero_layout -%}
             {%- for block in section.blocks -%}
@@ -117,7 +124,7 @@
             {%- assign product_form_id = 'product-form-' | append: section.id -%}
 
             {%- for block in section.blocks -%}
-              {%- if block.type == 'lp_gallery_stock' -%}
+              {%- if block.type == 'lp_gallery_stock' or block.type == 'lp_circle_badge' -%}
                 {%- continue -%}
               {%- endif -%}
               {%- case block.type -%}
@@ -753,6 +760,8 @@
                   {% render 'lp-pp-blocks', block: block %}
                 {%- when 'lp_delivery_timeline' -%}
                   {% render 'lp-pp-blocks', block: block %}
+                {%- when 'lp_circle_badge' -%}
+                  {% render 'lp-pp-blocks', block: block %}
               {%- endcase -%}
             {%- endfor -%}
             <a href="{{ product.url }}" class="link product__view-details animate-arrow">
@@ -1020,6 +1029,29 @@
         { "type": "text", "id": "step2_label", "label": "Étape 2", "default": "Order ships" },
         { "type": "text", "id": "step3_label", "label": "Étape 3", "default": "Estimated arrival" },
         { "type": "text", "id": "disclaimer", "label": "Note bas de page", "default": "* ETA applies for US orders. All products are made to order." }
+      ]
+    },
+    {
+      "type": "lp_circle_badge",
+      "name": "Badge rond (sur image) ★",
+      "limit": 1,
+      "settings": [
+        { "type": "paragraph", "content": "Badge circulaire superposé sur l'image (ex: 500,000+ MEN 45+ SWITCHED). Laisse tout vide pour le masquer. Si une image est téléversée, elle remplace le texte." },
+        { "type": "image_picker", "id": "image", "label": "Image du badge (optionnel)" },
+        { "type": "checkbox", "id": "show_stars", "label": "Afficher les étoiles", "default": true },
+        { "type": "text", "id": "line_1", "label": "Ligne 1", "default": "500,000+" },
+        { "type": "text", "id": "line_2", "label": "Ligne 2", "default": "MEN 45+" },
+        { "type": "text", "id": "line_3", "label": "Ligne 3", "default": "SWITCHED" },
+        { "type": "select", "id": "position", "label": "Position", "default": "top-right", "options": [
+          { "value": "top-right", "label": "Haut droite" },
+          { "value": "top-left", "label": "Haut gauche" },
+          { "value": "bottom-right", "label": "Bas droite" },
+          { "value": "bottom-left", "label": "Bas gauche" }
+        ] },
+        { "type": "range", "id": "size", "min": 60, "max": 140, "step": 2, "unit": "px", "label": "Taille", "default": 92 },
+        { "type": "color", "id": "bg_color", "label": "Fond", "default": "#121212" },
+        { "type": "color", "id": "text_color", "label": "Texte", "default": "#ffffff" },
+        { "type": "color", "id": "border_color", "label": "Bordure", "default": "#ffffff" }
       ]
     },
     {
