@@ -335,7 +335,7 @@
     {%- liquid
       assign boxhero_lp_active = false
       if template.name == 'product'
-        if template.suffix == 'boxhero' or request.params.view == 'boxhero'
+        if template.suffix == 'boxhero' or template.suffix == 'hapyco' or request.params.view == 'boxhero' or request.params.view == 'hapyco'
           assign boxhero_lp_active = true
         endif
       endif

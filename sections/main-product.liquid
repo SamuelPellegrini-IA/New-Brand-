@@ -23,7 +23,7 @@
     endif
 
     assign boxhero_layout = false
-    if template.suffix == 'boxhero' or request.params.view == 'boxhero'
+    if template.suffix == 'boxhero' or template.suffix == 'hapyco' or request.params.view == 'boxhero' or request.params.view == 'hapyco'
       assign boxhero_layout = true
     endif
   -%}
