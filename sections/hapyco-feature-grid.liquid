@@ -17,6 +17,8 @@
       <div class="hapyco-fg__media">
         {%- if section.settings.image != blank -%}
           {{ section.settings.image | image_url: width: 900 | image_tag: loading: 'lazy', class: 'hapyco-fg__img', alt: section.settings.heading }}
+        {%- elsif section.settings.image_url != blank -%}
+          <img class="hapyco-fg__img" src="{{ section.settings.image_url }}" alt="{{ section.settings.heading | escape }}" loading="lazy">
         {%- else -%}
           <div class="hapyco-fg__img hapyco-fg__img--ph">{{ 'product-1' | placeholder_svg_tag }}</div>
         {%- endif -%}
@@ -63,7 +65,8 @@
     { "type": "text", "id": "eyebrow", "label": "Sur-titre" },
     { "type": "text", "id": "heading", "label": "Titre", "default": "Your New Favorite Boxers — For Real" },
     { "type": "textarea", "id": "subheading", "label": "Sous-titre", "default": "Built with every must-have feature you've been waiting for in a boxer — plus a few extras." },
-    { "type": "image_picker", "id": "image", "label": "Image centrale" },
+    { "type": "image_picker", "id": "image", "label": "Image centrale (upload)" },
+    { "type": "text", "id": "image_url", "label": "OU image centrale par URL", "info": "Utilisée si aucune image uploadée" },
     { "type": "color", "id": "bg_color", "label": "Fond", "default": "#ffffff" },
     { "type": "color", "id": "text_color", "label": "Texte", "default": "#121212" },
     { "type": "color", "id": "accent_color", "label": "Icônes", "default": "#00237e" },

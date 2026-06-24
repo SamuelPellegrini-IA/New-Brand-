@@ -16,6 +16,8 @@
         <div class="hapyco-rev__card" {{ block.shopify_attributes }}>
           {%- if block.settings.image != blank -%}
             {{ block.settings.image | image_url: width: 600 | image_tag: loading: 'lazy', class: 'hapyco-rev__img', alt: block.settings.name }}
+          {%- elsif block.settings.image_url != blank -%}
+            <img class="hapyco-rev__img" src="{{ block.settings.image_url }}" alt="{{ block.settings.name | escape }}" loading="lazy">
           {%- endif -%}
           <div class="hapyco-rev__stars hapyco-rev__stars--sm" aria-hidden="true">
             {%- for i in (1..5) -%}<svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3 6.3 6.9 1-5 4.9 1.2 6.8L12 17.8 5.9 21l1.2-6.8-5-4.9 6.9-1z"/></svg>{%- endfor -%}
@@ -76,7 +78,8 @@
       "type": "review",
       "name": "Avis",
       "settings": [
-        { "type": "image_picker", "id": "image", "label": "Photo (optionnel)" },
+        { "type": "image_picker", "id": "image", "label": "Photo (upload)" },
+        { "type": "text", "id": "image_url", "label": "OU photo par URL" },
         { "type": "text", "id": "title", "label": "Titre", "default": "Ultra soft, I need 20 more pairs!" },
         { "type": "textarea", "id": "text", "label": "Avis", "default": "The fabric of BoxHero is so soft, I no longer deal with that irritating rubbing I used to have." },
         { "type": "text", "id": "name", "label": "Nom", "default": "Ron D." },

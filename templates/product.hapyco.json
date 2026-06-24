@@ -321,14 +321,63 @@
     "feature_grid": {
       "type": "hapyco-feature-grid",
       "blocks": {
-        "f1": { "type": "feature", "settings": { "icon": "comfort", "title": "Ultimate Comfort", "text": "Like wearing silk — soft, breathable BambooFiber\u2122 that feels like a second skin." } },
-        "f2": { "type": "feature", "settings": { "icon": "air", "title": "Breathes With You", "text": "No more hot spots — HeroMesh\u2122 360\u00b0 cooling keeps the air moving, so you stay fresh." } },
-        "f3": { "type": "feature", "settings": { "icon": "drop", "title": "Moisture-Wicking", "text": "No more swampy situations — moisture-wicking tech keeps your boys dry." } },
-        "f4": { "type": "feature", "settings": { "icon": "fresh", "title": "Odor-Neutralizing", "text": "Smell as fresh at hour 12 as you did at hour 1 thanks to odor-neutralizing BambooFiber\u2122." } },
-        "f5": { "type": "feature", "settings": { "icon": "shield", "title": "Antimicrobial & Hypoallergenic", "text": "Stay fresh and itch-free — designed to keep your skin feeling great all day." } },
-        "f6": { "type": "feature", "settings": { "icon": "band", "title": "Anti-Roll Waistband", "text": "A no-roll waistband that won't pinch or bunch — all-day support that stays put." } }
+        "f1": {
+          "type": "feature",
+          "settings": {
+            "icon": "comfort",
+            "title": "Ultimate Comfort",
+            "text": "Like wearing silk — soft, breathable BambooFiber™ that feels like a second skin."
+          }
+        },
+        "f2": {
+          "type": "feature",
+          "settings": {
+            "icon": "air",
+            "title": "Breathes With You",
+            "text": "No more hot spots — HeroMesh™ 360° cooling keeps the air moving, so you stay fresh."
+          }
+        },
+        "f3": {
+          "type": "feature",
+          "settings": {
+            "icon": "drop",
+            "title": "Moisture-Wicking",
+            "text": "No more swampy situations — moisture-wicking tech keeps your boys dry."
+          }
+        },
+        "f4": {
+          "type": "feature",
+          "settings": {
+            "icon": "fresh",
+            "title": "Odor-Neutralizing",
+            "text": "Smell as fresh at hour 12 as you did at hour 1 thanks to odor-neutralizing BambooFiber™."
+          }
+        },
+        "f5": {
+          "type": "feature",
+          "settings": {
+            "icon": "shield",
+            "title": "Antimicrobial & Hypoallergenic",
+            "text": "Stay fresh and itch-free — designed to keep your skin feeling great all day."
+          }
+        },
+        "f6": {
+          "type": "feature",
+          "settings": {
+            "icon": "band",
+            "title": "Anti-Roll Waistband",
+            "text": "A no-roll waistband that won't pinch or bunch — all-day support that stays put."
+          }
+        }
       },
-      "block_order": ["f1", "f2", "f3", "f4", "f5", "f6"],
+      "block_order": [
+        "f1",
+        "f2",
+        "f3",
+        "f4",
+        "f5",
+        "f6"
+      ],
       "settings": {
         "eyebrow": "",
         "heading": "Your New Favorite Boxers — For Real",
@@ -343,13 +392,64 @@
     "comparison": {
       "type": "hapyco-comparison",
       "blocks": {
-        "c1": { "type": "row", "settings": { "feature": "Breathing system", "c1": "yes", "c2": "no", "c3": "no", "c4": "no" } },
-        "c2": { "type": "row", "settings": { "feature": "HeroMesh\u2122 Technology", "c1": "yes", "c2": "no", "c3": "no", "c4": "no" } },
-        "c3": { "type": "row", "settings": { "feature": "Anti-odor Bamboo", "c1": "yes", "c2": "no", "c3": "no", "c4": "no" } },
-        "c4": { "type": "row", "settings": { "feature": "Anti-chafing design", "c1": "yes", "c2": "no", "c3": "yes", "c4": "no" } },
-        "c5": { "type": "row", "settings": { "feature": "Price", "c1": "$5.99/boxer", "c2": "$12", "c3": "$32", "c4": "$59.99" } }
+        "c1": {
+          "type": "row",
+          "settings": {
+            "feature": "Breathing system",
+            "c1": "yes",
+            "c2": "no",
+            "c3": "no",
+            "c4": "no"
+          }
+        },
+        "c2": {
+          "type": "row",
+          "settings": {
+            "feature": "HeroMesh™ Technology",
+            "c1": "yes",
+            "c2": "no",
+            "c3": "no",
+            "c4": "no"
+          }
+        },
+        "c3": {
+          "type": "row",
+          "settings": {
+            "feature": "Anti-odor Bamboo",
+            "c1": "yes",
+            "c2": "no",
+            "c3": "no",
+            "c4": "no"
+          }
+        },
+        "c4": {
+          "type": "row",
+          "settings": {
+            "feature": "Anti-chafing design",
+            "c1": "yes",
+            "c2": "no",
+            "c3": "yes",
+            "c4": "no"
+          }
+        },
+        "c5": {
+          "type": "row",
+          "settings": {
+            "feature": "Price",
+            "c1": "$5.99/boxer",
+            "c2": "$12",
+            "c3": "$32",
+            "c4": "$59.99"
+          }
+        }
       },
-      "block_order": ["c1", "c2", "c3", "c4", "c5"],
+      "block_order": [
+        "c1",
+        "c2",
+        "c3",
+        "c4",
+        "c5"
+      ],
       "settings": {
         "eyebrow": "See how BoxHero compares",
         "heading": "Why BoxHero Stands Above the Rest",
@@ -373,7 +473,7 @@
         "image_position": "right",
         "eyebrow": "Innovation in men's essentials",
         "heading": "BambooFiber Technology",
-        "body": "<p>We've all dealt with boxers that bunch up, don't breathe, or fall apart. That's why we engineered BambooFiber\u2122 — ultra-soft, breathable and naturally anti-odor for all-day freshness.</p>",
+        "body": "<p>We've all dealt with boxers that bunch up, don't breathe, or fall apart. That's why we engineered BambooFiber™ — ultra-soft, breathable and naturally anti-odor for all-day freshness.</p>",
         "bullets": "<ul><li>No-Roll Waistband that won't pinch or bunch</li><li>Hypoallergenic, skin-safe fabric</li><li>Anti-odor Bamboo technology</li></ul>",
         "button_label": "",
         "button_link": "",
@@ -387,12 +487,45 @@
     "guarantee": {
       "type": "hapyco-guarantee",
       "blocks": {
-        "g1": { "type": "item", "settings": { "icon": "leaf", "title": "Ethically Sourced Bamboo", "text": "Made with sustainable bamboo, so you can feel good about what you're wearing." } },
-        "g2": { "type": "item", "settings": { "icon": "shield", "title": "45 Day Money Back Guarantee", "text": "We're sure you'll love your new pair of BoxHero, if not we'll replace it for free." } },
-        "g3": { "type": "item", "settings": { "icon": "support", "title": "24/7 Support", "text": "We're here for you anytime you need us, no matter what." } },
-        "g4": { "type": "item", "settings": { "icon": "lock", "title": "SSL Secure Payments", "text": "Shop with confidence — our SSL encryption keeps your information safe." } }
+        "g1": {
+          "type": "item",
+          "settings": {
+            "icon": "leaf",
+            "title": "Ethically Sourced Bamboo",
+            "text": "Made with sustainable bamboo, so you can feel good about what you're wearing."
+          }
+        },
+        "g2": {
+          "type": "item",
+          "settings": {
+            "icon": "shield",
+            "title": "45 Day Money Back Guarantee",
+            "text": "We're sure you'll love your new pair of BoxHero, if not we'll replace it for free."
+          }
+        },
+        "g3": {
+          "type": "item",
+          "settings": {
+            "icon": "support",
+            "title": "24/7 Support",
+            "text": "We're here for you anytime you need us, no matter what."
+          }
+        },
+        "g4": {
+          "type": "item",
+          "settings": {
+            "icon": "lock",
+            "title": "SSL Secure Payments",
+            "text": "Shop with confidence — our SSL encryption keeps your information safe."
+          }
+        }
       },
-      "block_order": ["g1", "g2", "g3", "g4"],
+      "block_order": [
+        "g1",
+        "g2",
+        "g3",
+        "g4"
+      ],
       "settings": {
         "heading": "The BoxHero Guarantee",
         "bg_color": "#ffffff",
@@ -406,12 +539,49 @@
     "reviews": {
       "type": "hapyco-reviews",
       "blocks": {
-        "r1": { "type": "review", "settings": { "title": "Husband approves, and so do I ;)", "text": "My husband was fed up with uncomfortable underwear that didn't last. After switching to BoxHero he's a new man.", "name": "Carole J.", "verified": true } },
-        "r2": { "type": "review", "settings": { "title": "No odor or sweat, this really works!", "text": "After a full day of work, there's no sweat or odor. I feel fresh from morning till night.", "name": "Ron D.", "verified": true } },
-        "r3": { "type": "review", "settings": { "title": "The size is good, material is good", "text": "I have tried so many different underwear just to throw them away. These I like — the size and waistband are perfect.", "name": "Tommy G.", "verified": true } },
-        "r4": { "type": "review", "settings": { "title": "Ultra soft, I need 20 more pairs!", "text": "The fabric of BoxHero is so soft, I no longer deal with that irritating rubbing I used to have.", "name": "Marc L.", "verified": true } }
+        "r1": {
+          "type": "review",
+          "settings": {
+            "title": "Husband approves, and so do I ;)",
+            "text": "My husband was fed up with uncomfortable underwear that didn't last. After switching to BoxHero he's a new man.",
+            "name": "Carole J.",
+            "verified": true
+          }
+        },
+        "r2": {
+          "type": "review",
+          "settings": {
+            "title": "No odor or sweat, this really works!",
+            "text": "After a full day of work, there's no sweat or odor. I feel fresh from morning till night.",
+            "name": "Ron D.",
+            "verified": true
+          }
+        },
+        "r3": {
+          "type": "review",
+          "settings": {
+            "title": "The size is good, material is good",
+            "text": "I have tried so many different underwear just to throw them away. These I like — the size and waistband are perfect.",
+            "name": "Tommy G.",
+            "verified": true
+          }
+        },
+        "r4": {
+          "type": "review",
+          "settings": {
+            "title": "Ultra soft, I need 20 more pairs!",
+            "text": "The fabric of BoxHero is so soft, I no longer deal with that irritating rubbing I used to have.",
+            "name": "Marc L.",
+            "verified": true
+          }
+        }
       },
-      "block_order": ["r1", "r2", "r3", "r4"],
+      "block_order": [
+        "r1",
+        "r2",
+        "r3",
+        "r4"
+      ],
       "settings": {
         "rating_text": "4.8/5 based on 3438 reviews",
         "count_number": "50,481+",
@@ -478,13 +648,49 @@
     "faq": {
       "type": "hapyco-faq",
       "blocks": {
-        "q1": { "type": "qa", "settings": { "question": "What is bamboo fibre?", "answer": "<p>Bamboo fibre is a natural material that's increasingly appreciated for its soft, breathable and antibacterial properties.</p>" } },
-        "q2": { "type": "qa", "settings": { "question": "Why do dermatologists recommend them?", "answer": "<p>Dermatologists recommend our bamboo fibre boxers because of their softness and their ability to keep skin dry and irritation-free.</p>" } },
-        "q3": { "type": "qa", "settings": { "question": "How does the 2+3 offer work?", "answer": "<p>Our special offer allows you to buy 2 bamboo fibre boxer shorts and receive 3 free.</p>" } },
-        "q4": { "type": "qa", "settings": { "question": "Are they suitable for sensitive skin?", "answer": "<p>Yes, bamboo fibre boxers are generally suitable for sensitive skin due to their softness and hypoallergenic properties.</p>" } },
-        "q5": { "type": "qa", "settings": { "question": "Are they machine-washable?", "answer": "<p>Yes, our bamboo fibre boxers are machine-washable. Please follow the care instructions included.</p>" } }
+        "q1": {
+          "type": "qa",
+          "settings": {
+            "question": "What is bamboo fibre?",
+            "answer": "<p>Bamboo fibre is a natural material that's increasingly appreciated for its soft, breathable and antibacterial properties.</p>"
+          }
+        },
+        "q2": {
+          "type": "qa",
+          "settings": {
+            "question": "Why do dermatologists recommend them?",
+            "answer": "<p>Dermatologists recommend our bamboo fibre boxers because of their softness and their ability to keep skin dry and irritation-free.</p>"
+          }
+        },
+        "q3": {
+          "type": "qa",
+          "settings": {
+            "question": "How does the 2+3 offer work?",
+            "answer": "<p>Our special offer allows you to buy 2 bamboo fibre boxer shorts and receive 3 free.</p>"
+          }
+        },
+        "q4": {
+          "type": "qa",
+          "settings": {
+            "question": "Are they suitable for sensitive skin?",
+            "answer": "<p>Yes, bamboo fibre boxers are generally suitable for sensitive skin due to their softness and hypoallergenic properties.</p>"
+          }
+        },
+        "q5": {
+          "type": "qa",
+          "settings": {
+            "question": "Are they machine-washable?",
+            "answer": "<p>Yes, our bamboo fibre boxers are machine-washable. Please follow the care instructions included.</p>"
+          }
+        }
       },
-      "block_order": ["q1", "q2", "q3", "q4", "q5"],
+      "block_order": [
+        "q1",
+        "q2",
+        "q3",
+        "q4",
+        "q5"
+      ],
       "settings": {
         "eyebrow": "FAQ",
         "heading": "Still have questions?",

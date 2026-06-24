@@ -9,6 +9,8 @@
     <div class="hapyco-rich__media">
       {%- if section.settings.image != blank -%}
         {{ section.settings.image | image_url: width: 1200 | image_tag: loading: 'lazy', class: 'hapyco-rich__img', alt: section.settings.heading }}
+      {%- elsif section.settings.image_url != blank -%}
+        <img class="hapyco-rich__img" src="{{ section.settings.image_url }}" alt="{{ section.settings.heading | escape }}" loading="lazy">
       {%- else -%}
         <div class="hapyco-rich__img hapyco-rich__img--placeholder">{{ 'image' | placeholder_svg_tag }}</div>
       {%- endif -%}
@@ -49,7 +51,8 @@
   "tag": "section",
   "class": "section",
   "settings": [
-    { "type": "image_picker", "id": "image", "label": "Image" },
+    { "type": "image_picker", "id": "image", "label": "Image (upload)" },
+    { "type": "text", "id": "image_url", "label": "OU image par URL", "info": "Utilisée si aucune image uploadée" },
     { "type": "select", "id": "image_position", "label": "Position image", "default": "left", "options": [ { "value": "left", "label": "Gauche" }, { "value": "right", "label": "Droite" } ] },
     { "type": "text", "id": "eyebrow", "label": "Sur-titre" },
     { "type": "text", "id": "heading", "label": "Titre", "default": "Innovation in men's essentials" },
