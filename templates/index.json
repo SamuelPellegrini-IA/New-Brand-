@@ -1,377 +1,84 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
   "sections": {
-    "hero": {
-      "type": "lp-hawaiian-hero",
+    "image_banner": {
+      "type": "image-banner",
       "blocks": {
-        "badge_1": { "type": "badge", "settings": { "text": "Impression HD sur tissu premium" } },
-        "badge_2": { "type": "badge", "settings": { "text": "Aperçu live avant commande" } },
-        "badge_3": { "type": "badge", "settings": { "text": "Satisfait ou remboursé 30 jours" } },
-        "badge_4": { "type": "badge", "settings": { "text": "Coffret cadeau disponible" } }
-      },
-      "block_order": ["badge_1", "badge_2", "badge_3", "badge_4"],
-      "settings": {
-        "show_rating": true,
-        "rating_text": "4,8/5 — plus de 40 avis clients vérifiés",
-        "eyebrow": "Chemise hawaïenne personnalisée",
-        "heading": "Transformez la photo de votre chat en <em>chemise tropicale unique</em>",
-        "subheading": "Téléversez 1 à 5 photos, choisissez vos couleurs de feuilles tropicales et de fleurs hawaïennes, et recevez une chemise made-to-order imprimée en haute définition — le cadeau parfait pour les amoureux des chats.",
-        "button_label": "Créer ma chemise maintenant",
-        "button_link": "shopify://products/custom-photo-tropical-cat-hawaiian-shirt",
-        "product": "custom-photo-tropical-cat-hawaiian-shirt",
-        "product_handle": "custom-photo-tropical-cat-hawaiian-shirt",
-        "show_price": true
-      }
-    },
-    "trust": {
-      "type": "lp-hawaiian-trust-bar",
-      "blocks": {
-        "t1": { "type": "item", "settings": { "text": "Paiement 100 % sécurisé" } },
-        "t2": { "type": "item", "settings": { "text": "Production sous 3–5 jours ouvrés" } },
-        "t3": { "type": "item", "settings": { "text": "Livraison internationale suivie" } },
-        "t4": { "type": "item", "settings": { "text": "Support client 7j/7" } }
-      },
-      "block_order": ["t1", "t2", "t3", "t4"],
-      "settings": {}
-    },
-    "showcase": {
-      "type": "lp-hawaiian-showcase",
-      "blocks": {
-        "p1": {
-          "type": "point",
+        "heading": {
+          "type": "heading",
           "settings": {
-            "title": "Motifs tropicaux authentiques",
-            "text": "Feuilles de palmier, fleurs exotiques et ambiance Hawaii — le décor parfait pour mettre en valeur votre photo."
+            "heading": "Browse our latest products",
+            "heading_size": "h0"
           }
         },
-        "p2": {
-          "type": "point",
+        "button": {
+          "type": "buttons",
           "settings": {
-            "title": "Impression haute définition",
-            "text": "Couleurs vives, détails nets et résistance aux lavages pour une chemise qui dure."
-          }
-        },
-        "p3": {
-          "type": "point",
-          "settings": {
-            "title": "Coupe confortable unisexe",
-            "text": "Tissu léger et respirant, idéal pour l'été, les vacances ou les soirées décontractées."
-          }
-        },
-        "p4": {
-          "type": "point",
-          "settings": {
-            "title": "Fabriquée sur commande",
-            "text": "Chaque chemise est imprimée uniquement après votre commande — zéro stock, 100 % unique."
+            "button_label_1": "Shop all",
+            "button_link_1": "shopify://collections/all",
+            "button_style_secondary_1": true,
+            "button_label_2": "",
+            "button_link_2": "",
+            "button_style_secondary_2": false
           }
         }
       },
-      "block_order": ["p1", "p2", "p3", "p4"],
+      "block_order": [
+        "heading",
+        "button"
+      ],
       "settings": {
-        "label": "Le produit",
-        "heading": "La chemise hawaïenne qui raconte votre histoire",
-        "text": "Notre Custom Photo Tropical Cat Hawaiian Shirt combine l'esprit des chemises Aloha avec votre compagnon à quatre pattes. Que ce soit pour vous ou pour offrir, c'est une pièce dont on parle longtemps.",
-        "product": "custom-photo-tropical-cat-hawaiian-shirt",
-        "product_handle": "custom-photo-tropical-cat-hawaiian-shirt",
-        "show_price": true,
-        "show_product_gallery": true,
-        "gallery_limit": 4,
-        "button_label": "Personnaliser ma chemise",
-        "button_link": "shopify://products/custom-photo-tropical-cat-hawaiian-shirt"
+        "image_overlay_opacity": 40,
+        "image_height": "large",
+        "image_behavior": "none",
+        "desktop_content_position": "bottom-center",
+        "desktop_content_alignment": "center",
+        "show_text_box": false,
+        "color_scheme": "scheme-3",
+        "stack_images_on_mobile": false,
+        "mobile_content_alignment": "center",
+        "show_text_below": false
       }
     },
-    "customize": {
-      "type": "lp-hawaiian-customize",
-      "blocks": {
-        "o1": {
-          "type": "option",
-          "settings": {
-            "icon": "📸",
-            "title": "1 à 5 photos",
-            "text": "Choisissez le nombre de photos à intégrer sur votre chemise — votre chat seul ou toute la famille féline."
-          }
-        },
-        "o2": {
-          "type": "option",
-          "settings": {
-            "icon": "🌿",
-            "title": "Couleurs des feuilles",
-            "text": "Personnalisez les teintes des feuilles tropicales pour un rendu qui vous ressemble vraiment."
-          }
-        },
-        "o3": {
-          "type": "option",
-          "settings": {
-            "icon": "🌺",
-            "title": "Couleurs des fleurs",
-            "text": "Hibiscus, fleurs exotiques — sélectionnez les couleurs qui s'harmonisent avec votre photo."
-          }
-        },
-        "o4": {
-          "type": "option",
-          "settings": {
-            "icon": "👁️",
-            "title": "Aperçu en direct",
-            "text": "Visualisez votre création en temps réel avant de valider — ce que vous voyez est ce que vous recevez."
-          }
-        }
-      },
-      "block_order": ["o1", "o2", "o3", "o4"],
+    "featured_collection": {
+      "type": "featured-collection",
       "settings": {
-        "label": "100 % personnalisable",
-        "heading": "Créez votre design en quelques clics",
-        "subheading": "Sur la page produit, notre outil de personnalisation Customily vous guide étape par étape : taille, couleurs, photos et aperçu live.",
-        "button_label": "Commencer ma personnalisation",
-        "button_link": "shopify://products/custom-photo-tropical-cat-hawaiian-shirt"
-      }
-    },
-    "benefits": {
-      "type": "lp-hawaiian-benefits",
-      "blocks": {
-        "b1": {
-          "type": "benefit",
-          "settings": {
-            "icon": "🐱",
-            "title": "Votre chat, star du motif",
-            "text": "Intégrez la photo de votre compagnon dans un décor tropical luxuriant — un résultat fun, original et 100 % personnel."
-          }
-        },
-        "b2": {
-          "type": "benefit",
-          "settings": {
-            "icon": "🎨",
-            "title": "Des couleurs à votre goût",
-            "text": "Feuilles, fleurs, nombre de photos : chaque détail se configure avec des swatches visuels simples et rapides."
-          }
-        },
-        "b3": {
-          "type": "benefit",
-          "settings": {
-            "icon": "☀️",
-            "title": "Esprit vacances toute l'année",
-            "text": "Portez-la à la plage, en soirée ou au bureau casual — la chemise hawaïenne ne passe jamais inaperçue."
-          }
-        },
-        "b4": {
-          "type": "benefit",
-          "settings": {
-            "icon": "🎁",
-            "title": "Cadeau mémorable",
-            "text": "Offrez une chemise unique avec la photo de son chat — le genre de cadeau qu'on garde et qu'on porte fièrement."
-          }
-        },
-        "b5": {
-          "type": "benefit",
-          "settings": {
-            "icon": "📦",
-            "title": "Coffret cadeau en option",
-            "text": "Ajoutez un joli coffret Hawaii Shirt à votre commande pour un effet wow à l'ouverture."
-          }
-        },
-        "b6": {
-          "type": "benefit",
-          "settings": {
-            "icon": "✅",
-            "title": "Qualité garantie",
-            "text": "Impression professionnelle, contrôle qualité et satisfaction garantie — remboursement sous 30 jours si défaut."
-          }
-        }
-      },
-      "block_order": ["b1", "b2", "b3", "b4", "b5", "b6"],
-      "settings": {
-        "heading": "Pourquoi choisir notre chemise hawaïenne personnalisée ?",
-        "subheading": "Plus qu'une simple chemise — c'est une création unique qui célèbre votre chat dans un style tropical inoubliable."
-      }
-    },
-    "steps": {
-      "type": "lp-hawaiian-steps",
-      "blocks": {
-        "s1": {
-          "type": "step",
-          "settings": {
-            "title": "Choisissez vos options",
-            "text": "Sélectionnez votre taille, le nombre de photos (1 à 5), les couleurs des feuilles et des fleurs hawaïennes."
-          }
-        },
-        "s2": {
-          "type": "step",
-          "settings": {
-            "title": "Téléversez votre photo",
-            "text": "Importez la photo de votre chat — de préférence nette, bien cadrée et bien éclairée. Prévisualisez le rendu en direct."
-          }
-        },
-        "s3": {
-          "type": "step",
-          "settings": {
-            "title": "Commandez et recevez",
-            "text": "Validez votre création, ajoutez éventuellement le coffret cadeau, et recevez votre chemise unique chez vous."
-          }
-        }
-      },
-      "block_order": ["s1", "s2", "s3"],
-      "settings": {
-        "heading": "Comment créer votre chemise en 3 étapes",
-        "subheading": "Simple, rapide et amusant — la personnalisation prend moins de 5 minutes.",
-        "button_label": "Je personnalise ma chemise",
-        "button_link": "shopify://products/custom-photo-tropical-cat-hawaiian-shirt"
-      }
-    },
-    "gift": {
-      "type": "lp-hawaiian-gift",
-      "settings": {
-        "icon": "🎁",
-        "heading": "Le cadeau parfait pour un amateur de chats",
-        "text": "Anniversaire, fête des pères, Noël ou juste pour faire plaisir — une chemise hawaïenne avec la photo de son chat, c'est le présent dont tout le monde se souvient. Ajoutez le coffret cadeau Hawaii Shirt sur la page produit pour un emballage premium.",
-        "button_label": "Offrir une chemise personnalisée",
-        "button_link": "shopify://products/custom-photo-tropical-cat-hawaiian-shirt"
-      }
-    },
-    "reviews": {
-      "type": "lp-reviews-summary",
-      "blocks": {
-        "r1": {
-          "type": "review",
-          "settings": {
-            "author": "David E.",
-            "rating": 5,
-            "title": "Qualité bluffante",
-            "content": "<p>Je ne m'attendais pas à une telle qualité d'impression. La photo de mon chat ressort parfaitement sur le motif tropical. Livraison rapide et conforme à l'aperçu.</p>",
-            "verified": true,
-            "verified_label": "Acheteur vérifié"
-          }
-        },
-        "r2": {
-          "type": "review",
-          "settings": {
-            "author": "Liz C.",
-            "rating": 5,
-            "title": "Mon mari adore",
-            "content": "<p>Je l'ai offerte à mon mari pour son anniversaire — il ne l'a pas enlevée de tout le week-end ! Les couleurs sont éclatantes et le tissu est très agréable.</p>",
-            "verified": true,
-            "verified_label": "Acheteur vérifié"
-          }
-        },
-        "r3": {
-          "type": "review",
-          "settings": {
-            "author": "Marie T.",
-            "rating": 5,
-            "title": "Personnalisation facile",
-            "content": "<p>La personnalisation en ligne est super intuitive. J'ai pu choisir les couleurs des fleurs et voir le résultat avant de commander. Mon chat est devenu une star !</p>",
-            "verified": true,
-            "verified_label": "Acheteur vérifié"
-          }
-        },
-        "r4": {
-          "type": "review",
-          "settings": {
-            "author": "V. Arnold",
-            "rating": 4,
-            "title": "Très belle chemise",
-            "content": "<p>Magnifique rendu, belle coupe. Mon conseil : prenez votre taille habituelle. Je recommande à tous les amoureux des chats.</p>",
-            "verified": true,
-            "verified_label": "Acheteur vérifié"
-          }
-        }
-      },
-      "block_order": ["r1", "r2", "r3", "r4"],
-      "settings": {
-        "heading": "Ce que disent nos clients",
-        "average_rating": "4.8",
-        "total_label": "Basé sur 40 avis vérifiés",
-        "star_color": "#ffb800",
-        "bar_color": "#218f78",
-        "track_color": "#ececec",
-        "pct_5": 88,
-        "pct_4": 8,
-        "pct_3": 4,
-        "pct_2": 0,
-        "pct_1": 0,
-        "columns": 2,
-        "show_write_button": false,
-        "background": "#f0faf7",
-        "text_color": "#121212",
-        "padding_top": 56,
-        "padding_bottom": 56
-      }
-    },
-    "faq": {
-      "type": "collapsible-content",
-      "blocks": {
-        "q1": {
-          "type": "collapsible_row",
-          "settings": {
-            "heading": "Combien de photos puis-je ajouter sur la chemise ?",
-            "row_content": "<p>Vous pouvez choisir de 1 à 5 photos lors de la personnalisation. Idéal pour mettre en avant un seul chat ou toute votre famille feline sur le motif tropical.</p>",
-            "page": ""
-          }
-        },
-        "q2": {
-          "type": "collapsible_row",
-          "settings": {
-            "heading": "Quelle photo fonctionne le mieux ?",
-            "row_content": "<p>Utilisez une photo nette, bien éclairée, avec le visage de votre chat bien visible et cadré. Les formats JPG et PNG sont acceptés. Évitez les photos floues ou trop sombres pour un rendu optimal.</p>",
-            "page": ""
-          }
-        },
-        "q3": {
-          "type": "collapsible_row",
-          "settings": {
-            "heading": "Puis-je choisir les couleurs des feuilles et des fleurs ?",
-            "row_content": "<p>Oui ! Sur la page produit, sélectionnez les couleurs des feuilles tropicales et des fleurs hawaïennes grâce aux swatches visuels. L'aperçu live vous montre le résultat en temps réel.</p>",
-            "page": ""
-          }
-        },
-        "q4": {
-          "type": "collapsible_row",
-          "settings": {
-            "heading": "Combien de temps prend la livraison ?",
-            "row_content": "<p>Comptez 3 à 5 jours ouvrés pour la production de votre chemise personnalisée, puis 10 à 15 jours pour la livraison internationale avec suivi.</p>",
-            "page": ""
-          }
-        },
-        "q5": {
-          "type": "collapsible_row",
-          "settings": {
-            "heading": "Proposez-vous un coffret cadeau ?",
-            "row_content": "<p>Oui, un coffret cadeau Hawaii Shirt est disponible en option sur la page produit. Cochez « Choose to buy » pour l'ajouter à votre commande.</p>",
-            "page": ""
-          }
-        },
-        "q6": {
-          "type": "collapsible_row",
-          "settings": {
-            "heading": "Quelle est votre politique de retour ?",
-            "row_content": "<p>Les produits personnalisés ne sont pas retournables sauf en cas de défaut de fabrication ou d'impression. Remboursement ou remplacement sous 30 jours pour tout article défectueux ou endommagé.</p>",
-            "page": ""
-          }
-        }
-      },
-      "block_order": ["q1", "q2", "q3", "q4", "q5", "q6"],
-      "settings": {
-        "caption": "FAQ",
-        "heading": "Questions fréquentes",
-        "heading_size": "h1",
-        "heading_alignment": "center",
-        "layout": "none",
+        "collection": "all",
+        "products_to_show": 8,
+        "title": "Best Sellers",
+        "heading_size": "h2",
+        "description": "",
+        "show_description": false,
+        "description_style": "body",
+        "columns_desktop": 4,
+        "enable_desktop_slider": false,
+        "full_width": false,
+        "show_view_all": true,
+        "view_all_style": "solid",
         "color_scheme": "scheme-1",
-        "container_color_scheme": "scheme-2",
-        "open_first_collapsible_row": false,
         "image_ratio": "adapt",
-        "desktop_layout": "image_second",
-        "padding_top": 48,
-        "padding_bottom": 48
-      }
-    },
-    "cta": {
-      "type": "lp-hawaiian-cta",
-      "settings": {
-        "heading": "Votre chat mérite sa chemise hawaïenne",
-        "subheading": "Rejoignez des centaines de clients ravis. Créez votre chemise tropical cat personnalisée en moins de 5 minutes — aperçu live inclus.",
-        "button_label": "Personnaliser ma chemise maintenant →",
-        "button_link": "shopify://products/custom-photo-tropical-cat-hawaiian-shirt",
-        "note": "Personnalisation en ligne · Aperçu live · Livraison internationale · Coffret cadeau disponible"
+        "image_shape": "default",
+        "show_secondary_image": true,
+        "show_vendor": false,
+        "show_rating": false,
+        "quick_add": "none",
+        "columns_mobile": "2",
+        "swipe_on_mobile": false,
+        "padding_top": 44,
+        "padding_bottom": 36
       }
     }
   },
-  "order": ["hero", "trust", "showcase", "customize", "benefits", "steps", "gift", "reviews", "faq", "cta"]
+  "order": [
+    "image_banner",
+    "featured_collection"
+  ]
 }
