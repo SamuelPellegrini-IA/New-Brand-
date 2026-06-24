@@ -16,21 +16,21 @@
           "type": "lp_sale_badges",
           "settings": {
             "badge_1": "FATHER'S DAY SALE",
-            "badge_2": "BUY 5 GET 3 FREE TODAY",
+            "badge_2": "BUY 2 GET 3 FREE TODAY",
             "badge_3": "",
-            "bg_color": "#101936",
+            "bg_color": "#00237E",
             "text_color": "#ffffff"
           }
         },
         "cro_style": {
           "type": "lp_variant_style",
           "settings": {
-            "sel_border": "#101936",
+            "sel_border": "#00237E",
             "sel_text": "#ffffff",
-            "sel_bg": "#101936",
-            "unsel_border": "#101936",
-            "unsel_text": "#1f1f1f",
-            "hover_border": "#101936",
+            "sel_bg": "#00237E",
+            "unsel_border": "#00237E",
+            "unsel_text": "#121212",
+            "hover_border": "#00237E",
             "radius": 4,
             "tighten_buttons": true,
             "show_more_options": false
@@ -44,8 +44,8 @@
             "reviews_text": "3809+ reviews",
             "platform_text": "Trustpilot",
             "link": "",
-            "star_color": "#00b67a",
-            "text_color": "#1a1a1a"
+            "star_color": "#00C853",
+            "text_color": "#121212"
           }
         },
         "title": {
@@ -66,7 +66,7 @@
         "price_color": {
           "type": "lp_price_color",
           "settings": {
-            "price_color": "#b40000",
+            "price_color": "#931A1A",
             "bold_price": true,
             "price_size": 28,
             "gap_above": 6,
@@ -81,10 +81,10 @@
             "show_save": true,
             "save_prefix": "Save",
             "save_suffix": "OFF",
-            "save_bg": "#b40000",
+            "save_bg": "#931A1A",
             "save_text_color": "#ffffff",
             "per_piece_text": "",
-            "pp_bg": "#101936",
+            "pp_bg": "#00237E",
             "pp_text_color": "#ffffff"
           }
         },
@@ -127,9 +127,9 @@
           "settings": {
             "text": "Men say this fits <u>true to size</u> based on 5,210 Reviews",
             "show_icon": true,
-            "bg_color": "#fff0b8",
-            "text_color": "#1f1f1f",
-            "icon_color": "#1f1f1f"
+            "bg_color": "#FFEEB5",
+            "text_color": "#121212",
+            "icon_color": "#121212"
           }
         },
         "low_stock": {
@@ -167,8 +167,8 @@
           "settings": {
             "text": "Only 39 Left In Stock: Ships in 24/48 Hours",
             "show_pulse_dot": true,
-            "text_color": "#1f1f1f",
-            "dot_color": "#ea0404"
+            "text_color": "#121212",
+            "dot_color": "#00C853"
           }
         },
         "delivery": {
