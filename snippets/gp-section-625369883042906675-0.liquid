@@ -1518,150 +1518,6 @@
     
 
     
-    <gp-row gp-data='{"background":{"desktop":{"attachment":"scroll","color":"transparent","image":{"height":0,"src":"","width":0},"position":{"x":50,"y":50},"repeat":"no-repeat","size":"cover","type":"color"}},"uid":"g7iS5GfREf"}' data-id="g7iS5GfREf" id="g7iS5GfREf" data-same-height-subgrid-container class="g7iS5GfREf gp-relative gp-mx-auto gp-mb-0 gp-grid gp-max-w-full gp-transition-colors gp-duration-200 gp-ease-in-out [&_*]:gp-max-w-full gp-grid-rows-[1fr]" style="--bs:none;--bw:1px 1px 1px 1px;--bc:#121212;--shadow:none;--d:grid;--d-mobile:grid;--d-tablet:grid;--op:100%;--pageType:GP_PRODUCT;--bblr:0px;--bbrr:0px;--btlr:0px;--btrr:0px;--pl-mobile:10px;--pr-mobile:12px;--cg:8px;--gtc:minmax(0, 12fr);--gtc-mobile:minmax(0, 12fr);--w:var(--g-ct-w, 1200px);--bgc:transparent;--bgi:url();--bgp:50% 50%;--bgs:cover;--bgr:no-repeat;--bga:scroll;--pc:start">
-      
-
-      <div
-      data-same-height-display-contents
-      style="--jc:start"
-      class="gJ25bA_NQT gp-relative gp-flex gp-flex-col"
-    >
-      
-  
-    <div
-      data-id="gk874kkfHA"
-      style="--bs:none;--bw:1px 1px 1px 1px;--bc:#121212;--shadow:none;--d:block;--d-mobile:block;--d-tablet:block;--op:100%;--pageType:GP_PRODUCT;--bblr:0px;--bbrr:0px;--btlr:0px;--btrr:0px;--ta:left;--bgc:transparent;--bgi:url();--bgp:50% 50%;--bgs:cover;--bgr:no-repeat;--bga:scroll"
-      data-keep-class="true"
-      class="gk874kkfHA gp-custom-code">
-      <div>
-    <script>
-    document.addEventListener("DOMContentLoaded", function() {
-        const gQnpEDm3BQ = document.querySelector(".gn5lhX4ogT");
-        const g3avkS2mog = document.querySelector(".g_avu8lrAf");
-        const badge = document.querySelector(".gAWRXxgKPh");
-        setTimeout(function(){
-            g3avkS2mog.click();
-        }, 5);
-        
-
-        gQnpEDm3BQ.addEventListener("click", function() {
-
-            document.querySelector('gp-product-variants div[option-name="Buy 2 & Get 3 FREE"] div[variant-option-name="Buy 2 & Get 3 FREE"] > label:first-of-type div.option-value-wrapper[option-data="Buy 2 & Get 3 FREE"]').click();
-            
-             badge.style.setProperty("display", "none", "important");
-             
-            // Change SVG inside gQnpEDm3BQ
-            const svg1 = gQnpEDm3BQ.querySelector("svg");
-            svg1.outerHTML = `
-                <svg fill="none" viewBox="0 0 16 16" height="16" width="16" xmlns="http://www.w3.org/2000/svg" data-id="531898675371181265">
-                    <circle cx="7.58469" cy="7.58469" r="7.08469" fill="white" stroke="#00237E"></circle>
-                    <circle cx="7.52707" cy="7.52707" r="4.43527" fill="#00237E"></circle>
-                </svg>`;
-            // console.log("Clicked on .gGDioAyuGI");
-
-            // Reset SVG inside g3avkS2mog
-            const svg2 = g3avkS2mog.querySelector("svg");
-            svg2.outerHTML = `
-                <svg data-id="531900718936753361" xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 15 15" fill="none">
-                    <circle cx="7.5" cy="7.5" r="7" fill="#C3C3C3" stroke="white"></circle>
-                </svg>`;
-                
-        });
-
-        g3avkS2mog.addEventListener("click", function() {
-            
-            document.querySelector('gp-product-variants div[option-name="Buy 2 & Get 3 FREE"] div[variant-option-name="Buy 2 & Get 3 FREE"] > label:nth-of-type(2) div.option-value-wrapper[option-data="Buy 2 & Get 3 FREE"]').click();
-            
-            badge.style.setProperty("display", "flex", "important");
-            
-            // Change SVG inside g3avkS2mog
-            const svg2 = g3avkS2mog.querySelector("svg");
-            svg2.outerHTML = `
-                <svg fill="none" viewBox="0 0 16 16" height="16" width="16" xmlns="http://www.w3.org/2000/svg" data-id="531898675371181265">
-                    <circle cx="7.58469" cy="7.58469" r="7.08469" fill="white" stroke="#00237E"></circle>
-                    <circle cx="7.52707" cy="7.52707" r="4.43527" fill="#00237E"></circle>
-                </svg>`;
-            // console.log("Clicked on .gMg8-zQ7SU");
-
-            // Reset SVG inside gQnpEDm3BQ
-            const svg1 = gQnpEDm3BQ.querySelector("svg");
-            svg1.outerHTML = `
-                <svg data-id="531900718936753361" xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 15 15" fill="none">
-                    <circle cx="7.5" cy="7.5" r="7" fill="#C3C3C3" stroke="white"></circle>
-                </svg>`;
-
-        });
-        
-    });
-</script>
-
-<style>
-    div[option-name="Buy 2 & Get 3 FREE"]{
-        display: none!important;
-    }
-</style>
-
-
-
-<script>
-{% assign logged_values = "" %}
-{% for variant in product.variants %}
-    console.log("variants available!");
-    console.log("variants 1" + "{{variant.option1}}" );
-    {% if variant.option1 == "1x Black" or variant.option1 == "2x Black + 1x Blue + 1x Red + 1x Grey" or variant.option1 == "Pack of 5 - 2x Black - 1x Blue - 1x Red - 1x Grey" %}
-        {% unless logged_values contains variant.option1 %}
-        {% assign logged_values = logged_values | append: variant.option1 | append: "," %}
-        // Log the Option and Price (formatted with Liquid money filter)
-        var option1 = "{{ variant.option1 }}";
-        var priceText = "{{ variant.price | money }}";
-        var priceTextEachPack2 = "{{ variant.price | divided_by: 10 | money }}";
-        var priceTextEachPack5 = "{{ variant.price | divided_by: 5 | money }}";
-        console.log("Option 1: " + option1);
-        console.log("Price: " + priceText);
-        // Get discount amount
-        var discountAmountRaw = "{{ variant.compare_at_price | money }}";
-        console.log("Discount Amount: " + discountAmountRaw);
-        // Ajuste específico para cada pack
-        if (option1 == "1x Black") {
-            var priceElement = document.querySelector(".option1price h2 span");
-            var discountElement = document.querySelector(".option1discount h2 s");
-            var eachAmountpriceElement = document.querySelector(".eachamount1 strong");
-            eachAmountpriceElement.innerText = "Only " + priceText + " Each";
-        } else if (option1 == "2x Black + 1x Blue + 1x Red + 1x Grey") {
-            var priceElement = document.querySelector(".option2price h2 span");
-            var discountElement = document.querySelector(".option2discount h2 s");
-            var eachAmountpriceElement2 = document.querySelector(".eachamount2 strong");
-            eachAmountpriceElement2.innerText = "Only " + priceTextEachPack5 + " Each";
-        } else if (option1 == "Pack of 5 - 2x Black - 1x Blue - 1x Red - 1x Grey") {
-            var priceElement = document.querySelector(".option3price h2 span");
-            var discountElement = document.querySelector(".option3discount h2 s");
-            var eachAmountpriceElement3 = document.querySelector(".eachamount3 strong");
-            eachAmountpriceElement3.innerText = "Only " + priceTextEachPack10 + " Each";
-        }
-        if (priceElement) {
-            priceElement.innerText = priceText;
-        }
-        if (discountElement) {
-            discountElement.innerText = discountAmountRaw;
-        }
-        {% endunless %}
-    {% endif %}
-{% endfor %}
-</script>
-    </div>
-    </div>
-  
-    </div>
-
-      
-    </gp-row>
-  
-  
-    
-
-    
-
-    
     <gp-row gp-data='{"background":{"desktop":{"attachment":"scroll","color":"transparent","image":{"height":0,"src":"","width":0},"position":{"x":50,"y":50},"repeat":"no-repeat","size":"cover","type":"color"}},"uid":"gVL-dRZCpj"}' data-id="gVL-dRZCpj" id="gVL-dRZCpj" data-same-height-subgrid-container class="gVL-dRZCpj gp-relative gp-mx-auto gp-mb-0 gp-grid gp-max-w-full gp-transition-colors gp-duration-200 gp-ease-in-out [&_*]:gp-max-w-full gp-grid-rows-[1fr]" style="--bs:none;--bw:1px 1px 1px 1px;--bc:#121212;--shadow:none;--d:grid;--d-mobile:grid;--d-tablet:grid;--op:100%;--pageType:GP_PRODUCT;--bblr:0px;--bbrr:0px;--btlr:0px;--btrr:0px;--ml:1px;--mb:0px;--cg:8px;--gtc:minmax(0, 12fr);--w:100%;--w-tablet:var(--g-ct-w, 100%);--w-mobile:var(--g-ct-w, 100%);--bgc:transparent;--bgi:url();--bgp:50% 50%;--bgs:cover;--bgr:no-repeat;--bga:scroll;--pc:start">
       
 
@@ -1948,7 +1804,7 @@
       role="presentation"
       data-id="gxhBhSq681"
       style="--bs:none;--bw:1px 1px 1px 1px;--bc:#121212;--shadow:none;--d:block;--d-mobile:block;--d-tablet:block;--op:100%;--pageType:GP_PRODUCT;--bblr:0px;--bbrr:0px;--btlr:0px;--btrr:0px;--mb:20px;--mb-tablet:20px;--mt-mobile:5px;--mb-mobile:5px;--pt-mobile:0px;--pl-mobile:12px;--pb-mobile:0px;--pr-mobile:12px;--ta:center"
-      class="gp-group/image gp-relative force-publish-1782288481375 gp-flex-none gp-h-auto mobile:gp-flex-none mobile:gp-h-auto tablet:gp-flex-none tablet:gp-h-auto gxhBhSq681"
+      class="gp-group/image gp-relative force-publish-1782288514201 gp-flex-none gp-h-auto mobile:gp-flex-none mobile:gp-h-auto tablet:gp-flex-none tablet:gp-h-auto gxhBhSq681"
     >
       <div
         
@@ -2469,7 +2325,7 @@
       role="presentation"
       data-id="gGa-pVtlF0"
       style="--bs:none;--bw:1px 1px 1px 1px;--bc:#121212;--shadow:none;--d:block;--d-mobile:block;--d-tablet:block;--op:100%;--pageType:GP_PRODUCT;--bblr:0px;--bbrr:0px;--btlr:0px;--btrr:0px;--ta:center"
-      class="gp-group/image gp-relative force-publish-1782288481385 gp-flex-none gp-h-auto mobile:gp-flex-none mobile:gp-h-auto tablet:gp-flex-none tablet:gp-h-auto gGa-pVtlF0"
+      class="gp-group/image gp-relative force-publish-1782288514205 gp-flex-none gp-h-auto mobile:gp-flex-none mobile:gp-h-auto tablet:gp-flex-none tablet:gp-h-auto gGa-pVtlF0"
     >
       <div
         
