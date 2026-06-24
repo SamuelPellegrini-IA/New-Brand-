@@ -1,0 +1,99 @@
+{%- liquid
+  assign items = section.blocks
+-%}
+<div class="hapyco-rev section-{{ section.id }}-padding" style="--r-bg:{{ section.settings.bg_color }};--r-text:{{ section.settings.text_color }};--r-star:{{ section.settings.star_color }};--r-card:{{ section.settings.card_color }}">
+  <div class="page-width">
+    <div class="hapyco-rev__head">
+      <div class="hapyco-rev__stars" aria-hidden="true">
+        {%- for i in (1..5) -%}<svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3 6.3 6.9 1-5 4.9 1.2 6.8L12 17.8 5.9 21l1.2-6.8-5-4.9 6.9-1z"/></svg>{%- endfor -%}
+      </div>
+      {%- if section.settings.rating_text != blank -%}<p class="hapyco-rev__rating">{{ section.settings.rating_text }}</p>{%- endif -%}
+      {%- if section.settings.count_number != blank -%}<p class="hapyco-rev__count">{{ section.settings.count_number }}</p>{%- endif -%}
+      {%- if section.settings.count_label != blank -%}<p class="hapyco-rev__count-label">{{ section.settings.count_label }}</p>{%- endif -%}
+    </div>
+    <div class="hapyco-rev__grid">
+      {%- for block in items -%}
+        <div class="hapyco-rev__card" {{ block.shopify_attributes }}>
+          {%- if block.settings.image != blank -%}
+            {{ block.settings.image | image_url: width: 600 | image_tag: loading: 'lazy', class: 'hapyco-rev__img', alt: block.settings.name }}
+          {%- endif -%}
+          <div class="hapyco-rev__stars hapyco-rev__stars--sm" aria-hidden="true">
+            {%- for i in (1..5) -%}<svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3 6.3 6.9 1-5 4.9 1.2 6.8L12 17.8 5.9 21l1.2-6.8-5-4.9 6.9-1z"/></svg>{%- endfor -%}
+          </div>
+          {%- if block.settings.title != blank -%}<h3 class="hapyco-rev__title">{{ block.settings.title }}</h3>{%- endif -%}
+          {%- if block.settings.text != blank -%}<p class="hapyco-rev__text">{{ block.settings.text }}</p>{%- endif -%}
+          <p class="hapyco-rev__name">
+            {%- if block.settings.verified -%}<svg class="hapyco-rev__verif" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M8 12l2.5 2.5L16 9"/></svg>{%- endif -%}
+            {{ block.settings.name }}
+          </p>
+        </div>
+      {%- endfor -%}
+    </div>
+  </div>
+</div>
+
+{%- style -%}
+  .section-{{ section.id }}-padding { padding-top: {{ section.settings.padding_top | times: 0.6 | round }}px; padding-bottom: {{ section.settings.padding_bottom | times: 0.6 | round }}px; }
+  @media (min-width:750px){ .section-{{ section.id }}-padding { padding-top: {{ section.settings.padding_top }}px; padding-bottom: {{ section.settings.padding_bottom }}px; } }
+  .hapyco-rev { background: var(--r-bg); color: var(--r-text); font-family: Montserrat, -apple-system, sans-serif; }
+  .hapyco-rev__head { text-align: center; margin-bottom: 32px; }
+  .hapyco-rev__stars { display: inline-flex; gap: 3px; color: var(--r-star); }
+  .hapyco-rev__stars svg { width: 22px; height: 22px; }
+  .hapyco-rev__stars--sm svg { width: 16px; height: 16px; }
+  .hapyco-rev__rating { font-size: 14px; opacity: .8; margin: 8px 0 0; }
+  .hapyco-rev__count { font-size: clamp(28px,4vw,44px); font-weight: 900; margin: 6px 0 0; }
+  .hapyco-rev__count-label { font-size: 14px; text-transform: uppercase; letter-spacing: .06em; opacity: .7; margin: 2px 0 0; }
+  .hapyco-rev__grid { display: grid; grid-template-columns: 1fr; gap: 18px; }
+  .hapyco-rev__card { background: var(--r-card); border-radius: 14px; padding: 20px; }
+  .hapyco-rev__img { width: 100%; height: auto; border-radius: 10px; margin-bottom: 12px; display: block; }
+  .hapyco-rev__title { font-size: 15px; font-weight: 800; margin: 10px 0 6px; }
+  .hapyco-rev__text { font-size: 14px; line-height: 1.55; opacity: .85; margin: 0 0 12px; }
+  .hapyco-rev__name { display: flex; align-items: center; gap: 6px; font-size: 13px; font-weight: 700; opacity: .9; margin: 0; }
+  .hapyco-rev__verif { width: 16px; height: 16px; color: #00c853; }
+  @media (min-width:750px){ .hapyco-rev__grid { grid-template-columns: repeat(2, 1fr); gap: 22px; } }
+  @media (min-width:990px){ .hapyco-rev__grid { grid-template-columns: repeat(4, 1fr); } }
+{%- endstyle -%}
+
+{% schema %}
+{
+  "name": "Hapyco · Avis",
+  "tag": "section",
+  "class": "section",
+  "max_blocks": 12,
+  "settings": [
+    { "type": "text", "id": "rating_text", "label": "Note", "default": "4.8/5 based on 3438 reviews" },
+    { "type": "text", "id": "count_number", "label": "Nombre clients", "default": "50,481+" },
+    { "type": "text", "id": "count_label", "label": "Label clients", "default": "Happy Customers" },
+    { "type": "color", "id": "bg_color", "label": "Fond", "default": "#ffffff" },
+    { "type": "color", "id": "card_color", "label": "Fond carte", "default": "#f7f7f7" },
+    { "type": "color", "id": "text_color", "label": "Texte", "default": "#121212" },
+    { "type": "color", "id": "star_color", "label": "Étoiles", "default": "#00c853" },
+    { "type": "range", "id": "padding_top", "min": 0, "max": 100, "step": 4, "unit": "px", "label": "Padding haut", "default": 56 },
+    { "type": "range", "id": "padding_bottom", "min": 0, "max": 100, "step": 4, "unit": "px", "label": "Padding bas", "default": 56 }
+  ],
+  "blocks": [
+    {
+      "type": "review",
+      "name": "Avis",
+      "settings": [
+        { "type": "image_picker", "id": "image", "label": "Photo (optionnel)" },
+        { "type": "text", "id": "title", "label": "Titre", "default": "Ultra soft, I need 20 more pairs!" },
+        { "type": "textarea", "id": "text", "label": "Avis", "default": "The fabric of BoxHero is so soft, I no longer deal with that irritating rubbing I used to have." },
+        { "type": "text", "id": "name", "label": "Nom", "default": "Ron D." },
+        { "type": "checkbox", "id": "verified", "label": "Achat vérifié", "default": true }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Hapyco · Avis",
+      "blocks": [
+        { "type": "review", "settings": { "title": "Husband approves, and so do I ;)", "text": "My husband was fed up with uncomfortable underwear that didn't last. After switching to BoxHero he's a new man.", "name": "Carole J." } },
+        { "type": "review", "settings": { "title": "No odor or sweat, this really works!", "text": "After a full day of work, there's no sweat or odor. I feel fresh from morning till night.", "name": "Ron D." } },
+        { "type": "review", "settings": { "title": "The size is good, material is good", "text": "I have tried so many different underwear just to throw them away. These I like — the size and waistband are perfect.", "name": "Tommy G." } },
+        { "type": "review", "settings": { "title": "Ultra soft, I need 20 more pairs!", "text": "The fabric of BoxHero is so soft, I no longer deal with that irritating rubbing I used to have.", "name": "Marc L." } }
+      ]
+    }
+  ]
+}
+{% endschema %}

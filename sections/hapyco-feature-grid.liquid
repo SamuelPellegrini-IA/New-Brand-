@@ -1,0 +1,101 @@
+{%- liquid
+  assign items = section.blocks
+  assign half = items.size | divided_by: 2
+-%}
+<div class="hapyco-fg section-{{ section.id }}-padding" style="--fg-bg:{{ section.settings.bg_color }};--fg-text:{{ section.settings.text_color }};--fg-accent:{{ section.settings.accent_color }}">
+  <div class="page-width">
+    {%- if section.settings.eyebrow != blank -%}<p class="hapyco-fg__eyebrow">{{ section.settings.eyebrow }}</p>{%- endif -%}
+    {%- if section.settings.heading != blank -%}<h2 class="hapyco-fg__heading">{{ section.settings.heading }}</h2>{%- endif -%}
+    {%- if section.settings.subheading != blank -%}<p class="hapyco-fg__sub">{{ section.settings.subheading }}</p>{%- endif -%}
+
+    <div class="hapyco-fg__layout">
+      <div class="hapyco-fg__col">
+        {%- for block in items limit: half -%}
+          {% render 'hapyco-fg-item', block: block %}
+        {%- endfor -%}
+      </div>
+      <div class="hapyco-fg__media">
+        {%- if section.settings.image != blank -%}
+          {{ section.settings.image | image_url: width: 900 | image_tag: loading: 'lazy', class: 'hapyco-fg__img', alt: section.settings.heading }}
+        {%- else -%}
+          <div class="hapyco-fg__img hapyco-fg__img--ph">{{ 'product-1' | placeholder_svg_tag }}</div>
+        {%- endif -%}
+      </div>
+      <div class="hapyco-fg__col">
+        {%- for block in items offset: half -%}
+          {% render 'hapyco-fg-item', block: block %}
+        {%- endfor -%}
+      </div>
+    </div>
+  </div>
+</div>
+
+{%- style -%}
+  .section-{{ section.id }}-padding { padding-top: {{ section.settings.padding_top | times: 0.6 | round }}px; padding-bottom: {{ section.settings.padding_bottom | times: 0.6 | round }}px; }
+  @media (min-width:750px){ .section-{{ section.id }}-padding { padding-top: {{ section.settings.padding_top }}px; padding-bottom: {{ section.settings.padding_bottom }}px; } }
+  .hapyco-fg { background: var(--fg-bg); color: var(--fg-text); font-family: Montserrat, -apple-system, sans-serif; }
+  .hapyco-fg__eyebrow { text-align: center; font-weight: 700; text-transform: uppercase; letter-spacing: .06em; color: var(--fg-accent); margin: 0 0 6px; font-size: 13px; }
+  .hapyco-fg__heading { text-align: center; font-size: clamp(22px,3vw,34px); font-weight: 800; margin: 0 0 10px; }
+  .hapyco-fg__sub { text-align: center; max-width: 640px; margin: 0 auto 32px; opacity: .8; font-size: 15px; line-height: 1.5; }
+  .hapyco-fg__layout { display: grid; grid-template-columns: 1fr; gap: 20px; align-items: center; }
+  .hapyco-fg__col { display: flex; flex-direction: column; gap: 24px; }
+  .hapyco-fg__img { width: 100%; height: auto; border-radius: 16px; display: block; }
+  .hapyco-fg__img--ph { aspect-ratio: 3/4; background: #ececec; }
+  .hapyco-fg__item { text-align: center; }
+  .hapyco-fg__icon { display: inline-flex; width: 46px; height: 46px; color: var(--fg-accent); margin-bottom: 8px; }
+  .hapyco-fg__icon svg { width: 38px; height: 38px; }
+  .hapyco-fg__icon img { width: 44px; height: 44px; object-fit: contain; }
+  .hapyco-fg__item-title { font-size: 16px; font-weight: 800; margin: 0 0 6px; }
+  .hapyco-fg__item-text { font-size: 14px; line-height: 1.5; opacity: .8; margin: 0; }
+  @media (min-width:990px){
+    .hapyco-fg__layout { grid-template-columns: 1fr 1.1fr 1fr; gap: 32px; }
+    .hapyco-fg__item { text-align: left; }
+  }
+{%- endstyle -%}
+
+{% schema %}
+{
+  "name": "Hapyco · Grille features",
+  "tag": "section",
+  "class": "section",
+  "max_blocks": 10,
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Sur-titre" },
+    { "type": "text", "id": "heading", "label": "Titre", "default": "Your New Favorite Boxers — For Real" },
+    { "type": "textarea", "id": "subheading", "label": "Sous-titre", "default": "Built with every must-have feature you've been waiting for in a boxer — plus a few extras." },
+    { "type": "image_picker", "id": "image", "label": "Image centrale" },
+    { "type": "color", "id": "bg_color", "label": "Fond", "default": "#ffffff" },
+    { "type": "color", "id": "text_color", "label": "Texte", "default": "#121212" },
+    { "type": "color", "id": "accent_color", "label": "Icônes", "default": "#00237e" },
+    { "type": "range", "id": "padding_top", "min": 0, "max": 100, "step": 4, "unit": "px", "label": "Padding haut", "default": 56 },
+    { "type": "range", "id": "padding_bottom", "min": 0, "max": 100, "step": 4, "unit": "px", "label": "Padding bas", "default": 56 }
+  ],
+  "blocks": [
+    {
+      "type": "feature",
+      "name": "Feature",
+      "settings": [
+        { "type": "select", "id": "icon", "label": "Icône", "default": "check", "options": [
+          { "value": "comfort", "label": "Confort" }, { "value": "air", "label": "Respirant" }, { "value": "drop", "label": "Moisture" }, { "value": "fresh", "label": "Odeur" }, { "value": "shield", "label": "Hypoallergénique" }, { "value": "band", "label": "Waistband" }, { "value": "check", "label": "Coche" }
+        ] },
+        { "type": "image_picker", "id": "image", "label": "Image (remplace l'icône)" },
+        { "type": "text", "id": "title", "label": "Titre", "default": "Ultimate Comfort" },
+        { "type": "textarea", "id": "text", "label": "Texte", "default": "Like wearing silk — soft, breathable BambooFiber™ that feels like a second skin." }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Hapyco · Grille features",
+      "blocks": [
+        { "type": "feature", "settings": { "icon": "comfort", "title": "Ultimate Comfort", "text": "Like wearing silk — soft, breathable BambooFiber™ that feels like a second skin." } },
+        { "type": "feature", "settings": { "icon": "air", "title": "Breathes With You", "text": "No more hot spots — HeroMesh™ 360° cooling keeps the air moving, so you stay fresh." } },
+        { "type": "feature", "settings": { "icon": "drop", "title": "Moisture-Wicking", "text": "No more swampy situations — moisture-wicking tech keeps your boys dry." } },
+        { "type": "feature", "settings": { "icon": "fresh", "title": "Odor-Neutralizing", "text": "Smell as fresh at hour 12 as you did at hour 1 thanks to odor-neutralizing BambooFiber™." } },
+        { "type": "feature", "settings": { "icon": "shield", "title": "Antimicrobial & Hypoallergenic", "text": "Stay fresh and itch-free — designed to keep your skin feeling great all day." } },
+        { "type": "feature", "settings": { "icon": "band", "title": "Anti-Roll Waistband", "text": "A no-roll waistband that won't pinch or bunch — all-day support that stays put." } }
+      ]
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,68 @@
+{%- liquid
+  assign img_right = false
+  if section.settings.image_position == 'right'
+    assign img_right = true
+  endif
+-%}
+<div class="hapyco-rich section-{{ section.id }}-padding{% if img_right %} hapyco-rich--right{% endif %}" style="--rf-bg:{{ section.settings.bg_color }};--rf-text:{{ section.settings.text_color }};--rf-accent:{{ section.settings.accent_color }}">
+  <div class="page-width hapyco-rich__grid">
+    <div class="hapyco-rich__media">
+      {%- if section.settings.image != blank -%}
+        {{ section.settings.image | image_url: width: 1200 | image_tag: loading: 'lazy', class: 'hapyco-rich__img', alt: section.settings.heading }}
+      {%- else -%}
+        <div class="hapyco-rich__img hapyco-rich__img--placeholder">{{ 'image' | placeholder_svg_tag }}</div>
+      {%- endif -%}
+    </div>
+    <div class="hapyco-rich__content">
+      {%- if section.settings.eyebrow != blank -%}<p class="hapyco-rich__eyebrow">{{ section.settings.eyebrow }}</p>{%- endif -%}
+      {%- if section.settings.heading != blank -%}<h2 class="hapyco-rich__heading">{{ section.settings.heading }}</h2>{%- endif -%}
+      {%- if section.settings.body != blank -%}<div class="hapyco-rich__body rte">{{ section.settings.body }}</div>{%- endif -%}
+      {%- if section.settings.bullets != blank -%}<div class="hapyco-rich__bullets rte">{{ section.settings.bullets }}</div>{%- endif -%}
+      {%- if section.settings.button_label != blank -%}
+        <a class="hapyco-rich__btn" href="{{ section.settings.button_link | default: '#' }}">{{ section.settings.button_label }}</a>
+      {%- endif -%}
+    </div>
+  </div>
+</div>
+
+{%- style -%}
+  .section-{{ section.id }}-padding { padding-top: {{ section.settings.padding_top | times: 0.6 | round }}px; padding-bottom: {{ section.settings.padding_bottom | times: 0.6 | round }}px; }
+  @media (min-width:750px){ .section-{{ section.id }}-padding { padding-top: {{ section.settings.padding_top }}px; padding-bottom: {{ section.settings.padding_bottom }}px; } }
+  .hapyco-rich { background: var(--rf-bg); color: var(--rf-text); font-family: Montserrat, -apple-system, sans-serif; }
+  .hapyco-rich__grid { display: grid; grid-template-columns: 1fr; gap: 24px; align-items: center; }
+  .hapyco-rich__img { width: 100%; height: auto; border-radius: 14px; display: block; }
+  .hapyco-rich__img--placeholder { aspect-ratio: 4/3; background: #ececec; }
+  .hapyco-rich__eyebrow { font-size: 13px; font-weight: 700; text-transform: uppercase; letter-spacing: .06em; color: var(--rf-accent); margin: 0 0 8px; }
+  .hapyco-rich__heading { font-size: clamp(22px, 3vw, 34px); font-weight: 800; line-height: 1.15; margin: 0 0 14px; }
+  .hapyco-rich__body, .hapyco-rich__bullets { font-size: 15px; line-height: 1.6; color: var(--rf-text); opacity: .85; }
+  .hapyco-rich__bullets ul { padding-left: 18px; }
+  .hapyco-rich__btn { display: inline-block; margin-top: 18px; background: var(--rf-accent); color: #fff; font-weight: 800; text-transform: uppercase; letter-spacing: .03em; padding: 14px 28px; border-radius: 10px; text-decoration: none; }
+  @media (min-width:750px){
+    .hapyco-rich__grid { grid-template-columns: 1fr 1fr; gap: 48px; }
+    .hapyco-rich--right .hapyco-rich__media { order: 2; }
+  }
+{%- endstyle -%}
+
+{% schema %}
+{
+  "name": "Hapyco · Image + texte",
+  "tag": "section",
+  "class": "section",
+  "settings": [
+    { "type": "image_picker", "id": "image", "label": "Image" },
+    { "type": "select", "id": "image_position", "label": "Position image", "default": "left", "options": [ { "value": "left", "label": "Gauche" }, { "value": "right", "label": "Droite" } ] },
+    { "type": "text", "id": "eyebrow", "label": "Sur-titre" },
+    { "type": "text", "id": "heading", "label": "Titre", "default": "Innovation in men's essentials" },
+    { "type": "richtext", "id": "body", "label": "Texte", "default": "<p>Add your descriptive text here.</p>" },
+    { "type": "richtext", "id": "bullets", "label": "Liste à puces" },
+    { "type": "text", "id": "button_label", "label": "Bouton (texte)" },
+    { "type": "url", "id": "button_link", "label": "Bouton (lien)" },
+    { "type": "color", "id": "bg_color", "label": "Fond", "default": "#ffffff" },
+    { "type": "color", "id": "text_color", "label": "Texte", "default": "#121212" },
+    { "type": "color", "id": "accent_color", "label": "Accent / bouton", "default": "#00237e" },
+    { "type": "range", "id": "padding_top", "min": 0, "max": 100, "step": 4, "unit": "px", "label": "Padding haut", "default": 48 },
+    { "type": "range", "id": "padding_bottom", "min": 0, "max": 100, "step": 4, "unit": "px", "label": "Padding bas", "default": 48 }
+  ],
+  "presets": [{ "name": "Hapyco · Image + texte" }]
+}
+{% endschema %}

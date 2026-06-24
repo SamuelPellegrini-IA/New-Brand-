@@ -1,0 +1,112 @@
+{%- liquid
+  assign rows = section.blocks
+-%}
+<div class="hapyco-cmp section-{{ section.id }}-padding" style="--c-bg:{{ section.settings.bg_color }};--c-text:{{ section.settings.text_color }};--c-brand:{{ section.settings.brand_color }};--c-yes:{{ section.settings.yes_color }};--c-no:{{ section.settings.no_color }};--c-col:{{ section.settings.brand_bg }}">
+  <div class="page-width">
+    {%- if section.settings.eyebrow != blank -%}<p class="hapyco-cmp__eyebrow">{{ section.settings.eyebrow }}</p>{%- endif -%}
+    {%- if section.settings.heading != blank -%}<h2 class="hapyco-cmp__heading">{{ section.settings.heading }}</h2>{%- endif -%}
+    <div class="hapyco-cmp__scroll">
+      <table class="hapyco-cmp__table">
+        <thead>
+          <tr>
+            <th class="hapyco-cmp__feat"></th>
+            <th class="hapyco-cmp__brand">{{ section.settings.brand_name }}</th>
+            <th>{{ section.settings.col_2 }}</th>
+            <th>{{ section.settings.col_3 }}</th>
+            <th>{{ section.settings.col_4 }}</th>
+          </tr>
+        </thead>
+        <tbody>
+          {%- for row in rows -%}
+            <tr {{ row.shopify_attributes }}>
+              <td class="hapyco-cmp__feat">{{ row.settings.feature }}</td>
+              {%- for i in (1..4) -%}
+                {%- assign key = 'c' | append: i -%}
+                {%- assign val = row.settings[key] -%}
+                <td class="{% if i == 1 %}hapyco-cmp__brand{% endif %}">
+                  {%- if val == 'yes' -%}
+                    <svg class="ic ic--yes" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l4.5 4.5L19 7"/></svg>
+                  {%- elsif val == 'no' -%}
+                    <svg class="ic ic--no" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M6 6l12 12M18 6L6 18"/></svg>
+                  {%- else -%}
+                    <span class="hapyco-cmp__txt">{{ val }}</span>
+                  {%- endif -%}
+                </td>
+              {%- endfor -%}
+            </tr>
+          {%- endfor -%}
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+{%- style -%}
+  .section-{{ section.id }}-padding { padding-top: {{ section.settings.padding_top | times: 0.6 | round }}px; padding-bottom: {{ section.settings.padding_bottom | times: 0.6 | round }}px; }
+  @media (min-width:750px){ .section-{{ section.id }}-padding { padding-top: {{ section.settings.padding_top }}px; padding-bottom: {{ section.settings.padding_bottom }}px; } }
+  .hapyco-cmp { background: var(--c-bg); color: var(--c-text); font-family: Montserrat, -apple-system, sans-serif; }
+  .hapyco-cmp__eyebrow { text-align: center; font-weight: 700; text-transform: uppercase; letter-spacing: .06em; color: var(--c-brand); margin: 0 0 6px; font-size: 13px; }
+  .hapyco-cmp__heading { text-align: center; font-size: clamp(22px,3vw,32px); font-weight: 800; margin: 0 0 24px; }
+  .hapyco-cmp__scroll { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+  .hapyco-cmp__table { width: 100%; border-collapse: separate; border-spacing: 0; min-width: 560px; }
+  .hapyco-cmp__table th, .hapyco-cmp__table td { padding: 14px 10px; text-align: center; font-size: 14px; border-bottom: 1px solid #e7e7e7; }
+  .hapyco-cmp__table thead th { font-weight: 800; font-size: 13px; color: #777; }
+  .hapyco-cmp__feat { text-align: left !important; font-weight: 700; color: var(--c-text); width: 30%; }
+  .hapyco-cmp__brand { background: var(--c-col); color: #fff !important; font-weight: 800; }
+  .hapyco-cmp__table thead .hapyco-cmp__brand { border-top-left-radius: 12px; border-top-right-radius: 12px; }
+  .ic { width: 22px; height: 22px; }
+  .ic--yes { color: var(--c-yes); }
+  .ic--no { color: var(--c-no); }
+  .hapyco-cmp__brand .ic--yes { color: #fff; }
+  .hapyco-cmp__txt { font-weight: 700; }
+{%- endstyle -%}
+
+{% schema %}
+{
+  "name": "Hapyco · Comparatif",
+  "tag": "section",
+  "class": "section",
+  "max_blocks": 12,
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Sur-titre", "default": "See how BoxHero compares" },
+    { "type": "text", "id": "heading", "label": "Titre", "default": "Why BoxHero Stands Above the Rest" },
+    { "type": "text", "id": "brand_name", "label": "Colonne marque", "default": "BoxHero" },
+    { "type": "text", "id": "col_2", "label": "Colonne 2", "default": "Hanes" },
+    { "type": "text", "id": "col_3", "label": "Colonne 3", "default": "SAXX" },
+    { "type": "text", "id": "col_4", "label": "Colonne 4", "default": "Calvin Klein" },
+    { "type": "color", "id": "bg_color", "label": "Fond", "default": "#ffffff" },
+    { "type": "color", "id": "text_color", "label": "Texte", "default": "#121212" },
+    { "type": "color", "id": "brand_color", "label": "Accent", "default": "#00237e" },
+    { "type": "color", "id": "brand_bg", "label": "Fond colonne marque", "default": "#00237e" },
+    { "type": "color", "id": "yes_color", "label": "Couleur ✓", "default": "#00c853" },
+    { "type": "color", "id": "no_color", "label": "Couleur ✗", "default": "#cc2b2b" },
+    { "type": "range", "id": "padding_top", "min": 0, "max": 100, "step": 4, "unit": "px", "label": "Padding haut", "default": 48 },
+    { "type": "range", "id": "padding_bottom", "min": 0, "max": 100, "step": 4, "unit": "px", "label": "Padding bas", "default": 48 }
+  ],
+  "blocks": [
+    {
+      "type": "row",
+      "name": "Ligne",
+      "settings": [
+        { "type": "text", "id": "feature", "label": "Critère", "default": "Breathing system" },
+        { "type": "text", "id": "c1", "label": "BoxHero (yes / no / texte)", "default": "yes" },
+        { "type": "text", "id": "c2", "label": "Colonne 2", "default": "no" },
+        { "type": "text", "id": "c3", "label": "Colonne 3", "default": "no" },
+        { "type": "text", "id": "c4", "label": "Colonne 4", "default": "no" }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Hapyco · Comparatif",
+      "blocks": [
+        { "type": "row", "settings": { "feature": "Breathing system", "c1": "yes", "c2": "no", "c3": "no", "c4": "no" } },
+        { "type": "row", "settings": { "feature": "HeroMesh™ Technology", "c1": "yes", "c2": "no", "c3": "no", "c4": "no" } },
+        { "type": "row", "settings": { "feature": "Anti-odor Bamboo", "c1": "yes", "c2": "no", "c3": "no", "c4": "no" } },
+        { "type": "row", "settings": { "feature": "Anti-chafing design", "c1": "yes", "c2": "no", "c3": "yes", "c4": "no" } },
+        { "type": "row", "settings": { "feature": "Price", "c1": "$5.99/boxer", "c2": "$12", "c3": "$32", "c4": "$59.99" } }
+      ]
+    }
+  ]
+}
+{% endschema %}
