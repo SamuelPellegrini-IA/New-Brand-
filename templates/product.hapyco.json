@@ -332,21 +332,23 @@
       }
     },
     "bamboo_tech": {
-      "type": "hapyco-rich-feature",
+      "type": "hapyco-bamboo-hero",
       "settings": {
-        "image_position": "right",
-        "image_url": "https://cdn.shopify.com/s/files/1/0825/9813/4039/files/gempages_491320059759690869-db36dd70-c11b-4b9b-937d-b5772eff88de.jpg",
-        "eyebrow": "Innovation in men's essentials",
+        "image_url": "https://cdn.shopify.com/s/files/1/0825/9813/4039/files/gempages_491320059759690869-c79eeb0b-5d2c-4f0f-962f-570f8f404449.jpg",
+        "image_url_mobile": "https://cdn.shopify.com/s/files/1/0825/9813/4039/files/gempages_491320059759690869-db36dd70-c11b-4b9b-937d-b5772eff88de.jpg",
+        "focal_desktop": "center",
+        "focal_mobile": "center",
+        "overlay_opacity": 0,
+        "align": "center",
+        "eyebrow": "<p>Innovation in men's essentials</p>",
         "heading": "BambooFiber Technology",
-        "body": "<p>We've all dealt with boxers that bunch up, don't breathe, or fall apart. That's why we engineered BambooFiber\u2122 — ultra-soft, breathable and naturally anti-odor for all-day freshness.</p>",
-        "bullets": "<ul><li>No-Roll Waistband that won't pinch or bunch</li><li>Hypoallergenic, skin-safe fabric</li><li>Anti-odor Bamboo technology</li></ul>",
-        "button_label": "",
+        "body": "<p>We've all dealt with boxers that bunch up, don't breathe, or fall apart. That's why we created BoxHero Bamboo Boxer Shorts — crafted with cutting-edge BambooFiber Technology. Say goodbye to rolling up, sweating, and uncomfortable fits. Toss those old boxers and step into something built for you, by guys who get it.</p>",
+        "button_label": "TRY IT RISK-FREE – TODAY AT 50% OFF!",
         "button_link": "",
-        "bg_color": "#f7f7f7",
-        "text_color": "#121212",
-        "accent_color": "#00237e",
-        "padding_top": 56,
-        "padding_bottom": 56
+        "text_color": "#ffffff",
+        "body_color": "#f7f7f7",
+        "button_bg": "#f7f7f7",
+        "button_text_color": "#00237e"
       }
     },
     "guarantee": {
