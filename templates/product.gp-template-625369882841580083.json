@@ -75,7 +75,6 @@
     },
     "gp_section_625369882908688947": {
       "type": "gp-section-625369882908688947",
-      "disabled": true,
       "settings": {
         "section_preload": "false",
         "checksum": "c2750ecda1cc3311996de9276045a9c285c151a82c9787d089c57f2eee885186_1_1_1_0__1",
@@ -122,7 +121,6 @@
     },
     "gp_section_625369883093238323": {
       "type": "gp-section-625369883093238323",
-      "disabled": true,
       "settings": {
         "section_preload": "false",
         "checksum": "e8a29fa9d400e9083bde08075623e07959f67498d17092c7774088442fb66233_1_1_1_0__1",
@@ -175,7 +173,6 @@
     },
     "gp_section_625369882925466163": {
       "type": "gp-section-625369882925466163",
-      "disabled": true,
       "settings": {
         "section_preload": "false",
         "checksum": "9a5460415ec433dbbc15cf9ebd4d20b4ce04fd53edd4d5753a43a5dea93f4d5f_1_1_1_0__1",
@@ -202,7 +199,6 @@
     },
     "gp_section_625369883126989363": {
       "type": "gp-section-625369883126989363",
-      "disabled": true,
       "settings": {
         "section_preload": "false",
         "checksum": "5c3dd5b047651b50c7a80b08fedfa35bde5b110c50c42ac3b0d70715d982b4e5_1_1_1_0__1",
@@ -213,7 +209,6 @@
     },
     "gp_section_625369882975928883": {
       "type": "gp-section-625369882975928883",
-      "disabled": true,
       "settings": {
         "section_preload": "false",
         "checksum": "9919017a7b5de1783ccb730dfaf3dbd131ff6393703e17afb591153692372458_1_1_1_0__1",
@@ -224,7 +219,6 @@
     },
     "gp_section_625369883127120435": {
       "type": "gp-section-625369883127120435",
-      "disabled": true,
       "settings": {
         "section_preload": "false",
         "checksum": "a4185ff24156feb6c15b15a41829bf402557222b9cfd66fd44c2ca1028800055_1_1_1_0__1",
@@ -235,7 +229,6 @@
     },
     "gp_section_625369883093303859": {
       "type": "gp-section-625369883093303859",
-      "disabled": true,
       "settings": {
         "section_preload": "false",
         "checksum": "9ce85c6af217e21db347febc09e874d086f8cb540ca1fba7e2b5b016fc54765b_1_1_1_0__1",
@@ -246,7 +239,6 @@
     },
     "gp_section_625369883127054899": {
       "type": "gp-section-625369883127054899",
-      "disabled": true,
       "settings": {
         "section_preload": "false",
         "checksum": "e5d14d12cbe2f88c8ab7c533328fd6b2ecb2314d0c033cbb21260fcd039ea16f_1_1_1_0__1",
