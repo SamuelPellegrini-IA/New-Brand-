@@ -151,7 +151,7 @@
             "show_dynamic_checkout": false,
             "show_gift_card_recipient": false,
             "gecko_button_style": true,
-            "gecko_atc_label": "ADD TO CART"
+            "gecko_atc_label": "ADD TO CART NOW"
           }
         },
         "payment_icons": {
