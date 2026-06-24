@@ -229,8 +229,8 @@
             "left_text": "12% Stock Left",
             "right_text": "Offer Ends Soon",
             "bar_width": 12,
-            "bar_color": "#ea0404",
-            "track_color": "#ececec",
+            "bar_color": "#ff2d72",
+            "track_color": "#f0f0f2",
             "text_color": "#1f1f1f"
           }
         }
