@@ -1197,89 +1197,7 @@
 
         } catch(err){}
       </script>
-    
-    </div>
-
-      
-    </gp-row>
-  
-  
-          {%- endform -%}
-        </product-form>
-      </gp-product>
-      {%- assign product = gpBkProduct -%}
-    {% else %}
-      <div class="gp-text-center">{{ 'gempages.Product.product_not_found' | t }}</div>
-    {% endif %}
-    <script {% if section.settings.section_preload == "false" %}class="gps-link" delay {% else %}src{% endif %}="https://assets.gemcommerce.com/assets-v2/gp-product-v7-5.js?v={{ shop.metafields.GEMPAGES.ASSETS_VERSION }}" defer="defer"></script>
-  
-    </div>
-
-      
-    </gp-row>
-  
-  
-    
-      {%- assign gpBkProduct = product -%}
-      
-      {%- liquid
-        if request.page_type != 'product'
-          assign product = all_products['custom-photo-tropical-style-cat-hawaii-shirt']
-          assign productId = '9468400697602' | times: 1
-          if product == empty or product == null
-            paginate collections.all.products by 100000
-              for item in collections.all.products
-                if item.id == productId
-                  assign product = item
-                endif
-              endfor
-            endpaginate
-          endif
-        endif
-      -%}
-    
-    
-    {% if product != empty and product != null %}
-      
-      {%- assign initVariantId =  -%}
-      {%- assign product_form_id = 'product-form-' | append: "ga1utwdU-t" -%}
-      {%- assign variant = product.selected_or_first_available_variant -%}
-      {%- assign productSelectedVariant = product.selected_or_first_available_variant -%}
-      {%-if productSelectedVariant == empty or productSelectedVariant == null -%}
-        {%- assign productSelectedVariant = product.selected_or_first_available_variant -%}
-      {%- endif -%}
-      {%-if variant == empty or variant == null -%}
-        {%- assign variant = product.selected_or_first_available_variant -%}
-      {%- endif -%}
-    
-      <gp-product
-        data-uid="ga1utwdU-t"
-        data-id="ga1utwdU-t"
-        style="--pos:sticky;--pos-mobile:static;--top:-1px"
-        
-        gp-context='{"productId": {{ product.id }}, "preSelectedOptionIds": [], "isSyncProduct": "true", "hasPreSelected": false, "variantSelected": {{ variant | json | escape }},  "inventory_management": {{ variant.inventory_management | json | escape  }}, "inventory_policy": {{ variant.inventory_policy | json | escape }}, "inventoryQuantity": {{ variant.inventory_quantity | default: 0 }}, "quantity": 1, "formId": "{{ product_form_id }}" }'
-        gp-data='{"variantSelected": {{ variant | json | escape }}, "quantity": 1, "productUrl":{{ product.url | json | escape }}, "productHandle":{{ product.handle | json | escape }}, "collectionUrl": {{ collection.url | json | escape }}, "collectionHandle": {{ collection.handle | json | escape }}}'
-      >
-        <product-form class="product-form">
-          {%- form 'product', product, id: product_form_id, class: 'form contents', data-type: 'add-to-cart-form', autocomplete: 'off'  -%}
-            <input type="hidden" name="id" value="{{ variant.id }}" />
-            <input type="hidden" name="quantity" value="{{ quantity }}" />
-            <button type="submit" onclick="return false;" style="display:none;"></button>
-            
-    
-
-    
-
-    
-    <gp-row gp-data='{"background":{"desktop":{"type":"color","color":"transparent"}},"uid":"ga1utwdU-t"}' data-id="ga1utwdU-t-row" id="ga1utwdU-t" data-same-height-subgrid-container class="ga1utwdU-t gp-relative gp-mx-auto gp-mb-0 gp-grid gp-max-w-full gp-transition-colors gp-duration-200 gp-ease-in-out [&_*]:gp-max-w-full gp-grid-rows-[1fr]" style="--d:grid;--d-tablet:grid;--d-mobile:grid;--bs:none;--bw:1px 1px 1px 1px;--bc:var(--g-c-line-3, line-3);--bblr:0px;--bbrr:0px;--btlr:0px;--btrr:0px;--op:100%;--mt:0px;--mt-tablet:0px;--mt-mobile:0px;--pos:sticky;--pos-mobile:static;--top:-1px;--cg:32px;--rg:32px;--rg-mobile:16px;--gtc:minmax(0, 12fr);--w:100%;--bgc:transparent;--bgi:url();--pc:start">
-      
-
-      <div
-      data-same-height-display-contents
-      style="--jc:start"
-      class="gCipYGgikc gp-relative gp-flex gp-flex-col"
-    >
-      <div gp-el-wrapper style="--mb:var(--g-s-l);--d:block;--d-tablet:block;--d-mobile:block;--bs:none;--bw:1px 1px 1px 1px;--bc:var(--g-c-line-3, line-3);--bblr:0px;--bbrr:0px;--btlr:0px;--btrr:0px;--op:100%" class="g7zVec0QwB ">
+    <div gp-el-wrapper style="--d:block;--d-tablet:block;--d-mobile:block;--bs:none;--bw:1px 1px 1px 1px;--bc:var(--g-c-line-3, line-3);--bblr:0px;--bbrr:0px;--btlr:0px;--btrr:0px;--op:100%" class="g7zVec0QwB ">
       
     {%- liquid
       assign current_variant = variant
@@ -1400,6 +1318,88 @@
       <script {% if section.settings.section_preload == "false" %}class="gps-link" delay {% else %}src{% endif %}="https://assets.gemcommerce.com/assets-v2/gp-product-stock-counter-v7-5.js?v={{ shop.metafields.GEMPAGES.ASSETS_VERSION }}" defer="defer"></script>
   
       </div>
+    </div>
+
+      
+    </gp-row>
+  
+  
+          {%- endform -%}
+        </product-form>
+      </gp-product>
+      {%- assign product = gpBkProduct -%}
+    {% else %}
+      <div class="gp-text-center">{{ 'gempages.Product.product_not_found' | t }}</div>
+    {% endif %}
+    <script {% if section.settings.section_preload == "false" %}class="gps-link" delay {% else %}src{% endif %}="https://assets.gemcommerce.com/assets-v2/gp-product-v7-5.js?v={{ shop.metafields.GEMPAGES.ASSETS_VERSION }}" defer="defer"></script>
+  
+    </div>
+
+      
+    </gp-row>
+  
+  
+    
+      {%- assign gpBkProduct = product -%}
+      
+      {%- liquid
+        if request.page_type != 'product'
+          assign product = all_products['custom-photo-tropical-style-cat-hawaii-shirt']
+          assign productId = '9468400697602' | times: 1
+          if product == empty or product == null
+            paginate collections.all.products by 100000
+              for item in collections.all.products
+                if item.id == productId
+                  assign product = item
+                endif
+              endfor
+            endpaginate
+          endif
+        endif
+      -%}
+    
+    
+    {% if product != empty and product != null %}
+      
+      {%- assign initVariantId =  -%}
+      {%- assign product_form_id = 'product-form-' | append: "ga1utwdU-t" -%}
+      {%- assign variant = product.selected_or_first_available_variant -%}
+      {%- assign productSelectedVariant = product.selected_or_first_available_variant -%}
+      {%-if productSelectedVariant == empty or productSelectedVariant == null -%}
+        {%- assign productSelectedVariant = product.selected_or_first_available_variant -%}
+      {%- endif -%}
+      {%-if variant == empty or variant == null -%}
+        {%- assign variant = product.selected_or_first_available_variant -%}
+      {%- endif -%}
+    
+      <gp-product
+        data-uid="ga1utwdU-t"
+        data-id="ga1utwdU-t"
+        style="--pos:sticky;--pos-mobile:static;--top:-1px"
+        
+        gp-context='{"productId": {{ product.id }}, "preSelectedOptionIds": [], "isSyncProduct": "true", "hasPreSelected": false, "variantSelected": {{ variant | json | escape }},  "inventory_management": {{ variant.inventory_management | json | escape  }}, "inventory_policy": {{ variant.inventory_policy | json | escape }}, "inventoryQuantity": {{ variant.inventory_quantity | default: 0 }}, "quantity": 1, "formId": "{{ product_form_id }}" }'
+        gp-data='{"variantSelected": {{ variant | json | escape }}, "quantity": 1, "productUrl":{{ product.url | json | escape }}, "productHandle":{{ product.handle | json | escape }}, "collectionUrl": {{ collection.url | json | escape }}, "collectionHandle": {{ collection.handle | json | escape }}}'
+      >
+        <product-form class="product-form">
+          {%- form 'product', product, id: product_form_id, class: 'form contents', data-type: 'add-to-cart-form', autocomplete: 'off'  -%}
+            <input type="hidden" name="id" value="{{ variant.id }}" />
+            <input type="hidden" name="quantity" value="{{ quantity }}" />
+            <button type="submit" onclick="return false;" style="display:none;"></button>
+            
+    
+
+    
+
+    
+    <gp-row gp-data='{"background":{"desktop":{"type":"color","color":"transparent"}},"uid":"ga1utwdU-t"}' data-id="ga1utwdU-t-row" id="ga1utwdU-t" data-same-height-subgrid-container class="ga1utwdU-t gp-relative gp-mx-auto gp-mb-0 gp-grid gp-max-w-full gp-transition-colors gp-duration-200 gp-ease-in-out [&_*]:gp-max-w-full gp-grid-rows-[1fr]" style="--d:grid;--d-tablet:grid;--d-mobile:grid;--bs:none;--bw:1px 1px 1px 1px;--bc:var(--g-c-line-3, line-3);--bblr:0px;--bbrr:0px;--btlr:0px;--btrr:0px;--op:100%;--mt:0px;--mt-tablet:0px;--mt-mobile:0px;--pos:sticky;--pos-mobile:static;--top:-1px;--cg:32px;--rg:32px;--rg-mobile:16px;--gtc:minmax(0, 12fr);--w:100%;--bgc:transparent;--bgi:url();--pc:start">
+      
+
+      <div
+      data-same-height-display-contents
+      style="--jc:start"
+      class="gCipYGgikc gp-relative gp-flex gp-flex-col"
+    >
+      
     
 
     
@@ -1417,7 +1417,7 @@
     {% assign locationOrigin = request.origin | append: routes.root_url | split: '/' | join: '/' %}
     <div data-id="gvFlAj65NK"
         class="gvFlAj65NK"
-        style="--ta:left;--bs:none;--bw:1px 1px 1px 1px;--bc:#121212;--shadow:none;--d:block;--d-mobile:block;--d-tablet:block;--op:100%;--pageType:GP_PRODUCT;--bblr:0px;--bbrr:0px;--btlr:0px;--btrr:0px;--dynamic-source-color:#F4F4F4"
+        style="--ta:left;--bs:none;--bw:1px 1px 1px 1px;--bc:#121212;--shadow:none;--d:block;--d-mobile:block;--d-tablet:block;--op:100%;--pageType:GP_PRODUCT;--bblr:0px;--bbrr:0px;--btlr:0px;--btrr:0px;--mb:0px;--mb-tablet:0px;--mb-mobile:0px;--dynamic-source-color:#F4F4F4"
       >
       <div class="gp-flex" style="--jc:left">
         <div
@@ -1654,7 +1654,7 @@
       role="presentation"
       data-id="gFXV47PlUr"
       style="--bs:none;--bw:1px 1px 1px 1px;--bc:#121212;--shadow:none;--d:block;--d-mobile:block;--d-tablet:block;--op:100%;--pageType:GP_PRODUCT;--bblr:0px;--bbrr:0px;--btlr:0px;--btrr:0px;--ml:0px;--mr:0px;--pt:5px;--pl:0px;--pr:0px;--ta:center"
-      class="gp-group/image gp-relative force-publish-1782385119922 gp-flex-none gp-h-auto mobile:gp-flex-none mobile:gp-h-auto tablet:gp-flex-none tablet:gp-h-auto gFXV47PlUr"
+      class="gp-group/image gp-relative force-publish-1782386833259 gp-flex-none gp-h-auto mobile:gp-flex-none mobile:gp-h-auto tablet:gp-flex-none tablet:gp-h-auto gFXV47PlUr"
     >
       <div
         
@@ -1723,7 +1723,7 @@
       role="presentation"
       data-id="g4BOi5kMvB"
       style="--bs:none;--bw:1px 1px 1px 1px;--bc:#121212;--shadow:none;--d:block;--d-mobile:block;--d-tablet:block;--op:100%;--pageType:GP_PRODUCT;--pos:static;--bblr:0px;--bbrr:0px;--btlr:0px;--btrr:0px;--ml:0px;--mb:0px;--mr:0px;--pt:5px;--pl:0px;--pb:5px;--pr:10px;--ta:center"
-      class="gp-group/image gp-relative force-publish-1782385119924 gp-flex-none gp-h-auto mobile:gp-flex-none mobile:gp-h-auto tablet:gp-flex-none tablet:gp-h-auto g4BOi5kMvB"
+      class="gp-group/image gp-relative force-publish-1782386833260 gp-flex-none gp-h-auto mobile:gp-flex-none mobile:gp-h-auto tablet:gp-flex-none tablet:gp-h-auto g4BOi5kMvB"
     >
       <div
         
