@@ -534,6 +534,14 @@
       "step_error": "You can only add this item in increments of {{ step }}"
     }
   },
+  "shopify": {
+    "checkout": {
+      "general": {
+        "complete_purchase_button_label": "Complete Purchase",
+        "pay_now_button_label": "Complete Purchase"
+      }
+    }
+  },
   "templates": {
     "404": {
       "title": "Page not found",
@@ -581,14 +589,6 @@
         "send": "Send",
         "post_success": "Thanks for contacting us. We'll get back to you as soon as possible.",
         "error_heading": "Please adjust the following:"
-      }
-    }
-  },
-  "shopify": {
-    "checkout": {
-      "general": {
-        "complete_purchase_button_label": "Complete Purchase",
-        "pay_now_button_label": "Complete Purchase"
       }
     }
   }
