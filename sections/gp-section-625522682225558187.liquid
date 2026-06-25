@@ -227,17 +227,43 @@
       {%- assign gpBkProduct = product -%}
       
       {%- liquid
-        if request.page_type != 'product'
-          assign product = all_products['custom-photo-tropical-cat-hawaiian-shirt']
-          assign productId = '9461882978562' | times: 1
-          if product == empty or product == null
+        if request.page_type == 'product'
+          if 'static' == 'static'
+            if '9468400697602' == 'latest'
+              paginate collections.all.products by 100000
+                assign product = collections.all.products | sort: 'created_at' | reverse | first
+              endpaginate
+            else
+              assign product = all_products['custom-photo-tropical-style-cat-hawaii-shirt']
+              assign productId = '9468400697602' | times: 1
+              if product == empty or product == null
+                paginate collections.all.products by 100000
+                  for item in collections.all.products
+                    if item.id == productId
+                      assign product = item
+                    endif
+                  endfor
+                endpaginate
+              endif
+            endif
+          endif
+        else
+          if '9468400697602' == 'latest'
             paginate collections.all.products by 100000
-              for item in collections.all.products
-                if item.id == productId
-                  assign product = item
-                endif
-              endfor
+              assign product = collections.all.products | sort: 'created_at'| reverse | first
             endpaginate
+          else
+            assign product = all_products['custom-photo-tropical-style-cat-hawaii-shirt']
+            assign productId = '9468400697602' | times: 1
+            if product == empty or product == null
+              paginate collections.all.products by 100000
+                for item in collections.all.products
+                  if item.id == productId
+                    assign product = item
+                  endif
+                endfor
+              endpaginate
+            endif
           endif
         endif
       -%}
@@ -261,7 +287,7 @@
         data-id="g1Tc0UEHBk"
         
         
-        gp-context='{"productId": {{ product.id }}, "preSelectedOptionIds": [], "isSyncProduct": "true", "hasPreSelected": true, "variantSelected": {{ variant | json | escape }},  "inventory_management": {{ variant.inventory_management | json | escape  }}, "inventory_policy": {{ variant.inventory_policy | json | escape }}, "inventoryQuantity": {{ variant.inventory_quantity | default: 0 }}, "quantity": 1, "formId": "{{ product_form_id }}" }'
+        gp-context='{"productId": {{ product.id }}, "preSelectedOptionIds": [], "isSyncProduct": "true", "hasPreSelected": false, "variantSelected": {{ variant | json | escape }},  "inventory_management": {{ variant.inventory_management | json | escape  }}, "inventory_policy": {{ variant.inventory_policy | json | escape }}, "inventoryQuantity": {{ variant.inventory_quantity | default: 0 }}, "quantity": 1, "formId": "{{ product_form_id }}" }'
         gp-data='{"variantSelected": {{ variant | json | escape }}, "quantity": 1, "productUrl":{{ product.url | json | escape }}, "productHandle":{{ product.handle | json | escape }}, "collectionUrl": {{ collection.url | json | escape }}, "collectionHandle": {{ collection.handle | json | escape }}}'
       >
         <product-form class="product-form">
@@ -1216,8 +1242,8 @@ gp-carousel.carousel-gallery[id*="gqX8SEf2Mb"] .gem-slider-next{
       
       {%- liquid
         if request.page_type != 'product'
-          assign product = all_products['custom-photo-tropical-cat-hawaiian-shirt']
-          assign productId = '9461882978562' | times: 1
+          assign product = all_products['custom-photo-tropical-style-cat-hawaii-shirt']
+          assign productId = '9468400697602' | times: 1
           if product == empty or product == null
             paginate collections.all.products by 100000
               for item in collections.all.products
@@ -1249,7 +1275,7 @@ gp-carousel.carousel-gallery[id*="gqX8SEf2Mb"] .gem-slider-next{
         data-id="ga1utwdU-t"
         
         
-        gp-context='{"productId": {{ product.id }}, "preSelectedOptionIds": [], "isSyncProduct": "true", "hasPreSelected": true, "variantSelected": {{ variant | json | escape }},  "inventory_management": {{ variant.inventory_management | json | escape  }}, "inventory_policy": {{ variant.inventory_policy | json | escape }}, "inventoryQuantity": {{ variant.inventory_quantity | default: 0 }}, "quantity": 1, "formId": "{{ product_form_id }}" }'
+        gp-context='{"productId": {{ product.id }}, "preSelectedOptionIds": [], "isSyncProduct": "true", "hasPreSelected": false, "variantSelected": {{ variant | json | escape }},  "inventory_management": {{ variant.inventory_management | json | escape  }}, "inventory_policy": {{ variant.inventory_policy | json | escape }}, "inventoryQuantity": {{ variant.inventory_quantity | default: 0 }}, "quantity": 1, "formId": "{{ product_form_id }}" }'
         gp-data='{"variantSelected": {{ variant | json | escape }}, "quantity": 1, "productUrl":{{ product.url | json | escape }}, "productHandle":{{ product.handle | json | escape }}, "collectionUrl": {{ collection.url | json | escape }}, "collectionHandle": {{ collection.handle | json | escape }}}'
       >
         <product-form class="product-form">
@@ -1494,8 +1520,8 @@ gp-carousel.carousel-gallery[id*="gqX8SEf2Mb"] .gem-slider-next{
       
       {%- liquid
         if request.page_type != 'product'
-          assign product = all_products['custom-photo-tropical-cat-hawaiian-shirt']
-          assign productId = '9461882978562' | times: 1
+          assign product = all_products['custom-photo-tropical-style-cat-hawaii-shirt']
+          assign productId = '9468400697602' | times: 1
           if product == empty or product == null
             paginate collections.all.products by 100000
               for item in collections.all.products
@@ -1527,7 +1553,7 @@ gp-carousel.carousel-gallery[id*="gqX8SEf2Mb"] .gem-slider-next{
         data-id="gknN7PnxD5"
         
         
-        gp-context='{"productId": {{ product.id }}, "preSelectedOptionIds": [], "isSyncProduct": "true", "hasPreSelected": true, "variantSelected": {{ variant | json | escape }},  "inventory_management": {{ variant.inventory_management | json | escape  }}, "inventory_policy": {{ variant.inventory_policy | json | escape }}, "inventoryQuantity": {{ variant.inventory_quantity | default: 0 }}, "quantity": 1, "formId": "{{ product_form_id }}" }'
+        gp-context='{"productId": {{ product.id }}, "preSelectedOptionIds": [], "isSyncProduct": "true", "hasPreSelected": false, "variantSelected": {{ variant | json | escape }},  "inventory_management": {{ variant.inventory_management | json | escape  }}, "inventory_policy": {{ variant.inventory_policy | json | escape }}, "inventoryQuantity": {{ variant.inventory_quantity | default: 0 }}, "quantity": 1, "formId": "{{ product_form_id }}" }'
         gp-data='{"variantSelected": {{ variant | json | escape }}, "quantity": 1, "productUrl":{{ product.url | json | escape }}, "productHandle":{{ product.handle | json | escape }}, "collectionUrl": {{ collection.url | json | escape }}, "collectionHandle": {{ collection.handle | json | escape }}}'
       >
         <product-form class="product-form">
@@ -1646,7 +1672,7 @@ gp-carousel.carousel-gallery[id*="gqX8SEf2Mb"] .gem-slider-next{
       role="presentation"
       data-id="gFXV47PlUr"
       style="--bs:none;--bw:1px 1px 1px 1px;--bc:#121212;--shadow:none;--d:block;--d-mobile:block;--d-tablet:block;--op:100%;--pageType:GP_PRODUCT;--bblr:0px;--bbrr:0px;--btlr:0px;--btrr:0px;--ml:0px;--mr:0px;--pt:5px;--pl:0px;--pr:0px;--ta:center"
-      class="gp-group/image gp-relative force-publish-1782373736549 gp-flex-none gp-h-auto mobile:gp-flex-none mobile:gp-h-auto tablet:gp-flex-none tablet:gp-h-auto gFXV47PlUr"
+      class="gp-group/image gp-relative force-publish-1782381689589 gp-flex-none gp-h-auto mobile:gp-flex-none mobile:gp-h-auto tablet:gp-flex-none tablet:gp-h-auto gFXV47PlUr"
     >
       <div
         
@@ -1715,7 +1741,7 @@ gp-carousel.carousel-gallery[id*="gqX8SEf2Mb"] .gem-slider-next{
       role="presentation"
       data-id="g4BOi5kMvB"
       style="--bs:none;--bw:1px 1px 1px 1px;--bc:#121212;--shadow:none;--d:block;--d-mobile:block;--d-tablet:block;--op:100%;--pageType:GP_PRODUCT;--pos:static;--bblr:0px;--bbrr:0px;--btlr:0px;--btrr:0px;--ml:0px;--mb:0px;--mr:0px;--pt:5px;--pl:0px;--pb:5px;--pr:10px;--ta:center"
-      class="gp-group/image gp-relative force-publish-1782373736551 gp-flex-none gp-h-auto mobile:gp-flex-none mobile:gp-h-auto tablet:gp-flex-none tablet:gp-h-auto g4BOi5kMvB"
+      class="gp-group/image gp-relative force-publish-1782381689590 gp-flex-none gp-h-auto mobile:gp-flex-none mobile:gp-h-auto tablet:gp-flex-none tablet:gp-h-auto g4BOi5kMvB"
     >
       <div
         
