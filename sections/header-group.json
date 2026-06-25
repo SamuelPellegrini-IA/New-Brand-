@@ -37,8 +37,11 @@
     },
     "header": {
       "type": "header",
+      "custom_css": [
+        "/* Hide search icon in header */.header__icon--search,.header-search,.site-header__search,.search-modal__toggle,a[href=\"/search\"],summary[aria-label*=\"Search\"],button[aria-label*=\"Search\"],summary[aria-label*=\"Recherche\"],button[aria-label*=\"Recherche\"] {display: none !important;}"
+      ],
       "settings": {
-        "logo_position": "middle-center",
+        "logo_position": "middle-left",
         "mobile_logo_position": "center",
         "menu": "main-menu",
         "menu_type_desktop": "dropdown",
@@ -46,9 +49,9 @@
         "show_line_separator": true,
         "color_scheme": "scheme-1",
         "menu_color_scheme": "",
-        "enable_country_selector": true,
-        "enable_language_selector": true,
-        "enable_customer_avatar": true,
+        "enable_country_selector": false,
+        "enable_language_selector": false,
+        "enable_customer_avatar": false,
         "margin_bottom": 0,
         "padding_top": 0,
         "padding_bottom": 0
