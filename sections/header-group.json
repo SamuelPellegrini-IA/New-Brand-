@@ -17,13 +17,17 @@
         "announcement-bar-0": {
           "type": "announcement",
           "settings": {
-            "text": "Summer Sale: Up to 55% OFF",
+            "text": "SUMMER SALE | Up to 50% OFF",
             "link": ""
           }
         }
       },
       "block_order": [
         "announcement-bar-0"
+      ],
+      "custom_css": [
+        ".announcement-bar,.announcement,[class*=\"announcement\"],[class*=\"top-bar\"] {font-weight: 400 !important;}",
+        ".announcement-bar span,.announcement span,[class*=\"announcement\"] span,[class*=\"top-bar\"] span {font-weight: 900 !important;}"
       ],
       "settings": {
         "auto_rotate": false,
