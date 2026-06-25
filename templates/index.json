@@ -20,13 +20,14 @@
         "button_label_2": "How it works",
         "button_link_2": "#how-it-works",
         "rating_text": "Loved by 50,000+ happy customers",
+        "image": "shopify://shop_images/498276477_10162421500895090_2144661147588048849_n.jpg",
         "image_position": "right",
         "bg_color": "#f6f5f1",
         "text_color": "#1a1a1a",
         "accent_color": "#0f7a6b",
         "btn_text_color": "#ffffff",
-        "padding_top": 90,
-        "padding_bottom": 90
+        "padding_top": 0,
+        "padding_bottom": 0
       }
     },
     "steps": {
@@ -35,6 +36,7 @@
         "s1": {
           "type": "step",
           "settings": {
+            "image": "shopify://shop_images/chow-chow-fiche-race-chien-livvet-veterinaire-en-ligne-livvet-consultation-veterinaire-home-min.webp",
             "title": "Upload your photo",
             "text": "Choose your size and style, then upload a clear photo of your pet."
           }
@@ -42,6 +44,7 @@
         "s2": {
           "type": "step",
           "settings": {
+            "image": "shopify://shop_images/ChatGPT_Image_25_juin_2026_13_21_31.png",
             "title": "We design it by hand",
             "text": "Our team removes the background and turns your pet into a tropical print."
           }
@@ -49,6 +52,7 @@
         "s3": {
           "type": "step",
           "settings": {
+            "image": "shopify://shop_images/474585017_122234362358031913_4173896460241658468_n.jpg",
             "title": "Wear it everywhere",
             "text": "Receive your made-to-order shirt and show off your best friend."
           }
@@ -79,6 +83,7 @@
         "f1": {
           "type": "feature",
           "settings": {
+            "image": "shopify://shop_images/chow-chow-fiche-race-chien-livvet-veterinaire-en-ligne-livvet-consultation-veterinaire-home-min.webp",
             "title": "Any pet",
             "text": "Dog, cat, rabbit — if the photo is clear, we can use it."
           }
@@ -86,6 +91,7 @@
         "f2": {
           "type": "feature",
           "settings": {
+            "image": "shopify://shop_images/a266dba9-b8c0-46f9-ba09-34470f11bfa9.png",
             "title": "Up to 5 photos",
             "text": "Add the whole crew. We place each pet nicely on the shirt."
           }
@@ -129,19 +135,35 @@
       "blocks": {
         "g1": {
           "type": "image",
-          "settings": {}
+          "settings": {
+            "image": "shopify://shop_images/5ad0b726-cd9e-404d-887c-f723cd73d1d4.png",
+            "caption": "",
+            "link": ""
+          }
         },
         "g2": {
           "type": "image",
-          "settings": {}
+          "settings": {
+            "image": "shopify://shop_images/492009406_9305474039562079_4153155144964008448_n.jpg",
+            "caption": "",
+            "link": ""
+          }
         },
         "g3": {
           "type": "image",
-          "settings": {}
+          "settings": {
+            "image": "shopify://shop_images/ChatGPT_Image_24_juin_2026_12_33_27.png",
+            "caption": "",
+            "link": ""
+          }
         },
         "g4": {
           "type": "image",
-          "settings": {}
+          "settings": {
+            "image": "shopify://shop_images/e8cd99b8-7305-4296-97bb-fa64bee1fe26.png",
+            "caption": "",
+            "link": ""
+          }
         }
       },
       "block_order": [
@@ -230,11 +252,18 @@
         "track_color": "#ececec",
         "show_counts": false,
         "pct_5": 92,
+        "count_5": "35",
         "pct_4": 6,
+        "count_4": "3",
         "pct_3": 2,
+        "count_3": "2",
         "pct_2": 0,
+        "count_2": "0",
         "pct_1": 0,
+        "count_1": "0",
         "show_write_button": false,
+        "write_button_label": "Write a review",
+        "write_button_link": "",
         "columns": 2,
         "enable_carousel": true,
         "cards_per_view": 3,
