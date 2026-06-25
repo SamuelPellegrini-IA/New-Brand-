@@ -9,53 +9,326 @@
  */
 {
   "sections": {
-    "image_banner": {
-      "type": "image-banner",
+    "hero": {
+      "type": "home-hero",
       "settings": {
-        "image": "shopify://shop_images/ChatGPT_Image_24_juin_2026_17_58_26.png",
-        "image_overlay_opacity": 0,
-        "image_height": "large",
-        "image_behavior": "none",
-        "desktop_content_position": "bottom-center",
-        "desktop_content_alignment": "center",
-        "show_text_box": false,
-        "color_scheme": "scheme-3",
-        "stack_images_on_mobile": false,
-        "mobile_content_alignment": "center",
-        "show_text_below": false
+        "eyebrow": "Custom photo gifts",
+        "heading": "Turn your pet's photo into a one-of-a-kind shirt",
+        "subheading": "<p>Upload a photo, we design it by hand, and you wear your best friend everywhere you go. A unique, made-to-order gift they will treasure.</p>",
+        "button_label": "Personalize yours",
+        "button_link": "/collections/all",
+        "button_label_2": "How it works",
+        "button_link_2": "#how-it-works",
+        "rating_text": "Loved by 50,000+ happy customers",
+        "image_position": "right",
+        "bg_color": "#f6f5f1",
+        "text_color": "#1a1a1a",
+        "accent_color": "#0f7a6b",
+        "btn_text_color": "#ffffff",
+        "padding_top": 90,
+        "padding_bottom": 90
       }
     },
-    "featured_collection": {
-      "type": "featured-collection",
+    "steps": {
+      "type": "home-steps",
+      "blocks": {
+        "s1": {
+          "type": "step",
+          "settings": {
+            "title": "Upload your photo",
+            "text": "Choose your size and style, then upload a clear photo of your pet."
+          }
+        },
+        "s2": {
+          "type": "step",
+          "settings": {
+            "title": "We design it by hand",
+            "text": "Our team removes the background and turns your pet into a tropical print."
+          }
+        },
+        "s3": {
+          "type": "step",
+          "settings": {
+            "title": "Wear it everywhere",
+            "text": "Receive your made-to-order shirt and show off your best friend."
+          }
+        }
+      },
+      "block_order": [
+        "s1",
+        "s2",
+        "s3"
+      ],
       "settings": {
-        "collection": "all",
-        "products_to_show": 8,
-        "title": "Best Sellers",
-        "heading_size": "h2",
-        "description": "",
-        "show_description": false,
-        "description_style": "body",
-        "columns_desktop": 4,
-        "enable_desktop_slider": false,
-        "full_width": false,
-        "show_view_all": true,
-        "view_all_style": "solid",
-        "color_scheme": "scheme-1",
-        "image_ratio": "adapt",
-        "image_shape": "default",
-        "show_secondary_image": true,
-        "show_vendor": false,
-        "show_rating": false,
-        "quick_add": "none",
-        "columns_mobile": "2",
-        "swipe_on_mobile": false,
-        "padding_top": 44,
-        "padding_bottom": 36
+        "eyebrow": "Simple & fun",
+        "heading": "How personalization works",
+        "subheading": "Three easy steps to create your custom shirt.",
+        "button_label": "Start now",
+        "button_link": "/collections/all",
+        "bg_color": "#ffffff",
+        "text_color": "#1a1a1a",
+        "accent_color": "#0f7a6b",
+        "num_text_color": "#ffffff",
+        "padding_top": 80,
+        "padding_bottom": 80
+      }
+    },
+    "features": {
+      "type": "home-features",
+      "blocks": {
+        "f1": {
+          "type": "feature",
+          "settings": {
+            "title": "Any pet",
+            "text": "Dog, cat, rabbit — if the photo is clear, we can use it."
+          }
+        },
+        "f2": {
+          "type": "feature",
+          "settings": {
+            "title": "Up to 5 photos",
+            "text": "Add the whole crew. We place each pet nicely on the shirt."
+          }
+        },
+        "f3": {
+          "type": "feature",
+          "settings": {
+            "title": "Premium fabric",
+            "text": "Breathable, breezy and comfortable all day long."
+          }
+        },
+        "f4": {
+          "type": "feature",
+          "settings": {
+            "title": "Fade-proof print",
+            "text": "Colors stay vibrant wash after wash."
+          }
+        }
+      },
+      "block_order": [
+        "f1",
+        "f2",
+        "f3",
+        "f4"
+      ],
+      "settings": {
+        "eyebrow": "Make it yours",
+        "heading": "What you can personalize",
+        "subheading": "From one pet to the whole family — your shirt, your way.",
+        "columns": 4,
+        "bg_color": "#f6f5f1",
+        "card_bg": "#ffffff",
+        "text_color": "#1a1a1a",
+        "accent_color": "#0f7a6b",
+        "padding_top": 80,
+        "padding_bottom": 80
+      }
+    },
+    "gallery": {
+      "type": "home-gallery",
+      "blocks": {
+        "g1": {
+          "type": "image",
+          "settings": {}
+        },
+        "g2": {
+          "type": "image",
+          "settings": {}
+        },
+        "g3": {
+          "type": "image",
+          "settings": {}
+        },
+        "g4": {
+          "type": "image",
+          "settings": {}
+        }
+      },
+      "block_order": [
+        "g1",
+        "g2",
+        "g3",
+        "g4"
+      ],
+      "settings": {
+        "eyebrow": "Real customers",
+        "heading": "See it in real life",
+        "subheading": "A few favorites from our community.",
+        "columns": 4,
+        "bg_color": "#ffffff",
+        "text_color": "#1a1a1a",
+        "accent_color": "#0f7a6b",
+        "padding_top": 70,
+        "padding_bottom": 70
+      }
+    },
+    "reviews": {
+      "type": "lp-reviews-summary",
+      "blocks": {
+        "r1": {
+          "type": "review",
+          "settings": {
+            "author": "Carole j.",
+            "rating": 5,
+            "title": "Ridiculous but Amazing",
+            "content": "<p>The shirt is adorable. I used a picture of our cat and it came out really clear. My husband said it's \"ridiculous but amazing\" and that's exactly what I wanted.</p>",
+            "date": "May 2026",
+            "verified": true,
+            "verified_label": "verified buyer"
+          }
+        },
+        "r2": {
+          "type": "review",
+          "settings": {
+            "author": "ron d.",
+            "rating": 5,
+            "title": "The Perfect Gift for My Husband",
+            "content": "<p>The shirt came out way better than I expected. The colors were bright, the dogs looked so clear, and the whole thing felt really personal.</p>",
+            "date": "May 2026",
+            "verified": true,
+            "verified_label": "verified buyer"
+          }
+        },
+        "r3": {
+          "type": "review",
+          "settings": {
+            "author": "Tommy G.",
+            "rating": 5,
+            "title": "My Dad Showed Everyone",
+            "content": "<p>I got this for my dad for Father's Day and he absolutely loved it. When he saw our old dog on the shirt he got quiet and said \"this is actually really cool.\"</p>",
+            "date": "April 2026",
+            "verified": true,
+            "verified_label": "verified buyer"
+          }
+        },
+        "r4": {
+          "type": "review",
+          "settings": {
+            "author": "Samuel p.",
+            "rating": 5,
+            "title": "Everyone Loved It at the BBQ",
+            "content": "<p>This shirt was a huge hit for my boyfriend's birthday. He wore it to his birthday BBQ and people were stopping him all day to look at it.</p>",
+            "date": "April 2026",
+            "verified": true,
+            "verified_label": "verified buyer"
+          }
+        }
+      },
+      "block_order": [
+        "r1",
+        "r2",
+        "r3",
+        "r4"
+      ],
+      "settings": {
+        "heading": "Happy Customers",
+        "heading_size": 32,
+        "average_rating": "4.8",
+        "total_label": "50,481+ Happy Customers · Based on 3438 reviews",
+        "star_color": "#ffce31",
+        "bar_color": "#1a1a1a",
+        "track_color": "#ececec",
+        "show_counts": false,
+        "pct_5": 92,
+        "pct_4": 6,
+        "pct_3": 2,
+        "pct_2": 0,
+        "pct_1": 0,
+        "show_write_button": false,
+        "columns": 2,
+        "enable_carousel": true,
+        "cards_per_view": 3,
+        "background": "#f6f5f1",
+        "text_color": "#121212",
+        "padding_top": 60,
+        "padding_bottom": 60
+      }
+    },
+    "faq": {
+      "type": "hapyco-faq",
+      "blocks": {
+        "q1": {
+          "type": "qa",
+          "settings": {
+            "question": "How does the personalization work?",
+            "answer": "<p>It's simple. Choose your size, select your shirt style, and upload a clear photo of your pet. Our team will then turn your pet's photo into a unique design printed directly onto the shirt.</p>"
+          }
+        },
+        "q2": {
+          "type": "qa",
+          "settings": {
+            "question": "Can I use any pet?",
+            "answer": "<p>Yes. You can use a dog, cat, rabbit, or any other pet. As long as the photo is clear enough, we can use it.</p>"
+          }
+        },
+        "q3": {
+          "type": "qa",
+          "settings": {
+            "question": "Can I add more than one pet?",
+            "answer": "<p>Yes, you can add multiple pets. We'll adjust the design so each pet is clearly visible and nicely placed on the shirt.</p>"
+          }
+        },
+        "q4": {
+          "type": "qa",
+          "settings": {
+            "question": "Does the print last after washing?",
+            "answer": "<p>Yes, the print is made to last. To keep the colors fresh, wash the shirt inside out in cold water and avoid high-heat drying.</p>"
+          }
+        },
+        "q5": {
+          "type": "qa",
+          "settings": {
+            "question": "How do I choose the right size?",
+            "answer": "<p>Check the size guide on the product page before ordering. If you prefer a relaxed or oversized fit, choose one size up.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "q1",
+        "q2",
+        "q3",
+        "q4",
+        "q5"
+      ],
+      "settings": {
+        "eyebrow": "FAQ",
+        "heading": "Still have questions?",
+        "subheading": "Check here",
+        "open_first": true,
+        "bg_color": "#ffffff",
+        "text_color": "#121212",
+        "accent_color": "#0f7a6b",
+        "border_color": "#e7e7e7",
+        "padding_top": 56,
+        "padding_bottom": 56
+      }
+    },
+    "cta": {
+      "type": "home-cta",
+      "settings": {
+        "heading": "Ready to create yours?",
+        "text": "<p>Upload a photo and design a shirt as unique as your best friend.</p>",
+        "button_label": "Personalize my shirt",
+        "button_link": "/collections/all",
+        "subtext": "45-day money-back guarantee · Free returns",
+        "bg_color": "#0f7a6b",
+        "text_color": "#ffffff",
+        "accent_color": "#ffce31",
+        "btn_text_color": "#1a1a1a",
+        "overlay_color": "#000000",
+        "overlay_opacity": 40,
+        "padding_top": 110,
+        "padding_bottom": 110
       }
     }
   },
   "order": [
-    "image_banner",
-    "featured_collection"
+    "hero",
+    "steps",
+    "features",
+    "gallery",
+    "reviews",
+    "faq",
+    "cta"
   ]
 }

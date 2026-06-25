@@ -1,0 +1,99 @@
+{%- comment -%}
+  Home · Gallery
+  A clean image grid to showcase personalization examples / customer photos.
+  Each tile is a block with an image (add from Shopify) + optional link/caption.
+{%- endcomment -%}
+
+{%- style -%}
+  #shopify-section-{{ section.id }} .home-gal {
+    background: {{ section.settings.bg_color }};
+    color: {{ section.settings.text_color }};
+    padding-top: {{ section.settings.padding_top | times: 0.6 | round: 0 }}px;
+    padding-bottom: {{ section.settings.padding_bottom | times: 0.6 | round: 0 }}px;
+  }
+  #shopify-section-{{ section.id }} .home-gal__inner { max-width: 1180px; margin: 0 auto; padding: 0 20px; }
+  #shopify-section-{{ section.id }} .home-gal__head { text-align: center; max-width: 700px; margin: 0 auto 38px; }
+  #shopify-section-{{ section.id }} .home-gal__eyebrow { display: inline-block; font-size: 13px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: {{ section.settings.accent_color }}; margin: 0 0 12px; }
+  #shopify-section-{{ section.id }} .home-gal__title { font-size: clamp(26px, 4vw, 40px); line-height: 1.12; font-weight: 800; margin: 0 0 14px; }
+  #shopify-section-{{ section.id }} .home-gal__sub { font-size: 17px; line-height: 1.55; opacity: .8; margin: 0; }
+  #shopify-section-{{ section.id }} .home-gal__grid { display: grid; gap: 14px; grid-template-columns: repeat(2, 1fr); }
+  #shopify-section-{{ section.id }} .home-gal__tile { position: relative; display: block; border-radius: 14px; overflow: hidden; background: rgba(0,0,0,.06); }
+  #shopify-section-{{ section.id }} .home-gal__img { width: 100%; aspect-ratio: 1 / 1; object-fit: cover; display: block; transition: transform .4s ease; }
+  #shopify-section-{{ section.id }} a.home-gal__tile:hover .home-gal__img { transform: scale(1.05); }
+  #shopify-section-{{ section.id }} .home-gal__img-ph { width: 100%; aspect-ratio: 1 / 1; display: flex; align-items: center; justify-content: center; }
+  #shopify-section-{{ section.id }} .home-gal__img-ph svg { width: 60px; height: 60px; opacity: .3; }
+  #shopify-section-{{ section.id }} .home-gal__cap { position: absolute; left: 0; right: 0; bottom: 0; padding: 26px 14px 12px; color: #fff; font-size: 14px; font-weight: 600; background: linear-gradient(transparent, rgba(0,0,0,.6)); }
+
+  @media (min-width: 750px) {
+    #shopify-section-{{ section.id }} .home-gal { padding-top: {{ section.settings.padding_top }}px; padding-bottom: {{ section.settings.padding_bottom }}px; }
+    #shopify-section-{{ section.id }} .home-gal__grid { grid-template-columns: repeat({{ section.settings.columns }}, 1fr); gap: 18px; }
+  }
+{%- endstyle -%}
+
+<div class="home-gal">
+  <div class="home-gal__inner">
+    {%- if section.settings.heading != blank or section.settings.eyebrow != blank or section.settings.subheading != blank -%}
+      <div class="home-gal__head">
+        {%- if section.settings.eyebrow != blank -%}<span class="home-gal__eyebrow">{{ section.settings.eyebrow }}</span>{%- endif -%}
+        {%- if section.settings.heading != blank -%}<h2 class="home-gal__title">{{ section.settings.heading }}</h2>{%- endif -%}
+        {%- if section.settings.subheading != blank -%}<p class="home-gal__sub">{{ section.settings.subheading }}</p>{%- endif -%}
+      </div>
+    {%- endif -%}
+
+    <div class="home-gal__grid">
+      {%- for block in section.blocks -%}
+        {%- assign tag = 'div' -%}
+        {%- if block.settings.link != blank -%}{%- assign tag = 'a' -%}{%- endif -%}
+        <{{ tag }} class="home-gal__tile" {% if block.settings.link != blank %}href="{{ block.settings.link }}"{% endif %} {{ block.shopify_attributes }}>
+          {%- if block.settings.image != blank -%}
+            {{ block.settings.image | image_url: width: 700 | image_tag: loading: 'lazy', class: 'home-gal__img', widths: '300, 500, 700', sizes: '(min-width: 750px) 25vw, 50vw' }}
+          {%- else -%}
+            <div class="home-gal__img-ph">{{ 'image' | placeholder_svg_tag }}</div>
+          {%- endif -%}
+          {%- if block.settings.caption != blank -%}<span class="home-gal__cap">{{ block.settings.caption }}</span>{%- endif -%}
+        </{{ tag }}>
+      {%- endfor -%}
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Home · Gallery",
+  "tag": "section",
+  "class": "section",
+  "max_blocks": 12,
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Real customers" },
+    { "type": "text", "id": "heading", "label": "Heading", "default": "See it in real life" },
+    { "type": "text", "id": "subheading", "label": "Subheading", "default": "A few favorites from our community." },
+    { "type": "range", "id": "columns", "label": "Columns (desktop)", "min": 2, "max": 5, "step": 1, "default": 4 },
+    { "type": "header", "content": "Colors" },
+    { "type": "color", "id": "bg_color", "label": "Background", "default": "#ffffff" },
+    { "type": "color", "id": "text_color", "label": "Text", "default": "#1a1a1a" },
+    { "type": "color", "id": "accent_color", "label": "Accent", "default": "#0f7a6b" },
+    { "type": "header", "content": "Padding" },
+    { "type": "range", "id": "padding_top", "label": "Padding top", "min": 0, "max": 160, "step": 2, "unit": "px", "default": 70 },
+    { "type": "range", "id": "padding_bottom", "label": "Padding bottom", "min": 0, "max": 160, "step": 2, "unit": "px", "default": 70 }
+  ],
+  "blocks": [
+    {
+      "type": "image",
+      "name": "Image",
+      "settings": [
+        { "type": "image_picker", "id": "image", "label": "Image" },
+        { "type": "text", "id": "caption", "label": "Caption (optional)" },
+        { "type": "url", "id": "link", "label": "Link (optional)" }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Home · Gallery",
+      "blocks": [
+        { "type": "image" }, { "type": "image" }, { "type": "image" }, { "type": "image" }
+      ]
+    }
+  ]
+}
+{% endschema %}
