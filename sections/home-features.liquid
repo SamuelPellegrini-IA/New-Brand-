@@ -1,0 +1,109 @@
+{%- comment -%}
+  Home · What you can personalize (feature cards)
+  Explains WHAT personalization can do. Each card = a block with an image
+  (add from Shopify), a title and a short text. Responsive grid (1-4 columns).
+{%- endcomment -%}
+
+{%- style -%}
+  #shopify-section-{{ section.id }} .home-feat {
+    background: {{ section.settings.bg_color }};
+    color: {{ section.settings.text_color }};
+    padding-top: {{ section.settings.padding_top | times: 0.6 | round: 0 }}px;
+    padding-bottom: {{ section.settings.padding_bottom | times: 0.6 | round: 0 }}px;
+  }
+  #shopify-section-{{ section.id }} .home-feat__inner { max-width: 1180px; margin: 0 auto; padding: 0 20px; }
+  #shopify-section-{{ section.id }} .home-feat__head { text-align: center; max-width: 700px; margin: 0 auto 44px; }
+  #shopify-section-{{ section.id }} .home-feat__eyebrow { display: inline-block; font-size: 13px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: {{ section.settings.accent_color }}; margin: 0 0 12px; }
+  #shopify-section-{{ section.id }} .home-feat__title { font-size: clamp(26px, 4vw, 40px); line-height: 1.12; font-weight: 800; margin: 0 0 14px; }
+  #shopify-section-{{ section.id }} .home-feat__sub { font-size: 17px; line-height: 1.55; opacity: .8; margin: 0; }
+  #shopify-section-{{ section.id }} .home-feat__grid { display: grid; gap: 24px; grid-template-columns: 1fr; }
+  #shopify-section-{{ section.id }} .home-feat__card { background: {{ section.settings.card_bg }}; border-radius: 18px; overflow: hidden; box-shadow: 0 8px 28px rgba(0,0,0,.06); display: flex; flex-direction: column; }
+  #shopify-section-{{ section.id }} .home-feat__img { width: 100%; aspect-ratio: 4 / 3; object-fit: cover; display: block; }
+  #shopify-section-{{ section.id }} .home-feat__img-ph { width: 100%; aspect-ratio: 4 / 3; background: rgba(0,0,0,.06); display: flex; align-items: center; justify-content: center; }
+  #shopify-section-{{ section.id }} .home-feat__img-ph svg { width: 64px; height: 64px; opacity: .3; }
+  #shopify-section-{{ section.id }} .home-feat__body { padding: 20px 22px 24px; }
+  #shopify-section-{{ section.id }} .home-feat__card-title { font-size: 19px; font-weight: 700; margin: 0 0 8px; }
+  #shopify-section-{{ section.id }} .home-feat__card-text { font-size: 15px; line-height: 1.55; opacity: .8; margin: 0; }
+
+  @media (min-width: 600px) {
+    #shopify-section-{{ section.id }} .home-feat__grid { grid-template-columns: repeat(2, 1fr); }
+  }
+  @media (min-width: 990px) {
+    #shopify-section-{{ section.id }} .home-feat { padding-top: {{ section.settings.padding_top }}px; padding-bottom: {{ section.settings.padding_bottom }}px; }
+    #shopify-section-{{ section.id }} .home-feat__grid { grid-template-columns: repeat({{ section.settings.columns }}, 1fr); }
+  }
+{%- endstyle -%}
+
+<div class="home-feat">
+  <div class="home-feat__inner">
+    <div class="home-feat__head">
+      {%- if section.settings.eyebrow != blank -%}<span class="home-feat__eyebrow">{{ section.settings.eyebrow }}</span>{%- endif -%}
+      {%- if section.settings.heading != blank -%}<h2 class="home-feat__title">{{ section.settings.heading }}</h2>{%- endif -%}
+      {%- if section.settings.subheading != blank -%}<p class="home-feat__sub">{{ section.settings.subheading }}</p>{%- endif -%}
+    </div>
+
+    <div class="home-feat__grid">
+      {%- for block in section.blocks -%}
+        <div class="home-feat__card" {{ block.shopify_attributes }}>
+          {%- if block.settings.image != blank -%}
+            {{ block.settings.image | image_url: width: 800 | image_tag: loading: 'lazy', class: 'home-feat__img', widths: '300, 500, 800', sizes: '(min-width: 990px) 25vw, (min-width: 600px) 50vw, 100vw' }}
+          {%- else -%}
+            <div class="home-feat__img-ph">{{ 'image' | placeholder_svg_tag }}</div>
+          {%- endif -%}
+          <div class="home-feat__body">
+            {%- if block.settings.title != blank -%}<h3 class="home-feat__card-title">{{ block.settings.title }}</h3>{%- endif -%}
+            {%- if block.settings.text != blank -%}<p class="home-feat__card-text">{{ block.settings.text }}</p>{%- endif -%}
+          </div>
+        </div>
+      {%- endfor -%}
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Home · Features",
+  "tag": "section",
+  "class": "section",
+  "max_blocks": 8,
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Make it yours" },
+    { "type": "text", "id": "heading", "label": "Heading", "default": "What you can personalize" },
+    { "type": "text", "id": "subheading", "label": "Subheading", "default": "From one pet to the whole family — your shirt, your way." },
+    {
+      "type": "range", "id": "columns", "label": "Columns (desktop)",
+      "min": 2, "max": 4, "step": 1, "default": 4
+    },
+    { "type": "header", "content": "Colors" },
+    { "type": "color", "id": "bg_color", "label": "Background", "default": "#f6f5f1" },
+    { "type": "color", "id": "card_bg", "label": "Card background", "default": "#ffffff" },
+    { "type": "color", "id": "text_color", "label": "Text", "default": "#1a1a1a" },
+    { "type": "color", "id": "accent_color", "label": "Accent", "default": "#0f7a6b" },
+    { "type": "header", "content": "Padding" },
+    { "type": "range", "id": "padding_top", "label": "Padding top", "min": 0, "max": 160, "step": 4, "unit": "px", "default": 80 },
+    { "type": "range", "id": "padding_bottom", "label": "Padding bottom", "min": 0, "max": 160, "step": 4, "unit": "px", "default": 80 }
+  ],
+  "blocks": [
+    {
+      "type": "feature",
+      "name": "Feature",
+      "settings": [
+        { "type": "image_picker", "id": "image", "label": "Image" },
+        { "type": "text", "id": "title", "label": "Title", "default": "Feature title" },
+        { "type": "textarea", "id": "text", "label": "Text", "default": "Short description of this feature." }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Home · Features",
+      "blocks": [
+        { "type": "feature", "settings": { "title": "Any pet", "text": "Dog, cat, rabbit — if the photo is clear, we can use it." } },
+        { "type": "feature", "settings": { "title": "Up to 5 photos", "text": "Add the whole crew. We place each pet nicely on the shirt." } },
+        { "type": "feature", "settings": { "title": "Premium fabric", "text": "Breathable, breezy and comfortable all day long." } },
+        { "type": "feature", "settings": { "title": "Fade-proof print", "text": "Colors stay vibrant wash after wash." } }
+      ]
+    }
+  ]
+}
+{% endschema %}

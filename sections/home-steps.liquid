@@ -1,0 +1,114 @@
+{%- comment -%}
+  Home · How it works (steps)
+  Explains HOW to personalize, in numbered steps. Each step is a block with an
+  image (add from Shopify), a title and a description. Responsive grid.
+{%- endcomment -%}
+
+{%- style -%}
+  #shopify-section-{{ section.id }} .home-steps {
+    background: {{ section.settings.bg_color }};
+    color: {{ section.settings.text_color }};
+    padding-top: {{ section.settings.padding_top | times: 0.6 | round: 0 }}px;
+    padding-bottom: {{ section.settings.padding_bottom | times: 0.6 | round: 0 }}px;
+  }
+  #shopify-section-{{ section.id }} .home-steps__inner { max-width: 1180px; margin: 0 auto; padding: 0 20px; }
+  #shopify-section-{{ section.id }} .home-steps__head { text-align: center; max-width: 680px; margin: 0 auto 44px; }
+  #shopify-section-{{ section.id }} .home-steps__eyebrow { display: inline-block; font-size: 13px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: {{ section.settings.accent_color }}; margin: 0 0 12px; }
+  #shopify-section-{{ section.id }} .home-steps__title { font-size: clamp(26px, 4vw, 40px); line-height: 1.12; font-weight: 800; margin: 0 0 14px; }
+  #shopify-section-{{ section.id }} .home-steps__sub { font-size: 17px; line-height: 1.55; opacity: .8; margin: 0; }
+  #shopify-section-{{ section.id }} .home-steps__grid { display: grid; gap: 28px; grid-template-columns: 1fr; }
+  #shopify-section-{{ section.id }} .home-steps__item { text-align: center; }
+  #shopify-section-{{ section.id }} .home-steps__media { position: relative; margin: 0 0 18px; }
+  #shopify-section-{{ section.id }} .home-steps__img { width: 100%; aspect-ratio: 1 / 1; object-fit: cover; border-radius: 16px; display: block; }
+  #shopify-section-{{ section.id }} .home-steps__img-ph { width: 100%; aspect-ratio: 1 / 1; border-radius: 16px; background: rgba(0,0,0,.06); display: flex; align-items: center; justify-content: center; }
+  #shopify-section-{{ section.id }} .home-steps__img-ph svg { width: 70px; height: 70px; opacity: .3; }
+  #shopify-section-{{ section.id }} .home-steps__num { position: absolute; top: 12px; left: 12px; width: 38px; height: 38px; border-radius: 50%; background: {{ section.settings.accent_color }}; color: {{ section.settings.num_text_color }}; display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 17px; box-shadow: 0 6px 16px rgba(0,0,0,.18); }
+  #shopify-section-{{ section.id }} .home-steps__item-title { font-size: 20px; font-weight: 700; margin: 0 0 8px; }
+  #shopify-section-{{ section.id }} .home-steps__item-text { font-size: 15px; line-height: 1.55; opacity: .8; margin: 0; }
+  #shopify-section-{{ section.id }} .home-steps__cta { text-align: center; margin-top: 40px; }
+  #shopify-section-{{ section.id }} .home-steps__btn { display: inline-flex; align-items: center; justify-content: center; padding: 15px 34px; border-radius: 999px; font-weight: 700; font-size: 16px; text-decoration: none; background: {{ section.settings.accent_color }}; color: {{ section.settings.num_text_color }}; transition: transform .15s ease; }
+  #shopify-section-{{ section.id }} .home-steps__btn:hover { transform: translateY(-2px); }
+
+  @media (min-width: 750px) {
+    #shopify-section-{{ section.id }} .home-steps { padding-top: {{ section.settings.padding_top }}px; padding-bottom: {{ section.settings.padding_bottom }}px; }
+    #shopify-section-{{ section.id }} .home-steps__grid { grid-template-columns: repeat({{ section.blocks.size | at_least: 1 | at_most: 4 }}, 1fr); }
+  }
+{%- endstyle -%}
+
+<div class="home-steps">
+  <div class="home-steps__inner">
+    <div class="home-steps__head">
+      {%- if section.settings.eyebrow != blank -%}<span class="home-steps__eyebrow">{{ section.settings.eyebrow }}</span>{%- endif -%}
+      {%- if section.settings.heading != blank -%}<h2 class="home-steps__title">{{ section.settings.heading }}</h2>{%- endif -%}
+      {%- if section.settings.subheading != blank -%}<p class="home-steps__sub">{{ section.settings.subheading }}</p>{%- endif -%}
+    </div>
+
+    <div class="home-steps__grid">
+      {%- for block in section.blocks -%}
+        <div class="home-steps__item" {{ block.shopify_attributes }}>
+          <div class="home-steps__media">
+            {%- if block.settings.image != blank -%}
+              {{ block.settings.image | image_url: width: 700 | image_tag: loading: 'lazy', class: 'home-steps__img', widths: '300, 500, 700', sizes: '(min-width: 750px) 25vw, 100vw' }}
+            {%- else -%}
+              <div class="home-steps__img-ph">{{ 'image' | placeholder_svg_tag }}</div>
+            {%- endif -%}
+            <span class="home-steps__num">{{ forloop.index }}</span>
+          </div>
+          {%- if block.settings.title != blank -%}<h3 class="home-steps__item-title">{{ block.settings.title }}</h3>{%- endif -%}
+          {%- if block.settings.text != blank -%}<p class="home-steps__item-text">{{ block.settings.text }}</p>{%- endif -%}
+        </div>
+      {%- endfor -%}
+    </div>
+
+    {%- if section.settings.button_label != blank -%}
+      <div class="home-steps__cta">
+        <a class="home-steps__btn" href="{{ section.settings.button_link | default: '#' }}">{{ section.settings.button_label }}</a>
+      </div>
+    {%- endif -%}
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Home · How it works",
+  "tag": "section",
+  "class": "section",
+  "max_blocks": 4,
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Simple & fun" },
+    { "type": "text", "id": "heading", "label": "Heading", "default": "How personalization works" },
+    { "type": "text", "id": "subheading", "label": "Subheading", "default": "Three easy steps to create your custom shirt." },
+    { "type": "text", "id": "button_label", "label": "Button label", "default": "Start now" },
+    { "type": "url", "id": "button_link", "label": "Button link" },
+    { "type": "header", "content": "Colors" },
+    { "type": "color", "id": "bg_color", "label": "Background", "default": "#ffffff" },
+    { "type": "color", "id": "text_color", "label": "Text", "default": "#1a1a1a" },
+    { "type": "color", "id": "accent_color", "label": "Accent", "default": "#0f7a6b" },
+    { "type": "color", "id": "num_text_color", "label": "Number / button text", "default": "#ffffff" },
+    { "type": "header", "content": "Padding" },
+    { "type": "range", "id": "padding_top", "label": "Padding top", "min": 0, "max": 160, "step": 4, "unit": "px", "default": 80 },
+    { "type": "range", "id": "padding_bottom", "label": "Padding bottom", "min": 0, "max": 160, "step": 4, "unit": "px", "default": 80 }
+  ],
+  "blocks": [
+    {
+      "type": "step",
+      "name": "Step",
+      "settings": [
+        { "type": "image_picker", "id": "image", "label": "Image" },
+        { "type": "text", "id": "title", "label": "Title", "default": "Step title" },
+        { "type": "textarea", "id": "text", "label": "Text", "default": "Describe this step in one short sentence." }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Home · How it works",
+      "blocks": [
+        { "type": "step", "settings": { "title": "Upload your photo", "text": "Choose your size and style, then upload a clear photo of your pet." } },
+        { "type": "step", "settings": { "title": "We design it by hand", "text": "Our team removes the background and turns your pet into a tropical print." } },
+        { "type": "step", "settings": { "title": "Wear it everywhere", "text": "Receive your made-to-order shirt and show off your best friend." } }
+      ]
+    }
+  ]
+}
+{% endschema %}
