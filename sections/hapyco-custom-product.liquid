@@ -1,0 +1,662 @@
+{%- comment -%}
+  Hapyco · Custom product (native, GemPages-free buy-box)
+  ------------------------------------------------------------------
+  Native Shopify OS 2.0 rebuild of the GemPages product hero.
+  - Uses native product.media gallery, native variant picker and the
+    native product form ({% form 'product' %} + <button type="submit" name="add">).
+  - Customily compatible: no hardcoded Customily CDN. Provides a
+    #customily-options anchor, a live-preview host in the gallery,
+    and an @app block slot so the Customily app block can be added
+    from the Theme Editor. The native form serializes every input
+    (including Customily line-item properties) on add to cart.
+  - Visual styling is provided by assets/custom-hawaiian-product.css
+    (auto-loaded for this product in layout/theme.liquid) plus the
+    scoped styles below.
+{%- endcomment -%}
+
+{{ 'section-main-product.css' | asset_url | stylesheet_tag }}
+{{ 'component-price.css' | asset_url | stylesheet_tag }}
+{{ 'component-slider.css' | asset_url | stylesheet_tag }}
+{{ 'component-deferred-media.css' | asset_url | stylesheet_tag }}
+{{ 'custom-hawaiian-product.css' | asset_url | stylesheet_tag }}
+
+{%- unless product.has_only_default_variant -%}
+  {{ 'component-product-variant-picker.css' | asset_url | stylesheet_tag }}
+  {{ 'component-swatch-input.css' | asset_url | stylesheet_tag }}
+  {{ 'component-swatch.css' | asset_url | stylesheet_tag }}
+{%- endunless -%}
+
+<script src="{{ 'product-info.js' | asset_url }}" defer="defer"></script>
+<script src="{{ 'product-form.js' | asset_url }}" defer="defer"></script>
+
+{%- liquid
+  assign product_form_id = 'product-form-' | append: section.id
+  assign variant = product.selected_or_first_available_variant
+  assign variant_images = product.images | where: 'attached_to_variant?', true | map: 'src'
+
+  assign save_pct = 0
+  if variant.compare_at_price > variant.price
+    assign save_pct = variant.compare_at_price | minus: variant.price | times: 100.0 | divided_by: variant.compare_at_price | round
+  endif
+-%}
+
+{%- style -%}
+  .section-{{ section.id }}-padding {
+    padding-top: {{ section.settings.padding_top | times: 0.75 | round: 0 }}px;
+    padding-bottom: {{ section.settings.padding_bottom | times: 0.75 | round: 0 }}px;
+  }
+  @media screen and (min-width: 750px) {
+    .section-{{ section.id }}-padding {
+      padding-top: {{ section.settings.padding_top }}px;
+      padding-bottom: {{ section.settings.padding_bottom }}px;
+    }
+  }
+{%- endstyle -%}
+
+<product-info
+  id="MainProduct-{{ section.id }}"
+  class="section-{{ section.id }}-padding"
+  data-section="{{ section.id }}"
+  data-product-id="{{ product.id }}"
+  data-update-url="true"
+  data-url="{{ product.url }}"
+>
+  <product-component view-event-payload="{{ product | standard_event_data: 'view', context: 'page' | escape }}">
+    <div class="page-width custom-hawaiian-product-page hapyco-cp">
+      <div class="product product--large product--right product--thumbnail_slider product--mobile-show product--hawaiian-layout grid grid--1-col {% if product.media.size > 0 %}grid--2-col-tablet{% else %}product--no-media{% endif %}">
+
+        {%- comment -%} ── Left column: native media gallery + Customily live preview ── {%- endcomment -%}
+        <div class="grid__item product__media-wrapper product__media-wrapper--hawaiian">
+          <div class="hawaiian-media-sticky">
+            {%- if section.settings.show_live_preview -%}
+              <div class="hawaiian-live-preview-host" aria-label="{{ 'products.product.media.gallery_viewer' | t }}"></div>
+            {%- endif -%}
+            {% render 'product-media-gallery', variant_images: variant_images %}
+          </div>
+        </div>
+
+        {%- comment -%} ── Right column: product info ── {%- endcomment -%}
+        <div class="product__info-wrapper grid__item">
+          <section id="ProductInfo-{{ section.id }}" class="product__info-container">
+
+            {%- comment -%} Sale badge pills {%- endcomment -%}
+            {%- if section.settings.badge_1 != blank or section.settings.badge_2 != blank or section.settings.badge_3 != blank -%}
+              <div class="hapyco-cp__badges">
+                {%- for n in (1..3) -%}
+                  {%- assign bkey = 'badge_' | append: n -%}
+                  {%- assign btxt = section.settings[bkey] -%}
+                  {%- if btxt != blank -%}
+                    <span class="hapyco-cp__badge">{{ btxt }}</span>
+                  {%- endif -%}
+                {%- endfor -%}
+              </div>
+            {%- endif -%}
+
+            {%- comment -%} Title {%- endcomment -%}
+            <div class="product__title">
+              <h1>{{ product.title | escape }}</h1>
+            </div>
+
+            {%- comment -%} Subtitle {%- endcomment -%}
+            {%- if section.settings.subtitle != blank -%}
+              <div class="hapyco-cp__subtitle rte">{{ section.settings.subtitle }}</div>
+            {%- endif -%}
+
+            {%- comment -%} Trustpilot / rating row {%- endcomment -%}
+            {%- if section.settings.show_trust_row -%}
+              {%- assign full = section.settings.trust_stars | floor -%}
+              {%- assign rem = section.settings.trust_stars | minus: full -%}
+              {%- assign half_index = full | plus: 1 -%}
+              <div class="hapyco-cp__trust">
+                {%- if section.settings.trust_label != blank -%}
+                  <span class="hapyco-cp__trust-label">{{ section.settings.trust_label }}</span>
+                {%- endif -%}
+                <span class="hapyco-cp__stars" aria-hidden="true">
+                  {%- for i in (1..5) -%}
+                    {%- if i <= full -%}
+                      <span class="hapyco-cp__star is-on">&#9733;</span>
+                    {%- elsif i == half_index and rem >= 0.5 -%}
+                      <span class="hapyco-cp__star is-half">&#9733;</span>
+                    {%- else -%}
+                      <span class="hapyco-cp__star">&#9733;</span>
+                    {%- endif -%}
+                  {%- endfor -%}
+                </span>
+                <span class="hapyco-cp__trust-text">
+                  {%- if section.settings.trust_link != blank -%}
+                    <a href="{{ section.settings.trust_link }}">{{ section.settings.reviews_text }}</a>
+                  {%- else -%}
+                    {{ section.settings.reviews_text }}
+                  {%- endif -%}
+                  {%- if section.settings.platform_text != blank -%}
+                    <strong class="hapyco-cp__platform">&#9733; {{ section.settings.platform_text }}</strong>
+                  {%- endif -%}
+                </span>
+              </div>
+            {%- endif -%}
+
+            {%- comment -%} Price + Save badge {%- endcomment -%}
+            <div class="hapyco-cp__price-row">
+              <div id="price-{{ section.id }}" role="status">
+                {%- render 'price', product: product, use_variant: true, show_badges: false, price_class: 'price--large' -%}
+              </div>
+              {%- if save_pct > 0 -%}
+                <span class="hapyco-cp__save">{{ section.settings.save_prefix | default: 'Save' }} {{ save_pct }}% {{ section.settings.save_suffix | default: 'OFF' }}</span>
+              {%- endif -%}
+            </div>
+
+            {%- comment -%} Quick glance icon row {%- endcomment -%}
+            {%- assign has_qg = false -%}
+            {%- for n in (1..4) -%}
+              {%- assign lkey = 'qg_label_' | append: n -%}
+              {%- if section.settings[lkey] != blank -%}{%- assign has_qg = true -%}{%- endif -%}
+            {%- endfor -%}
+            {%- if has_qg -%}
+              <div class="hapyco-cp__glance">
+                {%- if section.settings.qg_heading != blank -%}
+                  <div class="hapyco-cp__glance-head">{{ section.settings.qg_heading }}</div>
+                {%- endif -%}
+                <div class="hapyco-cp__glance-row">
+                  {%- for n in (1..4) -%}
+                    {%- assign lkey = 'qg_label_' | append: n -%}
+                    {%- assign ikey = 'qg_icon_' | append: n -%}
+                    {%- assign nkey = 'qg_icon_name_' | append: n -%}
+                    {%- assign lbl = section.settings[lkey] -%}
+                    {%- if lbl != blank -%}
+                      <div class="hapyco-cp__glance-item">
+                        {%- if section.settings[ikey] != blank -%}
+                          {{ section.settings[ikey] | image_url: width: 120 | image_tag: loading: 'lazy', class: 'hapyco-cp__glance-icon', alt: lbl }}
+                        {%- elsif section.settings[nkey] != blank -%}
+                          <span class="hapyco-cp__glance-svg">{% render 'lp-pp-icon', name: section.settings[nkey], color: section.settings.qg_icon_color %}</span>
+                        {%- endif -%}
+                        <span>{{ lbl }}</span>
+                      </div>
+                    {%- endif -%}
+                  {%- endfor -%}
+                </div>
+              </div>
+            {%- endif -%}
+
+            {%- comment -%} Variant picker (native, button/pill style like GemPages) {%- endcomment -%}
+            {%- unless product.has_only_default_variant -%}
+              <div class="hapyco-cp__variants">
+                <variant-selects
+                  id="variant-selects-{{ section.id }}"
+                  data-section="{{ section.id }}"
+                  data-product-handle="{{ product.handle }}"
+                  data-product-title="{{ product.title | escape }}"
+                  data-product-id="{{ product.id }}"
+                  data-currency-code="{{ cart.currency.iso_code }}"
+                  {% # theme-check-disable %}
+                  data-selected-price-amount="{{ product.selected_or_first_available_variant.price | default: 0 | money_amount | escape }}"
+                  {% # theme-check-enable %}
+                >
+                  {%- for option in product.options_with_values -%}
+                    <fieldset class="js product-form__input product-form__input--pill">
+                      <legend class="form__label">{{ option.name }}</legend>
+                      {%- if forloop.last and section.settings.size_chart_image != blank or forloop.last and section.settings.size_chart_richtext != blank -%}
+                        <button type="button" class="hapyco-cp__sizechart-trigger" data-hapyco-sizechart="{{ section.id }}">
+                          {{ section.settings.size_chart_label | default: 'Size chart' }}
+                        </button>
+                      {%- endif -%}
+                      {% render 'product-variant-options',
+                        product: product,
+                        option: option,
+                        picker_type: 'button'
+                      %}
+                    </fieldset>
+                  {%- endfor -%}
+                  <script type="application/json" data-selected-variant>
+                    {{ product.selected_or_first_available_variant | json }}
+                  </script>
+                </variant-selects>
+              </div>
+            {%- endunless -%}
+
+            {%- comment -%} Customily personalization slot ── options + app block ── {%- endcomment -%}
+            <div class="hapyco-cp__personalize">
+              {%- for block in section.blocks -%}
+                {%- if block.type == '@app' -%}
+                  {% render block %}
+                {%- endif -%}
+              {%- endfor -%}
+              {%- comment -%} Customily auto-inject anchor (styled by custom-hawaiian-product.css) {%- endcomment -%}
+              <div id="customily-options"></div>
+            </div>
+
+            {%- comment -%} Low stock warning box {%- endcomment -%}
+            {%- if section.settings.show_warning and section.settings.warning_heading != blank -%}
+              <div class="hapyco-cp__warning">
+                <div class="hapyco-cp__warning-head">
+                  <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 8h.01M11.2 11.5h1v4.5"/></svg>
+                  {{ section.settings.warning_heading }}
+                </div>
+                {%- if section.settings.warning_body != blank -%}
+                  <div class="hapyco-cp__warning-body rte">{{ section.settings.warning_body }}</div>
+                {%- endif -%}
+                {%- if section.settings.warning_stock_label != blank -%}
+                  <div class="hapyco-cp__stockbar">
+                    <span class="hapyco-cp__stockbar-label">{{ section.settings.warning_stock_label }}</span>
+                    <span class="hapyco-cp__stockbar-track"><span class="hapyco-cp__stockbar-fill" style="width: {{ section.settings.warning_stock_pct | default: 18 }}%;"></span></span>
+                  </div>
+                {%- endif -%}
+              </div>
+            {%- endif -%}
+
+            {%- comment -%}
+              Add to cart — real native product form.
+              Button id is "customily-atc" to match the Customily app block's
+              `disable_atc_selector` ("#customily-atc"), so Customily can keep the
+              button disabled until personalization has loaded. product-form.js
+              targets the submit button via [type="submit"] (not by id), so the
+              native variant sync still works.
+            {%- endcomment -%}
+            <product-form class="product-form" data-section-id="{{ section.id }}">
+              <div class="product-form__error-message-wrapper" role="alert" hidden>
+                <span class="svg-wrapper">
+                  {{- 'icon-error.svg' | inline_asset_content -}}
+                </span>
+                <span class="product-form__error-message"></span>
+              </div>
+
+              {%- form 'product',
+                product,
+                id: product_form_id,
+                class: 'form',
+                novalidate: 'novalidate',
+                data-type: 'add-to-cart-form'
+              -%}
+                <input
+                  type="hidden"
+                  name="id"
+                  value="{{ variant.id }}"
+                  {% if variant.available == false or variant == null %}disabled{% endif %}
+                  class="product-variant-id"
+                >
+                <div class="product-form__buttons custom-product-atc-wrapper">
+                  <button
+                    id="customily-atc"
+                    type="submit"
+                    name="add"
+                    class="product-form__submit button button--full-width button--primary gecko-atc-btn"
+                    {% if variant.available == false or variant == null %}disabled{% endif %}
+                  >
+                    <span>
+                      {%- if variant == null -%}
+                        {{ 'products.product.unavailable' | t }}
+                      {%- elsif variant.available == false -%}
+                        {{ 'products.product.sold_out' | t }}
+                      {%- else -%}
+                        {{ section.settings.atc_label | default: 'ADD TO CART' }}
+                      {%- endif -%}
+                    </span>
+                    {%- render 'loading-spinner' -%}
+                  </button>
+                </div>
+              {%- endform -%}
+            </product-form>
+
+            {%- comment -%} Guarantee / payment trust row {%- endcomment -%}
+            <div class="gecko-post-atc">
+              {%- if section.settings.guarantee_line != blank -%}
+                <p class="hapyco-cp__guarantee-line">
+                  <span class="hapyco-cp__guarantee-shield" aria-hidden="true">&#128737;</span>
+                  {{ section.settings.guarantee_line }}
+                </p>
+              {%- endif -%}
+              {%- if section.settings.show_payment_trust -%}
+                <div class="product-checkout-security">
+                  {%- if section.settings.payment_title != blank -%}
+                    <p class="product-checkout-security__title">
+                      <span class="product-checkout-security__shield product-checkout-security__shield--blue" aria-hidden="true">&#10003;</span>
+                      {{ section.settings.payment_title }}
+                    </p>
+                  {%- endif -%}
+                  <div class="product-checkout-security__icons">
+                    {%- if section.settings.payment_image != blank -%}
+                      {{ section.settings.payment_image | image_url: width: 900 | image_tag: loading: 'lazy', class: 'product-checkout-security__icon', alt: 'Payment methods' }}
+                    {%- else -%}
+                      <ul class="product-checkout-security__icons-fallback list-unstyled" role="list">
+                        {%- for type in shop.enabled_payment_types -%}
+                          <li>{{ type | payment_type_svg_tag: class: 'product-checkout-security__icon' }}</li>
+                        {%- endfor -%}
+                      </ul>
+                    {%- endif -%}
+                  </div>
+                  {%- if section.settings.secure_text != blank -%}
+                    <p class="product-checkout-security__secure">
+                      <span class="product-checkout-security__shield product-checkout-security__shield--green" aria-hidden="true">&#10003;</span>
+                      {{ section.settings.secure_text }}
+                    </p>
+                  {%- endif -%}
+                </div>
+              {%- endif -%}
+
+              {%- comment -%} Delivery timeline {%- endcomment -%}
+              {%- if section.settings.show_timeline -%}
+                {%- render 'hawaiian-shipping-timeline', use_defaults: true -%}
+              {%- endif -%}
+
+              {%- comment -%} Social proof row {%- endcomment -%}
+              {%- if section.settings.show_social_proof and section.settings.social_proof_text != blank -%}
+                <div class="hapyco-cp__social">
+                  {%- if section.settings.social_proof_image != blank -%}
+                    {{ section.settings.social_proof_image | image_url: width: 200 | image_tag: loading: 'lazy', class: 'hapyco-cp__social-img', alt: 'Customers' }}
+                  {%- endif -%}
+                  <span class="rte">{{ section.settings.social_proof_text }}</span>
+                </div>
+              {%- endif -%}
+            </div>
+
+            {%- comment -%} Collapsible accordions (Item details / Shipping / Guarantee) {%- endcomment -%}
+            {%- assign accordion_blocks = section.blocks | where: 'type', 'accordion' -%}
+            {%- if accordion_blocks.size > 0 -%}
+              <div class="hapyco-cp__accordions">
+                {%- for block in accordion_blocks -%}
+                  <div class="product__accordion accordion" {{ block.shopify_attributes }}>
+                    <details id="Details-{{ block.id }}-{{ section.id }}"{% if block.settings.open_by_default %} open{% endif %}>
+                      <summary>
+                        <div class="summary__title">
+                          <h2 class="h4 accordion__title">{{ block.settings.heading | escape }}</h2>
+                        </div>
+                        {{- 'icon-caret.svg' | inline_asset_content -}}
+                      </summary>
+                      <div class="accordion__content rte" id="ProductAccordion-{{ block.id }}-{{ section.id }}">
+                        {{ block.settings.content }}
+                      </div>
+                    </details>
+                  </div>
+                {%- endfor -%}
+              </div>
+            {%- endif -%}
+
+          </section>
+        </div>
+      </div>
+
+      {% render 'product-media-modal', variant_images: variant_images %}
+
+      {%- comment -%} Size chart modal {%- endcomment -%}
+      {%- if section.settings.size_chart_image != blank or section.settings.size_chart_richtext != blank -%}
+        <div class="hapyco-scm__overlay" id="hapyco-scm-{{ section.id }}" role="dialog" aria-modal="true" aria-hidden="true">
+          <div class="hapyco-scm__box">
+            <button type="button" class="hapyco-scm__close" aria-label="{{ 'accessibility.close' | t }}">&times;</button>
+            {%- if section.settings.size_chart_title != blank -%}<p class="hapyco-scm__title">{{ section.settings.size_chart_title }}</p>{%- endif -%}
+            {%- if section.settings.size_chart_image != blank -%}
+              {{ section.settings.size_chart_image | image_url: width: 1000 | image_tag: loading: 'lazy', alt: section.settings.size_chart_title | default: 'Size chart' }}
+            {%- elsif section.settings.size_chart_richtext != blank -%}
+              <div class="rte">{{ section.settings.size_chart_richtext }}</div>
+            {%- endif -%}
+          </div>
+        </div>
+      {%- endif -%}
+    </div>
+  </product-component>
+
+  {%- if product.media.size > 0 -%}
+    <script src="{{ 'product-modal.js' | asset_url }}" defer="defer"></script>
+    <script src="{{ 'media-gallery.js' | asset_url }}" defer="defer"></script>
+  {%- endif -%}
+</product-info>
+
+{%- if section.settings.atc_label != blank -%}
+  <script>
+    (function () {
+      var label = {{ section.settings.atc_label | json }};
+      var btn = document.getElementById('customily-atc');
+      if (!btn) return;
+      var span = btn.querySelector('span');
+      if (!span) return;
+      function applyLabel() {
+        var txt = (span.textContent || '').trim().toLowerCase();
+        // Leave sold-out / unavailable strings untouched.
+        if (txt.indexOf('sold') !== -1 || txt.indexOf('unavailable') !== -1) return;
+        if (span.textContent.trim() !== label.trim()) {
+          span.textContent = label;
+        }
+      }
+      applyLabel();
+      // product-form.js rewrites the label to the default "Add to cart" string
+      // on variant change — re-apply our custom label whenever the span changes.
+      try {
+        new MutationObserver(applyLabel).observe(span, {
+          childList: true,
+          characterData: true,
+          subtree: true
+        });
+      } catch (e) {}
+      document.addEventListener('shopify:section:load', applyLabel);
+    })();
+  </script>
+{%- endif -%}
+
+{%- if section.settings.size_chart_image != blank or section.settings.size_chart_richtext != blank -%}
+  <script>
+    (function () {
+      var overlay = document.getElementById('hapyco-scm-{{ section.id }}');
+      if (!overlay) return;
+      function open() { overlay.classList.add('is-open'); overlay.setAttribute('aria-hidden', 'false'); document.body.style.overflow = 'hidden'; }
+      function close() { overlay.classList.remove('is-open'); overlay.setAttribute('aria-hidden', 'true'); document.body.style.overflow = ''; }
+      document.querySelectorAll('[data-hapyco-sizechart="{{ section.id }}"]').forEach(function (t) {
+        t.addEventListener('click', function (e) { e.preventDefault(); open(); });
+      });
+      overlay.addEventListener('click', function (e) {
+        if (e.target === overlay || e.target.classList.contains('hapyco-scm__close')) close();
+      });
+      document.addEventListener('keydown', function (e) { if (e.key === 'Escape') close(); });
+    })();
+  </script>
+{%- endif -%}
+
+{%- comment -%} ── GemPages-specific buy-box styling (scoped) ── {%- endcomment -%}
+{%- style -%}
+  #shopify-section-{{ section.id }} .hapyco-cp__badges { display: flex; flex-wrap: wrap; gap: 8px; margin: 0 0 14px; }
+  #shopify-section-{{ section.id }} .hapyco-cp__badge {
+    display: inline-flex; align-items: center; background: {{ section.settings.badge_bg }}; color: {{ section.settings.badge_text_color }};
+    font-weight: 800; font-size: 12px; letter-spacing: .04em; text-transform: uppercase; padding: 6px 12px; border-radius: 6px; line-height: 1.2;
+  }
+  #shopify-section-{{ section.id }} .hapyco-cp__subtitle { color: #555; font-size: 15px; line-height: 1.5; margin: 0 0 12px; }
+
+  #shopify-section-{{ section.id }} .hapyco-cp__trust { display: flex; align-items: center; flex-wrap: wrap; gap: 8px; font-size: 14px; line-height: 1.2; margin: 0 0 14px; color: #333; }
+  #shopify-section-{{ section.id }} .hapyco-cp__trust-label { font-weight: 700; }
+  #shopify-section-{{ section.id }} .hapyco-cp__stars { display: inline-flex; gap: 2px; }
+  #shopify-section-{{ section.id }} .hapyco-cp__star { width: 18px; height: 18px; background: #dcdce6; display: inline-flex; align-items: center; justify-content: center; color: #fff; font-size: 11px; border-radius: 2px; }
+  #shopify-section-{{ section.id }} .hapyco-cp__star.is-on { background: {{ section.settings.trust_star_color }}; }
+  #shopify-section-{{ section.id }} .hapyco-cp__star.is-half { background: linear-gradient(90deg, {{ section.settings.trust_star_color }} 50%, #dcdce6 50%); }
+  #shopify-section-{{ section.id }} .hapyco-cp__trust-text a { color: inherit; text-decoration: underline; }
+  #shopify-section-{{ section.id }} .hapyco-cp__platform { white-space: nowrap; color: {{ section.settings.trust_star_color }}; margin-left: 2px; }
+
+  #shopify-section-{{ section.id }} .hapyco-cp__price-row { display: flex; align-items: center; flex-wrap: wrap; gap: 10px; margin: 0 0 14px; }
+  #shopify-section-{{ section.id }} .hapyco-cp__price-row .price { margin: 0; }
+  #shopify-section-{{ section.id }} .hapyco-cp__save {
+    display: inline-flex; align-items: center; background: {{ section.settings.save_bg }}; color: {{ section.settings.save_text_color }};
+    font-weight: 700; font-size: 13px; padding: 5px 12px; border-radius: 999px; line-height: 1.2; white-space: nowrap;
+  }
+
+  #shopify-section-{{ section.id }} .hapyco-cp__glance { border-top: 1px solid #e5e5e5; border-bottom: 1px solid #e5e5e5; padding: 12px 0; margin: 16px 0; }
+  #shopify-section-{{ section.id }} .hapyco-cp__glance-head { font-size: 12px; font-weight: 700; letter-spacing: .05em; text-transform: uppercase; margin: 0 0 10px; color: #333; }
+  #shopify-section-{{ section.id }} .hapyco-cp__glance-row { display: flex; flex-wrap: wrap; }
+  #shopify-section-{{ section.id }} .hapyco-cp__glance-item { flex: 1 1 0; min-width: 120px; display: flex; align-items: center; gap: 9px; padding: 4px 14px; border-left: 1px solid #e5e5e5; font-size: 13px; line-height: 1.25; font-weight: 500; color: #333; }
+  #shopify-section-{{ section.id }} .hapyco-cp__glance-item:first-child { border-left: 0; padding-left: 0; }
+  #shopify-section-{{ section.id }} .hapyco-cp__glance-icon { width: 30px; height: 30px; object-fit: contain; flex: 0 0 30px; }
+  #shopify-section-{{ section.id }} .hapyco-cp__glance-svg { flex: 0 0 30px; display: inline-flex; }
+  #shopify-section-{{ section.id }} .hapyco-cp__glance-svg svg { width: 30px; height: 30px; fill: none; stroke-width: 1.6; stroke-linecap: round; stroke-linejoin: round; }
+  @media (max-width: 749px) { #shopify-section-{{ section.id }} .hapyco-cp__glance-item { min-width: 46%; } }
+
+  #shopify-section-{{ section.id }} .hapyco-cp__sizechart-trigger { margin: 8px 0 0; background: none; border: none; padding: 0; font-size: 13px; font-weight: 500; text-decoration: underline; text-underline-offset: 2px; color: #1f1f1f; cursor: pointer; }
+
+  #shopify-section-{{ section.id }} .hapyco-cp__warning { border: 1px solid {{ section.settings.warning_border_color }}; background: {{ section.settings.warning_bg }}; border-radius: 10px; padding: 16px; margin: 14px 0; font-size: 13px; line-height: 1.55; color: #444; }
+  #shopify-section-{{ section.id }} .hapyco-cp__warning-head { display: flex; align-items: center; gap: 8px; font-weight: 700; font-size: 15px; margin: 0 0 8px; color: {{ section.settings.warning_heading_color }}; }
+  #shopify-section-{{ section.id }} .hapyco-cp__warning-head svg { width: 20px; height: 20px; flex: 0 0 20px; stroke: {{ section.settings.warning_heading_color }}; fill: none; stroke-width: 1.7; }
+  #shopify-section-{{ section.id }} .hapyco-cp__stockbar { margin-top: 10px; }
+  #shopify-section-{{ section.id }} .hapyco-cp__stockbar-label { display: block; font-size: 13px; font-weight: 700; margin-bottom: 6px; color: {{ section.settings.warning_heading_color }}; }
+  #shopify-section-{{ section.id }} .hapyco-cp__stockbar-track { display: block; height: 9px; border-radius: 999px; background: #eee; overflow: hidden; }
+  #shopify-section-{{ section.id }} .hapyco-cp__stockbar-fill { display: block; height: 100%; border-radius: 999px; background: {{ section.settings.warning_heading_color }}; }
+
+  #shopify-section-{{ section.id }} .hapyco-cp__guarantee-line { display: flex; align-items: center; justify-content: center; gap: 7px; margin: 10px auto 4px; max-width: 560px; text-align: center; font-size: 14px; font-weight: 700; color: #008060; line-height: 1.3; }
+  #shopify-section-{{ section.id }} .hapyco-cp__guarantee-shield { font-size: 16px; line-height: 1; }
+  #shopify-section-{{ section.id }} .hapyco-cp__accordions { margin-top: 18px; }
+  #shopify-section-{{ section.id }} .hapyco-cp__social { display: flex; align-items: center; justify-content: center; gap: 10px; margin: 16px auto 0; max-width: 560px; text-align: center; font-size: 14px; color: #333; line-height: 1.4; }
+  #shopify-section-{{ section.id }} .hapyco-cp__social-img { height: 30px; width: auto; }
+
+  /* Size chart modal */
+  .hapyco-scm__overlay { position: fixed; inset: 0; background: rgba(0,0,0,.6); display: none; align-items: center; justify-content: center; z-index: 99999; padding: 20px; }
+  .hapyco-scm__overlay.is-open { display: flex; }
+  .hapyco-scm__box { background: #fff; border-radius: 14px; max-width: 900px; width: 100%; max-height: 90vh; overflow: auto; position: relative; padding: 16px; }
+  .hapyco-scm__close { position: absolute; top: 8px; right: 12px; background: none; border: none; font-size: 28px; line-height: 1; cursor: pointer; color: #111; }
+  .hapyco-scm__title { font-weight: 700; font-size: 18px; margin: 0 0 12px; padding-right: 24px; color: #1f1f1f; }
+  .hapyco-scm__box img { width: 100%; height: auto; display: block; border-radius: 8px; }
+{%- endstyle -%}
+
+{% schema %}
+{
+  "name": "Hapyco · Custom product",
+  "tag": "section",
+  "class": "section section-main-product",
+  "blocks": [
+    { "type": "@app" },
+    {
+      "type": "accordion",
+      "name": "Collapsible row",
+      "settings": [
+        { "type": "text", "id": "heading", "label": "Heading", "default": "Item details" },
+        { "type": "richtext", "id": "content", "label": "Content", "default": "<p>Add your content here.</p>" },
+        { "type": "checkbox", "id": "open_by_default", "label": "Open by default", "default": false }
+      ]
+    }
+  ],
+  "settings": [
+    { "type": "header", "content": "Gallery" },
+    {
+      "type": "select",
+      "id": "gallery_layout",
+      "label": "Desktop gallery layout",
+      "options": [
+        { "value": "stacked", "label": "Stacked" },
+        { "value": "thumbnail", "label": "Thumbnails" },
+        { "value": "thumbnail_slider", "label": "Thumbnail column" }
+      ],
+      "default": "thumbnail_slider"
+    },
+    {
+      "type": "select",
+      "id": "media_size",
+      "label": "Media size",
+      "options": [
+        { "value": "small", "label": "Small" },
+        { "value": "medium", "label": "Medium" },
+        { "value": "large", "label": "Large" }
+      ],
+      "default": "large"
+    },
+    {
+      "type": "select",
+      "id": "media_fit",
+      "label": "Media fit",
+      "options": [
+        { "value": "contain", "label": "Contain" },
+        { "value": "cover", "label": "Cover" }
+      ],
+      "default": "contain"
+    },
+    {
+      "type": "select",
+      "id": "mobile_thumbnails",
+      "label": "Mobile layout",
+      "options": [
+        { "value": "show", "label": "Show thumbnails" },
+        { "value": "hide", "label": "Hide thumbnails" }
+      ],
+      "default": "show"
+    },
+    { "type": "checkbox", "id": "constrain_to_viewport", "label": "Constrain media to viewport", "default": true },
+    { "type": "checkbox", "id": "enable_video_looping", "label": "Loop videos", "default": false },
+    { "type": "checkbox", "id": "hide_variants", "label": "Hide other variant media after selecting", "default": false },
+    { "type": "checkbox", "id": "enable_sticky_info", "label": "Sticky gallery on desktop", "default": true },
+    { "type": "checkbox", "id": "show_live_preview", "label": "Show Customily live-preview host above gallery", "default": true },
+
+    { "type": "header", "content": "Sale badges" },
+    { "type": "text", "id": "badge_1", "label": "Badge 1", "default": "FATHER'S DAY SALE" },
+    { "type": "text", "id": "badge_2", "label": "Badge 2", "default": "BUY 2 GET 3 FREE TODAY" },
+    { "type": "text", "id": "badge_3", "label": "Badge 3" },
+    { "type": "color", "id": "badge_bg", "label": "Badge background", "default": "#931a1a" },
+    { "type": "color", "id": "badge_text_color", "label": "Badge text", "default": "#ffffff" },
+
+    { "type": "header", "content": "Subtitle" },
+    { "type": "richtext", "id": "subtitle", "label": "Subtitle", "default": "<p>Personalize it with your own photo — a unique, made-to-order gift they will treasure.</p>" },
+
+    { "type": "header", "content": "Trustpilot / rating row" },
+    { "type": "checkbox", "id": "show_trust_row", "label": "Show rating row", "default": true },
+    { "type": "text", "id": "trust_label", "label": "Leading label", "default": "Excellent" },
+    { "type": "range", "id": "trust_stars", "label": "Stars", "min": 0, "max": 5, "step": 0.5, "default": 4.5 },
+    { "type": "color", "id": "trust_star_color", "label": "Star color", "default": "#00b67a" },
+    { "type": "text", "id": "reviews_text", "label": "Reviews text", "default": "3575+ reviews" },
+    { "type": "text", "id": "platform_text", "label": "Platform name" },
+    { "type": "url", "id": "trust_link", "label": "Reviews link" },
+
+    { "type": "header", "content": "Price / Save badge" },
+    { "type": "text", "id": "save_prefix", "label": "Save prefix", "default": "Save" },
+    { "type": "text", "id": "save_suffix", "label": "Save suffix", "default": "OFF" },
+    { "type": "color", "id": "save_bg", "label": "Save badge background", "default": "#e02020" },
+    { "type": "color", "id": "save_text_color", "label": "Save badge text", "default": "#ffffff" },
+
+    { "type": "header", "content": "Quick glance row", "info": "Use a named icon (camera, medal, check, drop, leaf, shield, heart, gift, ruler, recycle) or upload an image icon." },
+    { "type": "text", "id": "qg_heading", "label": "Heading", "default": "At a quick glance:" },
+    { "type": "color", "id": "qg_icon_color", "label": "Icon color", "default": "#1f1f1f" },
+    { "type": "text", "id": "qg_icon_name_1", "label": "Icon name 1", "default": "medal" },
+    { "type": "image_picker", "id": "qg_icon_1", "label": "Icon image 1 (optional)" },
+    { "type": "text", "id": "qg_label_1", "label": "Label 1" },
+    { "type": "text", "id": "qg_icon_name_2", "label": "Icon name 2", "default": "camera" },
+    { "type": "image_picker", "id": "qg_icon_2", "label": "Icon image 2 (optional)" },
+    { "type": "text", "id": "qg_label_2", "label": "Label 2" },
+    { "type": "text", "id": "qg_icon_name_3", "label": "Icon name 3", "default": "check" },
+    { "type": "image_picker", "id": "qg_icon_3", "label": "Icon image 3 (optional)" },
+    { "type": "text", "id": "qg_label_3", "label": "Label 3" },
+    { "type": "text", "id": "qg_icon_name_4", "label": "Icon name 4", "default": "drop" },
+    { "type": "image_picker", "id": "qg_icon_4", "label": "Icon image 4 (optional)" },
+    { "type": "text", "id": "qg_label_4", "label": "Label 4" },
+
+    { "type": "header", "content": "Size chart" },
+    { "type": "text", "id": "size_chart_label", "label": "Link label", "default": "size chart" },
+    { "type": "text", "id": "size_chart_title", "label": "Modal title", "default": "Size chart" },
+    { "type": "image_picker", "id": "size_chart_image", "label": "Size chart image" },
+    { "type": "richtext", "id": "size_chart_richtext", "label": "Size chart text (if no image)" },
+
+    { "type": "header", "content": "Low-stock warning" },
+    { "type": "checkbox", "id": "show_warning", "label": "Show warning box", "default": true },
+    { "type": "text", "id": "warning_heading", "label": "Heading", "default": "WARNING: Low Stock Notice" },
+    { "type": "richtext", "id": "warning_body", "label": "Body", "default": "<p>Due to high demand, this item is selling fast. Order now to secure yours.</p>" },
+    { "type": "text", "id": "warning_stock_label", "label": "Stock label", "default": "Only 39 Left In Stock" },
+    { "type": "range", "id": "warning_stock_pct", "label": "Stock bar fill", "min": 0, "max": 100, "step": 1, "unit": "%", "default": 18 },
+    { "type": "color", "id": "warning_bg", "label": "Background", "default": "#fff8f8" },
+    { "type": "color", "id": "warning_border_color", "label": "Border", "default": "#f0c9c9" },
+    { "type": "color", "id": "warning_heading_color", "label": "Heading / bar color", "default": "#cc2b2b" },
+
+    { "type": "header", "content": "Add to cart" },
+    { "type": "text", "id": "atc_label", "label": "Button label", "default": "➜ ADD TO CART NOW" },
+
+    { "type": "header", "content": "Guarantee / payment trust" },
+    { "type": "text", "id": "guarantee_line", "label": "Guarantee line (under ATC)", "default": "45-Day Money-Back Guarantee & FREE returns" },
+    { "type": "checkbox", "id": "show_payment_trust", "label": "Show payment trust row", "default": true },
+    { "type": "text", "id": "payment_title", "label": "Title", "default": "Guaranteed safe & secure checkout via:" },
+    { "type": "image_picker", "id": "payment_image", "label": "Payment icons image (optional)" },
+    { "type": "text", "id": "secure_text", "label": "Secure text", "default": "Secure transaction" },
+
+    { "type": "header", "content": "Delivery timeline" },
+    { "type": "checkbox", "id": "show_timeline", "label": "Show delivery timeline", "default": true },
+
+    { "type": "header", "content": "Social proof" },
+    { "type": "checkbox", "id": "show_social_proof", "label": "Show social proof row", "default": true },
+    { "type": "image_picker", "id": "social_proof_image", "label": "Image" },
+    { "type": "richtext", "id": "social_proof_text", "label": "Text", "default": "<p>Trusted by over <strong>125k+</strong> happy customers</p>" },
+
+    { "type": "header", "content": "Section padding" },
+    { "type": "range", "id": "padding_top", "label": "Padding top", "min": 0, "max": 100, "step": 4, "unit": "px", "default": 36 },
+    { "type": "range", "id": "padding_bottom", "label": "Padding bottom", "min": 0, "max": 100, "step": 4, "unit": "px", "default": 36 }
+  ],
+  "presets": [
+    { "name": "Hapyco · Custom product" }
+  ],
+  "templates": ["product"]
+}
+{% endschema %}

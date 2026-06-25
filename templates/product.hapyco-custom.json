@@ -1,0 +1,210 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "main": {
+      "type": "hapyco-custom-product",
+      "blocks": {
+        "acc_details": {
+          "type": "accordion",
+          "settings": {
+            "heading": "Item Details",
+            "content": "<p>Capture your furry friend's unique personality in a vibrant, custom photo tropical style Hawaii Shirt! Perfect for the cat lover in your life, it also makes a memorable summer or beach trip gift! Make memories that last with this one-of-a-kind fashion statement!</p><p>Every personalized photo gift is special and unique because we upload your photo, which allows you to express exactly how you want your gift to look.</p><p><strong>Preview:</strong></p><ul><li>Choose an option and upload your photo.</li><li>Click [Preview Your Personalization] to see the preview.</li><li>Double-check your options before purchasing.</li></ul>",
+            "open_by_default": true
+          }
+        },
+        "acc_shipping": {
+          "type": "accordion",
+          "settings": {
+            "heading": "Shipping Info",
+            "content": "<ul><li>The above time frame is only applied for orders to the US with standard shipping methods.</li><li>International orders: It may take 2-5 days longer due to the customs clearance process.</li><li><strong>Orders can be cancelled or modified only within 2 hours after being placed.</strong></li><li>Learn more about our Shipping &amp; Refund Policy.</li></ul>",
+            "open_by_default": false
+          }
+        },
+        "acc_guarantee": {
+          "type": "accordion",
+          "settings": {
+            "heading": "Satisfaction Guarantee",
+            "content": "<ul><li>Full refund or replacement (no extra fee, within 30 days of purchase) for faulty, defective or damaged products.</li><li>Full refund if the item is not as described.</li><li>We have 24/7/365 ticket and email support. Contact us at support@hapyco.co if you need any assistance.</li></ul>",
+            "open_by_default": false
+          }
+        }
+      },
+      "block_order": ["acc_details", "acc_shipping", "acc_guarantee"],
+      "settings": {
+        "gallery_layout": "thumbnail_slider",
+        "media_size": "large",
+        "media_fit": "contain",
+        "mobile_thumbnails": "show",
+        "constrain_to_viewport": true,
+        "enable_video_looping": false,
+        "hide_variants": false,
+        "enable_sticky_info": true,
+        "show_live_preview": true,
+        "badge_1": "SUMMER SALE",
+        "badge_2": "",
+        "badge_3": "",
+        "badge_bg": "#931a1a",
+        "badge_text_color": "#ffffff",
+        "subtitle": "<p>From BBQs to beach days, wear your best friend everywhere you go.</p>",
+        "show_trust_row": true,
+        "trust_label": "Excellent",
+        "trust_stars": 4.5,
+        "trust_star_color": "#00b67a",
+        "reviews_text": "3575+ reviews",
+        "platform_text": "Trustpilot",
+        "trust_link": "",
+        "save_prefix": "Save",
+        "save_suffix": "OFF",
+        "save_bg": "#b40000",
+        "save_text_color": "#ffffff",
+        "qg_heading": "At a quick glance:",
+        "qg_icon_color": "#1f1f1f",
+        "qg_icon_name_1": "leaf",
+        "qg_label_1": "Premium Breathable Fabric",
+        "qg_icon_name_2": "camera",
+        "qg_label_2": "Up To 5 Pet Photos",
+        "qg_icon_name_3": "heart",
+        "qg_label_3": "Breezy All-Day Comfort",
+        "qg_icon_name_4": "drop",
+        "qg_label_4": "Fade-Proof Print",
+        "size_chart_label": "size chart",
+        "size_chart_title": "Size guide",
+        "size_chart_richtext": "<p><strong>Chest · Length (inches)</strong></p><ul><li><strong>XS</strong> — Chest 35 · Length 27</li><li><strong>S</strong> — Chest 38 · Length 28</li><li><strong>M</strong> — Chest 41 · Length 29</li><li><strong>L</strong> — Chest 44 · Length 30</li><li><strong>XL</strong> — Chest 47 · Length 31</li><li><strong>2XL</strong> — Chest 50 · Length 32</li><li><strong>3XL</strong> — Chest 53 · Length 33</li><li><strong>4XL</strong> — Chest 56 · Length 34</li><li><strong>5XL</strong> — Chest 59 · Length 35</li></ul><p>If you prefer a relaxed or oversized fit, choose one size up.</p>",
+        "show_warning": true,
+        "warning_heading": "WARNING: Low Stock Notice",
+        "warning_body": "<p>This product sold out <strong>12 times</strong> last year. We encourage you to take advantage of the limited sale and buy now. Ordering now helps you avoid future stock outs.</p><p>PS: Only available here, don't buy fakes on Amazon/eBay.</p>",
+        "warning_stock_label": "Only 39 Left In Stock: Ships in 24/48 Hours",
+        "warning_stock_pct": 12,
+        "warning_bg": "#fff8f8",
+        "warning_border_color": "#f0c9c9",
+        "warning_heading_color": "#cc2b2b",
+        "atc_label": "➜ ADD TO CART NOW",
+        "guarantee_line": "45-Day Money-Back Guarantee & FREE returns",
+        "show_payment_trust": false,
+        "payment_title": "Guaranteed safe & secure checkout via:",
+        "secure_text": "Secure transaction",
+        "show_timeline": true,
+        "show_social_proof": true,
+        "social_proof_text": "<p>HAPYCO is trusted by over <strong>5k+</strong> Men</p>",
+        "padding_top": 36,
+        "padding_bottom": 24
+      }
+    },
+    "reviews": {
+      "type": "lp-reviews-summary",
+      "blocks": {
+        "r1": { "type": "review", "settings": { "author": "Carole j.", "rating": 5, "title": "Ridiculous but Amazing", "content": "<p>The shirt is adorable. I used a picture of our cat and it came out really clear. I was worried because the photo I uploaded wasn't the best quality, but Hapyco still made it look great. My husband said it's \"ridiculous but amazing\" and that's exactly what I wanted.</p>", "date": "May 2026", "verified": true, "verified_label": "verified buyer" } },
+        "r2": { "type": "review", "settings": { "author": "ron d.", "rating": 5, "title": "The Perfect Gift for My Husband", "content": "<p>The shirt came out way better than I expected. I ordered it with pictures of our two dogs for my husband and he literally just stood there smiling when he opened it. The colors were bright, the dogs looked so clear, and the whole thing felt really personal. He wore it the same night to dinner and everyone kept asking where I got it from.</p>", "date": "May 2026", "verified": true, "verified_label": "verified buyer" } },
+        "r3": { "type": "review", "settings": { "author": "Tommy G.", "rating": 5, "title": "My Dad Showed Everyone", "content": "<p>I got this for my dad for Father's Day and he absolutely loved it. He doesn't usually get emotional over gifts but when he saw our old dog on the shirt he got quiet for a second and said \"this is actually really cool.\" That alone made it worth it. Thank you Hapyco.</p>", "date": "April 2026", "verified": true, "verified_label": "verified buyer" } },
+        "r4": { "type": "review", "settings": { "author": "Samuel p.", "rating": 5, "title": "Everyone Loved It at the BBQ", "content": "<p>This shirt was a huge hit for my boyfriend's birthday. I put our cat on it as a joke at first but when it arrived it looked so good that it didn't even feel like a joke anymore. He wore it to his birthday BBQ and people were stopping him all day to look at it. The quality was nicer than I expected too.</p>", "date": "April 2026", "verified": true, "verified_label": "verified buyer" } },
+        "r5": { "type": "review", "settings": { "author": "Alex N.", "rating": 4, "title": "Almost Perfect and So Meaningful", "content": "<p>I ordered one for my husband with our dog Max on it and it came out almost perfect. The print is beautiful and the picture looks exactly like him. My husband laughed first, then he actually got emotional because Max passed last year. The shirt fit him well, but the sleeves were maybe a tiny bit bigger than expected.</p>", "date": "April 2026", "verified": true, "verified_label": "verified buyer" } },
+        "r6": { "type": "review", "settings": { "author": "John M.", "rating": 5, "title": "So Cute and Bright", "content": "<p>Honestly I wasn't sure how the photo would look on a Hawaiian shirt, but it came out so cute. The colors are bright, the fabric is light, and my dog's face is everywhere in the funniest way. My husband has already worn it twice.</p>", "date": "March 2026", "verified": true, "verified_label": "verified buyer" } },
+        "r7": { "type": "review", "settings": { "author": "Walt f.", "rating": 5, "title": "Strangers Kept Complimenting Him", "content": "<p>Bought this for my fiancé and he loved it. We went out for drinks and strangers kept complimenting the shirt. He was proud telling everyone it was our dog on it. Such a cool idea and really good quality.</p>", "date": "March 2026", "verified": true, "verified_label": "verified buyer" } },
+        "r8": { "type": "review", "settings": { "author": "Jeff C.", "rating": 5, "title": "Best Gift of the Party", "content": "<p>I surprised my brother with this shirt for his 40th birthday with his bulldog printed all over it. He opened it in front of everyone and the whole room started laughing and cheering. Then he put it on right away and didn't take it off the whole night. The shirt was definitely the best gift of the party.</p>", "date": "February 2026", "verified": true, "verified_label": "verified buyer" } }
+      },
+      "block_order": ["r1", "r2", "r3", "r4", "r5", "r6", "r7", "r8"],
+      "settings": {
+        "heading": "Happy Customers",
+        "heading_size": 32,
+        "average_rating": "4.8",
+        "total_label": "50,481+ Happy Customers · Based on 3438 reviews",
+        "star_color": "#ffce31",
+        "bar_color": "#1a1a1a",
+        "track_color": "#ececec",
+        "show_counts": false,
+        "pct_5": 92,
+        "count_5": "35",
+        "pct_4": 6,
+        "count_4": "3",
+        "pct_3": 2,
+        "count_3": "2",
+        "pct_2": 0,
+        "count_2": "0",
+        "pct_1": 0,
+        "count_1": "0",
+        "show_write_button": true,
+        "write_button_label": "Write a review",
+        "write_button_link": "",
+        "columns": 2,
+        "enable_carousel": true,
+        "cards_per_view": 3,
+        "background": "#ffffff",
+        "text_color": "#121212",
+        "padding_top": 40,
+        "padding_bottom": 40
+      }
+    },
+    "faq": {
+      "type": "hapyco-faq",
+      "blocks": {
+        "q1": { "type": "qa", "settings": { "question": "How does the personalization work?", "answer": "<p>It's simple. Choose your size, select your shirt style, and upload a clear photo of your pet. Our team will then turn your pet's photo into a unique design printed directly onto the shirt.</p>" } },
+        "q2": { "type": "qa", "settings": { "question": "Can I use any pet?", "answer": "<p>Yes. You can use a dog, cat, rabbit, or any other pet. As long as the photo is clear enough, we can use it.</p>" } },
+        "q3": { "type": "qa", "settings": { "question": "What kind of photo should I upload?", "answer": "<p>For the best result, upload a photo where your pet's face is clearly visible, well-lit, and not covered by objects. A front-facing photo usually works best.</p>" } },
+        "q4": { "type": "qa", "settings": { "question": "Will the background of my photo be kept?", "answer": "<p>No. We usually remove the background and keep only your pet, so it blends naturally into the tropical shirt design.</p>" } },
+        "q5": { "type": "qa", "settings": { "question": "Can I add more than one pet?", "answer": "<p>Yes, you can add multiple pets. We'll adjust the design so each pet is clearly visible and nicely placed on the shirt.</p>" } },
+        "q6": { "type": "qa", "settings": { "question": "Will the shirt really look like my pet?", "answer": "<p>Yes. The design is created from the photo you upload. The clearer the photo, the more accurate and detailed the final result will be.</p>" } },
+        "q7": { "type": "qa", "settings": { "question": "Does the print last after washing?", "answer": "<p>Yes, the print is made to last. To keep the colors looking fresh, we recommend washing the shirt inside out in cold water and avoiding high-heat drying.</p>" } },
+        "q8": { "type": "qa", "settings": { "question": "How do I choose the right size?", "answer": "<p>Please check the size guide before ordering. If you prefer a relaxed or oversized fit, we recommend choosing one size up.</p>" } },
+        "q9": { "type": "qa", "settings": { "question": "Is this a good gift idea?", "answer": "<p>Yes, it's a very personal and fun gift for birthdays, Father's Day, Christmas, vacations, or anyone who loves their pet.</p>" } }
+      },
+      "block_order": ["q1", "q2", "q3", "q4", "q5", "q6", "q7", "q8", "q9"],
+      "settings": {
+        "eyebrow": "FAQ",
+        "heading": "Still have questions?",
+        "subheading": "Check here",
+        "open_first": true,
+        "bg_color": "#ffffff",
+        "text_color": "#121212",
+        "accent_color": "#00b67a",
+        "border_color": "#e7e7e7",
+        "padding_top": 56,
+        "padding_bottom": 56
+      }
+    },
+    "bottom_trust": {
+      "type": "hapyco-trust-strip",
+      "settings": {
+        "text_1": "45-day money-back guarantee",
+        "text_2": "Free returns, no questions asked",
+        "bg_color": "#f7f7f7",
+        "text_color": "#121212",
+        "accent_color": "#00b67a",
+        "padding_top": 18,
+        "padding_bottom": 18
+      }
+    },
+    "related": {
+      "type": "related-products",
+      "settings": {
+        "heading": "You may also like",
+        "heading_size": "h2",
+        "products_to_show": 4,
+        "columns_desktop": 4,
+        "columns_mobile": "2",
+        "color_scheme": "scheme-1",
+        "image_ratio": "square",
+        "image_shape": "default",
+        "show_secondary_image": true,
+        "show_vendor": false,
+        "show_rating": false,
+        "padding_top": 36,
+        "padding_bottom": 28
+      }
+    }
+  },
+  "order": [
+    "main",
+    "reviews",
+    "faq",
+    "bottom_trust",
+    "related"
+  ]
+}
