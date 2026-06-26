@@ -181,6 +181,12 @@
         "ggxet32tdWW_text": "<p><span style=\"color:#00237E;\"><strong>free returns</strong></span><strong>,</strong> NO QUESTIONS ASKED&nbsp;</p>"
       },
       "type": "gp-section-625522682226016939"
+    },
+    "gp_section_625672553951658667": {
+      "settings": {
+        "checksum": "20a3371f43c34e21b828d71dd3d102c2bca07bf933456416097f4d5f964e2224_1_1_1_0__1"
+      },
+      "type": "gp-section-625672553951658667"
     }
   },
   "order": [
@@ -188,6 +194,7 @@
     "gp_section_625522682225951403",
     "gp_section_625522682225623723",
     "gp_section_625522682226016939",
+    "gp_section_625672553951658667",
     "gp_section_625522682225754795",
     "gp_section_625522682225492651",
     "gp_section_625522682225885867",
