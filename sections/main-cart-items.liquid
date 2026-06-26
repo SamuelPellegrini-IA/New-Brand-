@@ -481,21 +481,24 @@
     </form>
   </div>
 </cart-items>
-.hapyco-customily-cart-preview {
-  width: 90px !important;
-  height: 90px !important;
-  object-fit: cover !important;
-  border-radius: 8px !important;
-  border: 1px solid #eeeeee !important;
-  background: #ffffff !important;
-}
-
-@media only screen and (max-width: 768px) {
+<style>
   .hapyco-customily-cart-preview {
-    width: 78px !important;
-    height: 78px !important;
+    width: 90px !important;
+    height: 90px !important;
+    object-fit: cover !important;
+    border-radius: 8px !important;
+    border: 1px solid #eeeeee !important;
+    background: #ffffff !important;
   }
-}
+
+  @media only screen and (max-width: 768px) {
+    .hapyco-customily-cart-preview {
+      width: 78px !important;
+      height: 78px !important;
+    }
+  }
+</style>
+
 {% schema %}
 {
   "name": "t:sections.main-cart-items.name",
