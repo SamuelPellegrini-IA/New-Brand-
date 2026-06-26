@@ -90,20 +90,34 @@
                     {% endif %}
                   >
                     <td class="cart-item__media">
-                      {% if item.image %}
-                        {% comment %} Leave empty space due to a:empty CSS display: none rule {% endcomment %}
-                        <a href="{{ item.url }}" class="cart-item__link" aria-hidden="true" tabindex="-1"> </a>
-                        <div class="cart-item__image-container gradient {% if item.parent_relationship.parent == null %}global-media-settings{% endif %}">
-                          <img
-                            src="{{ item.image | image_url: width: 300 }}"
-                            class="cart-item__image {% if item.parent_relationship.parent != null %}global-media-settings{% endif %}"
-                            alt="{{ item.image.alt | escape }}"
-                            loading="lazy"
-                            width="150"
-                            height="{{ 150 | divided_by: item.image.aspect_ratio | ceil }}"
-                          >
-                        </div>
-                      {% endif %}
+                     {% assign customily_thumb = item.properties['_customily-thumb'] %}
+
+{% if customily_thumb != blank or item.image %}
+  {% comment %} Leave empty space due to a:empty CSS display: none rule {% endcomment %}
+  <a href="{{ item.url }}" class="cart-item__link" aria-hidden="true" tabindex="-1"> </a>
+
+  <div class="cart-item__image-container gradient {% if item.parent_relationship.parent == null %}global-media-settings{% endif %}">
+    {% if customily_thumb != blank %}
+      <img
+        src="{{ customily_thumb }}"
+        class="cart-item__image {% if item.parent_relationship.parent != null %}global-media-settings{% endif %} hapyco-customily-cart-preview"
+        alt="{{ item.product.title | escape }}"
+        loading="lazy"
+        width="150"
+        height="150"
+      >
+    {% else %}
+      <img
+        src="{{ item.image | image_url: width: 300 }}"
+        class="cart-item__image {% if item.parent_relationship.parent != null %}global-media-settings{% endif %}"
+        alt="{{ item.image.alt | escape }}"
+        loading="lazy"
+        width="150"
+        height="{{ 150 | divided_by: item.image.aspect_ratio | ceil }}"
+      >
+    {% endif %}
+  </div>
+{% endif %}
                     </td>
 
                     <td class="cart-item__details">
@@ -467,7 +481,21 @@
     </form>
   </div>
 </cart-items>
+.hapyco-customily-cart-preview {
+  width: 90px !important;
+  height: 90px !important;
+  object-fit: cover !important;
+  border-radius: 8px !important;
+  border: 1px solid #eeeeee !important;
+  background: #ffffff !important;
+}
 
+@media only screen and (max-width: 768px) {
+  .hapyco-customily-cart-preview {
+    width: 78px !important;
+    height: 78px !important;
+  }
+}
 {% schema %}
 {
   "name": "t:sections.main-cart-items.name",
