@@ -20,7 +20,7 @@
     },
     "gp_section_625522682225558187": {
       "settings": {
-        "checksum": "8f4f8055393d3bdaef78c5cf3c6aa53959a0600d1ad954928c7a970c0d408f0d_1_1_1_0__1",
+        "checksum": "e750bdb32a4cecea8264c9aacc87071c24ce0d35d3596f9337689fb2c197856e_1_1_1_0__1",
         "gg3MCF4zsUT_text": "<p><strong>Up To 5 Pet Photos</strong></p>",
         "gg4BOi5kMvB_srcSet_desktop_src": "https://cdn.shopify.com/s/files/1/0825/9813/4039/files/gempages_491320059759690869-f2ab390a-662e-4a0e-bf4c-237bc7b9d578.svg",
         "gg7zVec0QwB_continueSelling": "Restock soon! PREORDER NOW",
@@ -39,13 +39,13 @@
         "ggIpHYPyVxZ_text": "<p><strong>Premium Breathable Fabric</strong></p>",
         "ggJOYrG68tU_text": "<p><strong>Breezy All-Day Comfort</strong></p>",
         "ggMdoWze0FQ_label": "<p>size chart</p>",
-        "ggYV7eMZQTu_childItem_0": "<p><strong>HAPYCO</strong> is trusted by over <span style=\"color:#00237E;\"><strong>5k+ Men</strong></span>&nbsp;</p>",
+        "ggYV7eMZQTu_childItem_0": "<p><strong>Loved by 5,000+ Happy Customers</strong></p>",
+        "ggYVVtl_LPf_label": "<p><span style=\"color:#000000;\"><u>View photo upload guidelines here</u></span></p>",
         "ggbE9MmCZkV_text": "<p><strong>SUMMER SALE</strong></p>",
         "ggd3OhgA70G_customContent_prefix": "Save",
         "ggd3OhgA70G_customContent_suffix": "OFF",
         "ggh3RVmgJTk_text": "<p><a href=\"#g-URF97oiO\"><span style=\"font-size:12px;\"><strong><u>3575+ reviews</u></strong> on</span></a></p>",
         "ggnqkww7zeV_text": "<p><span style=\"font-size:15px;\">Excellent&nbsp;</span></p>",
-        "ggtI2wdGFJr_text": "<p><span style=\"background-color:rgb(247,247,247);color:#161616;font-size:16px;\">from bBQs to beach days, wear your best friend everywhere you go.</span></p>",
         "ggtiibQCq4P_text": "<p><strong>fade-proof print</strong></p>",
         "ggtjPRx6Q7S_customText": "Only 39 Left In Stock:",
         "ggvFlAj65NK_text": "<p><span style=\"font-size:15px;\"><strong>12% stock left</strong></span></p>",
@@ -187,6 +187,18 @@
         "checksum": "05351dd299cf491191b495be10c17ba60df51bffd0af6918a50040db1b8c220a_1_1_1_0__1"
       },
       "type": "gp-section-625695930686898775"
+    },
+    "gp_section_625698323503776621": {
+      "settings": {
+        "checksum": "134afa341e7c48ea6bed53b9778de20f6cdfc7ee27d7de7e09bde97fd766b7ba_1_1_1_0__1"
+      },
+      "type": "gp-section-625698323503776621"
+    },
+    "gp_section_625698861817529131": {
+      "settings": {
+        "checksum": "58e5d5662ae7f0e62af8532effe47812494c95507b9e8e6c995e4e93d6b665b3_1_1_1_0__1"
+      },
+      "type": "gp-section-625698861817529131"
     }
   },
   "order": [
@@ -199,6 +211,8 @@
     "gp_section_625522682225492651",
     "gp_section_625522682225885867",
     "gp_section_625522682225689259",
-    "gp_section_625522682225820331"
+    "gp_section_625522682225820331",
+    "gp_section_625698323503776621",
+    "gp_section_625698861817529131"
   ]
 }
