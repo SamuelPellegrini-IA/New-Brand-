@@ -152,6 +152,11 @@
         "type": "shopify://apps/aimerce-first-party-pixel/blocks/c-track-embed/51cbda5a-dbfc-4e7b-8d12-c9e90363dcd7",
         "disabled": false,
         "settings": {}
+      },
+      "6065014864672580889": {
+        "type": "shopify://apps/amp-slide-cart-drawer/blocks/app-embed/0a410b8d-7dc4-4f2d-b4e8-c12d34fd2255",
+        "disabled": false,
+        "settings": {}
       }
     },
     "color_schemes": {
