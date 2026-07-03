@@ -450,27 +450,27 @@
 
     <script>
 document.addEventListener("DOMContentLoaded", function () {
-  
-    let gfBtns = document.querySelectorAll('gp-product-button[gp-data*="continue-shopping"] button.gp-button-atc');
-console.log('gfBtns',gfBtns);
-    let checkCsBtn = false;
-    gfBtns.forEach(e => {
-        e.addEventListener("click", function (e) {
-            e.preventDefault();
-            checkCsBtn = true;
-        })
-    })
 
-    window.addEventListener("gp:add-to-cart-success", async (item) => {
-        if (checkCsBtn) {
-    setTimeout(function() {
+let gfBtns = document.querySelectorAll('gp-product-button[gp-data*="continue-shopping"] button.gp-button-atc');
+console.log('gfBtns',gfBtns);
+let checkCsBtn = false;
+gfBtns.forEach(e => {
+e.addEventListener("click", function (e) {
+e.preventDefault();
+checkCsBtn = true;
+})
+})
+
+window.addEventListener("gp:add-to-cart-success", async (item) => {
+if (checkCsBtn) {
+ setTimeout(function() {
 console.log(123);
           SLIDECART_UPDATE();
           SLIDECART_OPEN();
         },1000)
-        }
-        return checkCsBtn = false;
-    })
+}
+return checkCsBtn = false;
+})
 });
 </script>
 
